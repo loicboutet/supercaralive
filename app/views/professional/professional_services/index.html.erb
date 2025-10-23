@@ -1,0 +1,317 @@
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Mes Services</h1>
+        <p class="text-gray-600">Gérez vos offres de services et tarifs</p>
+      </div>
+      <button class="bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Nouveau service
+      </button>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Left Column - Services List -->
+      <div class="md:col-span-2 space-y-6">
+        
+        <!-- Active Services -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Services actifs</h2>
+          
+          <div class="space-y-4">
+            <!-- Service 1 -->
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2 mb-2">
+                    <h3 class="text-xl font-bold text-gray-900">Révision complète</h3>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-lg text-xs font-medium">
+                      ✓ Actif
+                    </span>
+                  </div>
+                  <p class="text-gray-600 mb-3">Vidange moteur, remplacement filtres (air, huile, habitacle), contrôle des niveaux, inspection complète</p>
+                  <div class="flex items-center space-x-4 text-sm text-gray-600">
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      2-3 heures
+                    </span>
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                      </svg>
+                      28 réservations
+                    </span>
+                  </div>
+                </div>
+                <div class="text-right ml-4">
+                  <p class="text-2xl font-bold text-blue-hero">€120</p>
+                  <p class="text-sm text-gray-500">Prix de base</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2 pt-3 border-t border-gray-200">
+                <button class="bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
+                  Modifier
+                </button>
+                <button class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                  </svg>
+                  Désactiver
+                </button>
+                <button class="bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center ml-auto">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                  Supprimer
+                </button>
+              </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2 mb-2">
+                    <h3 class="text-xl font-bold text-gray-900">Diagnostic électronique</h3>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-lg text-xs font-medium">
+                      ✓ Actif
+                    </span>
+                  </div>
+                  <p class="text-gray-600 mb-3">Lecture et analyse des codes d'erreur moteur avec valise de diagnostic professionnelle</p>
+                  <div class="flex items-center space-x-4 text-sm text-gray-600">
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      30 min
+                    </span>
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                      </svg>
+                      45 réservations
+                    </span>
+                  </div>
+                </div>
+                <div class="text-right ml-4">
+                  <p class="text-2xl font-bold text-blue-hero">€45</p>
+                  <p class="text-sm text-gray-500">Prix de base</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2 pt-3 border-t border-gray-200">
+                <button class="bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
+                  Modifier
+                </button>
+                <button class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                  </svg>
+                  Désactiver
+                </button>
+                <button class="bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center ml-auto">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                  Supprimer
+                </button>
+              </div>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2 mb-2">
+                    <h3 class="text-xl font-bold text-gray-900">Changement pneus</h3>
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-lg text-xs font-medium">
+                      ✓ Actif
+                    </span>
+                  </div>
+                  <p class="text-gray-600 mb-3">Démontage, montage et équilibrage de 4 pneus (pneus non inclus)</p>
+                  <div class="flex items-center space-x-4 text-sm text-gray-600">
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      1 heure
+                    </span>
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                      </svg>
+                      15 réservations
+                    </span>
+                  </div>
+                </div>
+                <div class="text-right ml-4">
+                  <p class="text-2xl font-bold text-blue-hero">€80</p>
+                  <p class="text-sm text-gray-500">Prix de base</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2 pt-3 border-t border-gray-200">
+                <button class="bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
+                  Modifier
+                </button>
+                <button class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                  </svg>
+                  Désactiver
+                </button>
+                <button class="bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center ml-auto">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inactive Services -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Services désactivés</h2>
+          
+          <div class="space-y-4">
+            <div class="border border-gray-300 rounded-lg p-4 bg-gray-50">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2 mb-2">
+                    <h3 class="text-xl font-bold text-gray-600">Entretien climatisation</h3>
+                    <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-lg text-xs font-medium">
+                      Désactivé
+                    </span>
+                  </div>
+                  <p class="text-gray-500 mb-3">Recharge gaz, nettoyage du système</p>
+                </div>
+                <div class="text-right ml-4">
+                  <p class="text-2xl font-bold text-gray-500">€95</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2 pt-3 border-t border-gray-300">
+                <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Réactiver
+                </button>
+                <button class="bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center ml-auto">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                  Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column - Sidebar -->
+      <div class="space-y-6">
+        
+        <!-- Quick Stats -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Statistiques</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+              <span class="text-sm text-gray-600">Services actifs</span>
+              <span class="text-lg font-bold text-green-600">3</span>
+            </div>
+            <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+              <span class="text-sm text-gray-600">Services désactivés</span>
+              <span class="text-lg font-bold text-gray-500">1</span>
+            </div>
+            <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+              <span class="text-sm text-gray-600">Total réservations</span>
+              <span class="text-lg font-bold text-gray-900">88</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-600">Tarif moyen</span>
+              <span class="text-lg font-bold text-blue-hero">€81</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Categories -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Catégories populaires</h3>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600">🔧 Entretien général</span>
+              <span class="font-medium text-gray-900">2 services</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600">⚙️ Diagnostic</span>
+              <span class="font-medium text-gray-900">1 service</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-gray-600">🛞 Pneumatiques</span>
+              <span class="font-medium text-gray-900">1 service</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="bg-blue-50 border-l-4 border-blue-hero rounded-lg p-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-bold text-blue-800">Conseils</h3>
+              <ul class="text-sm text-blue-700 mt-2 space-y-1 list-disc list-inside">
+                <li>Prix clairs et transparents</li>
+                <li>Descriptions détaillées</li>
+                <li>Durée estimée précise</li>
+                <li>Photos si possible</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h3>
+          <div class="space-y-2">
+            <button class="w-full bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+              </svg>
+              Ajouter un service
+            </button>
+            <button class="w-full bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+              </svg>
+              Importer des services
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

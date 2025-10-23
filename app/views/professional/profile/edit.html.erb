@@ -1,0 +1,276 @@
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Modifier mon profil</h1>
+      <p class="text-gray-600">Mettez à jour vos informations professionnelles</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Left Column - Form -->
+      <div class="md:col-span-2 space-y-6">
+        
+        <form action="#" method="post">
+          
+          <!-- Basic Information -->
+          <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations générales</h2>
+            
+            <div class="space-y-4">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Prénom *</label>
+                  <input type="text" value="Jean" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Nom *</label>
+                  <input type="text" value="Dupont" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Nom d'entreprise *</label>
+                <input type="text" value="Garage Dupont SARL" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Nom commercial</label>
+                <input type="text" value="MySupermécano" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                <p class="text-sm text-gray-500 mt-1">Comment voulez-vous être affiché aux clients ?</p>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                  <input type="email" value="jean.dupont@email.fr" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone *</label>
+                  <input type="tel" value="06 12 34 56 78" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">SIRET *</label>
+                <input type="text" value="123 456 789 00012" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+              </div>
+            </div>
+          </div>
+
+          <!-- Address Information -->
+          <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Adresse</h2>
+            
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Adresse *</label>
+                <input type="text" value="45 Rue de la République" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+              </div>
+
+              <div class="grid md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Code postal *</label>
+                  <input type="text" value="75015" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                </div>
+                <div class="md:col-span-2">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Ville *</label>
+                  <input type="text" value="Paris" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Région</label>
+                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                  <option>Île-de-France</option>
+                  <option>Auvergne-Rhône-Alpes</option>
+                  <option>Provence-Alpes-Côte d'Azur</option>
+                  <option>Nouvelle-Aquitaine</option>
+                  <option>Occitanie</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Professional Bio -->
+          <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Présentation professionnelle</h2>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">À propos de vous *</label>
+              <textarea rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">Mécanicien professionnel depuis plus de 15 ans, je suis spécialisé dans l'entretien et la réparation de tous types de véhicules. Mon garage est équipé des dernières technologies de diagnostic et je me forme régulièrement aux nouvelles techniques. Je m'engage à fournir un service de qualité avec des pièces certifiées et une garantie sur tous mes travaux. Mon objectif est votre satisfaction et la sécurité de votre véhicule.</textarea>
+              <p class="text-sm text-gray-500 mt-1">Décrivez votre expérience et vos compétences (minimum 100 caractères)</p>
+            </div>
+          </div>
+
+          <!-- Specializations -->
+          <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Spécialités</h2>
+            
+            <div class="space-y-3">
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
+                <span class="ml-3 text-gray-700">🔧 Mécanique générale</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
+                <span class="ml-3 text-gray-700">⚙️ Diagnostic électronique</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
+                <span class="ml-3 text-gray-700">🔩 Révision complète</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
+                <span class="ml-3 text-gray-700">🛞 Pneumatiques</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
+                <span class="ml-3 text-gray-700">🔋 Système électrique</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
+                <span class="ml-3 text-gray-700">❄️ Climatisation</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
+                <span class="ml-3 text-gray-700">🚗 Carrosserie</span>
+              </label>
+              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                <input type="checkbox" class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
+                <span class="ml-3 text-gray-700">💧 Lavage & esthétique</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="bg-white rounded-super p-6 shadow-sm">
+            <div class="flex items-center justify-between">
+              <a href="<%= professional_profile_path %>" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium inline-flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                Annuler
+              </a>
+              <div class="flex space-x-3">
+                <button type="button" class="bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-medium inline-flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                  Prévisualiser
+                </button>
+                <button type="submit" class="bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Enregistrer les modifications
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+
+      <!-- Right Column - Tips -->
+      <div class="space-y-6">
+        
+        <!-- Profile Photo -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Photo de profil</h3>
+          <div class="text-center">
+            <div class="w-32 h-32 bg-blue-hero rounded-lg flex items-center justify-center mx-auto mb-4">
+              <span class="text-white text-5xl font-bold">JD</span>
+            </div>
+            <button class="w-full bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium inline-flex items-center justify-center mb-2">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Télécharger une photo
+            </button>
+            <p class="text-xs text-gray-500">JPG, PNG max 5MB</p>
+          </div>
+        </div>
+
+        <!-- Tips -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-yellow-hero" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-bold text-yellow-800">Conseils pour un profil attractif</h3>
+              <ul class="text-sm text-yellow-700 mt-2 space-y-1 list-disc list-inside">
+                <li>Ajoutez une photo professionnelle</li>
+                <li>Détaillez votre expérience</li>
+                <li>Soyez précis sur vos spécialités</li>
+                <li>Mettez à jour régulièrement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Completion Progress -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Complétude du profil</h3>
+          <div class="mb-3">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-sm text-gray-600">Progression</span>
+              <span class="text-sm font-bold text-gray-900">95%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3">
+              <div class="bg-green-600 h-3 rounded-full" style="width: 95%"></div>
+            </div>
+          </div>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-center text-green-600">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Informations de base complétées
+            </div>
+            <div class="flex items-center text-green-600">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Services ajoutés
+            </div>
+            <div class="flex items-center text-green-600">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Documents vérifiés
+            </div>
+            <div class="flex items-center text-gray-400">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              Photo de profil ajoutée
+            </div>
+          </div>
+        </div>
+
+        <!-- Help -->
+        <div class="bg-blue-50 rounded-super p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Besoin d'aide ?</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Notre équipe est là pour vous accompagner
+          </p>
+          <button class="w-full bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+            </svg>
+            Contacter le support
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

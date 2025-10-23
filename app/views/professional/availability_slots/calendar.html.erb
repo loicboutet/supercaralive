@@ -1,0 +1,350 @@
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Calendrier des Disponibilités</h1>
+        <p class="text-gray-600">Vue mensuelle de vos créneaux et réservations</p>
+      </div>
+      <div class="flex space-x-3">
+        <%= link_to professional_availability_slots_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
+          </svg>
+          Vue Liste
+        <% end %>
+        <button class="bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Ajouter un créneau
+        </button>
+      </div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      
+      <!-- Month Navigation -->
+      <div class="flex items-center justify-between mb-6">
+        <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Précédent
+        </button>
+        <h2 class="text-3xl font-bold text-gray-900">Janvier 2025</h2>
+        <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium inline-flex items-center">
+          Suivant
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Calendar Grid -->
+      <div class="border border-gray-200 rounded-lg overflow-hidden">
+        <!-- Day Headers -->
+        <div class="grid grid-cols-7 bg-gray-100 border-b border-gray-200">
+          <div class="p-3 text-center font-bold text-gray-700 border-r border-gray-200">Lun</div>
+          <div class="p-3 text-center font-bold text-gray-700 border-r border-gray-200">Mar</div>
+          <div class="p-3 text-center font-bold text-gray-700 border-r border-gray-200">Mer</div>
+          <div class="p-3 text-center font-bold text-gray-700 border-r border-gray-200">Jeu</div>
+          <div class="p-3 text-center font-bold text-gray-700 border-r border-gray-200">Ven</div>
+          <div class="p-3 text-center font-bold text-gray-700 border-r border-gray-200">Sam</div>
+          <div class="p-3 text-center font-bold text-gray-700">Dim</div>
+        </div>
+
+        <!-- Calendar Days -->
+        <div class="grid grid-cols-7">
+          
+          <!-- Previous Month Days (grayed out) -->
+          <div class="p-3 bg-gray-50 border-r border-b border-gray-200 min-h-[120px]">
+            <div class="text-sm text-gray-400 mb-2">30</div>
+          </div>
+          <div class="p-3 bg-gray-50 border-r border-b border-gray-200 min-h-[120px]">
+            <div class="text-sm text-gray-400 mb-2">31</div>
+          </div>
+
+          <!-- Current Month Days -->
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">1</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">2</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">3</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">4</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">1 créneau</div>
+              <div class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">1 réservé</div>
+            </div>
+          </div>
+          <div class="p-3 border-b border-gray-200 min-h-[120px] bg-blue-50 hover:bg-blue-100">
+            <div class="text-sm font-medium text-blue-900 mb-2">5</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">1 créneau</div>
+            </div>
+          </div>
+
+          <!-- Week 2 -->
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">6</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">7</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">8</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">2 réservés</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">9</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">10</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">11</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">1 créneau</div>
+            </div>
+          </div>
+          <div class="p-3 border-b border-gray-200 min-h-[120px] bg-blue-50 hover:bg-blue-100">
+            <div class="text-sm font-medium text-blue-900 mb-2">12</div>
+          </div>
+
+          <!-- Week 3 -->
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">13</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">14</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">15</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">1 créneau</div>
+              <div class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">1 réservé</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">16</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">17</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">18</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">1 créneau</div>
+            </div>
+          </div>
+          <div class="p-3 border-b border-gray-200 min-h-[120px] bg-blue-50 hover:bg-blue-100">
+            <div class="text-sm font-medium text-blue-900 mb-2">19</div>
+          </div>
+
+          <!-- Week 4 - Current Week (highlighted) -->
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] bg-yellow-50 hover:bg-yellow-100">
+            <div class="flex items-center space-x-1 mb-2">
+              <div class="text-sm font-bold text-gray-900">20</div>
+              <div class="w-2 h-2 bg-yellow-hero rounded-full"></div>
+            </div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">21</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">1 créneau</div>
+              <div class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">1 réservé</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">22</div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">23</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">24</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-b border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">25</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">1 créneau</div>
+            </div>
+          </div>
+          <div class="p-3 border-b border-gray-200 min-h-[120px] bg-blue-50 hover:bg-blue-100">
+            <div class="text-sm font-medium text-blue-900 mb-2">26</div>
+          </div>
+
+          <!-- Week 5 -->
+          <div class="p-3 border-r border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">27</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">28</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">29</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">2 réservés</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">30</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+          <div class="p-3 border-r border-gray-200 min-h-[120px] hover:bg-gray-50">
+            <div class="text-sm font-medium text-gray-900 mb-2">31</div>
+            <div class="space-y-1">
+              <div class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">2 créneaux</div>
+            </div>
+          </div>
+
+          <!-- Next Month Days (grayed out) -->
+          <div class="p-3 border-r border-gray-200 min-h-[120px] bg-gray-50">
+            <div class="text-sm text-gray-400 mb-2">1</div>
+          </div>
+          <div class="p-3 border-gray-200 min-h-[120px] bg-gray-50">
+            <div class="text-sm text-gray-400 mb-2">2</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="mt-6 flex items-center justify-center space-x-6 text-sm">
+        <div class="flex items-center space-x-2">
+          <div class="w-4 h-4 bg-yellow-50 border-2 border-yellow-hero rounded"></div>
+          <span class="text-gray-700">Aujourd'hui</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-4 h-4 bg-green-100 rounded"></div>
+          <span class="text-gray-700">Disponible</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-4 h-4 bg-red-100 rounded"></div>
+          <span class="text-gray-700">Réservé</span>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-4 h-4 bg-blue-50 rounded"></div>
+          <span class="text-gray-700">Week-end</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Month Summary -->
+    <div class="grid md:grid-cols-4 gap-6 mt-8">
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Créneaux disponibles</p>
+            <p class="text-3xl font-bold text-green-600">42</p>
+          </div>
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Créneaux réservés</p>
+            <p class="text-3xl font-bold text-red-600">12</p>
+          </div>
+          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Taux d'occupation</p>
+            <p class="text-3xl font-bold text-blue-hero">29%</p>
+          </div>
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-blue-hero" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Jours travaillés</p>
+            <p class="text-3xl font-bold text-gray-900">23</p>
+          </div>
+          <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
