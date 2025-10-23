@@ -1,11 +1,13 @@
 class Admin::PaymentsController < ApplicationController
+  layout 'admin'
 
+  # GET /admin/payments
   def index
-    # TODO: Implement index
+    # Renders view with dummy data
   end
 
+  # GET /admin/payments/:id
   def show
-    # TODO: Implement show
+    # Renders view with dummy data
   end
-
 end

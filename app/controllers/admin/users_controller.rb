@@ -1,15 +1,19 @@
 class Admin::UsersController < ApplicationController
+  layout 'admin'
 
+  # GET /admin/users
   def index
-    # TODO: Implement index
+    # Renders view with dummy data
   end
 
+  # GET /admin/users/:id
   def show
-    # TODO: Implement show
+    # Renders view with dummy data
   end
 
+  # GET /admin/users/:id/edit
   def edit
-    # TODO: Implement edit
+    # Renders view with dummy data
   end
 
   def update
@@ -23,5 +27,4 @@ class Admin::UsersController < ApplicationController
   def activate
     # TODO: Implement activate
   end
-
 end

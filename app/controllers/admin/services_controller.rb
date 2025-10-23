@@ -1,19 +1,24 @@
 class Admin::ServicesController < ApplicationController
+  layout 'admin'
 
+  # GET /admin/services
   def index
-    # TODO: Implement index
+    # Renders view with dummy data
   end
 
+  # GET /admin/services/:id
   def show
-    # TODO: Implement show
+    # Renders view with dummy data
   end
 
+  # GET /admin/services/new
   def new
-    # TODO: Implement new
+    # Renders view with dummy data
   end
 
+  # GET /admin/services/:id/edit
   def edit
-    # TODO: Implement edit
+    # Renders view with dummy data
   end
 
   def create
@@ -27,5 +32,4 @@ class Admin::ServicesController < ApplicationController
   def destroy
     # TODO: Implement destroy
   end
-
 end

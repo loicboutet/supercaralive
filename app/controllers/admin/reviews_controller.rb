@@ -1,11 +1,14 @@
 class Admin::ReviewsController < ApplicationController
+  layout 'admin'
 
+  # GET /admin/reviews
   def index
-    # TODO: Implement index
+    # Renders view with dummy data
   end
 
+  # GET /admin/reviews/:id
   def show
-    # TODO: Implement show
+    # Renders view with dummy data
   end
 
   def approve
@@ -19,5 +22,4 @@ class Admin::ReviewsController < ApplicationController
   def flag
     # TODO: Implement flag
   end
-
 end

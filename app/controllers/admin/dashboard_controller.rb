@@ -1,8 +1,8 @@
 class Admin::DashboardController < ApplicationController
   layout 'admin'
 
+  # GET /admin
   def index
-    # TODO: Implement index
+    # Renders view with dummy data
   end
-
 end

@@ -1,11 +1,14 @@
 class Admin::ProfessionalApprovalsController < ApplicationController
+  layout 'admin'
 
+  # GET /admin/professional_approvals
   def index
-    # TODO: Implement index
+    # Renders view with dummy data
   end
 
+  # GET /admin/professional_approvals/:id
   def show
-    # TODO: Implement show
+    # Renders view with dummy data
   end
 
   def approve
@@ -15,5 +18,4 @@ class Admin::ProfessionalApprovalsController < ApplicationController
   def reject
     # TODO: Implement reject
   end
-
 end
