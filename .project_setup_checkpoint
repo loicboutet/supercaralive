@@ -1,0 +1,30 @@
+{
+  "template_copied": {
+    "completed": true,
+    "data": {},
+    "timestamp": "2025-10-23 11:14:11 +0200"
+  },
+  "app_name_updated": {
+    "completed": true,
+    "data": {},
+    "timestamp": "2025-10-23 11:14:11 +0200"
+  },
+  "deploy_yml_updated": {
+    "completed": true,
+    "data": {},
+    "timestamp": "2025-10-23 11:14:11 +0200"
+  },
+  "dns_created": {
+    "completed": true,
+    "data": {},
+    "timestamp": "2025-10-23 11:14:11 +0200"
+  },
+  "github_repo_created": {
+    "completed": true,
+    "data": {
+      "repo_full_name": "loicboutet/supercaralive",
+      "repo_url": "https://github.com/loicboutet/supercaralive"
+    },
+    "timestamp": "2025-10-23 11:14:13 +0200"
+  }
+}
