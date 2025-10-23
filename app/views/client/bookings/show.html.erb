@@ -1,5 +1,5 @@
 <div class="container mx-auto px-6 py-8">
-  <div class="max-w-4xl mx-auto">
+  <div>
     <div class="mb-8">
       <%= link_to client_bookings_path, class: "text-blue-hero hover:underline inline-flex items-center mb-4" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,10 +94,10 @@
             </div>
 
             <div class="flex items-start space-x-3 justify-end">
-              <div class="flex-1 bg-red-hero bg-opacity-10 rounded-lg p-4 text-right">
-                <p class="font-medium text-gray-900 mb-1">Vous</p>
-                <p class="text-gray-700 text-sm">Parfait, merci ! À demain.</p>
-                <p class="text-xs text-gray-500 mt-2">Il y a 1 heure</p>
+              <div class="flex-1 bg-red-hero rounded-lg p-4 text-right">
+                <p class="font-medium text-white mb-1">Vous</p>
+                <p class="text-white text-sm">Parfait, merci ! À demain.</p>
+                <p class="text-xs text-white text-opacity-75 mt-2">Il y a 1 heure</p>
               </div>
               <div class="w-10 h-10 bg-red-hero rounded-full flex items-center justify-center flex-shrink-0">
                 <span class="text-white font-bold">V</span>
@@ -128,7 +128,7 @@
               </div>
             </div>
           </div>
-          <%= link_to "Voir le profil", client_professional_path(@booking&.professional_id || 1), class: "block w-full bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-center text-sm" %>
+          <%= link_to "Voir le profil", client_professional_path(@booking&.professional_id || 1), class: "block w-56 mx-auto bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium text-center" %>
         </div>
 
         <!-- Pricing -->
@@ -152,7 +152,7 @@
               </div>
             </div>
             <% if @booking.status == 'confirmed' && !@booking.paid? %>
-              <%= link_to "Procéder au paiement", client_payment_path(@booking), class: "block w-full bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-bold text-center" %>
+              <%= link_to "Procéder au paiement", client_payment_path(@booking), class: "block w-56 mx-auto bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-bold text-center" %>
             <% elsif @booking.paid? %>
               <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg">
                 <p class="text-sm font-bold text-green-800">✓ Payé</p>
@@ -164,20 +164,22 @@
         </div>
 
         <!-- Actions -->
-        <div class="bg-white rounded-super p-6 shadow-sm space-y-2">
-          <% if @booking&.status == 'pending' %>
-            <%= link_to edit_client_booking_path(@booking), class: "block w-full bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-4 py-3 rounded-lg font-bold text-center" do %>
-              Modifier la réservation
+        <% if @booking&.status == 'pending' || (@booking&.status == 'completed' && !@booking.reviewed?) %>
+          <div class="bg-white rounded-super p-6 shadow-sm space-y-3">
+            <% if @booking.status == 'pending' %>
+              <%= link_to edit_client_booking_path(@booking), class: "block bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-6 py-3 rounded-lg font-bold text-center" do %>
+                Modifier la réservation
+              <% end %>
+              <%= button_to cancel_client_booking_path(@booking), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir annuler cette réservation ?" }, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold w-full" do %>
+                Annuler la réservation
+              <% end %>
+            <% elsif @booking.status == 'completed' && !@booking.reviewed? %>
+              <%= link_to new_client_review_path(booking_id: @booking.id), class: "block bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold text-center" do %>
+                Laisser un avis
+              <% end %>
             <% end %>
-            <%= button_to cancel_client_booking_path(@booking), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir annuler cette réservation ?" }, class: "w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-3 rounded-lg font-bold" do %>
-              Annuler la réservation
-            <% end %>
-          <% elsif @booking&.status == 'completed' && !@booking.reviewed? %>
-            <%= link_to new_client_review_path(booking_id: @booking.id), class: "block w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg font-bold text-center" do %>
-              Laisser un avis
-            <% end %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
