@@ -1,4 +1,4 @@
-class Client::WalletController < Client::BaseController
+class Client::WalletsController < Client::BaseController
 
   def show
     # Wallet page with payment history
