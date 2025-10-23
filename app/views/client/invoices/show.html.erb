@@ -1,0 +1,132 @@
+<div class="container mx-auto px-6 py-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8">
+      <%= link_to client_invoices_path, class: "text-blue-hero hover:underline inline-flex items-center mb-4" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Retour aux factures
+      <% end %>
+    </div>
+
+    <!-- Invoice Header -->
+    <div class="bg-white rounded-super p-8 shadow-sm mb-6">
+      <div class="flex items-center justify-between mb-8 pb-6 border-b border-gray-200">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 mb-2">FACTURE</h1>
+          <p class="text-lg text-gray-600">#INV-<%= params[:id] || '1001' %></p>
+        </div>
+        <div class="text-right">
+          <p class="text-sm text-gray-600">Date d'émission</p>
+          <p class="text-lg font-bold text-gray-900"><%= Date.current.strftime("%d/%m/%Y") %></p>
+        </div>
+      </div>
+
+      <!-- Client & Professional Info -->
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
+        <div>
+          <p class="text-sm font-bold text-gray-700 mb-2">Facturé à :</p>
+          <p class="font-medium text-gray-900"><%= current_user&.pseudonym || 'J.D.' %></p>
+          <p class="text-sm text-gray-600"><%= current_user&.address || '123 Rue de Example' %></p>
+          <p class="text-sm text-gray-600"><%= current_user&.postal_code || '75001' %> <%= current_user&.city || 'Paris' %></p>
+          <p class="text-sm text-gray-600"><%= current_user&.email || 'client@example.com' %></p>
+        </div>
+
+        <div>
+          <p class="text-sm font-bold text-gray-700 mb-2">Émis par :</p>
+          <p class="font-medium text-gray-900">AutoPro Garage</p>
+          <p class="text-sm text-gray-600">45 Avenue des Mécaniciens</p>
+          <p class="text-sm text-gray-600">75002 Paris</p>
+          <p class="text-sm text-gray-600">SIRET: 123 456 789 00012</p>
+          <p class="text-sm text-gray-600">contact@autopro.fr</p>
+        </div>
+      </div>
+
+      <!-- Invoice Items -->
+      <div class="mb-8">
+        <table class="w-full">
+          <thead class="bg-soft">
+            <tr>
+              <th class="px-4 py-3 text-left text-sm font-bold text-gray-700">Description</th>
+              <th class="px-4 py-3 text-center text-sm font-bold text-gray-700">Quantité</th>
+              <th class="px-4 py-3 text-right text-sm font-bold text-gray-700">Prix unitaire</th>
+              <th class="px-4 py-3 text-right text-sm font-bold text-gray-700">Total</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <tr>
+              <td class="px-4 py-4">
+                <p class="font-medium text-gray-900">Entretien annuel complet</p>
+                <p class="text-sm text-gray-600">Vidange, filtres, freins, pneus</p>
+              </td>
+              <td class="px-4 py-4 text-center">1</td>
+              <td class="px-4 py-4 text-right"><%= number_to_currency(100, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></td>
+              <td class="px-4 py-4 text-right font-medium"><%= number_to_currency(100, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-4">
+                <p class="font-medium text-gray-900">Frais de déplacement</p>
+                <p class="text-sm text-gray-600">Intervention à domicile</p>
+              </td>
+              <td class="px-4 py-4 text-center">1</td>
+              <td class="px-4 py-4 text-right"><%= number_to_currency(20, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></td>
+              <td class="px-4 py-4 text-right font-medium"><%= number_to_currency(20, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Totals -->
+      <div class="flex justify-end mb-8">
+        <div class="w-64">
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <span class="text-gray-600">Sous-total HT</span>
+            <span class="font-medium text-gray-900"><%= number_to_currency(120, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
+          </div>
+          <div class="flex justify-between py-2 border-b border-gray-200">
+            <span class="text-gray-600">TVA (20%)</span>
+            <span class="font-medium text-gray-900"><%= number_to_currency(24, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
+          </div>
+          <div class="flex justify-between py-3 bg-soft px-4 rounded-friendly mt-2">
+            <span class="text-lg font-bold text-gray-900">Total TTC</span>
+            <span class="text-2xl font-bold text-red-hero"><%= number_to_currency(144, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Status -->
+      <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm font-bold text-green-800">Statut: Payée</p>
+            <p class="text-sm text-green-700 mt-1">Paiement reçu le <%= Date.current.strftime("%d/%m/%Y") %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Note -->
+      <div class="text-center text-sm text-gray-500 pt-6 border-t border-gray-200">
+        <p>Merci pour votre confiance</p>
+        <p class="mt-1">En cas de question concernant cette facture, contactez-nous à contact@autopro.fr</p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex space-x-4">
+      <button onclick="window.print()" class="flex-1 bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-friendly font-bold inline-flex items-center justify-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        Télécharger PDF
+      </button>
+      <%= link_to client_booking_path(1), class: "flex-1 bg-blue-hero hover:bg-blue-dark text-white px-8 py-3 rounded-friendly font-bold text-center" do %>
+        Voir la réservation
+      <% end %>
+    </div>
+  </div>
+</div>

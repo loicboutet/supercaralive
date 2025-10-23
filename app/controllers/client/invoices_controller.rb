@@ -1,15 +1,13 @@
-class Client::InvoicesController < ApplicationController
+class Client::InvoicesController < Client::BaseController
 
   def index
-    # TODO: Implement index
+    # List all invoices
+    # In production, this would load from database
   end
 
   def show
-    # TODO: Implement show
-  end
-
-  def download
-    # TODO: Implement download
+    # Show single invoice detail
+    # In production, this would load from database based on params[:id]
   end
 
 end

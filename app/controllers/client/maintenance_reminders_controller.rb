@@ -1,19 +1,8 @@
-class Client::MaintenanceRemindersController < ApplicationController
+class Client::MaintenanceRemindersController < Client::BaseController
 
   def index
-    # TODO: Implement index
-  end
-
-  def create
-    # TODO: Implement create
-  end
-
-  def update
-    # TODO: Implement update
-  end
-
-  def destroy
-    # TODO: Implement destroy
+    # List all maintenance reminders
+    # In production, this would load from database with km/date tracking
   end
 
 end

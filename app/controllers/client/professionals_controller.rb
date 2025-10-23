@@ -1,4 +1,4 @@
-class Client::ProfessionalsController < ApplicationController
+class Client::ProfessionalsController < Client::BaseController
     layout 'user'
 
   def index

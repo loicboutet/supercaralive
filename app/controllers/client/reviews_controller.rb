@@ -1,11 +1,15 @@
-class Client::ReviewsController < ApplicationController
+require 'ostruct'
+
+class Client::ReviewsController < Client::BaseController
 
   def new
-    # TODO: Implement new
+    # New review form
+    @review = OpenStruct.new
   end
 
   def create
-    # TODO: Implement create
+    # In production, this would save review to database
+    redirect_to client_booking_path(params[:booking_id]), notice: 'Avis publié avec succès.'
   end
 
 end

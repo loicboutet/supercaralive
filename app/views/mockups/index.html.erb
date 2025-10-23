@@ -36,58 +36,40 @@
         <div class="space-y-3 mb-6">
           <div class="border-b border-gray-100 pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">📊 Tableau de bord</p>
-            <a href="/client" class="text-sm text-blue-hero hover:underline block">
-              → Dashboard client
-            </a>
+            <%= link_to "→ Dashboard client", client_root_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="border-b border-gray-100 pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">🔍 Professionnels</p>
-            <a href="/client/professionals" class="text-sm text-blue-hero hover:underline block">
-              → Liste des professionnels
-            </a>
-            <a href="/client/professionals/1" class="text-sm text-blue-hero hover:underline block">
-              → Profil professionnel (détail)
-            </a>
+            <%= link_to "→ Liste des professionnels", client_professionals_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Profil professionnel (détail)", client_professional_path(1), class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="border-b border-gray-100 pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">🚙 Véhicules</p>
-            <a href="/client/vehicles" class="text-sm text-blue-hero hover:underline block">
-              → Liste des véhicules
-            </a>
-            <a href="/client/vehicles/new" class="text-sm text-blue-hero hover:underline block">
-              → Ajouter un véhicule
-            </a>
-            <a href="/client/vehicles/1/edit" class="text-sm text-blue-hero hover:underline block">
-              → Modifier un véhicule
-            </a>
+            <%= link_to "→ Liste des véhicules", client_vehicles_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Ajouter un véhicule", new_client_vehicle_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Modifier un véhicule", edit_client_vehicle_path(1), class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="border-b border-gray-100 pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">📅 Réservations</p>
-            <a href="/client/bookings" class="text-sm text-blue-hero hover:underline block">
-              → Liste des réservations
-            </a>
-            <a href="/client/bookings/new" class="text-sm text-blue-hero hover:underline block">
-              → Nouvelle réservation
-            </a>
-            <a href="/client/bookings/1" class="text-sm text-blue-hero hover:underline block">
-              → Détail réservation
-            </a>
-            <a href="/client/bookings/1/edit" class="text-sm text-blue-hero hover:underline block">
-              → Modifier réservation
-            </a>
+            <%= link_to "→ Liste des réservations", client_bookings_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Nouvelle réservation", new_client_booking_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Détail réservation", client_booking_path(1), class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Modifier réservation", edit_client_booking_path(1), class: "text-sm text-blue-hero hover:underline block" %>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">💳 Paiements & Factures</p>
+            <%= link_to "→ Mon portefeuille", client_wallet_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Mes factures", client_invoices_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">👤 Profil</p>
-            <a href="/client/profile" class="text-sm text-blue-hero hover:underline block">
-              → Mon profil
-            </a>
-            <a href="/client/profile/edit" class="text-sm text-blue-hero hover:underline block">
-              → Modifier mon profil
-            </a>
+            <%= link_to "→ Mon profil", client_profile_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Modifier mon profil", edit_client_profile_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
         </div>
 
@@ -116,41 +98,45 @@
           Interface professionnelle pour gérer services, disponibilités et réservations
         </p>
 
-        <div class="space-y-3 mb-6 opacity-50">
+        <div class="space-y-3 mb-6">
           <div class="border-b border-gray-100 pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">📊 Tableau de bord</p>
-            <span class="text-sm text-gray-500 block">→ Dashboard professionnel</span>
+            <%= link_to "→ Dashboard professionnel", professional_root_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="border-b border-gray-100 pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">👤 Profil</p>
-            <span class="text-sm text-gray-500 block">→ Mon profil pro</span>
-            <span class="text-sm text-gray-500 block">→ Modifier mon profil</span>
-            <span class="text-sm text-gray-500 block">→ Prévisualisation profil</span>
+            <%= link_to "→ Mon profil pro", professional_profile_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Modifier mon profil", edit_professional_profile_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Prévisualisation profil", preview_professional_profile_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="border-b border-gray-100 pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">📄 Vérification</p>
-            <span class="text-sm text-gray-500 block">→ Documents de vérification</span>
-            <span class="text-sm text-gray-500 block">→ Services proposés</span>
+            <%= link_to "→ Documents de vérification", professional_verification_documents_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Services proposés", professional_professional_services_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="border-b border-gray-100 pb-2">
             <p class="text-sm font-bold text-gray-700 mb-2">📅 Disponibilités</p>
-            <span class="text-sm text-gray-500 block">→ Gérer créneaux</span>
-            <span class="text-sm text-gray-500 block">→ Calendrier</span>
+            <%= link_to "→ Gérer créneaux", professional_availability_slots_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Calendrier", calendar_professional_availability_slots_path, class: "text-sm text-blue-hero hover:underline block" %>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📋 Réservations</p>
+            <%= link_to "→ Liste réservations", professional_bookings_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Détail réservation", professional_booking_path(1), class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="pb-2">
-            <p class="text-sm font-bold text-gray-700 mb-2">📋 Réservations</p>
-            <span class="text-sm text-gray-500 block">→ Liste réservations</span>
-            <span class="text-sm text-gray-500 block">→ Détail réservation</span>
+            <p class="text-sm font-bold text-gray-700 mb-2">💳 Factures & Avis</p>
+            <%= link_to "→ Mes factures", professional_invoices_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Mes avis", professional_reviews_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
         </div>
 
-        <button class="bg-gray-300 text-gray-500 px-6 py-3 rounded-friendly font-bold w-full cursor-not-allowed" disabled>
-          En cours de développement
-        </button>
+        <%= link_to "Accéder au Dashboard Pro", professional_root_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-friendly font-bold w-full block text-center" %>
       </div>
 
       <!-- Admin Card -->
@@ -175,34 +161,41 @@
 
         <div class="space-y-3 mb-6">
           <div class="border-b border-gray-100 pb-2">
-            <p class="text-sm font-bold text-gray-700 mb-2">📊 Tableaux de bord</p>
-            <a href="/mockups/admin_dashboard" class="text-sm text-blue-hero hover:underline block">
-              → Dashboard admin (legacy)
-            </a>
+            <p class="text-sm font-bold text-gray-700 mb-2">📊 Tableau de bord</p>
+            <%= link_to "→ Dashboard admin", admin_root_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
           <div class="border-b border-gray-100 pb-2">
-            <p class="text-sm font-bold text-gray-700 mb-2">👥 Gestion</p>
-            <a href="/mockups/admin_users" class="text-sm text-blue-hero hover:underline block">
-              → Utilisateurs (legacy)
-            </a>
-            <a href="/mockups/admin_analytics" class="text-sm text-blue-hero hover:underline block">
-              → Analytiques (legacy)
-            </a>
+            <p class="text-sm font-bold text-gray-700 mb-2">👥 Utilisateurs</p>
+            <%= link_to "→ Liste des utilisateurs", admin_users_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Détail utilisateur", admin_user_path(1), class: "text-sm text-blue-hero hover:underline block" %>
           </div>
 
-          <div class="pb-2 opacity-50">
-            <p class="text-sm font-bold text-gray-700 mb-2">🔍 À venir</p>
-            <span class="text-sm text-gray-500 block">→ Approbations professionnels</span>
-            <span class="text-sm text-gray-500 block">→ Catalogue services</span>
-            <span class="text-sm text-gray-500 block">→ Modération avis</span>
-            <span class="text-sm text-gray-500 block">→ Monitoring plateforme</span>
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">✓ Approbations</p>
+            <%= link_to "→ Approbations professionnels", admin_professional_approvals_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Détail approbation", admin_professional_approval_path(1), class: "text-sm text-blue-hero hover:underline block" %>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">🔧 Services</p>
+            <%= link_to "→ Catalogue services", admin_services_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Nouveau service", new_admin_service_path, class: "text-sm text-blue-hero hover:underline block" %>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📋 Monitoring</p>
+            <%= link_to "→ Réservations", admin_bookings_path, class: "text-sm text-blue-hero hover:underline block" %>
+            <%= link_to "→ Paiements", admin_payments_path, class: "text-sm text-blue-hero hover:underline block" %>
+          </div>
+
+          <div class="pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">⭐ Avis</p>
+            <%= link_to "→ Modération avis", admin_reviews_path, class: "text-sm text-blue-hero hover:underline block" %>
           </div>
         </div>
 
-        <a href="/mockups/admin_dashboard" class="bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-6 py-3 rounded-friendly font-bold w-full block text-center">
-          Accéder au Dashboard Admin
-        </a>
+        <%= link_to "Accéder au Dashboard Admin", admin_root_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-friendly font-bold w-full block text-center" %>
       </div>
 
     </div>

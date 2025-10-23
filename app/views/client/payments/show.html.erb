@@ -1,0 +1,100 @@
+<div class="container mx-auto px-6 py-8">
+  <div class="max-w-2xl mx-auto">
+    <div class="mb-8">
+      <%= link_to client_booking_path(@booking), class: "text-blue-hero hover:underline inline-flex items-center mb-4" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Retour à la réservation
+      <% end %>
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Paiement sécurisé</h1>
+      <p class="text-gray-600">Réservation #<%= @booking&.id || '12345' %></p>
+    </div>
+
+    <div class="grid gap-6">
+      <!-- Order Summary -->
+      <div class="bg-white rounded-super p-6 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Récapitulatif</h2>
+        
+        <div class="space-y-4 mb-6">
+          <div class="flex justify-between items-start pb-4 border-b border-gray-200">
+            <div>
+              <p class="font-bold text-gray-900"><%= @booking&.service_type || 'Entretien annuel' %></p>
+              <p class="text-sm text-gray-600">Professionnel: <%= @booking&.professional_name || 'AutoPro Garage' %></p>
+              <p class="text-sm text-gray-600">Date: <%= @booking&.scheduled_at&.strftime("%d/%m/%Y à %H:%M") || 'À confirmer' %></p>
+            </div>
+            <p class="text-lg font-bold text-gray-900"><%= number_to_currency(@booking&.price || 120, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></p>
+          </div>
+
+          <% if @booking&.travel_fee.present? && @booking.travel_fee > 0 %>
+            <div class="flex justify-between pb-4 border-b border-gray-200">
+              <p class="text-gray-600">Frais de déplacement</p>
+              <p class="text-gray-900"><%= number_to_currency(@booking.travel_fee, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></p>
+            </div>
+          <% end %>
+
+          <div class="flex justify-between items-center pt-4">
+            <p class="text-xl font-bold text-gray-900">Total à payer</p>
+            <p class="text-3xl font-bold text-red-hero"><%= number_to_currency((@booking&.price.to_f + (@booking&.travel_fee.to_f || 0)) || 120, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Method -->
+      <div class="bg-white rounded-super p-6 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Mode de paiement</h2>
+        
+        <!-- Stripe Payment Form -->
+        <div class="mb-6">
+          <div id="stripe-payment-element" class="mb-4">
+            <!-- Stripe Elements will be inserted here -->
+          </div>
+          
+          <div class="bg-blue-50 border-l-4 border-blue-hero rounded-friendly p-4 mb-6">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg class="h-5 w-5 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-bold text-blue-800">Paiement sécurisé</h3>
+                <p class="text-sm text-blue-700 mt-1">
+                  Vos informations de paiement sont sécurisées par Stripe. Nous ne stockons aucune donnée bancaire.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <button type="submit" id="payment-button" class="w-full bg-red-hero hover:bg-red-dark text-white px-8 py-4 rounded-friendly font-bold text-lg">
+            Payer <%= number_to_currency((@booking&.price.to_f + (@booking&.travel_fee.to_f || 0)) || 120, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
+          </button>
+          
+          <%= link_to "Annuler", client_booking_path(@booking), class: "block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-friendly font-bold text-center" %>
+        </div>
+
+        <div class="mt-6 flex items-center justify-center space-x-4 text-sm text-gray-500">
+          <span class="flex items-center">
+            <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>
+            Paiement sécurisé
+          </span>
+          <span>|</span>
+          <span>Powered by Stripe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  // Initialize Stripe (this would be properly implemented in production)
+  // const stripe = Stripe('your_publishable_key');
+  // const elements = stripe.elements();
+  // const paymentElement = elements.create('payment');
+  // paymentElement.mount('#stripe-payment-element');
+</script>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Admin - Supercaralive" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "supercaralive", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-soft">
+    <div class="flex h-screen">
+      <!-- Sidebar -->
+      <div class="w-64 bg-red-hero text-white flex flex-col">
+        <!-- Logo/Header -->
+        <div class="p-6 border-b border-red-dark">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-yellow-hero rounded-friendly flex items-center justify-center">
+              <span class="text-white text-xl font-bold">⚙️</span>
+            </div>
+            <h1 class="text-xl font-bold">Admin Portal</h1>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 p-4">
+          <ul class="space-y-2">
+            <li>
+              <%= link_to admin_root_path, class: "flex items-center space-x-3 px-4 py-3 rounded-friendly hover:bg-red-dark transition #{current_page?(admin_root_path) ? 'bg-red-dark' : ''}" do %>
+                <span class="text-lg">📊</span>
+                <span class="font-medium">Dashboard</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to admin_users_path, class: "flex items-center space-x-3 px-4 py-3 rounded-friendly hover:bg-red-dark transition #{current_page?(admin_users_path) ? 'bg-red-dark' : ''}" do %>
+                <span class="text-lg">👥</span>
+                <span class="font-medium">Users</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to admin_professional_approvals_path, class: "flex items-center space-x-3 px-4 py-3 rounded-friendly hover:bg-red-dark transition #{current_page?(admin_professional_approvals_path) ? 'bg-red-dark' : ''}" do %>
+                <span class="text-lg">✓</span>
+                <span class="font-medium">Approvals</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to admin_services_path, class: "flex items-center space-x-3 px-4 py-3 rounded-friendly hover:bg-red-dark transition #{current_page?(admin_services_path) ? 'bg-red-dark' : ''}" do %>
+                <span class="text-lg">🔧</span>
+                <span class="font-medium">Services</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to admin_bookings_path, class: "flex items-center space-x-3 px-4 py-3 rounded-friendly hover:bg-red-dark transition #{current_page?(admin_bookings_path) ? 'bg-red-dark' : ''}" do %>
+                <span class="text-lg">📅</span>
+                <span class="font-medium">Bookings</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to admin_reviews_path, class: "flex items-center space-x-3 px-4 py-3 rounded-friendly hover:bg-red-dark transition #{current_page?(admin_reviews_path) ? 'bg-red-dark' : ''}" do %>
+                <span class="text-lg">⭐</span>
+                <span class="font-medium">Reviews</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to admin_payments_path, class: "flex items-center space-x-3 px-4 py-3 rounded-friendly hover:bg-red-dark transition #{current_page?(admin_payments_path) ? 'bg-red-dark' : ''}" do %>
+                <span class="text-lg">💳</span>
+                <span class="font-medium">Payments</span>
+              <% end %>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Footer -->
+        <div class="p-4 border-t border-red-dark">
+          <%= link_to root_path, class: "flex items-center space-x-3 px-4 py-3 rounded-friendly hover:bg-red-dark transition text-white opacity-75 hover:opacity-100" do %>
+            <span class="text-lg">←</span>
+            <span class="font-medium">Back to Site</span>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Main Content Area -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Header -->
+        <header class="bg-white shadow-sm">
+          <div class="px-6 py-4 flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-gray-900">
+              <%= content_for(:page_title) || "Admin Dashboard" %>
+            </h2>
+            <div class="flex items-center space-x-4">
+              <span class="text-gray-600">Admin User</span>
+              <div class="w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center">
+                <span class="text-white font-bold">A</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto p-6">
+          <%= yield %>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

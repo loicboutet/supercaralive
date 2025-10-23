@@ -15,45 +15,45 @@
     <div class="grid md:grid-cols-4 gap-6 mb-8">
       <div class="bg-white rounded-friendly p-6 shadow-sm">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium text-gray-600">Réservations</span>
+          <span class="text-base font-bold text-gray-700">Réservations</span>
           <div class="w-10 h-10 bg-red-hero rounded-friendly flex items-center justify-center">
             <span class="text-white text-xl">📅</span>
           </div>
         </div>
-        <p class="text-3xl font-bold text-gray-900">3</p>
+        <p class="text-5xl font-bold text-red-hero">3</p>
         <p class="text-sm text-gray-500 mt-1">À venir</p>
       </div>
 
       <div class="bg-white rounded-friendly p-6 shadow-sm">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium text-gray-600">Véhicules</span>
+          <span class="text-base font-bold text-gray-700">Véhicules</span>
           <div class="w-10 h-10 bg-blue-hero rounded-friendly flex items-center justify-center">
             <span class="text-white text-xl">🚗</span>
           </div>
         </div>
-        <p class="text-3xl font-bold text-gray-900">2</p>
+        <p class="text-5xl font-bold text-blue-hero">2</p>
         <p class="text-sm text-gray-500 mt-1">Enregistrés</p>
       </div>
 
       <div class="bg-white rounded-friendly p-6 shadow-sm">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium text-gray-600">Services</span>
+          <span class="text-base font-bold text-gray-700">Services</span>
           <div class="w-10 h-10 bg-yellow-hero rounded-friendly flex items-center justify-center">
             <span class="text-white text-xl">✓</span>
           </div>
         </div>
-        <p class="text-3xl font-bold text-gray-900">12</p>
+        <p class="text-5xl font-bold text-yellow-hero">12</p>
         <p class="text-sm text-gray-500 mt-1">Terminés</p>
       </div>
 
       <div class="bg-white rounded-friendly p-6 shadow-sm">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-medium text-gray-600">Rappels</span>
+          <span class="text-base font-bold text-gray-700">Rappels</span>
           <div class="w-10 h-10 bg-red-hero rounded-friendly flex items-center justify-center">
             <span class="text-white text-xl">🔔</span>
           </div>
         </div>
-        <p class="text-3xl font-bold text-gray-900">1</p>
+        <p class="text-5xl font-bold text-red-hero">1</p>
         <p class="text-sm text-gray-500 mt-1">Entretien dû</p>
       </div>
     </div>
@@ -68,14 +68,17 @@
         <div class="bg-white rounded-super p-6 shadow-sm">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Actions rapides</h2>
           <div class="grid md:grid-cols-3 gap-4">
-            <a href="<%= client_professionals_path %>" class="bg-red-hero hover:bg-red-dark text-white px-6 py-4 rounded-lg font-medium text-center transition">
-              🔍 Trouver un pro
+            <a href="<%= client_professionals_path %>" class="bg-red-hero hover:bg-red-dark text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition flex items-center justify-center space-x-3">
+              <span class="text-2xl">🔍</span>
+              <span>Trouver un pro</span>
             </a>
-            <a href="<%= client_vehicles_path %>" class="bg-blue-hero hover:bg-blue-dark text-white px-6 py-4 rounded-lg font-medium text-center transition">
-              🚗 Mes véhicules
+            <a href="<%= client_vehicles_path %>" class="bg-blue-hero hover:bg-blue-dark text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition flex items-center justify-center space-x-3">
+              <span class="text-2xl">🚗</span>
+              <span>Mes véhicules</span>
             </a>
-            <a href="<%= client_bookings_path %>" class="bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-6 py-4 rounded-lg font-medium text-center transition">
-              📋 Mes réservations
+            <a href="<%= client_bookings_path %>" class="bg-yellow-hero hover:bg-opacity-90 text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition flex items-center justify-center space-x-3">
+              <span class="text-2xl">📋</span>
+              <span>Mes réservations</span>
             </a>
           </div>
         </div>

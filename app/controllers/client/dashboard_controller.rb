@@ -1,5 +1,4 @@
-class Client::DashboardController < ApplicationController
-  layout 'user'
+class Client::DashboardController < Client::BaseController
 
   def index
     # TODO: Implement index

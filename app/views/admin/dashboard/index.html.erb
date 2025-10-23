@@ -1,83 +1,195 @@
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-6">Admin Dashboard</h1>
+<% content_for :page_title, "Admin Dashboard" %>
 
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h3 class="text-lg font-semibold mb-2">Pending Approvals</h3>
-      <p class="text-3xl font-bold text-orange-600">7</p>
-      <a href="/admin/professional_approvals" class="text-blue-600 hover:underline text-sm">Review</a>
+<!-- Stats Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <!-- Total Users Card -->
+  <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-blue-hero">
+    <div class="flex items-center justify-between mb-4">
+      <div class="w-12 h-12 bg-blue-hero rounded-friendly flex items-center justify-center">
+        <span class="text-white text-2xl">👥</span>
+      </div>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h3 class="text-lg font-semibold mb-2">Total Users</h3>
-      <p class="text-3xl font-bold text-blue-600">342</p>
-      <a href="/admin/users" class="text-blue-600 hover:underline text-sm">View All</a>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h3 class="text-lg font-semibold mb-2">Total Bookings</h3>
-      <p class="text-3xl font-bold text-green-600">1,256</p>
-      <a href="/admin/bookings" class="text-blue-600 hover:underline text-sm">View All</a>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow">
-      <h3 class="text-lg font-semibold mb-2">System Status</h3>
-      <p class="text-sm font-semibold text-green-600">Operational</p>
-    </div>
+    <h3 class="text-sm font-medium text-gray-600 mb-1">Total Users</h3>
+    <p class="text-4xl font-bold text-gray-900 mb-2">8,249</p>
+    <p class="text-sm text-green-600">↑ 12% from last month</p>
   </div>
 
-  <div class="bg-white rounded-lg shadow p-6">
-    <h2 class="text-2xl font-bold mb-4">Recent Bookings</h2>
+  <!-- New Sign-ups Card -->
+  <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-green-500">
+    <div class="flex items-center justify-between mb-4">
+      <div class="w-12 h-12 bg-green-500 rounded-friendly flex items-center justify-center">
+        <span class="text-white text-2xl">✓</span>
+      </div>
+    </div>
+    <h3 class="text-sm font-medium text-gray-600 mb-1">New Sign-ups</h3>
+    <p class="text-4xl font-bold text-gray-900 mb-2">385</p>
+    <p class="text-sm text-green-600">↑ 8% from last week</p>
+  </div>
+
+  <!-- Active Sessions Card -->
+  <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-red-hero">
+    <div class="flex items-center justify-between mb-4">
+      <div class="w-12 h-12 bg-red-hero rounded-friendly flex items-center justify-center">
+        <span class="text-white text-2xl">📊</span>
+      </div>
+    </div>
+    <h3 class="text-sm font-medium text-gray-600 mb-1">Active Sessions</h3>
+    <p class="text-4xl font-bold text-gray-900 mb-2">1,247</p>
+    <p class="text-sm text-red-600">↑ 3% from yesterday</p>
+  </div>
+
+  <!-- System Uptime Card -->
+  <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-yellow-hero">
+    <div class="flex items-center justify-between mb-4">
+      <div class="w-12 h-12 bg-yellow-hero rounded-friendly flex items-center justify-center">
+        <span class="text-white text-2xl">⚡</span>
+      </div>
+    </div>
+    <h3 class="text-sm font-medium text-gray-600 mb-1">System Uptime</h3>
+    <p class="text-4xl font-bold text-gray-900 mb-2">99.9%</p>
+    <p class="text-sm text-gray-500">Last restart: 32 days ago</p>
+  </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+  <!-- Pending Approvals -->
+  <div class="bg-yellow-50 rounded-super p-6 border-l-4 border-yellow-hero">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-bold text-gray-900">Pending Approvals</h3>
+      <span class="bg-yellow-hero text-white px-3 py-1 rounded-friendly text-sm font-bold">7</span>
+    </div>
+    <p class="text-gray-600 mb-4">Professional verification requests waiting for review</p>
+    <%= link_to admin_professional_approvals_path, class: "text-yellow-hero font-medium hover:underline inline-flex items-center" do %>
+      Review approvals
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    <% end %>
+  </div>
+
+  <!-- Total Bookings -->
+  <div class="bg-blue-50 rounded-super p-6 border-l-4 border-blue-hero">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-bold text-gray-900">Total Bookings</h3>
+      <span class="bg-blue-hero text-white px-3 py-1 rounded-friendly text-sm font-bold">1,256</span>
+    </div>
+    <p class="text-gray-600 mb-4">All bookings across the platform</p>
+    <%= link_to admin_bookings_path, class: "text-blue-hero font-medium hover:underline inline-flex items-center" do %>
+      View all bookings
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    <% end %>
+  </div>
+
+  <!-- System Status -->
+  <div class="bg-green-50 rounded-super p-6 border-l-4 border-green-500">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xl font-bold text-gray-900">System Status</h3>
+      <span class="bg-green-500 text-white px-3 py-1 rounded-friendly text-sm font-bold">✓</span>
+    </div>
+    <p class="text-gray-600 mb-4">All systems operational</p>
+    <span class="text-green-600 font-medium">Everything running smoothly</span>
+  </div>
+</div>
+
+<!-- User Registrations Chart Section -->
+<div class="bg-white rounded-super p-6 shadow-sm mb-8">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold text-gray-900">User Registrations</h2>
+    <select class="px-4 py-2 border border-gray-300 rounded-friendly focus:outline-none focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+      <option>Last 7 days</option>
+      <option>Last 30 days</option>
+      <option>Last 90 days</option>
+    </select>
+  </div>
+  
+  <div class="bg-soft rounded-friendly p-8 text-center">
+    <p class="text-gray-500 mb-2">Chart visualization would be here</p>
+    <p class="text-sm text-gray-400">(User registration growth over time)</p>
+  </div>
+</div>
+
+<!-- Recent Bookings Table -->
+<div class="bg-white rounded-super shadow-sm overflow-hidden">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-900">Recent Bookings</h2>
+  </div>
+  
+  <div class="overflow-x-auto">
     <table class="w-full">
-      <thead>
-        <tr class="border-b">
-          <th class="text-left py-2">ID</th>
-          <th class="text-left py-2">Client</th>
-          <th class="text-left py-2">Professional</th>
-          <th class="text-left py-2">Service</th>
-          <th class="text-left py-2">Date</th>
-          <th class="text-left py-2">Status</th>
+      <thead class="bg-soft">
+        <tr>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">ID</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Client</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Professional</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Service</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Date</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Status</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="border-b">
-          <td class="py-2">#1234</td>
-          <td class="py-2">Jean Dupont</td>
-          <td class="py-2">AutoPro Garage</td>
-          <td class="py-2">Oil Change</td>
-          <td class="py-2">December 14, 2025</td>
-          <td class="py-2"><span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">Confirmed</span></td>
+      <tbody class="divide-y divide-gray-200">
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1234</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Jean Dupont</td>
+          <td class="px-6 py-4 text-sm text-gray-700">AutoPro Garage</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Oil Change</td>
+          <td class="px-6 py-4 text-sm text-gray-700">December 14, 2025</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-friendly text-xs font-medium">Confirmed</span>
+          </td>
         </tr>
-        <tr class="border-b">
-          <td class="py-2">#1235</td>
-          <td class="py-2">Marie Martin</td>
-          <td class="py-2">QuickFix Motors</td>
-          <td class="py-2">Brake Service</td>
-          <td class="py-2">December 15, 2025</td>
-          <td class="py-2"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">Pending</span></td>
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1235</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Marie Martin</td>
+          <td class="px-6 py-4 text-sm text-gray-700">QuickFix Motors</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Brake Service</td>
+          <td class="px-6 py-4 text-sm text-gray-700">December 15, 2025</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-friendly text-xs font-medium">Pending</span>
+          </td>
         </tr>
-        <tr class="border-b">
-          <td class="py-2">#1236</td>
-          <td class="py-2">Pierre Bernard</td>
-          <td class="py-2">Elite Car Service</td>
-          <td class="py-2">Full Service</td>
-          <td class="py-2">December 16, 2025</td>
-          <td class="py-2"><span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">Completed</span></td>
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1236</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Pierre Bernard</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Elite Car Service</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Full Service</td>
+          <td class="px-6 py-4 text-sm text-gray-700">December 16, 2025</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-friendly text-xs font-medium">Completed</span>
+          </td>
         </tr>
-        <tr class="border-b">
-          <td class="py-2">#1237</td>
-          <td class="py-2">Sophie Lefebvre</td>
-          <td class="py-2">AutoPro Garage</td>
-          <td class="py-2">Tire Replacement</td>
-          <td class="py-2">December 17, 2025</td>
-          <td class="py-2"><span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">Confirmed</span></td>
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1237</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Sophie Lefebvre</td>
+          <td class="px-6 py-4 text-sm text-gray-700">AutoPro Garage</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Tire Replacement</td>
+          <td class="px-6 py-4 text-sm text-gray-700">December 17, 2025</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-friendly text-xs font-medium">Confirmed</span>
+          </td>
         </tr>
-        <tr class="border-b">
-          <td class="py-2">#1238</td>
-          <td class="py-2">Luc Moreau</td>
-          <td class="py-2">Premium Auto Care</td>
-          <td class="py-2">Engine Diagnostic</td>
-          <td class="py-2">December 18, 2025</td>
-          <td class="py-2"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">Pending</span></td>
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1238</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Luc Moreau</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Premium Auto Care</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Engine Diagnostic</td>
+          <td class="px-6 py-4 text-sm text-gray-700">December 18, 2025</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-friendly text-xs font-medium">Pending</span>
+          </td>
         </tr>
       </tbody>
     </table>
+  </div>
+  
+  <div class="p-6 bg-soft border-t border-gray-200">
+    <%= link_to admin_bookings_path, class: "text-blue-hero font-medium hover:underline inline-flex items-center" do %>
+      View all bookings
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    <% end %>
   </div>
 </div>
