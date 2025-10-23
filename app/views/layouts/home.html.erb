@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Supercaralive" %></title>
+    <title><%= content_for(:title) || "Supercaralive - Votre voiture super-héros" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -23,12 +23,8 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-soft">
-    <%= render "shared/header" %>
-    
-    <main class="container mx-auto px-6 py-8">
-      <%= yield %>
-    </main>
+  <body>
+    <%= yield %>
 
     <%= render "shared/footer" %>
   </body>

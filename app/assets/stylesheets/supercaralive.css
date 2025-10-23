@@ -94,6 +94,11 @@ h1, h2, h3 {
     border-radius: 24px; 
 }
 
+/* Footer Background - matches homepage */
+.bg-footer {
+    background-color: #111827; /* Tailwind gray-900 */
+}
+
 /* Focus Ring Colors for Forms */
 .focus\:ring-red-hero:focus {
     --tw-ring-color: var(--red-hero);

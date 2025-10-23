@@ -1,4 +1,212 @@
-<div>
-  <h1 class="font-bold text-4xl">Home#index</h1>
-  <p>Find me in app/views/home/index.html.erb</p>
-</div>
+<!-- Header / Navigation -->
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <nav class="container mx-auto px-6 py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo -->
+      <div class="flex items-center space-x-3">
+        <div class="w-12 h-12 bg-red-hero rounded-friendly flex items-center justify-center">
+          <span class="text-white text-2xl font-bold">🚗</span>
+        </div>
+        <span class="text-2xl font-bold text-gray-800">SUPERCAR<span class="text-red-hero">ALIVE</span></span>
+      </div>
+      
+      <!-- Menu Desktop -->
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#services" class="text-gray-700 hover:text-red-hero font-medium">Nos Services</a>
+        <a href="#about" class="text-gray-700 hover:text-red-hero font-medium">À Propos</a>
+        <a href="#contact" class="text-gray-700 hover:text-red-hero font-medium">Contact</a>
+        <button class="bg-red-hero hover:bg-red-dark text-white px-6 py-2 rounded-friendly font-medium">
+          Réserver
+        </button>
+      </div>
+      
+      <!-- Menu Mobile -->
+      <button class="md:hidden text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="hero-gradient text-white py-20 md:py-32">
+  <div class="container mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h1 class="text-5xl md:text-6xl mb-6 leading-tight">
+          Votre voiture<br/>
+          <span class="text-yellow-hero">super-héros</span> 🦸
+        </h1>
+        <p class="text-xl mb-8 text-white opacity-95">
+          Nous sauvons et redonnons vie à votre véhicule avec des services automobiles d'exception.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <button class="bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-8 py-4 rounded-friendly font-bold text-lg">
+            Découvrir nos services
+          </button>
+          <button class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-4 rounded-friendly font-medium text-lg border-2 border-white">
+            Comment ça marche ?
+          </button>
+        </div>
+      </div>
+      
+      <!-- Hero Image - REMPLACER PAR VOTRE ILLUSTRATION -->
+      <div class="hidden md:block">
+        <div class="bg-white bg-opacity-20 rounded-super p-8 backdrop-blur-sm">
+          <div class="bg-white rounded-friendly h-80 flex items-center justify-center">
+            <p class="text-gray-400 text-center px-8">
+              📸 PLACEHOLDER<br/>
+              <span class="text-sm">Ajouter illustration de la voiture super-héros avec cape</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-20 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Nos <span class="text-red-hero">Super Services</span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Des solutions complètes pour prendre soin de votre véhicule comme un vrai super-héros
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Service Card 1 -->
+      <div class="bg-soft rounded-super p-8 card-hover">
+        <div class="w-16 h-16 bg-red-hero rounded-friendly flex items-center justify-center mb-6">
+          <span class="text-white text-3xl">🔧</span>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">MySupermécano</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Réparation et entretien expert de votre véhicule. Nous redonnons vie à votre voiture !
+        </p>
+        <a href="#" class="text-red-hero font-medium hover:underline inline-flex items-center">
+          En savoir plus
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Service Card 2 -->
+      <div class="bg-soft rounded-super p-8 card-hover">
+        <div class="w-16 h-16 bg-blue-hero rounded-friendly flex items-center justify-center mb-6">
+          <span class="text-white text-3xl">💧</span>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">MySupercarwasher</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Lavage premium et detailing professionnel. Votre voiture brille comme au premier jour !
+        </p>
+        <a href="#" class="text-blue-hero font-medium hover:underline inline-flex items-center">
+          En savoir plus
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Service Card 3 -->
+      <div class="bg-soft rounded-super p-8 card-hover">
+        <div class="w-16 h-16 bg-yellow-hero rounded-friendly flex items-center justify-center mb-6">
+          <span class="text-white text-3xl">💳</span>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">MySupercar wallet</h3>
+        <p class="text-gray-600 mb-6 leading-relaxed">
+          Gérez tous vos services auto en un seul endroit. Simple, rapide, efficace !
+        </p>
+        <a href="#" class="text-yellow-hero font-medium hover:underline inline-flex items-center" style="color: #d89150;">
+          En savoir plus
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Section -->
+<section class="py-20 bg-soft">
+  <div class="container mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+      <!-- Image - REMPLACER -->
+      <div class="order-2 md:order-1">
+        <div class="bg-white rounded-super p-8 shadow-lg">
+          <div class="bg-gray-100 rounded-friendly h-96 flex items-center justify-center">
+            <p class="text-gray-400 text-center px-8">
+              📸 PLACEHOLDER<br/>
+              <span class="text-sm">Ajouter photo/illustration de voiture heureuse ou équipe</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="order-1 md:order-2">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          Pourquoi choisir <span class="text-red-hero">Supercaralive</span> ?
+        </h2>
+        
+        <div class="space-y-6">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-red-hero rounded-friendly flex-shrink-0 flex items-center justify-center">
+              <span class="text-white text-xl">✓</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Experts passionnés</h3>
+              <p class="text-gray-600">Des professionnels qui aiment les voitures autant que vous</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-blue-hero rounded-friendly flex-shrink-0 flex items-center justify-center">
+              <span class="text-white text-xl">✓</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Service rapide</h3>
+              <p class="text-gray-600">Intervention express sans compromis sur la qualité</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-yellow-hero rounded-friendly flex-shrink-0 flex items-center justify-center">
+              <span class="text-white text-xl">✓</span>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Garantie satisfaction</h3>
+              <p class="text-gray-600">100% satisfait ou remboursé, votre confiance est notre mission</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="bg-blue-hero text-white py-20">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+      Prêt à sauver votre voiture ? 🚀
+    </h2>
+    <p class="text-xl mb-10 max-w-2xl mx-auto opacity-95">
+      Rejoignez des milliers d'automobilistes qui font confiance à Supercaralive
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <button class="bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-10 py-4 rounded-friendly font-bold text-lg">
+        Réserver maintenant
+      </button>
+      <button class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-10 py-4 rounded-friendly font-medium text-lg border-2 border-white">
+        Nous contacter
+      </button>
+    </div>
+  </div>
+</section>

@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'mockups/admin_users'
   get 'mockups/admin_analytics'
 
+  # Home/Landing page
+  get 'home', to: 'home#index'
+
   # Devise authentication with custom controllers
   devise_for :users, controllers: {
     registrations: "users/registrations",
