@@ -4,12 +4,22 @@ Rails.application.routes.draw do
   
   # Mockups routes
   get 'mockups/index'
+  get 'mockups/typography'
   get 'mockups/user_dashboard'
   get 'mockups/user_profile'
   get 'mockups/user_settings'
   get 'mockups/admin_dashboard'
   get 'mockups/admin_users'
   get 'mockups/admin_analytics'
+  
+  # Client mockup routes
+  namespace :client do
+    get 'dashboard', to: 'dashboard#index'
+    resources :professionals, only: [:index, :show]
+    resources :vehicles, only: [:index, :new, :edit]
+    resources :bookings, only: [:index, :new, :show, :edit]
+    resource :profile, only: [:show, :edit]
+  end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

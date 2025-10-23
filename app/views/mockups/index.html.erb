@@ -1,68 +1,301 @@
-<div class="w-full">
-  <h1 class="text-3xl font-bold text-center mb-8">Mockup Journey Explorer</h1>
-  
-  <div class="flex flex-col lg:flex-row gap-8">
-    <!-- User Journey Card -->
-    <div class="flex-1 bg-white p-6 rounded-lg shadow-md border border-blue-100">
-      <h2 class="text-2xl font-bold text-blue-600 mb-4">User Journey</h2>
-      <p class="text-gray-600 mb-6">Explore the user-facing interface mockups for the application.</p>
-      
-      <ul class="space-y-3 mb-8">
-        <li class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-          <span>User Dashboard - Overview of user activities</span>
-        </li>
-        <li class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-          <span>User Profile - Personal information management</span>
-        </li>
-        <li class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-          <span>User Settings - Customize application preferences</span>
-        </li>
-      </ul>
-      
-      <%= link_to "Explore User Journey", { controller: "mockups", action: "user_dashboard" }, class: "block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-    </div>
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-12">
     
-    <!-- Admin Journey Card -->
-    <div class="flex-1 bg-white p-6 rounded-lg shadow-md border border-purple-100">
-      <h2 class="text-2xl font-bold text-purple-600 mb-4">Admin Journey</h2>
-      <p class="text-gray-600 mb-6">Explore the administrative interface mockups for the application.</p>
-      
-      <ul class="space-y-3 mb-8">
-        <li class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-          <span>Admin Dashboard - System overview and statistics</span>
-        </li>
-        <li class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-          <span>User Management - Manage user accounts and permissions</span>
-        </li>
-        <li class="flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-purple-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-          </svg>
-          <span>Analytics - View usage statistics and reports</span>
-        </li>
-      </ul>
-      
-      <%= link_to "Explore Admin Journey", { controller: "mockups", action: "admin_dashboard" }, class: "block w-full text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" %>
+    <!-- Page Header -->
+    <div class="text-center mb-12">
+      <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        SUPERCAR<span class="text-red-hero">ALIVE</span>
+      </h1>
+      <p class="text-2xl text-gray-600 mb-2">Explorateur de Mockups</p>
+      <p class="text-lg text-gray-500">Parcourez toutes les maquettes disponibles par rôle utilisateur</p>
     </div>
-  </div>
-  
-  <div class="mt-8 text-center text-gray-600">
-    <p>These mockups demonstrate possible UI layouts and user flows for the application.</p>
-    <p class="text-sm mt-2">For development purposes only.</p>
+
+    <!-- Main Role Cards Grid -->
+    <div class="grid md:grid-cols-3 gap-8 mb-12">
+      
+      <!-- Client Card -->
+      <div class="bg-white rounded-super p-8 shadow-lg border-t-4 border-red-hero">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center space-x-3">
+            <div class="w-16 h-16 bg-red-hero rounded-friendly flex items-center justify-center">
+              <span class="text-white text-3xl">🚗</span>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900">Client</h2>
+              <span class="bg-red-50 text-red-800 px-2 py-1 rounded-friendly text-xs font-medium">
+                12 routes
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-gray-600 mb-6">
+          Interface client pour rechercher des professionnels et gérer les réservations
+        </p>
+
+        <div class="space-y-3 mb-6">
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📊 Tableau de bord</p>
+            <a href="<%= client_dashboard_path %>" class="text-sm text-blue-hero hover:underline block">
+              → Dashboard client
+            </a>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">🔍 Professionnels</p>
+            <a href="<%= client_professionals_path %>" class="text-sm text-blue-hero hover:underline block">
+              → Liste des professionnels
+            </a>
+            <a href="<%= client_professional_path(1) %>" class="text-sm text-blue-hero hover:underline block">
+              → Profil professionnel (détail)
+            </a>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">🚙 Véhicules</p>
+            <a href="<%= client_vehicles_path %>" class="text-sm text-blue-hero hover:underline block">
+              → Liste des véhicules
+            </a>
+            <a href="<%= new_client_vehicle_path %>" class="text-sm text-blue-hero hover:underline block">
+              → Ajouter un véhicule
+            </a>
+            <a href="<%= edit_client_vehicle_path(1) %>" class="text-sm text-blue-hero hover:underline block">
+              → Modifier un véhicule
+            </a>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📅 Réservations</p>
+            <a href="<%= client_bookings_path %>" class="text-sm text-blue-hero hover:underline block">
+              → Liste des réservations
+            </a>
+            <a href="<%= new_client_booking_path %>" class="text-sm text-blue-hero hover:underline block">
+              → Nouvelle réservation
+            </a>
+            <a href="<%= client_booking_path(1) %>" class="text-sm text-blue-hero hover:underline block">
+              → Détail réservation
+            </a>
+            <a href="<%= edit_client_booking_path(1) %>" class="text-sm text-blue-hero hover:underline block">
+              → Modifier réservation
+            </a>
+          </div>
+
+          <div class="pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">👤 Profil</p>
+            <a href="<%= client_profile_path %>" class="text-sm text-blue-hero hover:underline block">
+              → Mon profil
+            </a>
+            <a href="<%= edit_client_profile_path %>" class="text-sm text-blue-hero hover:underline block">
+              → Modifier mon profil
+            </a>
+          </div>
+        </div>
+
+        <a href="<%= client_dashboard_path %>" class="bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-friendly font-bold w-full block text-center">
+          Accéder au Dashboard Client
+        </a>
+      </div>
+
+      <!-- Professional Card -->
+      <div class="bg-white rounded-super p-8 shadow-lg border-t-4 border-blue-hero">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center space-x-3">
+            <div class="w-16 h-16 bg-blue-hero rounded-friendly flex items-center justify-center">
+              <span class="text-white text-3xl">🔧</span>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900">Professionnel</h2>
+              <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-friendly text-xs font-medium">
+                Bientôt disponible
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-gray-600 mb-6">
+          Interface professionnelle pour gérer services, disponibilités et réservations
+        </p>
+
+        <div class="space-y-3 mb-6 opacity-50">
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📊 Tableau de bord</p>
+            <span class="text-sm text-gray-500 block">→ Dashboard professionnel</span>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">👤 Profil</p>
+            <span class="text-sm text-gray-500 block">→ Mon profil pro</span>
+            <span class="text-sm text-gray-500 block">→ Modifier mon profil</span>
+            <span class="text-sm text-gray-500 block">→ Prévisualisation profil</span>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📄 Vérification</p>
+            <span class="text-sm text-gray-500 block">→ Documents de vérification</span>
+            <span class="text-sm text-gray-500 block">→ Services proposés</span>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📅 Disponibilités</p>
+            <span class="text-sm text-gray-500 block">→ Gérer créneaux</span>
+            <span class="text-sm text-gray-500 block">→ Calendrier</span>
+          </div>
+
+          <div class="pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📋 Réservations</p>
+            <span class="text-sm text-gray-500 block">→ Liste réservations</span>
+            <span class="text-sm text-gray-500 block">→ Détail réservation</span>
+          </div>
+        </div>
+
+        <button class="bg-gray-300 text-gray-500 px-6 py-3 rounded-friendly font-bold w-full cursor-not-allowed" disabled>
+          En cours de développement
+        </button>
+      </div>
+
+      <!-- Admin Card -->
+      <div class="bg-white rounded-super p-8 shadow-lg border-t-4 border-yellow-hero">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center space-x-3">
+            <div class="w-16 h-16 bg-yellow-hero rounded-friendly flex items-center justify-center">
+              <span class="text-white text-3xl">⚙️</span>
+            </div>
+            <div>
+              <h2 class="text-2xl font-bold text-gray-900">Admin</h2>
+              <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-friendly text-xs font-medium">
+                3 routes (legacy)
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-gray-600 mb-6">
+          Interface d'administration pour gérer la plateforme et les utilisateurs
+        </p>
+
+        <div class="space-y-3 mb-6">
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">📊 Tableaux de bord</p>
+            <a href="/mockups/admin_dashboard" class="text-sm text-blue-hero hover:underline block">
+              → Dashboard admin (legacy)
+            </a>
+          </div>
+
+          <div class="border-b border-gray-100 pb-2">
+            <p class="text-sm font-bold text-gray-700 mb-2">👥 Gestion</p>
+            <a href="/mockups/admin_users" class="text-sm text-blue-hero hover:underline block">
+              → Utilisateurs (legacy)
+            </a>
+            <a href="/mockups/admin_analytics" class="text-sm text-blue-hero hover:underline block">
+              → Analytiques (legacy)
+            </a>
+          </div>
+
+          <div class="pb-2 opacity-50">
+            <p class="text-sm font-bold text-gray-700 mb-2">🔍 À venir</p>
+            <span class="text-sm text-gray-500 block">→ Approbations professionnels</span>
+            <span class="text-sm text-gray-500 block">→ Catalogue services</span>
+            <span class="text-sm text-gray-500 block">→ Modération avis</span>
+            <span class="text-sm text-gray-500 block">→ Monitoring plateforme</span>
+          </div>
+        </div>
+
+        <a href="/mockups/admin_dashboard" class="bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-6 py-3 rounded-friendly font-bold w-full block text-center">
+          Accéder au Dashboard Admin
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Additional Resources Section -->
+    <div class="bg-white rounded-super p-8 shadow-sm mb-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Ressources supplémentaires</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Typography -->
+        <div class="border border-gray-200 rounded-friendly p-6 hover:shadow-md transition">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-red-hero rounded-friendly flex items-center justify-center flex-shrink-0">
+              <span class="text-white text-2xl">🎨</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Design System</h3>
+              <p class="text-gray-600 mb-4">
+                Explorez tous les éléments typographiques, couleurs, boutons et composants du design system Supercaralive
+              </p>
+              <a href="/mockups/typography" class="text-blue-hero font-medium hover:underline inline-flex items-center">
+                Voir la typographie →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Old User Mockups -->
+        <div class="border border-gray-200 rounded-friendly p-6 hover:shadow-md transition">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-blue-hero rounded-friendly flex items-center justify-center flex-shrink-0">
+              <span class="text-white text-2xl">📦</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Mockups Legacy</h3>
+              <p class="text-gray-600 mb-3">
+                Anciennes maquettes utilisateur (remplacées par les nouvelles routes client)
+              </p>
+              <div class="space-y-1">
+                <a href="/mockups/user_dashboard" class="text-sm text-gray-500 hover:text-blue-hero block">
+                  → User Dashboard (old)
+                </a>
+                <a href="/mockups/user_profile" class="text-sm text-gray-500 hover:text-blue-hero block">
+                  → User Profile (old)
+                </a>
+                <a href="/mockups/user_settings" class="text-sm text-gray-500 hover:text-blue-hero block">
+                  → User Settings (old)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Summary -->
+    <div class="grid md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-red-50 rounded-friendly p-6 text-center">
+        <p class="text-4xl font-bold text-red-hero mb-2">12</p>
+        <p class="text-sm text-gray-600">Routes Client</p>
+      </div>
+      <div class="bg-blue-50 rounded-friendly p-6 text-center">
+        <p class="text-4xl font-bold text-blue-hero mb-2">0</p>
+        <p class="text-sm text-gray-600">Routes Pro (bientôt)</p>
+      </div>
+      <div class="bg-yellow-50 rounded-friendly p-6 text-center">
+        <p class="text-4xl font-bold text-yellow-hero mb-2">3</p>
+        <p class="text-sm text-gray-600">Routes Admin</p>
+      </div>
+      <div class="bg-green-50 rounded-friendly p-6 text-center">
+        <p class="text-4xl font-bold text-green-600 mb-2">16</p>
+        <p class="text-sm text-gray-600">Total Routes</p>
+      </div>
+    </div>
+
+    <!-- Info Footer -->
+    <div class="text-center">
+      <div class="bg-blue-50 border-l-4 border-blue-hero rounded-friendly p-6 inline-block">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3 text-left">
+            <h3 class="text-sm font-bold text-blue-800">Note de développement</h3>
+            <p class="text-sm text-blue-700 mt-1">
+              Ces mockups sont des interfaces statiques sans logique backend. Elles servent de référence visuelle pour le développement complet de l'application.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

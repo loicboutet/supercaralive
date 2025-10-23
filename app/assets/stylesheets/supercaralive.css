@@ -1,0 +1,108 @@
+/* Supercaralive Typography and Design System CSS */
+/* Based on supercaralive-homepage.html */
+
+:root {
+    --red-hero: #E63946;
+    --blue-hero: #457B9D;
+    --yellow-hero: #F4A261;
+    --bg-soft: #FAFAFA;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Background Colors */
+.bg-red-hero { 
+    background-color: var(--red-hero); 
+}
+
+.bg-blue-hero { 
+    background-color: var(--blue-hero); 
+}
+
+.bg-yellow-hero { 
+    background-color: var(--yellow-hero); 
+}
+
+.bg-soft { 
+    background-color: var(--bg-soft); 
+}
+
+/* Text Colors */
+.text-red-hero { 
+    color: var(--red-hero); 
+}
+
+.text-blue-hero { 
+    color: var(--blue-hero); 
+}
+
+.text-yellow-hero { 
+    color: var(--yellow-hero); 
+}
+
+/* Border Colors */
+.border-red-hero { 
+    border-color: var(--red-hero); 
+}
+
+.border-blue-hero { 
+    border-color: var(--blue-hero); 
+}
+
+.border-yellow-hero { 
+    border-color: var(--yellow-hero); 
+}
+
+/* Hover States */
+.hover\:bg-red-dark:hover { 
+    background-color: #d32f3c; 
+}
+
+.hover\:bg-blue-dark:hover { 
+    background-color: #3a6782; 
+}
+
+/* Typography - Headings */
+h1, h2, h3 {
+    font-family: 'Montserrat', 'Quicksand', sans-serif;
+    font-weight: 700;
+}
+
+/* Card Hover Effects */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* Gradient Background */
+.hero-gradient {
+    background: linear-gradient(135deg, var(--red-hero) 0%, var(--blue-hero) 100%);
+}
+
+/* Custom Border Radius */
+.rounded-friendly { 
+    border-radius: 16px; 
+}
+
+.rounded-super { 
+    border-radius: 24px; 
+}
+
+/* Focus Ring Colors for Forms */
+.focus\:ring-red-hero:focus {
+    --tw-ring-color: var(--red-hero);
+}
+
+.focus\:ring-blue-hero:focus {
+    --tw-ring-color: var(--blue-hero);
+}
+
+.focus\:ring-yellow-hero:focus {
+    --tw-ring-color: var(--yellow-hero);
+}

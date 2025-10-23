@@ -1,0 +1,299 @@
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Welcome Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+        Bonjour, <span class="text-red-hero">Sophie</span> 👋
+      </h1>
+      <p class="text-xl text-gray-600">
+        Bienvenue sur votre tableau de bord Supercaralive
+      </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-friendly p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-600">Réservations</span>
+          <div class="w-10 h-10 bg-red-hero rounded-friendly flex items-center justify-center">
+            <span class="text-white text-xl">📅</span>
+          </div>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">3</p>
+        <p class="text-sm text-gray-500 mt-1">À venir</p>
+      </div>
+
+      <div class="bg-white rounded-friendly p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-600">Véhicules</span>
+          <div class="w-10 h-10 bg-blue-hero rounded-friendly flex items-center justify-center">
+            <span class="text-white text-xl">🚗</span>
+          </div>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">2</p>
+        <p class="text-sm text-gray-500 mt-1">Enregistrés</p>
+      </div>
+
+      <div class="bg-white rounded-friendly p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-600">Services</span>
+          <div class="w-10 h-10 bg-yellow-hero rounded-friendly flex items-center justify-center">
+            <span class="text-white text-xl">✓</span>
+          </div>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">12</p>
+        <p class="text-sm text-gray-500 mt-1">Terminés</p>
+      </div>
+
+      <div class="bg-white rounded-friendly p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-600">Rappels</span>
+          <div class="w-10 h-10 bg-red-hero rounded-friendly flex items-center justify-center">
+            <span class="text-white text-xl">🔔</span>
+          </div>
+        </div>
+        <p class="text-3xl font-bold text-gray-900">1</p>
+        <p class="text-sm text-gray-500 mt-1">Entretien dû</p>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Left Column - Upcoming Bookings -->
+      <div class="md:col-span-2 space-y-6">
+        
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Actions rapides</h2>
+          <div class="grid md:grid-cols-3 gap-4">
+            <a href="<%= client_professionals_path %>" class="bg-red-hero hover:bg-red-dark text-white px-6 py-4 rounded-friendly font-medium text-center transition">
+              🔍 Trouver un pro
+            </a>
+            <a href="<%= client_vehicles_path %>" class="bg-blue-hero hover:bg-blue-dark text-white px-6 py-4 rounded-friendly font-medium text-center transition">
+              🚗 Mes véhicules
+            </a>
+            <a href="<%= client_bookings_path %>" class="bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-6 py-4 rounded-friendly font-medium text-center transition">
+              📋 Mes réservations
+            </a>
+          </div>
+        </div>
+
+        <!-- Upcoming Bookings -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Prochaines réservations</h2>
+            <a href="<%= client_bookings_path %>" class="text-red-hero font-medium hover:underline">Tout voir</a>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Booking Card 1 -->
+            <div class="border border-gray-200 rounded-friendly p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-start space-x-3">
+                  <div class="w-12 h-12 bg-red-hero rounded-friendly flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xl">🔧</span>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900">Révision annuelle</h3>
+                    <p class="text-sm text-gray-600">avec Jean Dupont - MySupermécano</p>
+                  </div>
+                </div>
+                <span class="bg-yellow-50 text-yellow-800 px-3 py-1 rounded-friendly text-xs font-medium">
+                  En attente
+                </span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600 space-x-4">
+                <span>📅 Lun 27 jan 2025, 14:00</span>
+                <span>🚗 Peugeot 308</span>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-lg font-bold text-red-hero">€120</span>
+                <a href="<%= client_booking_path(1) %>" class="text-blue-hero font-medium hover:underline text-sm">
+                  Voir détails →
+                </a>
+              </div>
+            </div>
+
+            <!-- Booking Card 2 -->
+            <div class="border border-gray-200 rounded-friendly p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-start space-x-3">
+                  <div class="w-12 h-12 bg-blue-hero rounded-friendly flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xl">💧</span>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900">Lavage complet</h3>
+                    <p class="text-sm text-gray-600">avec Marie Martin - MySupercarwasher</p>
+                  </div>
+                </div>
+                <span class="bg-green-50 text-green-800 px-3 py-1 rounded-friendly text-xs font-medium">
+                  Confirmé
+                </span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600 space-x-4">
+                <span>📅 Mer 29 jan 2025, 10:00</span>
+                <span>🚗 Renault Clio</span>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-lg font-bold text-blue-hero">€45</span>
+                <a href="<%= client_booking_path(2) %>" class="text-blue-hero font-medium hover:underline text-sm">
+                  Voir détails →
+                </a>
+              </div>
+            </div>
+
+            <!-- Booking Card 3 -->
+            <div class="border border-gray-200 rounded-friendly p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-start space-x-3">
+                  <div class="w-12 h-12 bg-red-hero rounded-friendly flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xl">🔧</span>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900">Changement pneus</h3>
+                    <p class="text-sm text-gray-600">avec Pierre Leblanc - MySupermécano</p>
+                  </div>
+                </div>
+                <span class="bg-green-50 text-green-800 px-3 py-1 rounded-friendly text-xs font-medium">
+                  Confirmé
+                </span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600 space-x-4">
+                <span>📅 Sam 01 fév 2025, 09:00</span>
+                <span>🚗 Peugeot 308</span>
+              </div>
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-lg font-bold text-red-hero">€280</span>
+                <a href="<%= client_booking_path(3) %>" class="text-blue-hero font-medium hover:underline text-sm">
+                  Voir détails →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Activité récente</h2>
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3 pb-4 border-b border-gray-100">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+              <div class="flex-1">
+                <p class="text-gray-900">Réservation confirmée avec <span class="font-medium">Marie Martin</span></p>
+                <p class="text-sm text-gray-500">Il y a 2 heures</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3 pb-4 border-b border-gray-100">
+              <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+              <div class="flex-1">
+                <p class="text-gray-900">Nouveau message de <span class="font-medium">Jean Dupont</span></p>
+                <p class="text-sm text-gray-500">Il y a 5 heures</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
+              <div class="flex-1">
+                <p class="text-gray-900">Paiement effectué pour lavage complet</p>
+                <p class="text-sm text-gray-500">Hier</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Sidebar -->
+      <div class="space-y-6">
+        
+        <!-- My Vehicles -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-gray-900">Mes véhicules</h2>
+            <a href="<%= client_vehicles_path %>" class="text-blue-hero font-medium hover:underline text-sm">Gérer</a>
+          </div>
+          <div class="space-y-3">
+            <div class="border border-gray-200 rounded-friendly p-3">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-red-hero rounded-friendly flex items-center justify-center">
+                  <span class="text-white">🚗</span>
+                </div>
+                <div>
+                  <p class="font-medium text-gray-900">Peugeot 308</p>
+                  <p class="text-sm text-gray-600">125 000 km</p>
+                </div>
+              </div>
+            </div>
+            <div class="border border-gray-200 rounded-friendly p-3">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-blue-hero rounded-friendly flex items-center justify-center">
+                  <span class="text-white">🚗</span>
+                </div>
+                <div>
+                  <p class="font-medium text-gray-900">Renault Clio</p>
+                  <p class="text-sm text-gray-600">45 000 km</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maintenance Reminders -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-hero rounded-friendly p-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-yellow-hero" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-bold text-yellow-800">Rappel d'entretien</h3>
+              <p class="text-sm text-yellow-700 mt-1">
+                Révision annuelle recommandée pour votre Peugeot 308
+              </p>
+              <button class="mt-2 text-sm text-yellow-800 font-medium hover:underline">
+                Prendre rendez-vous →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Profile -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-gray-900">Mon profil</h2>
+            <a href="<%= edit_client_profile_path %>" class="text-blue-hero font-medium hover:underline text-sm">Modifier</a>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-red-hero rounded-full flex items-center justify-center">
+                <span class="text-white text-xl font-bold">SP</span>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900">Sophie P.</p>
+                <p class="text-sm text-gray-600">sophie.p@email.fr</p>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-gray-100">
+              <p class="text-sm text-gray-600">📍 Paris, France</p>
+              <p class="text-sm text-gray-600">📞 06 12 34 56 78</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Help & Support -->
+        <div class="bg-blue-50 rounded-super p-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Besoin d'aide ?</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            Notre équipe est disponible pour répondre à vos questions
+          </p>
+          <button class="bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-friendly font-medium text-sm w-full">
+            Contacter le support
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
