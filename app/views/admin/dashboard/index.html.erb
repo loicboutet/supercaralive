@@ -1,0 +1,83 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">Admin Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-2">Pending Approvals</h3>
+      <p class="text-3xl font-bold text-orange-600">7</p>
+      <a href="/admin/professional_approvals" class="text-blue-600 hover:underline text-sm">Review</a>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-2">Total Users</h3>
+      <p class="text-3xl font-bold text-blue-600">342</p>
+      <a href="/admin/users" class="text-blue-600 hover:underline text-sm">View All</a>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-2">Total Bookings</h3>
+      <p class="text-3xl font-bold text-green-600">1,256</p>
+      <a href="/admin/bookings" class="text-blue-600 hover:underline text-sm">View All</a>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold mb-2">System Status</h3>
+      <p class="text-sm font-semibold text-green-600">Operational</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-2xl font-bold mb-4">Recent Bookings</h2>
+    <table class="w-full">
+      <thead>
+        <tr class="border-b">
+          <th class="text-left py-2">ID</th>
+          <th class="text-left py-2">Client</th>
+          <th class="text-left py-2">Professional</th>
+          <th class="text-left py-2">Service</th>
+          <th class="text-left py-2">Date</th>
+          <th class="text-left py-2">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b">
+          <td class="py-2">#1234</td>
+          <td class="py-2">Jean Dupont</td>
+          <td class="py-2">AutoPro Garage</td>
+          <td class="py-2">Oil Change</td>
+          <td class="py-2">December 14, 2025</td>
+          <td class="py-2"><span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">Confirmed</span></td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2">#1235</td>
+          <td class="py-2">Marie Martin</td>
+          <td class="py-2">QuickFix Motors</td>
+          <td class="py-2">Brake Service</td>
+          <td class="py-2">December 15, 2025</td>
+          <td class="py-2"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">Pending</span></td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2">#1236</td>
+          <td class="py-2">Pierre Bernard</td>
+          <td class="py-2">Elite Car Service</td>
+          <td class="py-2">Full Service</td>
+          <td class="py-2">December 16, 2025</td>
+          <td class="py-2"><span class="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">Completed</span></td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2">#1237</td>
+          <td class="py-2">Sophie Lefebvre</td>
+          <td class="py-2">AutoPro Garage</td>
+          <td class="py-2">Tire Replacement</td>
+          <td class="py-2">December 17, 2025</td>
+          <td class="py-2"><span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">Confirmed</span></td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2">#1238</td>
+          <td class="py-2">Luc Moreau</td>
+          <td class="py-2">Premium Auto Care</td>
+          <td class="py-2">Engine Diagnostic</td>
+          <td class="py-2">December 18, 2025</td>
+          <td class="py-2"><span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">Pending</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

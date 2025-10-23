@@ -1,4 +1,4 @@
-class Client::DashboardController < ApplicationController
+class Professional::DashboardController < ApplicationController
   layout 'user'
 
   def index

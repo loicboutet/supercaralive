@@ -1,15 +1,7 @@
-class Client::VehiclesController < ApplicationController
+class Client::MaintenanceRemindersController < ApplicationController
 
   def index
     # TODO: Implement index
-  end
-
-  def new
-    # TODO: Implement new
-  end
-
-  def edit
-    # TODO: Implement edit
   end
 
   def create

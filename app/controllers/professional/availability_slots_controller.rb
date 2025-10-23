@@ -1,11 +1,11 @@
-class Client::BookingsController < ApplicationController
+class Professional::AvailabilitySlotsController < ApplicationController
 
   def index
     # TODO: Implement index
   end
 
-  def show
-    # TODO: Implement show
+  def calendar
+    # TODO: Implement calendar
   end
 
   def new
@@ -26,10 +26,6 @@ class Client::BookingsController < ApplicationController
 
   def destroy
     # TODO: Implement destroy
-  end
-
-  def cancel
-    # TODO: Implement cancel
   end
 
 end

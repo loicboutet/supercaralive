@@ -1,4 +1,4 @@
-class Client::ProfilesController < ApplicationController
+class Professional::ProfileController < ApplicationController
 
   def show
     # TODO: Implement show
@@ -10,6 +10,10 @@ class Client::ProfilesController < ApplicationController
 
   def update
     # TODO: Implement update
+  end
+
+  def preview
+    # TODO: Implement preview
   end
 
 end

@@ -1,11 +1,16 @@
 class Client::ProfessionalsController < ApplicationController
-  layout 'user'
-  
+    layout 'user'
+
   def index
-    # Mockup - no database logic
+    # TODO: Implement index
   end
-  
+
   def show
-    # Mockup - no database logic
+    # TODO: Implement show
   end
+
+  def availability
+    # TODO: Implement availability
+  end
+
 end

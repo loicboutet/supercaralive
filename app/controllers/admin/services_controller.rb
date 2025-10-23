@@ -1,4 +1,4 @@
-class Client::BookingsController < ApplicationController
+class Admin::ServicesController < ApplicationController
 
   def index
     # TODO: Implement index
@@ -26,10 +26,6 @@ class Client::BookingsController < ApplicationController
 
   def destroy
     # TODO: Implement destroy
-  end
-
-  def cancel
-    # TODO: Implement cancel
   end
 
 end

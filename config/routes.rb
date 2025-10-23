@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
-  get "home/index"
-  devise_for :users
-  
-  # Mockups routes
+  # Mockups routes (for development/design reference)
   get 'mockups/index'
   get 'mockups/typography'
   get 'mockups/user_dashboard'
@@ -11,26 +8,147 @@ Rails.application.routes.draw do
   get 'mockups/admin_dashboard'
   get 'mockups/admin_users'
   get 'mockups/admin_analytics'
-  
-  # Client mockup routes
-  namespace :client do
-    get 'dashboard', to: 'dashboard#index'
-    resources :professionals, only: [:index, :show]
-    resources :vehicles, only: [:index, :new, :edit]
-    resources :bookings, only: [:index, :new, :show, :edit]
-    resource :profile, only: [:show, :edit]
-  end
-  
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Devise authentication with custom controllers
+  devise_for :users, controllers: {
+    registrations: "users/registrations",
+    sessions: "users/sessions"
+  }
+
+  # Authenticated users go to client dashboard by default
+  authenticated :user do
+    root to: "client/dashboard#index", as: :authenticated_root
+  end
+
+  # Client Routes
+  namespace :client do
+    root to: "dashboard#index"
+    
+    # Profile management
+    resource :profile, only: [:show, :edit, :update]
+    
+    # Vehicle management
+    resources :vehicles, except: [:show]
+    
+    # Professional search and browsing
+    resources :professionals, only: [:index, :show] do
+      member do
+        get :availability
+      end
+    end
+    
+    # Bookings
+    resources :bookings do
+      member do
+        patch :cancel
+      end
+      resources :messages, only: [:index, :create]
+    end
+    
+    # Brick 2 - Payment & Reviews
+    resources :payments, only: [:create, :show] do
+      member do
+        get :success
+        get :cancel
+      end
+    end
+    
+    resource :wallet, only: [:show]
+    
+    resources :invoices, only: [:index, :show] do
+      member do
+        get :download
+      end
+    end
+    
+    resources :reviews, only: [:new, :create]
+    
+    resources :maintenance_reminders, only: [:index, :create, :update, :destroy]
+  end
+
+  # Professional Routes
+  namespace :professional do
+    root to: "dashboard#index"
+    
+    # Profile management
+    resource :profile, only: [:show, :edit, :update] do
+      member do
+        get :preview
+      end
+    end
+    
+    # Document uploads for verification
+    resources :verification_documents, only: [:index, :create, :destroy]
+    
+    # Service offerings
+    resources :professional_services, only: [:index, :create, :update, :destroy]
+    
+    # Availability calendar
+    resources :availability_slots, except: [:show] do
+      collection do
+        get :calendar
+      end
+    end
+    
+    # Bookings management
+    resources :bookings, only: [:index, :show] do
+      member do
+        patch :confirm
+        patch :reject
+        patch :complete
+        patch :update_price
+      end
+      resources :messages, only: [:index, :create]
+    end
+    
+    # Brick 2 - Reviews & Invoices
+    resources :reviews, only: [:index, :new, :create]
+    resources :invoices, only: [:index, :show]
+  end
+
+  # Admin Routes
+  namespace :admin do
+    root to: "dashboard#index"
+    
+    # User management
+    resources :users, only: [:index, :show, :edit, :update] do
+      member do
+        patch :suspend
+        patch :activate
+      end
+    end
+    
+    # Professional approval workflow
+    resources :professional_approvals, only: [:index, :show] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
+    
+    # Service catalog management
+    resources :services
+    
+    # Brick 2 - Review moderation
+    resources :reviews, only: [:index, :show] do
+      member do
+        patch :approve
+        patch :reject
+        patch :flag
+      end
+    end
+    
+    # System monitoring (read-only)
+    resources :bookings, only: [:index, :show]
+    resources :payments, only: [:index, :show]
+  end
+
+  # Stripe webhooks (Brick 2)
+  post "webhooks/stripe", to: "webhooks#stripe"
+
+  # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
+  # Root points to mockups index
   root "mockups#index"
 end
