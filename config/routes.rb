@@ -74,10 +74,8 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
     
     # Profile management
-    resource :profile, only: [:show, :edit, :update] do
-      member do
-        get :preview
-      end
+    resource :profile, only: [:show, :edit, :update], controller: 'profile' do
+      get :preview
     end
     
     # Document uploads for verification

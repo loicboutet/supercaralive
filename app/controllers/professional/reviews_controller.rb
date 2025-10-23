@@ -1,15 +1,7 @@
-class Professional::ReviewsController < ApplicationController
-
+class Professional::ReviewsController < Professional::BaseController
   def index
-    # TODO: Implement index
   end
 
   def new
-    # TODO: Implement new
   end
-
-  def create
-    # TODO: Implement create
-  end
-
 end

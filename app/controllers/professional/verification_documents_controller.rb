@@ -1,15 +1,4 @@
-class Professional::VerificationDocumentsController < ApplicationController
-
+class Professional::VerificationDocumentsController < Professional::BaseController
   def index
-    # TODO: Implement index
   end
-
-  def create
-    # TODO: Implement create
-  end
-
-  def destroy
-    # TODO: Implement destroy
-  end
-
 end

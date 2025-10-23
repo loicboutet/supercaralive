@@ -1,19 +1,4 @@
-class Professional::ProfessionalServicesController < ApplicationController
-
+class Professional::ProfessionalServicesController < Professional::BaseController
   def index
-    # TODO: Implement index
   end
-
-  def create
-    # TODO: Implement create
-  end
-
-  def update
-    # TODO: Implement update
-  end
-
-  def destroy
-    # TODO: Implement destroy
-  end
-
 end

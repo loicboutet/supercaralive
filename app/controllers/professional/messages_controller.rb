@@ -1,11 +1,4 @@
-class Professional::MessagesController < ApplicationController
-
+class Professional::MessagesController < Professional::BaseController
   def index
-    # TODO: Implement index
   end
-
-  def create
-    # TODO: Implement create
-  end
-
 end

@@ -1,11 +1,7 @@
-class Professional::InvoicesController < ApplicationController
-
+class Professional::InvoicesController < Professional::BaseController
   def index
-    # TODO: Implement index
   end
 
   def show
-    # TODO: Implement show
   end
-
 end

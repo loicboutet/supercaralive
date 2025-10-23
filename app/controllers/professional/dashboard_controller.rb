@@ -1,8 +1,4 @@
-class Professional::DashboardController < ApplicationController
-  layout 'user'
-
+class Professional::DashboardController < Professional::BaseController
   def index
-    # TODO: Implement index
   end
-
 end
