@@ -56,12 +56,20 @@ body {
 }
 
 /* Hover States */
+.hover\:bg-red-hero:hover { 
+    background-color: var(--red-hero); 
+}
+
 .hover\:bg-red-dark:hover { 
     background-color: #d32f3c; 
 }
 
 .hover\:bg-blue-dark:hover { 
     background-color: #3a6782; 
+}
+
+.hover\:text-white:hover {
+    color: white;
 }
 
 /* Typography - Headings */
