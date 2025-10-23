@@ -105,9 +105,14 @@
             </div>
           </div>
 
-          <%= form_with url: client_booking_messages_path(@booking), class: "flex space-x-2" do |f| %>
+          <%= form_with url: client_booking_messages_path(@booking), class: "flex items-center space-x-2" do |f| %>
             <%= f.text_field :content, class: "flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Écrivez votre message..." %>
-            <%= f.submit "Envoyer", class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold cursor-pointer" %>
+            <%= f.button type: "submit", class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold cursor-pointer flex items-center justify-center space-x-2" do %>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+              </svg>
+              <span>Envoyer</span>
+            <% end %>
           <% end %>
         </div>
       </div>
@@ -128,7 +133,12 @@
               </div>
             </div>
           </div>
-          <%= link_to "Voir le profil", client_professional_path(@booking&.professional_id || 1), class: "block w-56 mx-auto bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium text-center" %>
+          <%= link_to client_professional_path(@booking&.professional_id || 1), class: "w-56 mx-auto bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            Voir le profil
+          <% end %>
         </div>
 
         <!-- Pricing -->
@@ -152,7 +162,12 @@
               </div>
             </div>
             <% if @booking.status == 'confirmed' && !@booking.paid? %>
-              <%= link_to "Procéder au paiement", client_payment_path(@booking), class: "block w-56 mx-auto bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-bold text-center" %>
+              <%= link_to client_payment_path(@booking), class: "w-72 mx-auto bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-bold flex items-center justify-center" do %>
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                </svg>
+                Procéder au paiement
+              <% end %>
             <% elsif @booking.paid? %>
               <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg">
                 <p class="text-sm font-bold text-green-800">✓ Payé</p>

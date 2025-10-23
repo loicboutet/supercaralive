@@ -77,9 +77,12 @@
             <p class="text-sm text-gray-600 mb-2">À partir de</p>
             <p class="text-4xl font-bold text-red-hero mb-1">€50</p>
             <p class="text-sm text-gray-600 mb-4">par heure</p>
-            <a href="<%= new_client_booking_path %>" class="bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold text-lg w-64 block mb-3 mx-auto">
+            <%= link_to new_client_booking_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold text-lg w-64 block mb-3 mx-auto inline-flex items-center justify-center" do %>
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
               Réserver maintenant
-            </a>
+            <% end %>
             <p class="text-xs text-gray-500">+ Frais de déplacement selon zone</p>
           </div>
 
