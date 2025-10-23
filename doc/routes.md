@@ -3,8 +3,8 @@
 ## Public Routes
 
 ```ruby
-# Root and authentication
-root "home#index"                                    # Homepage with search/login options
+# Root points to login
+root "users/sessions#new"
 
 # Devise authentication (Devise generates these)
 devise_for :users, controllers: {
@@ -165,6 +165,7 @@ post "webhooks/stripe", to: "webhooks#stripe"
 ## Route Helpers Summary
 
 ### Most Common Paths:
+- `root_path` → Login page
 - `client_root_path` → Client dashboard
 - `professional_root_path` → Professional dashboard  
 - `admin_root_path` → Admin dashboard
@@ -201,6 +202,7 @@ end
 
 ## Notes
 
+- Root path points directly to login (no landing page)
 - All routes follow RESTful conventions
 - Namespaces separate concerns by user role
 - Messages are always scoped to bookings (no standalone messaging)
