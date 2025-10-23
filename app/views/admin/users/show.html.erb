@@ -1,0 +1,295 @@
+<% content_for :page_title, "User Details" %>
+
+<!-- Breadcrumb -->
+<div class="mb-6">
+  <nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-2">
+      <li class="inline-flex items-center">
+        <%= link_to admin_users_path, class: "text-gray-600 hover:text-blue-hero inline-flex items-center" do %>
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Utilisateurs
+        <% end %>
+      </li>
+      <li>
+        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+        </svg>
+      </li>
+      <li class="text-gray-900 font-medium">Sophie P.</li>
+    </ol>
+  </nav>
+</div>
+
+<!-- Page Header -->
+<div class="mb-8">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+        Détails <span class="text-red-hero">Utilisateur</span> 👤
+      </h1>
+      <p class="text-xl text-gray-600">
+        Informations complètes du compte utilisateur
+      </p>
+    </div>
+    <div class="flex space-x-3">
+      <button class="bg-yellow-hero hover:bg-opacity-90 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+        </svg>
+        Modifier
+      </button>
+      <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+        </svg>
+        Suspendre
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Grid -->
+<div class="grid md:grid-cols-3 gap-8">
+  
+  <!-- Left Column - User Profile -->
+  <div class="space-y-6">
+    
+    <!-- Profile Card -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <div class="text-center mb-6">
+        <div class="w-24 h-24 bg-red-hero rounded-full flex items-center justify-center mx-auto mb-4">
+          <span class="text-white text-4xl font-bold">SP</span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-1">Sophie P.</h2>
+        <p class="text-gray-600 mb-2">sophie.p@email.fr</p>
+        <span class="px-4 py-2 bg-red-100 text-red-800 rounded-lg text-sm font-medium inline-block">Client</span>
+      </div>
+
+      <div class="border-t border-gray-200 pt-4 space-y-3">
+        <div class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+          </svg>
+          <span class="text-gray-700">06 12 34 56 78</span>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span class="text-gray-700">Paris, France</span>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span class="text-gray-700">Inscrit le 15/01/2025</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Account Status -->
+    <div class="bg-green-50 border-l-4 border-green-500 rounded-lg p-4">
+      <div class="flex items-start">
+        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div>
+          <h3 class="text-sm font-bold text-green-800">Compte Actif</h3>
+          <p class="text-sm text-green-700 mt-1">
+            L'utilisateur peut accéder à tous les services
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Statistiques</h3>
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-gray-600">Réservations</span>
+          <span class="text-2xl font-bold text-blue-hero">12</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-600">Véhicules</span>
+          <span class="text-2xl font-bold text-red-hero">2</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-600">Avis laissés</span>
+          <span class="text-2xl font-bold text-yellow-hero">8</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-gray-600">Dépenses totales</span>
+          <span class="text-2xl font-bold text-green-500">€1,450</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Column - Activity & Details -->
+  <div class="md:col-span-2 space-y-6">
+    
+    <!-- Recent Bookings -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Réservations récentes</h2>
+        <a href="#" class="text-blue-hero font-medium hover:underline inline-flex items-center">
+          Voir toutes
+          <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Booking 1 -->
+        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-start space-x-3">
+              <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="text-white text-xl">🔧</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900">Révision annuelle</h3>
+                <p class="text-sm text-gray-600">avec Jean Dupont - MySupermécano</p>
+              </div>
+            </div>
+            <span class="bg-green-50 text-green-800 px-3 py-1 rounded-lg text-xs font-medium">
+              Terminé
+            </span>
+          </div>
+          <div class="flex items-center text-sm text-gray-600 space-x-4">
+            <span>📅 15 déc 2024</span>
+            <span>🚗 Peugeot 308</span>
+          </div>
+          <div class="mt-3 flex items-center justify-between">
+            <span class="text-lg font-bold text-red-hero">€120</span>
+            <a href="#" class="text-blue-hero font-medium hover:underline text-sm inline-flex items-center">
+              Voir détails
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Booking 2 -->
+        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+          <div class="flex items-start justify-between mb-3">
+            <div class="flex items-start space-x-3">
+              <div class="w-12 h-12 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
+                <span class="text-white text-xl">💧</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900">Lavage complet</h3>
+                <p class="text-sm text-gray-600">avec Marie Martin - MySupercarwasher</p>
+              </div>
+            </div>
+            <span class="bg-blue-50 text-blue-800 px-3 py-1 rounded-lg text-xs font-medium">
+              Confirmé
+            </span>
+          </div>
+          <div class="flex items-center text-sm text-gray-600 space-x-4">
+            <span>📅 29 jan 2025</span>
+            <span>🚗 Renault Clio</span>
+          </div>
+          <div class="mt-3 flex items-center justify-between">
+            <span class="text-lg font-bold text-blue-hero">€45</span>
+            <a href="#" class="text-blue-hero font-medium hover:underline text-sm inline-flex items-center">
+              Voir détails
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicles -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Véhicules enregistrés</h2>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center space-x-3 mb-3">
+            <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center">
+              <span class="text-white text-2xl">🚗</span>
+            </div>
+            <div>
+              <p class="font-bold text-gray-900">Peugeot 308</p>
+              <p class="text-sm text-gray-600">Immatriculé en 2018</p>
+            </div>
+          </div>
+          <div class="text-sm text-gray-600 space-y-1">
+            <p><strong>Kilométrage:</strong> 125,000 km</p>
+            <p><strong>Immatriculation:</strong> AB-123-CD</p>
+          </div>
+        </div>
+
+        <div class="border border-gray-200 rounded-lg p-4">
+          <div class="flex items-center space-x-3 mb-3">
+            <div class="w-12 h-12 bg-blue-hero rounded-lg flex items-center justify-center">
+              <span class="text-white text-2xl">🚗</span>
+            </div>
+            <div>
+              <p class="font-bold text-gray-900">Renault Clio</p>
+              <p class="text-sm text-gray-600">Immatriculé en 2021</p>
+            </div>
+          </div>
+          <div class="text-sm text-gray-600 space-y-1">
+            <p><strong>Kilométrage:</strong> 45,000 km</p>
+            <p><strong>Immatriculation:</strong> EF-456-GH</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity Log -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Activité récente</h2>
+      <div class="space-y-4">
+        <div class="flex items-start space-x-3 pb-4 border-b border-gray-100">
+          <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+          <div class="flex-1">
+            <p class="text-gray-900">Réservation confirmée avec <span class="font-medium">Marie Martin</span></p>
+            <p class="text-sm text-gray-500">Il y a 2 heures - 24/01/2025 à 14:30</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3 pb-4 border-b border-gray-100">
+          <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+          <div class="flex-1">
+            <p class="text-gray-900">Nouveau véhicule ajouté: <span class="font-medium">Renault Clio</span></p>
+            <p class="text-sm text-gray-500">Il y a 3 jours - 21/01/2025 à 10:15</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3 pb-4 border-b border-gray-100">
+          <div class="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
+          <div class="flex-1">
+            <p class="text-gray-900">Paiement effectué pour révision annuelle</p>
+            <p class="text-sm text-gray-500">Il y a 1 semaine - 15/01/2025 à 16:45</p>
+          </div>
+        </div>
+
+        <div class="flex items-start space-x-3">
+          <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+          <div class="flex-1">
+            <p class="text-gray-900">Compte créé</p>
+            <p class="text-sm text-gray-500">Il y a 2 semaines - 10/01/2025 à 09:00</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
