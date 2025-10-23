@@ -35,6 +35,56 @@ class Client::VehiclesController < Client::BaseController
         vin: nil,
         license_plate: 'IJ-789-KL',
         notes: 'Véhicule de société'
+      ),
+      OpenStruct.new(
+        id: 4,
+        make: 'BMW',
+        model: 'Série 3',
+        year: 2022,
+        mileage: 15000,
+        vin: '5UXWX7C5XBA123789',
+        license_plate: 'MN-234-OP',
+        notes: 'Garantie constructeur'
+      ),
+      OpenStruct.new(
+        id: 5,
+        make: 'Audi',
+        model: 'A4',
+        year: 2018,
+        mileage: 85000,
+        vin: 'WAUZZZ8K8DA456123',
+        license_plate: 'QR-567-ST',
+        notes: nil
+      ),
+      OpenStruct.new(
+        id: 6,
+        make: 'Mercedes',
+        model: 'Classe A',
+        year: 2020,
+        mileage: 52000,
+        vin: 'WDD1760081N789456',
+        license_plate: 'UV-890-WX',
+        notes: 'Véhicule électrique'
+      ),
+      OpenStruct.new(
+        id: 7,
+        make: 'Volkswagen',
+        model: 'Golf',
+        year: 2019,
+        mileage: 68000,
+        vin: 'WVWZZZ1KZBW321654',
+        license_plate: 'YZ-123-AB',
+        notes: 'Révision effectuée'
+      ),
+      OpenStruct.new(
+        id: 8,
+        make: 'Toyota',
+        model: 'Yaris',
+        year: 2021,
+        mileage: 32000,
+        vin: 'VNKKH1H31JA987321',
+        license_plate: 'CD-456-EF',
+        notes: 'Hybride'
       )
     ]
   end

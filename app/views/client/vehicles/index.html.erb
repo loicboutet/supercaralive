@@ -1,74 +1,107 @@
-<div class="container mx-auto px-6 py-8">
-  <div class="flex items-center justify-between mb-8">
-    <div>
-      <h1 class="text-4xl font-bold text-gray-900 mb-2">Mes Véhicules</h1>
-      <p class="text-gray-600">Gérez vos véhicules pour faciliter les réservations</p>
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Page Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+        Mes <span class="text-red-hero">Véhicules</span>
+      </h1>
+      <p class="text-xl text-gray-600">
+        Gérez vos véhicules pour faciliter les réservations
+      </p>
     </div>
-    <%= link_to new_client_vehicle_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
-      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-      </svg>
-      Ajouter un véhicule
-    <% end %>
-  </div>
 
-  <% if @vehicles&.any? %>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <% @vehicles.each do |vehicle| %>
-        <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-red-hero hover:shadow-md transition">
-          <div class="flex items-start justify-between mb-4">
-            <div class="flex items-center space-x-3">
-              <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center">
-                <span class="text-white text-2xl">🚗</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900"><%= vehicle.make %> <%= vehicle.model %></h3>
-                <p class="text-sm text-gray-600"><%= vehicle.year %></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="space-y-2 mb-6">
-            <div class="flex items-center text-sm text-gray-600">
-              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-              </svg>
-              <span><strong>Kilométrage:</strong> <%= number_with_delimiter(vehicle.mileage) %> km</span>
-            </div>
-            <% if vehicle.vin.present? %>
-              <div class="flex items-center text-sm text-gray-600">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
-                </svg>
-                <span><strong>VIN:</strong> <%= vehicle.vin %></span>
-              </div>
-            <% end %>
-          </div>
-
-          <div class="flex space-x-2">
-            <%= link_to edit_client_vehicle_path(vehicle), class: "flex-1 bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-center text-sm" do %>
-              Modifier
-            <% end %>
-            <%= button_to client_vehicle_path(vehicle), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer ce véhicule ?" }, class: "flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm" do %>
-              Supprimer
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="bg-soft rounded-super p-12 text-center">
-      <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center mx-auto mb-4">
-        <span class="text-4xl">🚗</span>
-      </div>
-      <h3 class="text-2xl font-bold text-gray-900 mb-2">Aucun véhicule enregistré</h3>
-      <p class="text-gray-600 mb-6">Ajoutez vos véhicules pour faciliter vos réservations de services</p>
-      <%= link_to new_client_vehicle_path, class: "bg-red-hero hover:bg-red-dark text-white px-8 py-3 rounded-lg font-bold inline-flex items-center" do %>
+    <div class="flex items-center justify-between mb-8">
+      <div></div>
+      <%= link_to new_client_vehicle_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
         </svg>
-        Ajouter mon premier véhicule
+        Ajouter un véhicule
       <% end %>
     </div>
-  <% end %>
+
+    <% if @vehicles&.any? %>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <% @vehicles.each do |vehicle| %>
+          <div class="bg-white rounded-super p-6 shadow-sm card-hover flex flex-col">
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center">
+                  <span class="text-white text-2xl">🚗</span>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900"><%= vehicle.make %> <%= vehicle.model %></h3>
+                  <p class="text-sm text-gray-600"><%= vehicle.year %></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-2 mb-6 flex-1">
+              <div class="flex items-center text-sm text-gray-600">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                </svg>
+                <span><strong>Kilométrage:</strong> <%= number_with_delimiter(vehicle.mileage) %> km</span>
+              </div>
+              <% if vehicle.vin.present? %>
+                <div class="flex items-center text-sm text-gray-600">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
+                  </svg>
+                  <span><strong>VIN:</strong> <%= vehicle.vin %></span>
+                </div>
+              <% end %>
+            </div>
+
+            <div class="flex space-x-2 justify-start">
+              <%= link_to edit_client_vehicle_path(vehicle), class: "bg-blue-hero hover:bg-blue-dark text-white px-3 py-1 rounded-lg font-medium text-sm inline-flex items-center" do %>
+                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                Modifier
+              <% end %>
+              <%= link_to client_vehicle_path(vehicle), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce véhicule ?" }, class: "bg-red-hero hover:bg-red-dark text-white px-3 py-1 rounded-lg font-medium text-sm inline-flex items-center" do %>
+                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+                Supprimer
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex items-center justify-center mt-8 space-x-2">
+        <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50" disabled>
+          ← Précédent
+        </button>
+        <button class="px-4 py-2 bg-red-hero text-white rounded-lg font-medium">
+          1
+        </button>
+        <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+          2
+        </button>
+        <button class="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50">
+          Suivant →
+        </button>
+      </div>
+    <% else %>
+      <div class="bg-soft rounded-super p-12 text-center">
+        <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <span class="text-4xl">🚗</span>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">Aucun véhicule enregistré</h3>
+        <p class="text-gray-600 mb-6">Ajoutez vos véhicules pour faciliter vos réservations de services</p>
+        <%= link_to new_client_vehicle_path, class: "bg-red-hero hover:bg-red-dark text-white px-8 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Ajouter mon premier véhicule
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
 </div>
