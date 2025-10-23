@@ -1,0 +1,38 @@
+<%= form_with url: url, method: method, class: "space-y-6" do |f| %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <%= f.label :make, "Marque", class: "block text-sm font-medium text-gray-700 mb-2" %>
+      <%= f.text_field :make, value: vehicle&.make, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: Peugeot, Renault, Citroën..." %>
+    </div>
+
+    <div>
+      <%= f.label :model, "Modèle", class: "block text-sm font-medium text-gray-700 mb-2" %>
+      <%= f.text_field :model, value: vehicle&.model, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: 208, Clio, C3..." %>
+    </div>
+
+    <div>
+      <%= f.label :year, "Année", class: "block text-sm font-medium text-gray-700 mb-2" %>
+      <%= f.number_field :year, value: vehicle&.year, min: 1900, max: Date.current.year + 1, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: 2020" %>
+    </div>
+
+    <div>
+      <%= f.label :mileage, "Kilométrage en km", class: "block text-sm font-medium text-gray-700 mb-2" %>
+      <div class="relative">
+        <%= f.number_field :mileage, value: vehicle&.mileage, min: 0, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent pr-12", placeholder: "Ex: 50000" %>
+       
+      </div>
+      <p class="text-sm text-gray-500 mt-1">Le kilométrage actuel de votre véhicule</p>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :vin, "Numéro VIN (optionnel)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+    <%= f.text_field :vin, value: vehicle&.vin, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: WBA3B5C50EF123456", maxlength: 17 %>
+    <p class="text-sm text-gray-500 mt-1">Le numéro d'identification du véhicule (17 caractères)</p>
+  </div>
+
+  <div class="flex space-x-4 pt-4">
+    <%= f.submit submit_text, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold cursor-pointer" %>
+    <%= link_to "Annuler", client_vehicles_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold text-center" %>
+  </div>
+<% end %>
