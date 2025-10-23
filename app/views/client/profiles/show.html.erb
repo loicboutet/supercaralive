@@ -5,7 +5,7 @@
         <h1 class="text-4xl font-bold text-gray-900 mb-2">Mon Profil</h1>
         <p class="text-gray-600">Consultez et gérez vos informations personnelles</p>
       </div>
-      <%= link_to edit_client_profile_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-friendly font-bold inline-flex items-center" do %>
+      <%= link_to edit_client_profile_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
         </svg>
@@ -72,19 +72,19 @@
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Statistiques du compte</h2>
           
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="text-center p-4 bg-blue-50 rounded-friendly">
+            <div class="text-center p-4 bg-blue-50 rounded-lg">
               <p class="text-3xl font-bold text-blue-hero">12</p>
               <p class="text-sm text-gray-600 mt-1">Réservations</p>
             </div>
-            <div class="text-center p-4 bg-green-50 rounded-friendly">
+            <div class="text-center p-4 bg-green-50 rounded-lg">
               <p class="text-3xl font-bold text-green-600">8</p>
               <p class="text-sm text-gray-600 mt-1">Complétées</p>
             </div>
-            <div class="text-center p-4 bg-yellow-50 rounded-friendly">
+            <div class="text-center p-4 bg-yellow-50 rounded-lg">
               <p class="text-3xl font-bold text-yellow-hero">3</p>
               <p class="text-sm text-gray-600 mt-1">Véhicules</p>
             </div>
-            <div class="text-center p-4 bg-red-50 rounded-friendly">
+            <div class="text-center p-4 bg-red-50 rounded-lg">
               <p class="text-3xl font-bold text-red-hero">5</p>
               <p class="text-sm text-gray-600 mt-1">Avis laissés</p>
             </div>
@@ -107,29 +107,29 @@
         <div class="bg-white rounded-super p-6 shadow-sm space-y-3">
           <h3 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h3>
           
-          <%= link_to client_vehicles_path, class: "flex items-center space-x-3 p-3 rounded-friendly hover:bg-soft transition" do %>
-            <div class="w-10 h-10 bg-blue-100 rounded-friendly flex items-center justify-center">
+          <%= link_to client_vehicles_path, class: "flex items-center space-x-3 p-3 rounded-lg hover:bg-soft transition" do %>
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
               <span class="text-xl">🚗</span>
             </div>
             <span class="text-gray-700 font-medium">Mes véhicules</span>
           <% end %>
 
-          <%= link_to client_bookings_path, class: "flex items-center space-x-3 p-3 rounded-friendly hover:bg-soft transition" do %>
-            <div class="w-10 h-10 bg-green-100 rounded-friendly flex items-center justify-center">
+          <%= link_to client_bookings_path, class: "flex items-center space-x-3 p-3 rounded-lg hover:bg-soft transition" do %>
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
               <span class="text-xl">📅</span>
             </div>
             <span class="text-gray-700 font-medium">Mes réservations</span>
           <% end %>
 
-          <%= link_to client_wallet_path, class: "flex items-center space-x-3 p-3 rounded-friendly hover:bg-soft transition" do %>
-            <div class="w-10 h-10 bg-yellow-100 rounded-friendly flex items-center justify-center">
+          <%= link_to client_wallet_path, class: "flex items-center space-x-3 p-3 rounded-lg hover:bg-soft transition" do %>
+            <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
               <span class="text-xl">💳</span>
             </div>
             <span class="text-gray-700 font-medium">Mon portefeuille</span>
           <% end %>
 
-          <%= link_to edit_user_registration_path, class: "flex items-center space-x-3 p-3 rounded-friendly hover:bg-soft transition" do %>
-            <div class="w-10 h-10 bg-red-100 rounded-friendly flex items-center justify-center">
+          <%= link_to edit_user_registration_path, class: "flex items-center space-x-3 p-3 rounded-lg hover:bg-soft transition" do %>
+            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
               <span class="text-xl">⚙️</span>
             </div>
             <span class="text-gray-700 font-medium">Paramètres compte</span>

@@ -29,12 +29,12 @@
 
         <div class="flex justify-between items-center">
           <span class="text-gray-600">Statut</span>
-          <span class="px-4 py-2 bg-green-100 text-green-800 rounded-friendly font-bold">Payé</span>
+          <span class="px-4 py-2 bg-green-100 text-green-800 rounded-lg font-bold">Payé</span>
         </div>
       </div>
     </div>
 
-    <div class="bg-blue-50 border-l-4 border-blue-hero rounded-friendly p-6 mb-6">
+    <div class="bg-blue-50 border-l-4 border-blue-hero rounded-lg p-6 mb-6">
       <div class="flex">
         <div class="flex-shrink-0">
           <svg class="h-6 w-6 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
@@ -52,15 +52,15 @@
     </div>
 
     <div class="space-y-3">
-      <%= link_to client_booking_path(params[:booking_id] || 1), class: "block w-full bg-blue-hero hover:bg-blue-dark text-white px-8 py-4 rounded-friendly font-bold text-center" do %>
+      <%= link_to client_booking_path(params[:booking_id] || 1), class: "block w-full bg-blue-hero hover:bg-blue-dark text-white px-8 py-4 rounded-lg font-bold text-center" do %>
         Voir la réservation
       <% end %>
       
-      <%= link_to client_wallet_path, class: "block w-full bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-friendly font-bold text-center" do %>
+      <%= link_to client_wallet_path, class: "block w-full bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-center" do %>
         Voir ma facture
       <% end %>
       
-      <%= link_to client_root_path, class: "block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-friendly font-bold text-center" do %>
+      <%= link_to client_root_path, class: "block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-lg font-bold text-center" do %>
         Retour au tableau de bord
       <% end %>
     </div>

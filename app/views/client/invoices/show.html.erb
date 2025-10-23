@@ -87,7 +87,7 @@
             <span class="text-gray-600">TVA (20%)</span>
             <span class="font-medium text-gray-900"><%= number_to_currency(24, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
           </div>
-          <div class="flex justify-between py-3 bg-soft px-4 rounded-friendly mt-2">
+          <div class="flex justify-between py-3 bg-soft px-4 rounded-lg mt-2">
             <span class="text-lg font-bold text-gray-900">Total TTC</span>
             <span class="text-2xl font-bold text-red-hero"><%= number_to_currency(144, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
           </div>
@@ -118,13 +118,13 @@
 
     <!-- Actions -->
     <div class="flex space-x-4">
-      <button onclick="window.print()" class="flex-1 bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-friendly font-bold inline-flex items-center justify-center">
+      <button onclick="window.print()" class="flex-1 bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-bold inline-flex items-center justify-center">
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
         </svg>
         Télécharger PDF
       </button>
-      <%= link_to client_booking_path(1), class: "flex-1 bg-blue-hero hover:bg-blue-dark text-white px-8 py-3 rounded-friendly font-bold text-center" do %>
+      <%= link_to client_booking_path(1), class: "flex-1 bg-blue-hero hover:bg-blue-dark text-white px-8 py-3 rounded-lg font-bold text-center" do %>
         Voir la réservation
       <% end %>
     </div>

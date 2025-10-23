@@ -50,7 +50,7 @@
             <!-- Stripe Elements will be inserted here -->
           </div>
           
-          <div class="bg-blue-50 border-l-4 border-blue-hero rounded-friendly p-4 mb-6">
+          <div class="bg-blue-50 border-l-4 border-blue-hero rounded-lg p-4 mb-6">
             <div class="flex">
               <div class="flex-shrink-0">
                 <svg class="h-5 w-5 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
@@ -68,11 +68,11 @@
         </div>
 
         <div class="space-y-4">
-          <button type="submit" id="payment-button" class="w-full bg-red-hero hover:bg-red-dark text-white px-8 py-4 rounded-friendly font-bold text-lg">
+          <button type="submit" id="payment-button" class="w-full bg-red-hero hover:bg-red-dark text-white px-8 py-4 rounded-lg font-bold text-lg">
             Payer <%= number_to_currency((@booking&.price.to_f + (@booking&.travel_fee.to_f || 0)) || 120, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %>
           </button>
           
-          <%= link_to "Annuler", client_booking_path(@booking), class: "block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-friendly font-bold text-center" %>
+          <%= link_to "Annuler", client_booking_path(@booking), class: "block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-lg font-bold text-center" %>
         </div>
 
         <div class="mt-6 flex items-center justify-center space-x-4 text-sm text-gray-500">

@@ -5,7 +5,7 @@
         <h1 class="text-4xl font-bold text-gray-900 mb-2">Mes Factures</h1>
         <p class="text-gray-600">Consultez et téléchargez toutes vos factures</p>
       </div>
-      <%= link_to client_wallet_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-friendly font-bold inline-flex items-center" do %>
+      <%= link_to client_wallet_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
         </svg>
@@ -36,7 +36,7 @@
         <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <div class="flex items-start space-x-4 flex-1">
-              <div class="w-12 h-12 bg-<%= i < 5 ? 'green' : 'yellow' %>-100 rounded-friendly flex items-center justify-center flex-shrink-0">
+              <div class="w-12 h-12 bg-<%= i < 5 ? 'green' : 'yellow' %>-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <svg class="w-6 h-6 text-<%= i < 5 ? 'green' : 'yellow' %>-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                 </svg>
@@ -51,9 +51,9 @@
                   <div class="text-right">
                     <p class="text-2xl font-bold text-gray-900"><%= number_to_currency([120, 85, 150, 200, 95, 180, 70, 140][i], unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></p>
                     <% if i < 5 %>
-                      <span class="px-3 py-1 rounded-friendly text-xs font-medium bg-green-100 text-green-800">Payée</span>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-800">Payée</span>
                     <% else %>
-                      <span class="px-3 py-1 rounded-friendly text-xs font-medium bg-yellow-100 text-yellow-800">En attente</span>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-800">En attente</span>
                     <% end %>
                   </div>
                 </div>
@@ -70,15 +70,15 @@
                 </div>
 
                 <div class="flex space-x-2">
-                  <%= link_to client_invoice_path(i + 1), class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-friendly font-medium text-sm" do %>
+                  <%= link_to client_invoice_path(i + 1), class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-sm" do %>
                     Voir détails
                   <% end %>
                   <% if i < 5 %>
-                    <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-friendly font-medium text-sm">
+                    <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm">
                       Télécharger PDF
                     </a>
                   <% else %>
-                    <%= link_to client_payment_path(i + 1), class: "bg-red-hero hover:bg-red-dark text-white px-4 py-2 rounded-friendly font-medium text-sm" do %>
+                    <%= link_to client_payment_path(i + 1), class: "bg-red-hero hover:bg-red-dark text-white px-4 py-2 rounded-lg font-medium text-sm" do %>
                       Payer maintenant
                     <% end %>
                   <% end %>
@@ -93,10 +93,10 @@
     <!-- Pagination -->
     <div class="mt-8 flex justify-center">
       <nav class="flex space-x-2">
-        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-friendly hover:bg-gray-300">Précédent</a>
-        <a href="#" class="px-4 py-2 bg-red-hero text-white rounded-friendly">1</a>
-        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-friendly hover:bg-gray-300">2</a>
-        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-friendly hover:bg-gray-300">Suivant</a>
+        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Précédent</a>
+        <a href="#" class="px-4 py-2 bg-red-hero text-white rounded-lg">1</a>
+        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">2</a>
+        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Suivant</a>
       </nav>
     </div>
   </div>

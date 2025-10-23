@@ -74,7 +74,7 @@
               <span class="text-white font-bold">A</span>
             </div>
             <div class="flex-1">
-              <div class="bg-soft rounded-friendly p-4 max-w-md">
+              <div class="bg-soft rounded-lg p-4 max-w-md">
                 <p class="text-sm text-gray-900">Bonjour, j'ai bien reçu votre demande de réservation. Je peux confirmer le créneau du 25/10 à 14h00.</p>
               </div>
               <p class="text-xs text-gray-500 mt-1">Aujourd'hui à 09:15</p>
@@ -84,7 +84,7 @@
           <!-- Client Message -->
           <div class="flex items-start space-x-3 justify-end">
             <div class="flex-1 flex flex-col items-end">
-              <div class="bg-red-hero bg-opacity-10 rounded-friendly p-4 max-w-md">
+              <div class="bg-red-hero bg-opacity-10 rounded-lg p-4 max-w-md">
                 <p class="text-sm text-gray-900">Parfait ! Pourriez-vous me confirmer le tarif estimé ?</p>
               </div>
               <p class="text-xs text-gray-500 mt-1">Aujourd'hui à 09:20</p>
@@ -100,7 +100,7 @@
               <span class="text-white font-bold">A</span>
             </div>
             <div class="flex-1">
-              <div class="bg-soft rounded-friendly p-4 max-w-md">
+              <div class="bg-soft rounded-lg p-4 max-w-md">
                 <p class="text-sm text-gray-900">Pour un entretien complet sur Peugeot 208, le tarif est de 120€ TTC, frais de déplacement inclus.</p>
               </div>
               <p class="text-xs text-gray-500 mt-1">Aujourd'hui à 09:45</p>
@@ -110,7 +110,7 @@
           <!-- Client Message -->
           <div class="flex items-start space-x-3 justify-end">
             <div class="flex-1 flex flex-col items-end">
-              <div class="bg-red-hero bg-opacity-10 rounded-friendly p-4 max-w-md">
+              <div class="bg-red-hero bg-opacity-10 rounded-lg p-4 max-w-md">
                 <p class="text-sm text-gray-900">D'accord, à demain !</p>
               </div>
               <p class="text-xs text-gray-500 mt-1">Aujourd'hui à 10:30</p>
@@ -124,8 +124,8 @@
         <!-- Message Input -->
         <div class="p-4 border-t border-gray-200">
           <%= form_with url: client_messages_path, class: "flex space-x-3" do |f| %>
-            <%= f.text_field :content, class: "flex-1 px-4 py-3 border border-gray-300 rounded-friendly focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Écrivez votre message..." %>
-            <%= f.submit "Envoyer", class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-friendly font-bold cursor-pointer" %>
+            <%= f.text_field :content, class: "flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Écrivez votre message..." %>
+            <%= f.submit "Envoyer", class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold cursor-pointer" %>
           <% end %>
         </div>
       </div>
@@ -133,12 +133,12 @@
 
     <!-- Empty State (hidden when there are conversations) -->
     <div class="hidden bg-soft rounded-super p-12 text-center">
-      <div class="w-20 h-20 bg-gray-200 rounded-friendly flex items-center justify-center mx-auto mb-4">
+      <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center mx-auto mb-4">
         <span class="text-4xl">💬</span>
       </div>
       <h3 class="text-2xl font-bold text-gray-900 mb-2">Aucune conversation</h3>
       <p class="text-gray-600 mb-6">Vous n'avez pas encore de messages avec les professionnels</p>
-      <%= link_to client_professionals_path, class: "bg-red-hero hover:bg-red-dark text-white px-8 py-3 rounded-friendly font-bold inline-flex items-center" do %>
+      <%= link_to client_professionals_path, class: "bg-red-hero hover:bg-red-dark text-white px-8 py-3 rounded-lg font-bold inline-flex items-center" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>

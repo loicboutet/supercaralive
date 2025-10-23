@@ -10,7 +10,7 @@
       <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-red-hero">
         <div class="flex items-center justify-between mb-2">
           <p class="text-sm text-gray-600">Urgents</p>
-          <div class="w-10 h-10 bg-red-100 rounded-friendly flex items-center justify-center">
+          <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
             <span class="text-xl">⚠️</span>
           </div>
         </div>
@@ -21,7 +21,7 @@
       <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-yellow-hero">
         <div class="flex items-center justify-between mb-2">
           <p class="text-sm text-gray-600">À venir</p>
-          <div class="w-10 h-10 bg-yellow-100 rounded-friendly flex items-center justify-center">
+          <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
             <span class="text-xl">⏰</span>
           </div>
         </div>
@@ -32,7 +32,7 @@
       <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-green-500">
         <div class="flex items-center justify-between mb-2">
           <p class="text-sm text-gray-600">Complétés</p>
-          <div class="w-10 h-10 bg-green-100 rounded-friendly flex items-center justify-center">
+          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
             <span class="text-xl">✓</span>
           </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition border-l-4 border-<%= reminder[:color] %>-hero">
           <div class="flex items-center justify-between">
             <div class="flex items-start space-x-4 flex-1">
-              <div class="w-12 h-12 bg-<%= reminder[:color] == 'red' ? 'red' : reminder[:color] == 'yellow' ? 'yellow' : 'green' %>-100 rounded-friendly flex items-center justify-center flex-shrink-0">
+              <div class="w-12 h-12 bg-<%= reminder[:color] == 'red' ? 'red' : reminder[:color] == 'yellow' ? 'yellow' : 'green' %>-100 rounded-lg flex items-center justify-center flex-shrink-0">
                 <% if reminder[:status] == 'urgent' %>
                   <span class="text-2xl">⚠️</span>
                 <% elsif reminder[:status] == 'upcoming' %>
@@ -75,11 +75,11 @@
                     <p class="text-sm text-gray-600"><%= reminder[:vehicle] %></p>
                   </div>
                   <% if reminder[:status] == 'urgent' %>
-                    <span class="px-3 py-1 rounded-friendly text-xs font-medium bg-red-100 text-red-800">Urgent</span>
+                    <span class="px-3 py-1 rounded-lg text-xs font-medium bg-red-100 text-red-800">Urgent</span>
                   <% elsif reminder[:status] == 'upcoming' %>
-                    <span class="px-3 py-1 rounded-friendly text-xs font-medium bg-yellow-100 text-yellow-800">À venir</span>
+                    <span class="px-3 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-800">À venir</span>
                   <% else %>
-                    <span class="px-3 py-1 rounded-friendly text-xs font-medium bg-green-100 text-green-800">Effectué</span>
+                    <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-800">Effectué</span>
                   <% end %>
                 </div>
 
@@ -120,13 +120,13 @@
 
                 <% if reminder[:status] != 'completed' %>
                   <div class="flex space-x-2">
-                    <%= link_to client_professionals_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-friendly font-medium text-sm" do %>
+                    <%= link_to client_professionals_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-sm" do %>
                       Réserver un service
                     <% end %>
-                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-friendly font-medium text-sm">
+                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm">
                       Rappeler plus tard
                     </button>
-                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-friendly font-medium text-sm">
+                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm">
                       Marquer comme fait
                     </button>
                   </div>
@@ -141,7 +141,7 @@
     </div>
 
     <!-- Info Banner -->
-    <div class="mt-8 bg-blue-50 border-l-4 border-blue-hero rounded-friendly p-6">
+    <div class="mt-8 bg-blue-50 border-l-4 border-blue-hero rounded-lg p-6">
       <div class="flex">
         <div class="flex-shrink-0">
           <svg class="h-6 w-6 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">

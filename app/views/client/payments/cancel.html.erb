@@ -20,7 +20,7 @@
         </p>
       </div>
 
-      <div class="bg-yellow-50 border-l-4 border-yellow-hero rounded-friendly p-4">
+      <div class="bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4">
         <div class="flex">
           <div class="flex-shrink-0">
             <svg class="h-5 w-5 text-yellow-hero" viewBox="0 0 20 20" fill="currentColor">
@@ -38,15 +38,15 @@
     </div>
 
     <div class="space-y-3">
-      <%= link_to client_payment_path(params[:booking_id] || 1), class: "block w-full bg-red-hero hover:bg-red-dark text-white px-8 py-4 rounded-friendly font-bold text-center" do %>
+      <%= link_to client_payment_path(params[:booking_id] || 1), class: "block w-full bg-red-hero hover:bg-red-dark text-white px-8 py-4 rounded-lg font-bold text-center" do %>
         Réessayer le paiement
       <% end %>
       
-      <%= link_to client_booking_path(params[:booking_id] || 1), class: "block w-full bg-blue-hero hover:bg-blue-dark text-white px-8 py-4 rounded-friendly font-bold text-center" do %>
+      <%= link_to client_booking_path(params[:booking_id] || 1), class: "block w-full bg-blue-hero hover:bg-blue-dark text-white px-8 py-4 rounded-lg font-bold text-center" do %>
         Retour à la réservation
       <% end %>
       
-      <%= link_to client_root_path, class: "block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-friendly font-bold text-center" do %>
+      <%= link_to client_root_path, class: "block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-lg font-bold text-center" do %>
         Retour au tableau de bord
       <% end %>
     </div>
