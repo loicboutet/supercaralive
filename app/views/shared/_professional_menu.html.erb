@@ -57,8 +57,8 @@
 </div>
 
 <!-- Mobile Menu -->
-<div id="mobile-menu" class="hidden lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
-  <div class="space-y-2">
+<div id="mobile-menu" class="hidden lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-200 z-40">
+  <div class="container mx-auto px-4 py-4 space-y-2">
     <%= link_to "Tableau de bord", professional_root_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_root_path) ? 'bg-blue-hero text-white' : 'text-gray-700 hover:bg-blue-hero hover:text-white'}" %>
     
     <%= link_to "Mon Profil Pro", professional_profile_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_profile_path) ? 'bg-blue-hero text-white' : 'text-gray-700 hover:bg-blue-hero hover:text-white'}" %>

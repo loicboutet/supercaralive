@@ -1,10 +1,10 @@
 <header class="bg-white shadow-sm sticky top-0 z-50">
-  <nav class="container mx-auto px-6 py-4">
+  <nav class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div class="flex items-center justify-between">
       <!-- Logo -->
-      <%= link_to root_path, class: "flex items-center space-x-3" do %>
-        <%= image_tag "logo.png", alt: "Supercaralive", class: "h-24 w-auto" %>
-        <span class="text-2xl font-bold text-gray-800">SUPERCAR<span class="text-red-hero">ALIVE</span></span>
+      <%= link_to root_path, class: "flex items-center space-x-2 sm:space-x-3" do %>
+        <%= image_tag "logo.png", alt: "Supercaralive", class: "h-24 sm:h-16 md:h-20 lg:h-24 w-auto" %>
+        <span class="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 hidden sm:inline">SUPERCAR<span class="text-red-hero">ALIVE</span></span>
       <% end %>
       
       <!-- Render appropriate menu based on namespace -->
@@ -21,19 +21,33 @@
         </svg>
       </button>
     </div>
-
   </nav>
 </header>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  // Function to initialize mobile menu
+  function initMobileMenu() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     
     if (mobileMenuButton && mobileMenu) {
-      mobileMenuButton.addEventListener('click', function() {
+      // Remove any existing event listeners by cloning the button
+      const newButton = mobileMenuButton.cloneNode(true);
+      mobileMenuButton.parentNode.replaceChild(newButton, mobileMenuButton);
+      
+      newButton.addEventListener('click', function(e) {
+        e.preventDefault();
         mobileMenu.classList.toggle('hidden');
       });
     }
-  });
+  }
+  
+  // Initialize on DOMContentLoaded (for initial page load)
+  document.addEventListener('DOMContentLoaded', initMobileMenu);
+  
+  // Initialize on turbo:load (for Turbo navigation)
+  document.addEventListener('turbo:load', initMobileMenu);
+  
+  // Initialize on turbo:render (for Turbo frame updates)
+  document.addEventListener('turbo:render', initMobileMenu);
 </script>
