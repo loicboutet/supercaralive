@@ -6,6 +6,10 @@ class MockupsController < ApplicationController
     # Main index page that will list all mockup journeys
   end
   
+  def typography
+    # Typography showcase page
+  end
+  
   # User journey pages
   def user_dashboard
     # User dashboard mockup

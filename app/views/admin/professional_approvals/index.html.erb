@@ -1,0 +1,396 @@
+<% content_for :page_title, "Professional Approvals" %>
+
+<!-- Page Header -->
+<div class="mb-8">
+  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+    Validation des <span class="text-yellow-hero">Professionnels</span> ✓
+  </h1>
+  <p class="text-xl text-gray-600">
+    Approuvez ou refusez les demandes de vérification des professionnels
+  </p>
+</div>
+
+<!-- Stats Cards -->
+<div class="grid md:grid-cols-4 gap-6 mb-8">
+  <div class="bg-white rounded-lg p-8 shadow-sm">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-gray-700 mb-2">En attente</span>
+        <p class="text-5xl font-bold text-yellow-hero mb-2">7</p>
+        <p class="text-base text-gray-500">À traiter</p>
+      </div>
+      <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
+        <span class="text-white text-3xl">⏳</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg p-8 shadow-sm">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-gray-700 mb-2">Approuvés</span>
+        <p class="text-5xl font-bold text-green-500 mb-2">156</p>
+        <p class="text-base text-gray-500">Ce mois</p>
+      </div>
+      <div class="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+        <span class="text-white text-3xl">✓</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg p-8 shadow-sm">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-gray-700 mb-2">Refusés</span>
+        <p class="text-5xl font-bold text-red-600 mb-2">12</p>
+        <p class="text-base text-gray-500">Ce mois</p>
+      </div>
+      <div class="w-16 h-16 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
+        <span class="text-white text-3xl">✗</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg p-8 shadow-sm">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-gray-700 mb-2">Total</span>
+        <p class="text-5xl font-bold text-blue-hero mb-2">348</p>
+        <p class="text-base text-gray-500">Vérifiés</p>
+      </div>
+      <div class="w-16 h-16 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
+        <span class="text-white text-3xl">🔧</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Priority Alert -->
+<div class="bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-6 mb-8">
+  <div class="flex items-start">
+    <svg class="w-6 h-6 text-yellow-hero mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+    </svg>
+    <div>
+      <h3 class="text-lg font-bold text-yellow-800 mb-1">Demandes urgentes</h3>
+      <p class="text-yellow-700">
+        <strong>7 demandes</strong> en attente de validation depuis plus de 48h. Veuillez les traiter rapidement.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="bg-white rounded-super p-6 shadow-sm mb-6">
+  <div class="flex flex-col md:flex-row gap-4">
+    <div class="flex-1">
+      <label class="block text-sm font-bold text-gray-700 mb-2">Rechercher</label>
+      <div class="relative">
+        <input type="text" placeholder="Nom, entreprise..." class="w-full h-12 px-4 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
+        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div class="flex-1">
+      <label class="block text-sm font-bold text-gray-700 mb-2">Statut</label>
+      <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
+        <option>En attente</option>
+        <option>Approuvé</option>
+        <option>Refusé</option>
+        <option>Tous</option>
+      </select>
+    </div>
+
+    <div class="flex-1">
+      <label class="block text-sm font-bold text-gray-700 mb-2">Type</label>
+      <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
+        <option>Tous les types</option>
+        <option>Mécanicien</option>
+        <option>Carrossier</option>
+        <option>Laveur</option>
+      </select>
+    </div>
+
+    <div class="w-full md:w-40 flex items-end">
+      <button class="w-full h-12 bg-yellow-hero hover:bg-opacity-90 text-white px-6 rounded-lg font-bold inline-flex items-center justify-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+        </svg>
+        Filtrer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Pending Approvals -->
+<div class="bg-white rounded-super shadow-sm overflow-hidden mb-8">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-900">Demandes en attente</h2>
+  </div>
+
+  <div class="divide-y divide-gray-200">
+    <!-- Approval Request 1 -->
+    <div class="p-6 hover:bg-soft transition">
+      <div class="flex items-start justify-between mb-4">
+        <div class="flex items-start space-x-4">
+          <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
+            <span class="text-white text-2xl">🔧</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center space-x-2 mb-2">
+              <h3 class="text-xl font-bold text-gray-900">Jean Dupont</h3>
+              <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-lg text-xs font-medium">En attente</span>
+            </div>
+            <p class="text-gray-600 mb-2"><strong>Entreprise:</strong> MySupermécano</p>
+            <p class="text-gray-600 mb-2"><strong>Type:</strong> Mécanicien</p>
+            <div class="flex items-center text-sm text-gray-500 space-x-4">
+              <span class="flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                jean.dupont@mecano.fr
+              </span>
+              <span class="flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Soumis le 20/01/2025
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="bg-red-100 text-red-800 px-3 py-1 rounded-lg text-xs font-bold inline-flex items-center">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            72h
+          </span>
+        </div>
+      </div>
+
+      <div class="mb-4 p-4 bg-soft rounded-lg">
+        <p class="text-sm text-gray-700 mb-2"><strong>Documents fournis:</strong></p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-xs font-medium inline-flex items-center">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Diplôme professionnel
+          </span>
+          <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-xs font-medium inline-flex items-center">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Assurance RC Pro
+          </span>
+          <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-xs font-medium inline-flex items-center">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            SIREN
+          </span>
+        </div>
+      </div>
+
+      <div class="flex space-x-3">
+        <%= link_to admin_professional_approval_path(1), class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+          Examiner
+        <% end %>
+        <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Approuver
+        </button>
+        <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          Refuser
+        </button>
+      </div>
+    </div>
+
+    <!-- Approval Request 2 -->
+    <div class="p-6 hover:bg-soft transition">
+      <div class="flex items-start justify-between mb-4">
+        <div class="flex items-start space-x-4">
+          <div class="w-16 h-16 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
+            <span class="text-white text-2xl">💧</span>
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center space-x-2 mb-2">
+              <h3 class="text-xl font-bold text-gray-900">Marie Martin</h3>
+              <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-lg text-xs font-medium">En attente</span>
+            </div>
+            <p class="text-gray-600 mb-2"><strong>Entreprise:</strong> MySupercarwasher</p>
+            <p class="text-gray-600 mb-2"><strong>Type:</strong> Laveur automobile</p>
+            <div class="flex items-center text-sm text-gray-500 space-x-4">
+              <span class="flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                marie.m@carwash.fr
+              </span>
+              <span class="flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Soumis le 22/01/2025
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-xs font-bold inline-flex items-center">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            24h
+          </span>
+        </div>
+      </div>
+
+      <div class="mb-4 p-4 bg-soft rounded-lg">
+        <p class="text-sm text-gray-700 mb-2"><strong>Documents fournis:</strong></p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-xs font-medium inline-flex items-center">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            Assurance RC Pro
+          </span>
+          <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-lg text-xs font-medium inline-flex items-center">
+            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            SIREN
+          </span>
+        </div>
+      </div>
+
+      <div class="flex space-x-3">
+        <%= link_to admin_professional_approval_path(2), class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+          </svg>
+          Examiner
+        <% end %>
+        <button class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Approuver
+        </button>
+        <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          Refuser
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Decisions -->
+<div class="bg-white rounded-super shadow-sm overflow-hidden">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-900">Décisions récentes</h2>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-soft">
+        <tr>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Professionnel</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Type</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Décision</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Date</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4">
+            <p class="font-medium text-gray-900">Pierre Leblanc</p>
+            <p class="text-sm text-gray-600">AutoRepair Pro</p>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700">Carrossier</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-lg text-xs font-medium inline-flex items-center">
+              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Approuvé
+            </span>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700">23/01/2025</td>
+          <td class="px-6 py-4">
+            <%= link_to admin_professional_approval_path(3), class: "text-blue-hero hover:text-blue-dark inline-flex items-center" do %>
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            <% end %>
+          </td>
+        </tr>
+
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4">
+            <p class="font-medium text-gray-900">Sophie Bernard</p>
+            <p class="text-sm text-gray-600">CleanCar Services</p>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700">Laveur</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-lg text-xs font-medium inline-flex items-center">
+              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              Refusé
+            </span>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700">22/01/2025</td>
+          <td class="px-6 py-4">
+            <%= link_to admin_professional_approval_path(4), class: "text-blue-hero hover:text-blue-dark inline-flex items-center" do %>
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="p-6 bg-soft border-t border-gray-200 flex justify-between items-center">
+    <p class="text-sm text-gray-600">Affichage de <strong>1-10</strong> sur <strong>168</strong> demandes</p>
+    <nav class="flex space-x-2">
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 inline-flex items-center">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Précédent
+      </button>
+      <button class="px-4 py-2 bg-yellow-hero text-white rounded-lg">1</button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">2</button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">3</button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 inline-flex items-center">
+        Suivant
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</div>

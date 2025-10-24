@@ -1,0 +1,250 @@
+<% content_for :page_title, "Add New Service" %>
+
+<!-- Breadcrumb -->
+<div class="mb-6">
+  <nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-2">
+      <li class="inline-flex items-center">
+        <%= link_to admin_services_path, class: "text-gray-600 hover:text-blue-hero inline-flex items-center" do %>
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Services
+        <% end %>
+      </li>
+      <li>
+        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+        </svg>
+      </li>
+      <li class="text-gray-900 font-medium">Nouveau service</li>
+    </ol>
+  </nav>
+</div>
+
+<!-- Page Header -->
+<div class="mb-8">
+  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+    Ajouter un <span class="text-blue-hero">Service</span> 🔧
+  </h1>
+  <p class="text-xl text-gray-600">
+    Créez un nouveau type de service pour la plateforme
+  </p>
+</div>
+
+<!-- Form -->
+<div class="max-w-4xl">
+  <form action="<%= admin_services_path %>" method="post">
+    
+    <!-- Basic Information -->
+    <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations générales</h2>
+      
+      <div class="space-y-6">
+        <!-- Service Name -->
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Nom du service <span class="text-red-600">*</span>
+          </label>
+          <input 
+            type="text" 
+            name="service[name]" 
+            placeholder="Ex: Révision annuelle, Lavage complet..." 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero"
+            required
+          >
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Description <span class="text-red-600">*</span>
+          </label>
+          <textarea 
+            name="service[description]" 
+            rows="4" 
+            placeholder="Décrivez le service en détail..."
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Category -->
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Catégorie <span class="text-red-600">*</span>
+          </label>
+          <select 
+            name="service[category]" 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero"
+            required
+          >
+            <option value="">Sélectionnez une catégorie</option>
+            <option value="mecanique">🔧 Mécanique</option>
+            <option value="carrosserie">🔨 Carrosserie</option>
+            <option value="lavage">💧 Lavage</option>
+          </select>
+        </div>
+
+        <!-- Icon/Emoji -->
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Icône (Emoji)
+          </label>
+          <input 
+            type="text" 
+            name="service[icon]" 
+            placeholder="🔧" 
+            maxlength="2"
+            class="w-32 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero text-center text-2xl"
+          >
+          <p class="text-sm text-gray-500 mt-2">Choisissez un emoji pour représenter le service</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Information -->
+    <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Tarification</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Estimated Duration -->
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Durée estimée (minutes)
+          </label>
+          <input 
+            type="number" 
+            name="service[duration]" 
+            placeholder="60" 
+            min="0"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero"
+          >
+        </div>
+
+        <!-- Suggested Price -->
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Prix suggéré (€)
+          </label>
+          <input 
+            type="number" 
+            name="service[suggested_price]" 
+            placeholder="120.00" 
+            step="0.01"
+            min="0"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero"
+          >
+          <p class="text-sm text-gray-500 mt-2">Prix indicatif pour les professionnels</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Options -->
+    <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Options du service</h2>
+      
+      <div class="space-y-4">
+        <!-- Active Status -->
+        <div class="flex items-center space-x-3">
+          <input 
+            type="checkbox" 
+            name="service[active]" 
+            id="service_active"
+            value="1"
+            checked
+            class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-2 focus:ring-blue-hero"
+          >
+          <label for="service_active" class="text-gray-700 font-medium">
+            Service actif (visible pour les professionnels)
+          </label>
+        </div>
+
+        <!-- Popular Service -->
+        <div class="flex items-center space-x-3">
+          <input 
+            type="checkbox" 
+            name="service[popular]" 
+            id="service_popular"
+            value="1"
+            class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-2 focus:ring-blue-hero"
+          >
+          <label for="service_popular" class="text-gray-700 font-medium">
+            Service populaire (mis en avant dans les listes)
+          </label>
+        </div>
+
+        <!-- Requires Quote -->
+        <div class="flex items-center space-x-3">
+          <input 
+            type="checkbox" 
+            name="service[requires_quote]" 
+            id="service_requires_quote"
+            value="1"
+            class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-2 focus:ring-blue-hero"
+          >
+          <label for="service_requires_quote" class="text-gray-700 font-medium">
+            Devis obligatoire (nécessite une évaluation avant intervention)
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Information -->
+    <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations complémentaires</h2>
+      
+      <div class="space-y-6">
+        <!-- Requirements -->
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Prérequis / Matériel nécessaire
+          </label>
+          <textarea 
+            name="service[requirements]" 
+            rows="3" 
+            placeholder="Liste du matériel ou des prérequis nécessaires pour ce service..."
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero"
+          ></textarea>
+        </div>
+
+        <!-- Notes -->
+        <div>
+          <label class="block text-sm font-bold text-gray-700 mb-2">
+            Notes internes (non visibles publiquement)
+          </label>
+          <textarea 
+            name="service[internal_notes]" 
+            rows="3" 
+            placeholder="Notes pour l'équipe administrative..."
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-gray-600">
+          <span class="text-red-600">*</span> Champs obligatoires
+        </div>
+        <div class="flex space-x-3">
+          <%= link_to admin_services_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Annuler
+          <% end %>
+          <button type="submit" class="bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            Créer le service
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

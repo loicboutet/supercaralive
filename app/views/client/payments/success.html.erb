@@ -1,0 +1,68 @@
+<div class="container mx-auto px-6 py-8">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-8">
+      <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Paiement réussi !</h1>
+      <p class="text-gray-600">Votre paiement a été traité avec succès</p>
+    </div>
+
+    <div class="bg-white rounded-super p-8 shadow-sm mb-6">
+      <div class="space-y-4">
+        <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span class="text-gray-600">Numéro de transaction</span>
+          <span class="font-bold text-gray-900">#<%= params[:transaction_id] || 'TXN-' + Time.current.to_i.to_s %></span>
+        </div>
+
+        <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span class="text-gray-600">Montant payé</span>
+          <span class="text-2xl font-bold text-green-600"><%= number_to_currency(params[:amount] || 120, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
+        </div>
+
+        <div class="flex justify-between items-center pb-4 border-b border-gray-200">
+          <span class="text-gray-600">Date</span>
+          <span class="font-medium text-gray-900"><%= Time.current.strftime("%d/%m/%Y à %H:%M") %></span>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="text-gray-600">Statut</span>
+          <span class="px-4 py-2 bg-green-100 text-green-800 rounded-lg font-bold">Payé</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-blue-50 border-l-4 border-blue-hero rounded-lg p-6 mb-6">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-6 w-6 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-bold text-blue-800">Confirmation envoyée</h3>
+          <p class="text-sm text-blue-700 mt-1">
+            Un email de confirmation contenant la facture a été envoyé à <strong><%= current_user&.email || 'votre adresse email' %></strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+      <%= link_to client_booking_path(params[:booking_id] || 1), class: "block w-full bg-blue-hero hover:bg-blue-dark text-white px-8 py-4 rounded-lg font-bold text-center" do %>
+        Voir la réservation
+      <% end %>
+      
+      <%= link_to client_wallet_path, class: "block w-full bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-center" do %>
+        Voir ma facture
+      <% end %>
+      
+      <%= link_to client_root_path, class: "block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-4 rounded-lg font-bold text-center" do %>
+        Retour au tableau de bord
+      <% end %>
+    </div>
+  </div>
+</div>

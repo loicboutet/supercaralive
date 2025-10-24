@@ -1,0 +1,311 @@
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Welcome Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+        Bonjour, <span class="text-blue-hero">Jean</span> 👋
+      </h1>
+      <p class="text-xl text-gray-600">
+        Gérez votre activité professionnelle Supercaralive
+      </p>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white rounded-lg p-8 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex flex-col">
+            <span class="text-lg font-bold text-gray-700 mb-2">En attente</span>
+            <p class="text-5xl font-bold text-yellow-hero mb-2">3</p>
+            <p class="text-base text-gray-500">Réservations</p>
+          </div>
+          <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
+            <span class="text-white text-3xl">⏳</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg p-8 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex flex-col">
+            <span class="text-lg font-bold text-gray-700 mb-2">À venir</span>
+            <p class="text-5xl font-bold text-blue-hero mb-2">5</p>
+            <p class="text-base text-gray-500">Rendez-vous</p>
+          </div>
+          <div class="w-16 h-16 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
+            <span class="text-white text-3xl">📅</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg p-8 shadow-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex flex-col">
+            <span class="text-lg font-bold text-gray-700 mb-2">Avis reçus</span>
+            <p class="text-5xl font-bold text-red-hero mb-2">12</p>
+            <p class="text-base text-gray-500">Note 4.8/5</p>
+          </div>
+          <div class="w-16 h-16 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
+            <span class="text-white text-3xl">⭐</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Left Column - Pending Bookings -->
+      <div class="md:col-span-2 space-y-6">
+        
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Actions rapides</h2>
+          <div class="grid md:grid-cols-3 gap-4">
+            <a href="#" class="bg-blue-hero hover:bg-blue-dark text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition flex items-center justify-center space-x-3">
+              <span class="text-2xl">📅</span>
+              <span>Disponibilités</span>
+            </a>
+            <a href="#" class="bg-red-hero hover:bg-red-dark text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition flex items-center justify-center space-x-3">
+              <span class="text-2xl">💼</span>
+              <span>Mes services</span>
+            </a>
+            <a href="#" class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-lg font-bold text-lg text-center transition flex items-center justify-center space-x-3">
+              <span class="text-2xl">💬</span>
+              <span>Messages</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Pending Bookings -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Réservations en attente</h2>
+            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-friendly text-sm font-medium">
+              3 à traiter
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Booking Card 1 -->
+            <div class="border border-gray-200 rounded-friendly p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-start space-x-3">
+                  <div class="w-12 h-12 bg-blue-hero rounded-friendly flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xl">👤</span>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900">Jean Dupont</h3>
+                    <p class="text-sm text-gray-600">Révision complète - Peugeot 308</p>
+                  </div>
+                </div>
+                <span class="bg-yellow-50 text-yellow-800 px-3 py-1 rounded-friendly text-xs font-medium">
+                  En attente
+                </span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600 space-x-4">
+                <span>📅 Lundi 15 déc 2025, 14:00</span>
+                <span>💰 €120</span>
+              </div>
+              <div class="mt-3 flex items-center space-x-2">
+                <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                  ✓ Accepter
+                </button>
+                <button class="bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-lg text-sm font-medium transition">
+                  ✗ Refuser
+                </button>
+                <a href="#" class="text-blue-hero font-medium hover:underline text-sm ml-auto">
+                  Voir détails →
+                </a>
+              </div>
+            </div>
+
+            <!-- Booking Card 2 -->
+            <div class="border border-gray-200 rounded-friendly p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-start space-x-3">
+                  <div class="w-12 h-12 bg-blue-hero rounded-friendly flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xl">👤</span>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900">Marie Martin</h3>
+                    <p class="text-sm text-gray-600">Contrôle freins - Renault Clio</p>
+                  </div>
+                </div>
+                <span class="bg-yellow-50 text-yellow-800 px-3 py-1 rounded-friendly text-xs font-medium">
+                  En attente
+                </span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600 space-x-4">
+                <span>📅 Mardi 16 déc 2025, 10:30</span>
+                <span>💰 €85</span>
+              </div>
+              <div class="mt-3 flex items-center space-x-2">
+                <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                  ✓ Accepter
+                </button>
+                <button class="bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-lg text-sm font-medium transition">
+                  ✗ Refuser
+                </button>
+                <a href="#" class="text-blue-hero font-medium hover:underline text-sm ml-auto">
+                  Voir détails →
+                </a>
+              </div>
+            </div>
+
+            <!-- Booking Card 3 -->
+            <div class="border border-gray-200 rounded-friendly p-4 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-start space-x-3">
+                  <div class="w-12 h-12 bg-blue-hero rounded-friendly flex items-center justify-center flex-shrink-0">
+                    <span class="text-white text-xl">👤</span>
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-gray-900">Pierre Bernard</h3>
+                    <p class="text-sm text-gray-600">Entretien complet - BMW 320</p>
+                  </div>
+                </div>
+                <span class="bg-yellow-50 text-yellow-800 px-3 py-1 rounded-friendly text-xs font-medium">
+                  En attente
+                </span>
+              </div>
+              <div class="flex items-center text-sm text-gray-600 space-x-4">
+                <span>📅 Jeudi 18 déc 2025, 09:00</span>
+                <span>💰 €180</span>
+              </div>
+              <div class="mt-3 flex items-center space-x-2">
+                <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-friendly text-sm font-medium transition">
+                  ✓ Accepter
+                </button>
+                <button class="bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-friendly text-sm font-medium transition">
+                  ✗ Refuser
+                </button>
+                <a href="#" class="text-blue-hero font-medium hover:underline text-sm ml-auto">
+                  Voir détails →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Confirmed Bookings -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Rendez-vous confirmés</h2>
+            <a href="#" class="text-blue-hero font-medium hover:underline">Tout voir</a>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3 pb-4 border-b border-gray-100">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+              <div class="flex-1">
+                <p class="text-gray-900 font-medium">Sophie Leroy - Vidange & filtres</p>
+                <p class="text-sm text-gray-600">📅 Sam 20 déc 2025, 11:00 • 💰 €95</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3 pb-4 border-b border-gray-100">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+              <div class="flex-1">
+                <p class="text-gray-900 font-medium">Thomas Petit - Changement pneus</p>
+                <p class="text-sm text-gray-600">📅 Lun 22 déc 2025, 14:30 • 💰 €240</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+              <div class="flex-1">
+                <p class="text-gray-900 font-medium">Claire Dubois - Contrôle technique</p>
+                <p class="text-sm text-gray-600">📅 Mer 24 déc 2025, 10:00 • 💰 €75</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Sidebar -->
+      <div class="space-y-6">
+        
+
+        <!-- Recent Reviews -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-gray-900">Avis récents</h2>
+            <a href="#" class="text-blue-hero font-medium hover:underline text-sm">Voir tous</a>
+          </div>
+          <div class="space-y-4">
+            <div class="border-b border-gray-100 pb-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-medium text-gray-900">Sophie L.</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+              <p class="text-sm text-gray-600">"Service impeccable et très professionnel. Je recommande !"</p>
+              <p class="text-xs text-gray-500 mt-1">Il y a 2 jours</p>
+            </div>
+            <div class="border-b border-gray-100 pb-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-medium text-gray-900">Marc D.</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+              <p class="text-sm text-gray-600">"Excellent travail, merci beaucoup !"</p>
+              <p class="text-xs text-gray-500 mt-1">Il y a 5 jours</p>
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-medium text-gray-900">Anne M.</span>
+                <span class="text-yellow-500">⭐⭐⭐⭐</span>
+              </div>
+              <p class="text-sm text-gray-600">"Très bon service, rapide et efficace."</p>
+              <p class="text-xs text-gray-500 mt-1">Il y a 1 semaine</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Availability Notice -->
+        <div class="bg-blue-50 border-l-4 border-blue-hero rounded-friendly p-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-bold text-blue-800">Mise à jour disponibilités</h3>
+              <p class="text-sm text-blue-700 mt-1">
+                Pensez à mettre à jour votre calendrier pour la semaine prochaine
+              </p>
+              <button class="mt-2 text-sm text-blue-800 font-medium hover:underline">
+                Gérer mon calendrier →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- My Profile -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold text-gray-900">Mon profil pro</h2>
+            <a href="#" class="text-blue-hero font-medium hover:underline text-sm">Modifier</a>
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-blue-hero rounded-full flex items-center justify-center">
+                <span class="text-white text-xl font-bold">JD</span>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900">Jean Dupont</p>
+                <p class="text-sm text-gray-600">MySupermécano</p>
+              </div>
+            </div>
+            <div class="pt-3 border-t border-gray-100">
+              <p class="text-sm text-gray-600">📍 Paris 15ème</p>
+              <p class="text-sm text-gray-600">🔧 Mécanique générale</p>
+              <p class="text-sm text-gray-600">✓ Certifié professionnel</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,223 @@
+<% content_for :page_title, "Bookings Management" %>
+
+<!-- Page Header -->
+<div class="mb-8">
+  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+    Gestion des <span class="text-blue-hero">Réservations</span> 📅
+  </h1>
+  <p class="text-xl text-gray-600">
+    Supervisez toutes les réservations de la plateforme
+  </p>
+</div>
+
+<!-- Stats Cards -->
+<div class="grid md:grid-cols-4 gap-6 mb-8">
+  <div class="bg-white rounded-lg p-8 shadow-sm">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-gray-700 mb-2">Total</span>
+        <p class="text-5xl font-bold text-blue-hero mb-2">1,256</p>
+        <p class="text-base text-gray-500">Réservations</p>
+      </div>
+      <div class="w-16 h-16 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
+        <span class="text-white text-3xl">📅</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg p-8 shadow-sm">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-gray-700 mb-2">En attente</span>
+        <p class="text-5xl font-bold text-yellow-hero mb-2">87</p>
+        <p class="text-base text-gray-500">À confirmer</p>
+      </div>
+      <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
+        <span class="text-white text-3xl">⏳</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg p-8 shadow-sm">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-gray-700 mb-2">Confirmées</span>
+        <p class="text-5xl font-bold text-green-500 mb-2">234</p>
+        <p class="text-base text-gray-500">En cours</p>
+      </div>
+      <div class="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+        <span class="text-white text-3xl">✓</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg p-8 shadow-sm">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-lg font-bold text-gray-700 mb-2">Ce mois</span>
+        <p class="text-5xl font-bold text-red-hero mb-2">432</p>
+        <p class="text-base text-gray-500">Terminées</p>
+      </div>
+      <div class="w-16 h-16 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
+        <span class="text-white text-3xl">📊</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="bg-white rounded-super p-6 shadow-sm mb-6">
+  <div class="flex flex-col md:flex-row gap-4">
+    <div class="flex-1">
+      <label class="block text-sm font-bold text-gray-700 mb-2">Rechercher</label>
+      <div class="relative">
+        <input type="text" placeholder="Client, pro..." class="w-full h-12 px-4 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
+        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div class="flex-1">
+      <label class="block text-sm font-bold text-gray-700 mb-2">Statut</label>
+      <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
+        <option>Tous</option>
+        <option>En attente</option>
+        <option>Confirmé</option>
+        <option>Terminé</option>
+        <option>Annulé</option>
+      </select>
+    </div>
+
+    <div class="flex-1">
+      <label class="block text-sm font-bold text-gray-700 mb-2">Service</label>
+      <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
+        <option>Tous</option>
+        <option>Mécanique</option>
+        <option>Carrosserie</option>
+        <option>Lavage</option>
+      </select>
+    </div>
+
+    <div class="flex-1">
+      <label class="block text-sm font-bold text-gray-700 mb-2">Période</label>
+      <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
+        <option>Toutes</option>
+        <option>Aujourd'hui</option>
+        <option>Cette semaine</option>
+        <option>Ce mois</option>
+      </select>
+    </div>
+
+    <div class="w-full md:w-40 flex items-end">
+      <button class="w-full h-12 bg-yellow-hero hover:bg-opacity-90 text-white px-6 rounded-lg font-bold inline-flex items-center justify-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+        </svg>
+        Filtrer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Bookings Table -->
+<div class="bg-white rounded-super shadow-sm overflow-hidden">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-2xl font-bold text-gray-900">Réservations récentes</h2>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead class="bg-soft">
+        <tr>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">ID</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Client</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Professionnel</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Service</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Date</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Prix</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Statut</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1256</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Sophie P.</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Jean Dupont</td>
+          <td class="px-6 py-4">
+            <div class="flex items-center space-x-2">
+              <span class="text-xl">🔧</span>
+              <span class="text-sm text-gray-700">Révision</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700">27/01/2025 14:00</td>
+          <td class="px-6 py-4 text-sm font-bold text-gray-900">€120</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-lg text-xs font-medium">En attente</span>
+          </td>
+          <td class="px-6 py-4">
+            <%= link_to admin_booking_path(1256), class: "text-blue-hero hover:text-blue-dark inline-flex items-center" do %>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            <% end %>
+          </td>
+        </tr>
+
+        <tr class="hover:bg-soft transition">
+          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1255</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Pierre L.</td>
+          <td class="px-6 py-4 text-sm text-gray-700">Marie Martin</td>
+          <td class="px-6 py-4">
+            <div class="flex items-center space-x-2">
+              <span class="text-xl">💧</span>
+              <span class="text-sm text-gray-700">Lavage</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 text-sm text-gray-700">29/01/2025 10:00</td>
+          <td class="px-6 py-4 text-sm font-bold text-gray-900">€45</td>
+          <td class="px-6 py-4">
+            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-lg text-xs font-medium inline-flex items-center">
+              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Confirmé
+            </span>
+          </td>
+          <td class="px-6 py-4">
+            <%= link_to admin_booking_path(1255), class: "text-blue-hero hover:text-blue-dark inline-flex items-center" do %>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+              </svg>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="p-6 bg-soft border-t border-gray-200 flex justify-between items-center">
+    <p class="text-sm text-gray-600">Affichage de <strong>1-10</strong> sur <strong>1,256</strong> réservations</p>
+    <nav class="flex space-x-2">
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 inline-flex items-center">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Précédent
+      </button>
+      <button class="px-4 py-2 bg-blue-hero text-white rounded-lg">1</button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">2</button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">3</button>
+      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 inline-flex items-center">
+        Suivant
+        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</div>

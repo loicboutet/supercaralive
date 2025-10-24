@@ -1,0 +1,24 @@
+<div class="container mx-auto px-6 py-8">
+  <div>
+    <div class="mb-8">
+      <%= link_to client_bookings_path, class: "text-blue-hero hover:underline inline-flex items-center mb-4" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Retour aux réservations
+      <% end %>
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Nouvelle réservation</h1>
+      <p class="text-gray-600">Créez une pré-réservation auprès d'un professionnel</p>
+    </div>
+
+    <div class="bg-white rounded-super p-8 shadow-sm">
+      <%= render 'form', 
+          form_url: client_bookings_path, 
+          form_method: :post, 
+          show_professional_field: true,
+          submit_text: "Envoyer la demande",
+          cancel_text: "Annuler",
+          cancel_path: client_bookings_path %>
+    </div>
+  </div>
+</div>

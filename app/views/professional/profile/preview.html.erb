@@ -1,0 +1,293 @@
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Preview Notice -->
+    <div class="bg-blue-50 border-l-4 border-blue-hero rounded-lg p-4 mb-8">
+      <div class="flex items-start justify-between">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-bold text-blue-800">Aperçu du profil public</h3>
+            <p class="text-sm text-blue-700 mt-1">
+              Voici comment votre profil apparaît aux clients. Vous pouvez fermer cet onglet pour revenir à l'édition.
+            </p>
+          </div>
+        </div>
+        <button onclick="window.close()" class="text-blue-hero hover:text-blue-dark">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Professional Profile Header -->
+    <div class="bg-white rounded-super p-8 shadow-sm mb-8">
+      <div class="flex items-start space-x-6">
+        <div class="w-32 h-32 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
+          <span class="text-white text-5xl font-bold">JD</span>
+        </div>
+        <div class="flex-1">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h1 class="text-3xl font-bold text-gray-900 mb-1">Jean Dupont</h1>
+              <p class="text-xl text-gray-600 mb-3">MySupermécano</p>
+              <div class="flex items-center space-x-4 text-sm text-gray-600 mb-3">
+                <span class="flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  </svg>
+                  Paris 15ème
+                </span>
+                <span class="flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                  06 12 34 56 78
+                </span>
+                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-xs font-medium">
+                  ✓ Vérifié
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Rating Summary -->
+          <div class="flex items-center space-x-6 py-4 border-t border-gray-200">
+            <div class="text-center">
+              <div class="flex items-center mb-1">
+                <span class="text-3xl font-bold text-gray-900 mr-1">4.8</span>
+                <span class="text-yellow-500 text-2xl">⭐</span>
+              </div>
+              <p class="text-sm text-gray-600">127 avis</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl font-bold text-gray-900 mb-1">342</p>
+              <p class="text-sm text-gray-600">Services réalisés</p>
+            </div>
+            <div class="text-center">
+              <p class="text-2xl font-bold text-green-600 mb-1">98%</p>
+              <p class="text-sm text-gray-600">Taux de réponse</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Left Column - Profile Details -->
+      <div class="md:col-span-2 space-y-6">
+        
+        <!-- About -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">À propos</h2>
+          <p class="text-gray-700 leading-relaxed">
+            Mécanicien professionnel depuis plus de 15 ans, je suis spécialisé dans l'entretien et la réparation de tous types de véhicules. Mon garage est équipé des dernières technologies de diagnostic et je me forme régulièrement aux nouvelles techniques. Je m'engage à fournir un service de qualité avec des pièces certifiées et une garantie sur tous mes travaux. Mon objectif est votre satisfaction et la sécurité de votre véhicule.
+          </p>
+        </div>
+
+        <!-- Specializations -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Spécialités</h2>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg font-medium">🔧 Mécanique générale</span>
+            <span class="bg-red-100 text-red-800 px-4 py-2 rounded-lg font-medium">⚙️ Diagnostic électronique</span>
+            <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg font-medium">🔩 Révision complète</span>
+            <span class="bg-green-100 text-green-800 px-4 py-2 rounded-lg font-medium">🛞 Pneumatiques</span>
+            <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg font-medium">🔋 Système électrique</span>
+            <span class="bg-orange-100 text-orange-800 px-4 py-2 rounded-lg font-medium">❄️ Climatisation</span>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Services proposés</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+              <h4 class="font-bold text-gray-900 mb-2">Révision complète</h4>
+              <p class="text-sm text-gray-600 mb-2">Vidange, filtres, contrôle complet</p>
+              <p class="text-lg font-bold text-blue-hero">À partir de €120</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+              <h4 class="font-bold text-gray-900 mb-2">Diagnostic électronique</h4>
+              <p class="text-sm text-gray-600 mb-2">Lecture des codes erreur</p>
+              <p class="text-lg font-bold text-blue-hero">À partir de €45</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+              <h4 class="font-bold text-gray-900 mb-2">Changement pneus</h4>
+              <p class="text-sm text-gray-600 mb-2">Démontage, montage, équilibrage</p>
+              <p class="text-lg font-bold text-blue-hero">À partir de €80</p>
+            </div>
+            <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+              <h4 class="font-bold text-gray-900 mb-2">Entretien freins</h4>
+              <p class="text-sm text-gray-600 mb-2">Plaquettes, disques, liquide</p>
+              <p class="text-lg font-bold text-blue-hero">À partir de €150</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Avis clients</h2>
+          <div class="space-y-6">
+            <div class="border-b border-gray-100 pb-4">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <div class="w-10 h-10 bg-blue-hero rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold">SL</span>
+                  </div>
+                  <div>
+                    <p class="font-medium text-gray-900">Sophie L.</p>
+                    <p class="text-sm text-gray-500">Il y a 2 jours</p>
+                  </div>
+                </div>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+              <p class="text-gray-700">"Service impeccable et très professionnel. Je recommande vivement ! Mon véhicule est comme neuf."</p>
+            </div>
+            <div class="border-b border-gray-100 pb-4">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <div class="w-10 h-10 bg-red-hero rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold">MD</span>
+                  </div>
+                  <div>
+                    <p class="font-medium text-gray-900">Marc D.</p>
+                    <p class="text-sm text-gray-500">Il y a 5 jours</p>
+                  </div>
+                </div>
+                <span class="text-yellow-500">⭐⭐⭐⭐⭐</span>
+              </div>
+              <p class="text-gray-700">"Excellent travail, prix correct et délais respectés. Merci beaucoup !"</p>
+            </div>
+            <div class="pb-4">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex items-center space-x-2">
+                  <div class="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold">AM</span>
+                  </div>
+                  <div>
+                    <p class="font-medium text-gray-900">Anne M.</p>
+                    <p class="text-sm text-gray-500">Il y a 1 semaine</p>
+                  </div>
+                </div>
+                <span class="text-yellow-500">⭐⭐⭐⭐</span>
+              </div>
+              <p class="text-gray-700">"Très bon service, rapide et efficace. Quelques petits retards mais bon travail global."</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column - Booking Widget -->
+      <div class="space-y-6">
+        
+        <!-- Booking Card -->
+        <div class="bg-white rounded-super p-6 shadow-sm sticky top-6">
+          <h3 class="text-xl font-bold text-gray-900 mb-4">Réserver un service</h3>
+          
+          <div class="space-y-4 mb-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Type de service</label>
+              <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+                <option>Sélectionner un service</option>
+                <option>Révision complète - €120</option>
+                <option>Diagnostic électronique - €45</option>
+                <option>Changement pneus - €80</option>
+                <option>Entretien freins - €150</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Date souhaitée</label>
+              <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent">
+            </div>
+          </div>
+
+          <button class="w-full bg-red-hero hover:bg-red-dark text-white px-6 py-4 rounded-lg font-bold inline-flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            Demander une réservation
+          </button>
+
+          <button class="w-full bg-blue-100 hover:bg-blue-200 text-blue-hero px-6 py-3 rounded-lg font-medium inline-flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+            </svg>
+            Envoyer un message
+          </button>
+        </div>
+
+        <!-- Business Info -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Informations</h3>
+          <div class="space-y-3 text-sm">
+            <div class="flex items-start space-x-2">
+              <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              <div>
+                <p class="font-medium text-gray-900">Garage Dupont SARL</p>
+                <p class="text-gray-600">45 Rue de la République, 75015 Paris</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-2">
+              <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <p class="font-medium text-gray-900">Horaires d'ouverture</p>
+                <p class="text-gray-600">Lun-Ven: 8h-18h</p>
+                <p class="text-gray-600">Sam: 9h-13h</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-2">
+              <svg class="w-5 h-5 text-gray-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <p class="font-medium text-gray-900">Membre depuis</p>
+                <p class="text-gray-600">Janvier 2024</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Certifications</h3>
+          <div class="space-y-2">
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-sm text-gray-700">CAP/BEP Maintenance</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-sm text-gray-700">Diagnostic électronique</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span class="text-sm text-gray-700">Hybride & électrique</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

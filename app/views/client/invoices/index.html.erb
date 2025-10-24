@@ -1,0 +1,113 @@
+<div class="container mx-auto px-6 py-8">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Mes Factures</h1>
+        <p class="text-gray-600">Consultez et téléchargez toutes vos factures</p>
+      </div>
+      <%= link_to client_wallet_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Retour au portefeuille
+      <% end %>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="mb-6">
+      <div class="border-b border-gray-200">
+        <nav class="-mb-px flex space-x-8">
+          <a href="#" class="border-b-2 border-red-hero text-red-hero py-4 px-1 text-sm font-medium">
+            Toutes
+          </a>
+          <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 py-4 px-1 text-sm font-medium">
+            Payées
+          </a>
+          <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 py-4 px-1 text-sm font-medium">
+            En attente
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Invoices List -->
+    <div class="space-y-4">
+      <% 8.times do |i| %>
+        <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition">
+          <div class="flex items-center justify-between">
+            <div class="flex items-start space-x-4 flex-1">
+              <div class="w-12 h-12 bg-<%= i < 5 ? 'green' : 'yellow' %>-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-<%= i < 5 ? 'green' : 'yellow' %>-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+              </div>
+              
+              <div class="flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <div>
+                    <h3 class="text-lg font-bold text-gray-900">Facture #INV-<%= 1000 + i %></h3>
+                    <p class="text-sm text-gray-600"><%= (Date.current - i.weeks).strftime("%d/%m/%Y") %></p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-2xl font-bold text-gray-900"><%= number_to_currency([120, 85, 150, 200, 95, 180, 70, 140][i], unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></p>
+                    <% if i < 5 %>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-800">Payée</span>
+                    <% else %>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-800">En attente</span>
+                    <% end %>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <p class="text-xs text-gray-500">Service</p>
+                    <p class="text-sm font-medium text-gray-900"><%= ['Entretien annuel', 'Vidange', 'Lavage complet', 'Changement pneus', 'Révision', 'Diagnostic', 'Vidange', 'Entretien'][i] %></p>
+                  </div>
+                  <div>
+                    <p class="text-xs text-gray-500">Professionnel</p>
+                    <p class="text-sm font-medium text-gray-900"><%= ['AutoPro Garage', 'Méca Express', 'Clean Car Pro', 'Garage Martin', 'Auto Service', 'Pro Méca', 'Car Wash', 'Garage Plus'][i] %></p>
+                  </div>
+                </div>
+
+                <div class="flex space-x-2">
+                  <%= link_to client_invoice_path(i + 1), class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-sm inline-flex items-center" do %>
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    Voir détails
+                  <% end %>
+                  <% if i < 5 %>
+                    <a href="#" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm inline-flex items-center">
+                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      </svg>
+                      Télécharger PDF
+                    </a>
+                  <% else %>
+                    <%= link_to client_payment_path(i + 1), class: "bg-red-hero hover:bg-red-dark text-white px-4 py-2 rounded-lg font-medium text-sm inline-flex items-center" do %>
+                      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                      </svg>
+                      Payer maintenant
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-8 flex justify-center">
+      <nav class="flex space-x-2">
+        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Précédent</a>
+        <a href="#" class="px-4 py-2 bg-red-hero text-white rounded-lg">1</a>
+        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">2</a>
+        <a href="#" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Suivant</a>
+      </nav>
+    </div>
+  </div>
+</div>

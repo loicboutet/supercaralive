@@ -1,0 +1,285 @@
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Détails de la Réservation #1234</h1>
+        <p class="text-gray-600">Révision complète - Peugeot 308</p>
+      </div>
+      <%= link_to professional_bookings_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Retour
+      <% end %>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Left Column - Booking Details -->
+      <div class="md:col-span-2 space-y-6">
+        
+        <!-- Status Card -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Statut de la réservation</h2>
+            <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg text-sm font-bold">
+              En attente de confirmation
+            </span>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-sm text-gray-600 mb-1">Date de réservation</p>
+              <p class="text-lg font-bold text-gray-900">Lundi 27 janvier 2025</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600 mb-1">Heure</p>
+              <p class="text-lg font-bold text-gray-900">14:00 - 17:00</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600 mb-1">Durée estimée</p>
+              <p class="text-lg font-bold text-gray-900">2-3 heures</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-600 mb-1">Montant</p>
+              <p class="text-lg font-bold text-blue-hero">€120</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Client Information -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations client</h2>
+          <div class="flex items-start space-x-4 mb-6">
+            <div class="w-16 h-16 bg-blue-hero rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-white text-2xl font-bold">JD</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-gray-900 mb-1">Jean Dupont</h3>
+              <div class="space-y-1 text-sm text-gray-600">
+                <div class="flex items-center">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                  </svg>
+                  jean.dupont@email.fr
+                </div>
+                <div class="flex items-center">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                  </svg>
+                  06 12 34 56 78
+                </div>
+                <div class="flex items-center">
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Client depuis janvier 2024
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex space-x-2">
+            <button class="flex-1 bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium inline-flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+              </svg>
+              Appeler
+            </button>
+            <button class="flex-1 bg-blue-100 hover:bg-blue-200 text-blue-hero px-4 py-3 rounded-lg font-medium inline-flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
+              </svg>
+              Envoyer un message
+            </button>
+          </div>
+        </div>
+
+        <!-- Vehicle Information -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Véhicule concerné</h2>
+          <div class="flex items-start space-x-4">
+            <div class="w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-4xl">🚗</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-gray-900 mb-2">Peugeot 308 (2020)</h3>
+              <div class="grid md:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <p class="text-gray-600">Immatriculation</p>
+                  <p class="font-medium text-gray-900">AB-123-CD</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">Kilométrage</p>
+                  <p class="font-medium text-gray-900">30 245 km</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">Carburant</p>
+                  <p class="font-medium text-gray-900">Diesel</p>
+                </div>
+                <div>
+                  <p class="text-gray-600">VIN</p>
+                  <p class="font-medium text-gray-900">VF3XXXXXXXXXXXXXX</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Details -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Détails du service</h2>
+          <div class="mb-4">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">Révision complète</h3>
+            <p class="text-gray-600 mb-4">
+              Révision des 30 000 km - Vidange moteur, remplacement filtres (air, huile, habitacle), contrôle des niveaux, inspection complète
+            </p>
+          </div>
+          <div class="bg-soft p-4 rounded-lg">
+            <h4 class="font-bold text-gray-900 mb-3">Prestations incluses :</h4>
+            <ul class="space-y-2">
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Vidange moteur avec huile de qualité</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Remplacement filtre à huile</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Remplacement filtre à air</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Remplacement filtre habitacle</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Contrôle et ajustement niveaux (liquides, pression pneus)</span>
+              </li>
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="text-gray-700">Inspection visuelle complète (freins, suspension, échappement)</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Notes from Client -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Notes du client</h2>
+          <div class="bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4">
+            <p class="text-gray-700">
+              "Bonjour, j'aimerais également que vous vérifiiez le niveau de liquide de frein, j'ai l'impression qu'il baisse un peu. Merci !"
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column - Actions & Summary -->
+      <div class="space-y-6">
+        
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Actions</h3>
+          <div class="space-y-2">
+            <button class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-bold flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              Accepter la réservation
+            </button>
+            <button class="w-full bg-yellow-hero hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              Proposer un prix
+            </button>
+            <button class="w-full bg-red-100 hover:bg-red-200 text-red-800 px-4 py-3 rounded-lg font-medium flex items-center justify-center">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+              Refuser
+            </button>
+          </div>
+        </div>
+
+        <!-- Price Breakdown -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Détail du prix</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+              <span class="text-sm text-gray-600">Main d'œuvre</span>
+              <span class="font-medium text-gray-900">€80</span>
+            </div>
+            <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+              <span class="text-sm text-gray-600">Pièces</span>
+              <span class="font-medium text-gray-900">€35</span>
+            </div>
+            <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+              <span class="text-sm text-gray-600">Fournitures</span>
+              <span class="font-medium text-gray-900">€5</span>
+            </div>
+            <div class="flex items-center justify-between pt-2">
+              <span class="text-base font-bold text-gray-900">Total TTC</span>
+              <span class="text-xl font-bold text-blue-hero">€120</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Historique</h3>
+          <div class="space-y-4">
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-blue-hero rounded-full mt-2"></div>
+              <div>
+                <p class="text-sm font-medium text-gray-900">Demande reçue</p>
+                <p class="text-xs text-gray-500">Aujourd'hui à 10:30</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <div class="w-2 h-2 bg-gray-300 rounded-full mt-2"></div>
+              <div>
+                <p class="text-sm font-medium text-gray-400">En attente de confirmation</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Help -->
+        <div class="bg-blue-50 border-l-4 border-blue-hero rounded-lg p-4">
+          <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-bold text-blue-800">Rappel</h3>
+              <p class="text-sm text-blue-700 mt-1">
+                Répondez rapidement aux demandes pour maintenir un bon taux de réponse
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
