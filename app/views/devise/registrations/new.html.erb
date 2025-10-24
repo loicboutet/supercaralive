@@ -1,29 +1,193 @@
-<h2>Sign up</h2>
+<div class="flex w-full justify-center">
+  <div class="min-h-screen bg-soft flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-lg w-full">
+      <!-- Logo and Header -->
+      <div class="text-center mb-8">
+        <div class="flex justify-center mb-4">
+          <%= image_tag "logo.png", alt: "Supercaralive", class: "h-16" %>
+        </div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-2">Créer un compte</h2>
+        <p class="text-gray-600">Rejoignez Supercaralive aujourd'hui</p>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      <!-- Registration Form -->
+      <div class="bg-white rounded-super shadow-sm p-8">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          
+          <div class="space-y-6">
+            <!-- Role Selection -->
+            <div>
+              <label class="block text-sm font-bold text-gray-700 mb-4">Je suis :</label>
+              <div class="grid md:grid-cols-2 gap-4">
+                <label class="relative flex flex-col items-center p-6 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-hero transition role-card">
+                  <input type="radio" name="user[role]" value="client" checked class="sr-only role-radio" data-role="client">
+                  <div class="w-16 h-16 bg-blue-hero rounded-lg flex items-center justify-center mb-3">
+                    <span class="text-white text-3xl">🚗</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900">Particulier</h3>
+                  <p class="text-sm text-gray-600 text-center mt-2">Je recherche des services automobiles</p>
+                </label>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                <label class="relative flex flex-col items-center p-6 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-red-hero transition role-card">
+                  <input type="radio" name="user[role]" value="professional" class="sr-only role-radio" data-role="professional">
+                  <div class="w-16 h-16 bg-red-hero rounded-lg flex items-center justify-center mb-3">
+                    <span class="text-white text-3xl">🔧</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900">Professionnel</h3>
+                  <p class="text-sm text-gray-600 text-center mt-2">Je propose des services automobiles</p>
+                </label>
+              </div>
+            </div>
+
+            <!-- Common Fields -->
+            <div>
+              <%= f.label :email, "Adresse email", class: "block text-sm font-bold text-gray-700 mb-2" %>
+              <%= f.email_field :email, 
+                  autofocus: true, 
+                  autocomplete: "email",
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition",
+                  placeholder: "votre.email@exemple.fr" %>
+            </div>
+
+            <!-- Client-specific fields -->
+            <div id="client-fields" class="space-y-6">
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Nom d'affichage (pseudonyme ou initiales)</label>
+                <input type="text" name="user[display_name]" 
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent transition"
+                      placeholder="ex: Sophie P. ou SP">
+                <p class="text-xs text-gray-500 mt-1">Votre nom complet restera anonyme pour les professionnels</p>
+              </div>
+            </div>
+
+            <!-- Professional-specific fields -->
+            <div id="professional-fields" class="space-y-6 hidden">
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Nom de l'entreprise</label>
+                <input type="text" name="user[company_name]" 
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition"
+                      placeholder="ex: Garage Martin">
+              </div>
+
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Numéro SIREN</label>
+                <input type="text" name="user[siren]" 
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition"
+                      placeholder="123 456 789"
+                      maxlength="9">
+                <p class="text-xs text-gray-500 mt-1">Requis pour la validation de votre compte professionnel</p>
+              </div>
+
+              <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Type de service</label>
+                <select name="user[service_type]" 
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition">
+                  <option value="">Sélectionnez votre spécialité</option>
+                  <option value="mechanic">Mécanique</option>
+                  <option value="body_shop">Carrosserie</option>
+                  <option value="car_wash">Lavage automobile</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Password Fields -->
+            <div>
+              <%= f.label :password, "Mot de passe", class: "block text-sm font-bold text-gray-700 mb-2" %>
+              <% if @minimum_password_length %>
+                <p class="text-xs text-gray-500 mb-2">Minimum <%= @minimum_password_length %> caractères</p>
+              <% end %>
+              <%= f.password_field :password, 
+                  autocomplete: "new-password",
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition",
+                  placeholder: "••••••••" %>
+            </div>
+
+            <div>
+              <%= f.label :password_confirmation, "Confirmer le mot de passe", class: "block text-sm font-bold text-gray-700 mb-2" %>
+              <%= f.password_field :password_confirmation, 
+                  autocomplete: "new-password",
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition",
+                  placeholder: "••••••••" %>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="flex items-start">
+              <input type="checkbox" name="user[terms]" required
+                    class="w-4 h-4 text-red-hero border-gray-300 rounded focus:ring-red-hero mt-1">
+              <label class="ml-2 text-sm text-gray-700">
+                J'accepte les <a href="#" class="text-blue-hero hover:underline">conditions d'utilisation</a> et la <a href="#" class="text-blue-hero hover:underline">politique de confidentialité</a>
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+              <%= f.submit "Créer mon compte", class: "bg-red-hero hover:bg-red-dark text-white font-bold py-2 px-6 rounded-lg transition" %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Links -->
+        <div class="mt-6 text-center">
+          <p class="text-sm text-gray-600">
+            Vous avez déjà un compte ? 
+            <%= link_to "Se connecter", new_session_path(resource_name), class: "text-blue-hero hover:underline font-medium" %>
+          </p>
+        </div>
+      </div>
+
+      <!-- Professional Info -->
+      <div id="professional-info" class="mt-6 bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4 hidden">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-yellow-hero" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-yellow-800">
+              <strong>Compte professionnel :</strong> Après inscription, vous devrez télécharger vos documents de vérification (diplôme, assurance, etc.) pour que votre compte soit validé par notre équipe.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const roleRadios = document.querySelectorAll('.role-radio');
+    const clientFields = document.getElementById('client-fields');
+    const professionalFields = document.getElementById('professional-fields');
+    const professionalInfo = document.getElementById('professional-info');
+    const roleCards = document.querySelectorAll('.role-card');
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    roleRadios.forEach(radio => {
+      radio.addEventListener('change', function() {
+        const role = this.dataset.role;
+        
+        // Update card borders
+        roleCards.forEach(card => card.classList.remove('border-blue-hero', 'border-red-hero'));
+        this.closest('.role-card').classList.add(role === 'client' ? 'border-blue-hero' : 'border-red-hero');
+        
+        // Toggle fields
+        if (role === 'client') {
+          clientFields.classList.remove('hidden');
+          professionalFields.classList.add('hidden');
+          professionalInfo.classList.add('hidden');
+        } else {
+          clientFields.classList.add('hidden');
+          professionalFields.classList.remove('hidden');
+          professionalInfo.classList.remove('hidden');
+        }
+      });
+    });
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    // Initialize with client selected
+    const clientRadio = document.querySelector('[data-role="client"]');
+    if (clientRadio && clientRadio.checked) {
+      clientRadio.closest('.role-card').classList.add('border-blue-hero');
+    }
+  });
+</script>

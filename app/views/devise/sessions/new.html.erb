@@ -1,26 +1,67 @@
-<h2>Log in</h2>
+<div class="flex w-full justify-center">
+  <div class="min-h-screen bg-soft flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-lg w-full">
+      <!-- Logo and Header -->
+      <div class="text-center mb-8">
+        <div class="flex justify-center mb-4">
+          <%= image_tag "logo.png", alt: "Supercaralive", class: "h-16" %>
+        </div>
+        <h2 class="text-4xl font-bold text-gray-900 mb-2">Connexion</h2>
+        <p class="text-gray-600">Bienvenue sur Supercaralive</p>
+      </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <!-- Login Form -->
+      <div class="bg-white rounded-super shadow-sm p-8">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="space-y-6">
+            <!-- Email Field -->
+            <div>
+              <%= f.label :email, "Adresse email", class: "block text-sm font-bold text-gray-700 mb-2" %>
+              <%= f.email_field :email, 
+                  autofocus: true, 
+                  autocomplete: "email",
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition",
+                  placeholder: "votre.email@exemple.fr" %>
+            </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+            <!-- Password Field -->
+            <div>
+              <%= f.label :password, "Mot de passe", class: "block text-sm font-bold text-gray-700 mb-2" %>
+              <%= f.password_field :password, 
+                  autocomplete: "current-password",
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition",
+                  placeholder: "••••••••" %>
+            </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+            <!-- Remember Me -->
+            <% if devise_mapping.rememberable? %>
+              <div class="flex items-center">
+                <%= f.check_box :remember_me, class: "w-4 h-4 text-red-hero border-gray-300 rounded focus:ring-red-hero" %>
+                <%= f.label :remember_me, "Se souvenir de moi", class: "ml-2 text-sm text-gray-700" %>
+              </div>
+            <% end %>
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+              <%= f.submit "Se connecter", class: "bg-red-hero hover:bg-red-dark text-white font-bold py-2 px-6 rounded-lg transition" %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Links -->
+        <div class="mt-6 text-center space-y-2">
+          <%= link_to "Mot de passe oublié ?", new_password_path(resource_name), class: "text-blue-hero hover:underline text-sm font-medium block" %>
+          <%= link_to "Créer un compte", new_registration_path(resource_name), class: "text-blue-hero hover:underline text-sm font-medium block" %>
+        </div>
+      </div>
+
+      <!-- Role Selection Info -->
+      <div class="mt-6 text-center">
+        <p class="text-sm text-gray-600">
+          Vous êtes professionnel ? 
+          <%= link_to "Inscrivez-vous ici", new_registration_path(resource_name, role: 'professional'), class: "text-red-hero hover:underline font-medium" %>
+        </p>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
