@@ -1,3 +1,3 @@
 class Client::BaseController < ApplicationController
-  layout 'user'
+  layout 'client'
 end

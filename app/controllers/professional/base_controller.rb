@@ -1,3 +1,3 @@
 class Professional::BaseController < ApplicationController
-  layout 'user'
+  layout 'professional'
 end
