@@ -1,16 +1,16 @@
 <div class="min-h-screen bg-soft flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-lg w-full min-w-0 sm:min-w-96">
     <!-- Logo and Header -->
-      <div class="text-center mb-8">
+    <div class="text-center mb-8">
         <div class="flex justify-center mb-4">
           <%= image_tag "logo.png", alt: "Supercaralive", class: "h-16" %>
         </div>
         <h2 class="text-4xl font-bold text-gray-900 mb-2">Créer un compte</h2>
         <p class="text-gray-600">Rejoignez Supercaralive aujourd'hui</p>
-      </div>
+    </div>
 
-      <!-- Registration Form -->
-      <div class="bg-white rounded-super shadow-sm p-8">
+    <!-- Registration Form -->
+    <div class="bg-white rounded-super shadow-sm p-8">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           
@@ -132,11 +132,11 @@
             Vous avez déjà un compte ? 
             <%= link_to "Se connecter", new_session_path(resource_name), class: "text-blue-hero hover:underline font-medium" %>
           </p>
-        </div>
       </div>
+    </div>
 
-      <!-- Professional Info -->
-      <div id="professional-info" class="mt-6 bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4 hidden">
+    <!-- Professional Info -->
+    <div id="professional-info" class="mt-6 bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4 hidden">
         <div class="flex items-start">
           <div class="flex-shrink-0">
             <svg class="h-5 w-5 text-yellow-hero" viewBox="0 0 20 20" fill="currentColor">
@@ -147,8 +147,8 @@
             <p class="text-sm text-yellow-800">
               <strong>Compte professionnel :</strong> Après inscription, vous devrez télécharger vos documents de vérification (diplôme, assurance, etc.) pour que votre compte soit validé par notre équipe.
             </p>
-          </div>
         </div>
+      </div>
     </div>
   </div>
 </div>
