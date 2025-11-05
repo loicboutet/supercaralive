@@ -23,9 +23,17 @@ class Client::ProfilesController < Client::BaseController
     @profile = OpenStruct.new(
       pseudonym: 'J.D.',
       phone: '+33 6 12 34 56 78',
-      address: '123 Rue de Example',
-      postal_code: '75001',
-      city: 'Paris'
+      # Billing address (for invoicing)
+      billing_address: '123 Rue de Example',
+      billing_postal_code: '75001',
+      billing_city: 'Paris',
+      # Service locations
+      service_locations: [
+        { id: 1, name: 'Domicile principal', address: '123 Rue de Example', postal_code: '75001', city: 'Paris', notes: 'Garage disponible' },
+        { id: 2, name: 'Résidence secondaire', address: '45 Avenue des Pins', postal_code: '06400', city: 'Cannes', notes: 'Accès par le portail sud' }
+      ],
+      # Reminder settings
+      reminders_enabled: true
     )
   end
 end
