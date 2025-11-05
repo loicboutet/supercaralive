@@ -68,6 +68,10 @@ body {
     background-color: #3a6782; 
 }
 
+.hover\:bg-yellow-dark:hover { 
+    background-color: #d89150; 
+}
+
 .hover\:text-white:hover {
     color: white;
 }
