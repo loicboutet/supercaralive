@@ -3,12 +3,12 @@
             <div class="grid md:grid-cols-4 gap-12 mb-12">
                 <!-- Logo & Description -->
                 <div class="md:col-span-2">
-                    <div class="flex items-center space-x-3 mb-4">
+                    <%= link_to root_path, class: "flex items-center space-x-3 mb-4 hover:opacity-80 transition-opacity" do %>
                         <div class="w-10 h-10 bg-red-hero rounded-friendly flex items-center justify-center">
                             <span class="text-white text-xl">🚗</span>
                         </div>
                         <span class="text-xl font-bold">SUPERCAR<span class="text-red-hero">ALIVE</span></span>
-                    </div>
+                    <% end %>
                     <p class="text-gray-400 leading-relaxed max-w-md">
                         Supercaralive - Les pros de l'auto directement chez vous en un clic
                     </p>
