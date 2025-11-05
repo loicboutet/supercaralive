@@ -92,7 +92,7 @@ export default class extends Controller {
       const indicator = header.querySelector('.sort-indicator')
       
       if (column === activeColumn) {
-        indicator.classList.remove('opacity-30')
+        indicator.classList.remove('opacity-70')
         indicator.classList.add('opacity-100')
         
         if (this.directionValue === "asc") {
@@ -102,7 +102,7 @@ export default class extends Controller {
         }
       } else {
         indicator.classList.remove('opacity-100')
-        indicator.classList.add('opacity-30')
+        indicator.classList.add('opacity-70')
         indicator.innerHTML = '↕'
       }
     })
