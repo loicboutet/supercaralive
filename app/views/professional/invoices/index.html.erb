@@ -49,15 +49,40 @@
     </div>
 
     <!-- Invoices List -->
-    <div class="bg-white rounded-super shadow-sm overflow-hidden">
-      <table class="min-w-full divide-y divide-gray-200">
+    <div class="bg-white rounded-super shadow-sm overflow-hidden" data-controller="invoice-sort">
+      <table class="min-w-full divide-y divide-gray-200" data-invoice-sort-target="table">
         <thead class="bg-gray-50">
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Numéro</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none" data-column="number" data-action="click->invoice-sort#sort">
+              <div class="flex items-center">
+                Numéro
+                <span class="ml-1 sort-indicator opacity-70" style="font-size: 1rem; font-weight: bold; color: black;">↕</span>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none" data-column="client" data-action="click->invoice-sort#sort">
+              <div class="flex items-center">
+                Client
+                <span class="ml-1 sort-indicator opacity-70" style="font-size: 1rem; font-weight: bold; color: black;">↕</span>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none" data-column="service" data-action="click->invoice-sort#sort">
+              <div class="flex items-center">
+                Service
+                <span class="ml-1 sort-indicator opacity-70" style="font-size: 1rem; font-weight: bold; color: black;">↕</span>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none" data-column="date" data-action="click->invoice-sort#sort">
+              <div class="flex items-center">
+                Date
+                <span class="ml-1 sort-indicator opacity-70" style="font-size: 1rem; font-weight: bold; color: black;">↕</span>
+              </div>
+            </th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100 select-none" data-column="amount" data-action="click->invoice-sort#sort">
+              <div class="flex items-center">
+                Montant
+                <span class="ml-1 sort-indicator opacity-70" style="font-size: 1rem; font-weight: bold; color: black;">↕</span>
+              </div>
+            </th>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
           </tr>
@@ -65,7 +90,7 @@
         <tbody class="bg-white divide-y divide-gray-200">
           
           <!-- Invoice 1 -->
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-gray-50" data-invoice-sort-target="row">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">#INV-2025-001</div>
               <div class="text-xs text-gray-500">27/01/2025</div>
@@ -114,7 +139,7 @@
           </tr>
 
           <!-- Invoice 2 -->
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-gray-50" data-invoice-sort-target="row">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">#INV-2025-002</div>
               <div class="text-xs text-gray-500">25/01/2025</div>
@@ -163,7 +188,7 @@
           </tr>
 
           <!-- Invoice 3 -->
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-gray-50" data-invoice-sort-target="row">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">#INV-2025-003</div>
               <div class="text-xs text-gray-500">23/01/2025</div>
@@ -212,7 +237,7 @@
           </tr>
 
           <!-- More invoices... -->
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-gray-50" data-invoice-sort-target="row">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-medium text-gray-900">#INV-2025-004</div>
               <div class="text-xs text-gray-500">20/01/2025</div>

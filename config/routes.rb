@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'mockups/admin_dashboard'
   get 'mockups/admin_users'
   get 'mockups/admin_analytics'
+  get 'mockups/professional_bookings', to: 'professional/bookings#index'
+  get 'mockups/professional_invoices', to: 'professional/invoices#index'
 
   # Home/Landing page
   get 'home', to: 'home#index'

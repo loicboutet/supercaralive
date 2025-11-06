@@ -1,158 +1,311 @@
 <div class="container mx-auto px-6 py-8">
   <div class="max-w-6xl mx-auto">
-    <div class="mb-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-2">Rappels d'entretien</h1>
-      <p class="text-gray-600">Suivez les maintenances périodiques de vos véhicules</p>
-    </div>
-
-    <!-- Summary Cards -->
-    <div class="grid md:grid-cols-3 gap-6 mb-8">
-      <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-red-hero">
-        <div class="flex items-center justify-between mb-2">
-          <p class="text-sm text-gray-600">Urgents</p>
-          <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
-            <span class="text-xl">⚠️</span>
-          </div>
-        </div>
-        <p class="text-3xl font-bold text-gray-900">2</p>
-        <p class="text-sm text-gray-500 mt-1">À faire rapidement</p>
+    <!-- Page Header -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Mon supercarnet d'entretien</h1>
+        <p class="text-gray-600">Suivez vos dépenses et les maintenances périodiques de vos véhicules</p>
       </div>
-
-      <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-yellow-hero">
-        <div class="flex items-center justify-between mb-2">
-          <p class="text-sm text-gray-600">À venir</p>
-          <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
-            <span class="text-xl">⏰</span>
-          </div>
-        </div>
-        <p class="text-3xl font-bold text-gray-900">3</p>
-        <p class="text-sm text-gray-500 mt-1">Dans les prochains mois</p>
-      </div>
-
-      <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-green-500">
-        <div class="flex items-center justify-between mb-2">
-          <p class="text-sm text-gray-600">Complétés</p>
-          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-            <span class="text-xl">✓</span>
-          </div>
-        </div>
-        <p class="text-3xl font-bold text-gray-900">8</p>
-        <p class="text-sm text-gray-500 mt-1">Cette année</p>
+      <div class="flex space-x-3">
+        <%= link_to client_vehicles_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path>
+          </svg>
+          Mes véhicules
+        <% end %>
       </div>
     </div>
 
-    <!-- Reminders List -->
-    <div class="space-y-4">
-      <% 
-        reminders = [
-          { type: 'Vidange', vehicle: 'Peugeot 208', due_km: 80000, current_km: 78500, status: 'urgent', color: 'red' },
-          { type: 'Contrôle technique', vehicle: 'Peugeot 208', due_date: Date.current + 15.days, status: 'urgent', color: 'red' },
-          { type: 'Changement pneus', vehicle: 'Renault Clio', due_km: 60000, current_km: 55000, status: 'upcoming', color: 'yellow' },
-          { type: 'Révision générale', vehicle: 'Peugeot 208', due_date: Date.current + 60.days, status: 'upcoming', color: 'yellow' },
-          { type: 'Filtre à air', vehicle: 'Renault Clio', due_km: 65000, current_km: 55000, status: 'upcoming', color: 'yellow' },
-          { type: 'Vidange', vehicle: 'Renault Clio', due_date: Date.current - 10.days, status: 'completed', color: 'green' },
-        ]
-      %>
-      
-      <% reminders.each_with_index do |reminder, i| %>
-        <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition border-l-4 border-<%= reminder[:color] %>-hero">
+    <!-- SECTION 1: WALLET INFO -->
+    <div class="mb-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-bold text-gray-900">Mon Portefeuille</h2>
+        <%= link_to client_invoices_path, class: "text-blue-hero hover:underline font-medium inline-flex items-center" do %>
+          <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          Toutes mes factures
+        <% end %>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-lg p-8 shadow-sm">
           <div class="flex items-center justify-between">
-            <div class="flex items-start space-x-4 flex-1">
-              <div class="w-12 h-12 bg-<%= reminder[:color] == 'red' ? 'red' : reminder[:color] == 'yellow' ? 'yellow' : 'green' %>-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <% if reminder[:status] == 'urgent' %>
-                  <span class="text-2xl">⚠️</span>
-                <% elsif reminder[:status] == 'upcoming' %>
-                  <span class="text-2xl">⏰</span>
-                <% else %>
-                  <span class="text-2xl">✓</span>
-                <% end %>
-              </div>
-              
-              <div class="flex-1">
-                <div class="flex items-center justify-between mb-2">
-                  <div>
-                    <h3 class="text-xl font-bold text-gray-900"><%= reminder[:type] %></h3>
-                    <p class="text-sm text-gray-600"><%= reminder[:vehicle] %></p>
-                  </div>
-                  <% if reminder[:status] == 'urgent' %>
-                    <span class="px-3 py-1 rounded-lg text-xs font-medium bg-red-100 text-red-800">Urgent</span>
-                  <% elsif reminder[:status] == 'upcoming' %>
-                    <span class="px-3 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-800">À venir</span>
-                  <% else %>
-                    <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-800">Effectué</span>
-                  <% end %>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                  <% if reminder[:due_km] %>
-                    <div>
-                      <p class="text-xs text-gray-500">Échéance kilométrique</p>
-                      <p class="text-sm font-medium text-gray-900"><%= number_with_delimiter(reminder[:due_km]) %> km</p>
-                      <% if reminder[:current_km] %>
-                        <div class="mt-2">
-                          <div class="w-full bg-gray-200 rounded-full h-2">
-                            <div class="bg-<%= reminder[:color] %>-hero h-2 rounded-full" style="width: <%= [(reminder[:current_km].to_f / reminder[:due_km] * 100), 100].min %>%"></div>
-                          </div>
-                          <p class="text-xs text-gray-500 mt-1">Actuel: <%= number_with_delimiter(reminder[:current_km]) %> km</p>
-                        </div>
-                      <% end %>
-                    </div>
-                  <% end %>
-                  <% if reminder[:due_date] %>
-                    <div>
-                      <p class="text-xs text-gray-500">Date d'échéance</p>
-                      <p class="text-sm font-medium text-gray-900"><%= reminder[:due_date].strftime("%d/%m/%Y") %></p>
-                      <% if reminder[:status] != 'completed' %>
-                        <p class="text-xs <%= reminder[:status] == 'urgent' ? 'text-red-600' : 'text-gray-500' %> mt-1">
-                          <% days_left = (reminder[:due_date] - Date.current).to_i %>
-                          <% if days_left < 0 %>
-                            Retard de <%= days_left.abs %> jours
-                          <% elsif days_left == 0 %>
-                            Aujourd'hui !
-                          <% else %>
-                            Dans <%= days_left %> jours
-                          <% end %>
-                        </p>
-                      <% end %>
-                    </div>
-                  <% end %>
-                </div>
-
-                <% if reminder[:status] != 'completed' %>
-                  <div class="flex space-x-2">
-                    <%= link_to client_professionals_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-sm" do %>
-                      Réserver un service
-                    <% end %>
-                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm">
-                      Rappeler plus tard
-                    </button>
-                    <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm">
-                      Marquer comme fait
-                    </button>
-                  </div>
-                <% else %>
-                  <p class="text-sm text-gray-600">✓ Effectué le <%= (Date.current - 10.days).strftime("%d/%m/%Y") %></p>
-                <% end %>
-              </div>
+            <div class="flex flex-col">
+              <span class="text-lg font-bold text-gray-700 mb-2">Dépenses totales</span>
+              <p class="text-5xl font-bold text-blue-hero mb-2"><%= number_to_currency(1250.50, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></p>
+              <p class="text-base text-gray-500">Cette année</p>
+            </div>
+            <div class="w-16 h-16 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-white text-3xl">💰</span>
             </div>
           </div>
         </div>
-      <% end %>
+
+        <div class="bg-white rounded-lg p-8 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="text-lg font-bold text-gray-700 mb-2">Factures payées</span>
+              <p class="text-5xl font-bold text-green-500 mb-2">8</p>
+              <p class="text-base text-gray-500">Services complétés</p>
+            </div>
+            <div class="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-white text-3xl">✓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg p-8 shadow-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex flex-col">
+              <span class="text-lg font-bold text-gray-700 mb-2">En attente</span>
+              <p class="text-5xl font-bold text-yellow-hero mb-2">2</p>
+              <p class="text-base text-gray-500">Paiements à effectuer</p>
+            </div>
+            <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-white text-3xl">⏳</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="bg-white rounded-super shadow-sm overflow-hidden">
+        <div class="p-6 border-b border-gray-200">
+          <h3 class="text-2xl font-bold text-gray-900">Transactions récentes</h3>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead class="bg-soft">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Professionnel</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Statut</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Montant</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+              <% 5.times do |i| %>
+                <tr class="hover:bg-soft transition">
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <p class="text-sm text-gray-900"><%= (Date.current - i.weeks).strftime("%d/%m/%Y") %></p>
+                  </td>
+                  <td class="px-6 py-4">
+                    <p class="text-sm font-medium text-gray-900"><%= ['Entretien annuel', 'Vidange', 'Lavage complet', 'Changement pneus', 'Révision'][i] %></p>
+                    <p class="text-xs text-gray-500">Facture #INV-<%= 1000 + i %></p>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <p class="text-sm text-gray-900"><%= ['AutoPro Garage', 'Méca Express', 'Clean Car Pro', 'Garage Martin', 'Auto Service'][i] %></p>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <% if i < 3 %>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-800">Payé</span>
+                    <% else %>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-800">En attente</span>
+                    <% end %>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <p class="text-sm font-bold text-gray-900"><%= number_to_currency([120, 85, 150, 200, 95][i], unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></p>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    <div class="flex space-x-2">
+                      <%= link_to "Voir", client_invoice_path(i + 1), class: "text-blue-hero hover:underline font-medium" %>
+                      <% if i < 3 %>
+                        <span class="text-gray-300">|</span>
+                        <a href="#" class="text-green-600 hover:underline font-medium">Télécharger</a>
+                      <% else %>
+                        <span class="text-gray-300">|</span>
+                        <%= link_to "Payer", client_payment_path(i + 1), class: "text-red-hero hover:underline font-medium" %>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="px-6 py-4 bg-soft border-t border-gray-200">
+          <div class="flex items-center justify-between">
+            <p class="text-sm text-gray-600">Affichage de 1 à 5 sur 8 transactions</p>
+            <nav class="flex space-x-2">
+              <a href="#" class="px-3 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm">Précédent</a>
+              <a href="#" class="px-3 py-2 bg-red-hero text-white rounded-lg text-sm">1</a>
+              <a href="#" class="px-3 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm">2</a>
+              <a href="#" class="px-3 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm">Suivant</a>
+            </nav>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Info Banner -->
-    <div class="mt-8 bg-blue-50 border-l-4 border-blue-hero rounded-lg p-6">
-      <div class="flex">
-        <div class="flex-shrink-0">
-          <svg class="h-6 w-6 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+    <!-- SECTION 2: MAINTENANCE REMINDERS -->
+    <div>
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-bold text-gray-900">Rappels d'entretien</h2>
+        <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
           </svg>
+          Désactiver les rappels
+        </button>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="grid md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-red-hero">
+          <div class="flex items-center justify-between mb-2">
+            <p class="text-sm text-gray-600">Urgents</p>
+            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">⚠️</span>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-gray-900">2</p>
+          <p class="text-sm text-gray-500 mt-1">À faire rapidement</p>
         </div>
-        <div class="ml-3">
-          <h3 class="text-sm font-bold text-blue-800">Rappels automatiques</h3>
-          <p class="text-sm text-blue-700 mt-1">
-            Supercaralive vous envoie automatiquement des rappels par email pour les maintenances périodiques en fonction du kilométrage et du temps écoulé.
-          </p>
+
+        <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-yellow-hero">
+          <div class="flex items-center justify-between mb-2">
+            <p class="text-sm text-gray-600">À venir</p>
+            <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">⏰</span>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-gray-900">3</p>
+          <p class="text-sm text-gray-500 mt-1">Dans les prochains mois</p>
+        </div>
+
+        <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-green-500">
+          <div class="flex items-center justify-between mb-2">
+            <p class="text-sm text-gray-600">Complétés</p>
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">✓</span>
+            </div>
+          </div>
+          <p class="text-3xl font-bold text-gray-900">8</p>
+          <p class="text-sm text-gray-500 mt-1">Cette année</p>
+        </div>
+      </div>
+
+      <!-- Reminders List -->
+      <div class="space-y-4">
+        <% 
+          reminders = [
+            { type: 'Vidange', vehicle: 'Peugeot 208', due_km: 80000, current_km: 78500, status: 'urgent', color: 'red' },
+            { type: 'Contrôle technique', vehicle: 'Peugeot 208', due_date: Date.current + 15.days, status: 'urgent', color: 'red' },
+            { type: 'Changement pneus', vehicle: 'Renault Clio', due_km: 60000, current_km: 55000, status: 'upcoming', color: 'yellow' },
+            { type: 'Révision générale', vehicle: 'Peugeot 208', due_date: Date.current + 60.days, status: 'upcoming', color: 'yellow' },
+            { type: 'Filtre à air', vehicle: 'Renault Clio', due_km: 65000, current_km: 55000, status: 'upcoming', color: 'yellow' },
+            { type: 'Vidange', vehicle: 'Renault Clio', due_date: Date.current - 10.days, status: 'completed', color: 'green' },
+          ]
+        %>
+        
+        <% reminders.each_with_index do |reminder, i| %>
+          <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition border-l-4 border-<%= reminder[:color] %>-hero">
+            <div class="flex items-center justify-between">
+              <div class="flex items-start space-x-4 flex-1">
+                <div class="w-12 h-12 bg-<%= reminder[:color] == 'red' ? 'red' : reminder[:color] == 'yellow' ? 'yellow' : 'green' %>-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <% if reminder[:status] == 'urgent' %>
+                    <span class="text-2xl">⚠️</span>
+                  <% elsif reminder[:status] == 'upcoming' %>
+                    <span class="text-2xl">⏰</span>
+                  <% else %>
+                    <span class="text-2xl">✓</span>
+                  <% end %>
+                </div>
+                
+                <div class="flex-1">
+                  <div class="flex items-center justify-between mb-2">
+                    <div>
+                      <h3 class="text-xl font-bold text-gray-900"><%= reminder[:type] %></h3>
+                      <p class="text-sm text-gray-600"><%= reminder[:vehicle] %></p>
+                    </div>
+                    <% if reminder[:status] == 'urgent' %>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-red-100 text-red-800">Urgent</span>
+                    <% elsif reminder[:status] == 'upcoming' %>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-800">À venir</span>
+                    <% else %>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-800">Effectué</span>
+                    <% end %>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4 mb-4">
+                    <% if reminder[:due_km] %>
+                      <div>
+                        <p class="text-xs text-gray-500">Échéance kilométrique</p>
+                        <p class="text-sm font-medium text-gray-900"><%= number_with_delimiter(reminder[:due_km]) %> km</p>
+                        <% if reminder[:current_km] %>
+                          <div class="mt-2">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                              <div class="bg-<%= reminder[:color] %>-hero h-2 rounded-full" style="width: <%= [(reminder[:current_km].to_f / reminder[:due_km] * 100), 100].min %>%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">Actuel: <%= number_with_delimiter(reminder[:current_km]) %> km</p>
+                          </div>
+                        <% end %>
+                      </div>
+                    <% end %>
+                    <% if reminder[:due_date] %>
+                      <div>
+                        <p class="text-xs text-gray-500">Date d'échéance</p>
+                        <p class="text-sm font-medium text-gray-900"><%= reminder[:due_date].strftime("%d/%m/%Y") %></p>
+                        <% if reminder[:status] != 'completed' %>
+                          <p class="text-xs <%= reminder[:status] == 'urgent' ? 'text-red-600' : 'text-gray-500' %> mt-1">
+                            <% days_left = (reminder[:due_date] - Date.current).to_i %>
+                            <% if days_left < 0 %>
+                              Retard de <%= days_left.abs %> jours
+                            <% elsif days_left == 0 %>
+                              Aujourd'hui !
+                            <% else %>
+                              Dans <%= days_left %> jours
+                            <% end %>
+                          </p>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+
+                  <% if reminder[:status] != 'completed' %>
+                    <div class="flex space-x-2">
+                      <%= link_to client_professionals_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-sm" do %>
+                        Réserver un service
+                      <% end %>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm">
+                        Rappeler plus tard
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm">
+                        Marquer comme fait
+                      </button>
+                    </div>
+                  <% else %>
+                    <p class="text-sm text-gray-600">✓ Effectué le <%= (Date.current - 10.days).strftime("%d/%m/%Y") %></p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Info Banner -->
+      <div class="mt-8 bg-blue-50 border-l-4 border-blue-hero rounded-lg p-6">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-blue-hero" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-bold text-blue-800">Rappels automatiques</h3>
+            <p class="text-sm text-blue-700 mt-1">
+              Supercaralive vous envoie automatiquement des rappels par email pour les maintenances périodiques en fonction du kilométrage et du temps écoulé.
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -31,6 +31,74 @@
     <p class="text-sm text-gray-500 mt-1">Le numéro d'identification du véhicule (17 caractères)</p>
   </div>
 
+  <!-- Vos prochaines actions section -->
+  <div class="mt-8 pt-8 border-t border-gray-200">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+          <svg class="w-6 h-6 mr-2 text-red-hero" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+          </svg>
+          Vos prochaines actions
+        </h2>
+        <p class="text-gray-600 mt-1">Suivez l'entretien de votre véhicule</p>
+      </div>
+      
+      <!-- Reminder Toggle -->
+      <div class="flex items-center space-x-3">
+        <label class="flex items-center cursor-pointer">
+          <div class="relative">
+            <input type="checkbox" class="sr-only peer" checked>
+            <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-hero/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-hero"></div>
+          </div>
+          <span class="ms-3 text-sm font-medium text-gray-700">Activer les rappels d'entretien</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="bg-soft rounded-super p-6 space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <%= f.label :next_service_date, "Date du prochain entretien", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <div class="relative">
+            <%= f.date_field :next_service_date, value: "2025-12-15", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
+            <svg class="absolute right-3 top-3 w-6 h-6 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">Planifiez votre prochaine révision</p>
+        </div>
+
+        <div>
+          <%= f.label :next_mot_date, "Date du prochain CT (Contrôle Technique)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <div class="relative">
+            <%= f.date_field :next_mot_date, value: "2026-03-20", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
+            <svg class="absolute right-3 top-3 w-6 h-6 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">Contrôle technique obligatoire</p>
+        </div>
+      </div>
+
+      <div>
+        <%= f.label :upcoming_services, "Services à venir", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= f.text_area :upcoming_services, value: "- Vidange moteur à 80,000 km\n- Changement des plaquettes de frein\n- Contrôle des pneus", rows: 6, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent resize-none", placeholder: "Listez vos prochains entretiens...\nExemple:\n- Vidange moteur à 80,000 km\n- Changement des plaquettes de frein" %>
+        <p class="text-sm text-gray-500 mt-1">Notez les entretiens prévus pour ne rien oublier</p>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start">
+        <svg class="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <div class="text-sm text-blue-800">
+          <p class="font-semibold mb-1">Rappels automatiques activés</p>
+          <p>Vous recevrez des notifications avant les dates d'entretien programmées pour ne jamais manquer un rendez-vous important.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="flex space-x-4 pt-4">
     <button type="submit" class="bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold cursor-pointer inline-flex items-center justify-center">
       <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

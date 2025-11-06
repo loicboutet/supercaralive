@@ -1,8 +1,9 @@
 class Client::WalletsController < Client::BaseController
 
   def show
-    # Wallet page with payment history
-    # In production, this would load actual payment/invoice data from database
+    # Redirect to the combined maintenance log page
+    # which now includes both wallet info and maintenance reminders
+    redirect_to client_maintenance_reminders_path
   end
 
 end
