@@ -1,10 +1,9 @@
 <header class="bg-white shadow-sm sticky top-0 z-50">
   <nav class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div class="flex items-center justify-between">
-      <!-- Logo -->
-      <%= link_to root_path, class: "flex items-center space-x-2 sm:space-x-3" do %>
-        <%= image_tag "logo.png", alt: "Supercaralive", class: "h-24 sm:h-16 md:h-20 lg:h-24 w-auto" %>
-        <span class="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-800 hidden sm:inline">SUPERCAR<span class="text-red-hero">ALIVE</span></span>
+      <!-- Logo - Text only -->
+      <%= link_to root_path, class: "flex items-center" do %>
+        <span class="text-xl sm:text-2xl font-bold text-gray-800">SUPERCAR<span class="text-red-hero">ALIVE</span></span>
       <% end %>
       
       <!-- Render appropriate menu based on namespace -->
