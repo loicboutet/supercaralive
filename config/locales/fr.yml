@@ -49,4 +49,14 @@ fr:
     description: "Description"
     created_at: "Créé le"
     updated_at: "Modifié le"
+    user:
+      first_name: "Prénom"
+      last_name: "Nom"
+      company_name: "Nom d'entreprise"
+      phone_number: "Téléphone"
+      location: "Localisation"
+      siret: "SIRET"
+      intervention_zone: "Zone d'intervention"
+      professional_presentation: "Présentation professionnelle"
+      profile_photo: "Photo de profil"
 

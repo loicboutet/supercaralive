@@ -3,23 +3,26 @@
 # Table name: users
 # Database name: primary
 #
-#  id                     :integer          not null, primary key
-#  admin_approval_note    :text
-#  cgu_accepted           :boolean          default(FALSE), not null
-#  company_name           :string
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  first_name             :string
-#  last_name              :string
-#  location               :string
-#  phone_number           :string
-#  remember_created_at    :datetime
-#  reset_password_sent_at :datetime
-#  reset_password_token   :string
-#  role                   :string           default("client"), not null
-#  status                 :string           default("active")
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id                        :integer          not null, primary key
+#  admin_approval_note       :text
+#  cgu_accepted              :boolean          default(FALSE), not null
+#  company_name              :string
+#  email                     :string           default(""), not null
+#  encrypted_password        :string           default(""), not null
+#  first_name                :string
+#  intervention_zone         :string
+#  last_name                 :string
+#  location                  :string
+#  phone_number              :string
+#  professional_presentation :text
+#  remember_created_at       :datetime
+#  reset_password_sent_at    :datetime
+#  reset_password_token      :string
+#  role                      :string           default("client"), not null
+#  siret                     :string
+#  status                    :string           default("active")
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #
 # Indexes
 #
@@ -47,6 +50,7 @@ class User < ApplicationRecord
 
   # Associations
   has_many :professional_documents, dependent: :destroy
+  has_one_attached :profile_photo
 
   # Set default role and status before validation
   before_validation :set_default_role, on: :create
@@ -101,6 +105,22 @@ class User < ApplicationRecord
   # Returns normalized role value for use in select forms
   def normalized_role_for_select
     normalize_role_value(role)
+  end
+  
+  # Calculate profile completion percentage for professionals
+  # Includes: fields, profile photo, and at least one document
+  def profile_completion_percentage
+    return 0 unless professional?
+    
+    fields = [:first_name, :last_name, :company_name, :email, :phone_number, :location, :siret, :intervention_zone, :professional_presentation]
+    completed_fields = fields.count { |field| send(field).present? }
+    profile_photo_completed = profile_photo.attached?
+    document_completed = professional_documents.exists?
+    
+    total_fields = fields.count + 1 + 1 # fields + profile photo + document
+    completed_total = completed_fields + (profile_photo_completed ? 1 : 0) + (document_completed ? 1 : 0)
+    
+    ((completed_total.to_f / total_fields) * 100).round
   end
   
   private

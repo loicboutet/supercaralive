@@ -105,7 +105,7 @@ Rails.application.routes.draw do
     end
     
     # Document uploads for verification
-    resources :verification_documents, only: [:index, :create, :destroy]
+    resources :verification_documents, only: [:index, :create, :update, :destroy]
     
     # Service offerings
     resources :professional_services, only: [:index, :create, :update, :destroy]

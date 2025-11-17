@@ -81,4 +81,40 @@ module ApplicationHelper
     classes = [size, css_class].compact.join(' ')
     tag.i('', data: { lucide: name }, class: classes.presence, **options)
   end
+
+  # Helper method to display user profile photo or initials
+  # Returns the content (image + hidden initials, or just initials + hidden img for stimulus) to be placed inside a container
+  # Usage: 
+  #   <div class="w-32 h-32 bg-blue-hero rounded-lg relative">
+  #     <%= user_avatar_content(user, image_class: "w-full h-full object-cover", initials_class: "text-white text-5xl font-bold") %>
+  #   </div>
+  # Options:
+  #   - image_class: CSS classes for the image tag (default: "w-full h-full object-cover")
+  #   - initials_class: CSS classes for the initials span (default: "text-white font-bold absolute inset-0 flex items-center justify-center")
+  #   - image_data: Data attributes for the image (useful for stimulus controllers)
+  #   - initials_data: Data attributes for the initials span (useful for stimulus controllers)
+  #   - include_stimulus_img: If true, includes a hidden img tag for stimulus controller when no photo (default: false)
+  def user_avatar_content(user, image_class: "w-full h-full object-cover", initials_class: "text-white font-bold absolute inset-0 flex items-center justify-center", image_data: {}, initials_data: {}, include_stimulus_img: false)
+    return "" unless user
+
+    # Check if photo is attached AND blob exists (to avoid browser trying to load non-existent files)
+    begin
+      photo_available = user.profile_photo.attached? && user.profile_photo.blob.present?
+    rescue
+      photo_available = false
+    end
+    
+    if photo_available
+      # Add error handler to show initials if image fails to load
+      image_tag(user.profile_photo, class: image_class, data: image_data, onerror: "this.style.display='none'; this.nextElementSibling.classList.remove('hidden');") +
+      content_tag(:span, user.get_initials, class: "#{initials_class} hidden", data: initials_data)
+    else
+      result = content_tag(:span, user.get_initials, class: initials_class, data: initials_data)
+      if include_stimulus_img && image_data.present?
+        # Create a hidden img tag for stimulus controller without src to avoid browser request
+        result += tag.img(class: "#{image_class} hidden", data: image_data)
+      end
+      result
+    end
+  end
 end

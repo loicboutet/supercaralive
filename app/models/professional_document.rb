@@ -3,13 +3,13 @@
 # Table name: professional_documents
 # Database name: primary
 #
-#  id            :integer          not null, primary key
-#  document_type :string
-#  file          :string
-#  name          :string
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  user_id       :integer          not null
+#  id         :integer          not null, primary key
+#  comments   :text
+#  file       :string
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer          not null
 #
 # Indexes
 #

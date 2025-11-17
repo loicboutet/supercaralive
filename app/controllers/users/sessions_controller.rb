@@ -33,7 +33,12 @@ class Users::SessionsController < Devise::SessionsController
     if resource.admin?
       admin_root_path
     elsif resource.professional?
-      professional_root_path
+      # Inactive professionals should go to their profile page
+      if resource.inactive?
+        professional_profile_path
+      else
+        professional_root_path
+      end
     elsif resource.client?
       client_root_path
     else
@@ -44,7 +49,12 @@ class Users::SessionsController < Devise::SessionsController
 
   # The path used after sign in.
   def after_sign_in_path_for(resource)
-    determine_redirect_path_for(resource)
+    # Inactive professionals should go to their profile page
+    if resource.professional? && resource.inactive?
+      professional_profile_path
+    else
+      determine_redirect_path_for(resource)
+    end
   end
 
   # The path used after sign out.

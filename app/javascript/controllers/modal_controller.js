@@ -12,6 +12,12 @@ export default class extends Controller {
     document.body.style.overflow = ''
   }
 
+  open(event) {
+    // Show modal
+    this.element.classList.remove('hidden')
+    document.body.style.overflow = 'hidden'
+  }
+
   close(event) {
     // Hide modal
     this.element.classList.add('hidden')

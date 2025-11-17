@@ -1,6 +1,45 @@
 <div class="bg-soft min-h-screen">
   <div class="container mx-auto px-6 py-8">
     
+    <!-- Inactive/Blocked Status Banner -->
+    <% if current_user.inactive? || current_user.suspended? %>
+      <div class="bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4 mb-6">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-yellow-hero" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3 flex-1">
+            <h3 class="text-sm font-bold text-yellow-800">
+              <% if current_user.inactive? %>
+                Compte en attente de validation
+              <% elsif current_user.suspended? %>
+                Compte suspendu
+              <% end %>
+            </h3>
+            <p class="text-sm text-yellow-700 mt-1">
+              <% if current_user.inactive? %>
+                Votre compte est en attente de validation par un administrateur. En attendant, vous pouvez compléter votre profil et ajouter vos documents de vérification.
+              <% elsif current_user.suspended? %>
+                Votre compte a été suspendu. Veuillez contacter le support pour plus d'informations.
+              <% end %>
+            </p>
+            <% if current_user.inactive? %>
+              <div class="mt-3">
+                <%= link_to edit_professional_profile_path, class: "inline-flex items-center px-4 py-2 bg-yellow-hero hover:bg-opacity-90 text-white rounded-lg font-medium text-sm" do %>
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
+                  Complétez votre profil maintenant
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
     <!-- Header with Actions -->
     <div class="flex items-center justify-between mb-8">
       <div>
@@ -34,55 +73,83 @@
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations générales</h2>
           
           <div class="flex items-start space-x-6 mb-6">
-            <div class="w-32 h-32 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-5xl font-bold">JD</span>
+            <div class="w-32 h-32 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+              <% if @user.profile_photo.attached? %>
+                <%= image_tag @user.profile_photo, class: "w-full h-full object-cover" %>
+              <% else %>
+                <span class="text-white text-5xl font-bold"><%= @user.get_initials %></span>
+              <% end %>
             </div>
             <div class="flex-1">
-              <h3 class="text-2xl font-bold text-gray-900 mb-1">Jean Dupont</h3>
-              <p class="text-lg text-gray-600 mb-3">MySupermécano</p>
+              <h3 class="text-2xl font-bold text-gray-900 mb-1"><%= @user.get_full_name %></h3>
+              <% if @user.company_name.present? %>
+                <p class="text-lg text-gray-600 mb-3"><%= @user.company_name %></p>
+              <% end %>
               <div class="flex items-center space-x-4 text-sm text-gray-600">
-                <span class="flex items-center">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                  </svg>
-                  Paris 15ème
-                </span>
-                <span class="flex items-center">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                  </svg>
-                  06 12 34 56 78
-                </span>
-                <span class="flex items-center">
-                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                  </svg>
-                  jean.dupont@email.fr
-                </span>
+                <% if @user.location.present? %>
+                  <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <%= @user.location %>
+                  </span>
+                <% end %>
+                <% if @user.phone_number.present? %>
+                  <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    <%= @user.phone_number %>
+                  </span>
+                <% end %>
+                <% if @user.email.present? %>
+                  <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <%= @user.email %>
+                  </span>
+                <% end %>
               </div>
             </div>
           </div>
 
           <div class="border-t border-gray-200 pt-4">
             <div class="grid md:grid-cols-2 gap-4">
-              <div>
-                <p class="text-sm text-gray-500 mb-1">Entreprise</p>
-                <p class="font-medium text-gray-900">Garage Dupont SARL</p>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500 mb-1">SIRET</p>
-                <p class="font-medium text-gray-900">123 456 789 00012</p>
-              </div>
-              <div>
-                <p class="text-sm text-gray-500 mb-1">Zone d'intervention</p>
-                <p class="font-medium text-gray-900">Rayon de 15 km</p>
-              </div>
+              <% if @user.company_name.present? %>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Entreprise</p>
+                  <p class="font-medium text-gray-900"><%= @user.company_name %></p>
+                </div>
+              <% end %>
+              <% if @user.siret.present? %>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">SIRET</p>
+                  <p class="font-medium text-gray-900"><%= @user.siret %></p>
+                </div>
+              <% end %>
+              <% if @user.intervention_zone.present? %>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Zone d'intervention</p>
+                  <p class="font-medium text-gray-900"><%= @user.intervention_zone %></p>
+                </div>
+              <% end %>
               <div>
                 <p class="text-sm text-gray-500 mb-1">Statut</p>
-                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-sm font-medium">
-                  ✓ Vérifié
-                </span>
+                <% if @user.active? %>
+                  <span class="bg-green-100 text-green-800 px-3 py-1 rounded-lg text-sm font-medium">
+                    ✓ Vérifié
+                  </span>
+                <% elsif @user.inactive? %>
+                  <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-sm font-medium">
+                    ⏳ En attente
+                  </span>
+                <% elsif @user.suspended? %>
+                  <span class="bg-red-100 text-red-800 px-3 py-1 rounded-lg text-sm font-medium">
+                    ⛔ Suspendu
+                  </span>
+                <% end %>
               </div>
             </div>
           </div>
@@ -134,23 +201,43 @@
       <!-- Right Column - Sidebar -->
       <div class="space-y-6">
         
-        <!-- Reviews Summary -->
-        <div class="bg-white rounded-super p-6 shadow-sm">
-          <h2 class="text-xl font-bold text-gray-900 mb-4">Avis clients</h2>
-          <div class="space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-gray-100">
-              <span class="text-sm text-gray-600">Note moyenne</span>
-              <div class="flex items-center">
-                <span class="text-lg font-bold text-yellow-600 mr-1">4.8</span>
-                <span class="text-yellow-500">⭐</span>
+        <!-- Profile Completion - Only shown for inactive users -->
+        <% if current_user.inactive? %>
+          <div class="bg-white rounded-super p-6 shadow-sm">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Progression du profil</h3>
+            <% completion_percentage = @user.profile_completion_percentage %>
+            <div class="mb-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-sm text-gray-600">Complétude</span>
+                <span class="text-sm font-bold text-gray-900"><%= completion_percentage %>%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-green-600 h-3 rounded-full" style="width: <%= completion_percentage %>%"></div>
               </div>
             </div>
-            <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Avis reçus</span>
-              <span class="text-lg font-bold text-gray-900">127</span>
+            <p class="text-xs text-gray-500 mt-2">Complétez votre profil pour accélérer la validation de votre compte.</p>
+          </div>
+        <% end %>
+        
+        <!-- Reviews Summary - Hidden for inactive users -->
+        <% unless current_user.inactive? || current_user.suspended? %>
+          <div class="bg-white rounded-super p-6 shadow-sm">
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Avis clients</h2>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                <span class="text-sm text-gray-600">Note moyenne</span>
+                <div class="flex items-center">
+                  <span class="text-lg font-bold text-yellow-600 mr-1">4.8</span>
+                  <span class="text-yellow-500">⭐</span>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-sm text-gray-600">Avis reçus</span>
+                <span class="text-lg font-bold text-gray-900">127</span>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
 
         <!-- Quick Actions -->
         <div class="bg-white rounded-super p-6 shadow-sm">
@@ -168,17 +255,32 @@
               </svg>
               Gérer les documents
             <% end %>
-            <%= link_to professional_professional_services_path, class: "w-full bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-              Gérer les services
-            <% end %>
-            <%= link_to professional_availability_slots_path, class: "w-full bg-yellow-hero hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-              Gérer disponibilités
+            <% if current_user.inactive? || current_user.suspended? %>
+              <button disabled class="w-full bg-gray-300 text-gray-500 px-4 py-3 rounded-lg font-medium flex items-center justify-center cursor-not-allowed">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                Gérer les services
+              </button>
+              <button disabled class="w-full bg-gray-300 text-gray-500 px-4 py-3 rounded-lg font-medium flex items-center justify-center cursor-not-allowed">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Gérer disponibilités
+              </button>
+            <% else %>
+              <%= link_to professional_professional_services_path, class: "w-full bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                Gérer les services
+              <% end %>
+              <%= link_to professional_availability_slots_path, class: "w-full bg-yellow-hero hover:bg-opacity-90 text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Gérer disponibilités
+              <% end %>
             <% end %>
           </div>
         </div>
