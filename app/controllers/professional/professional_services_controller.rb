@@ -27,7 +27,14 @@ class Professional::ProfessionalServicesController < Professional::BaseControlle
     @active_count = all_services.active.count
     @inactive_count = all_services.inactive.count
     @total_bookings = 0 # Placeholder - will be implemented later
-    @average_price = all_services.any? ? all_services.average(:price).to_f.round(2) : 0
+    
+    # Calculate average flat rate (excluding travel pricing)
+    flat_rate_services = all_services.flat_rate.where.not(flat_rate_price: nil)
+    @average_flat_rate = flat_rate_services.any? ? flat_rate_services.average(:flat_rate_price).to_f.round(2) : 0
+    
+    # Calculate average hourly rate (excluding travel pricing)
+    hourly_rate_services = all_services.hourly_rate.where.not(hourly_rate_price: nil)
+    @average_hourly_rate = hourly_rate_services.any? ? hourly_rate_services.average(:hourly_rate_price).to_f.round(2) : 0
 
     # Order and paginate
     @pagy, @professional_services = pagy(@professional_services, items: 10)
@@ -109,6 +116,18 @@ class Professional::ProfessionalServicesController < Professional::BaseControlle
   end
 
   def professional_service_params
-    params.require(:professional_service).permit(:name, :price, :duration_minutes, :active, service_ids: [])
+    params.require(:professional_service).permit(
+      :name, 
+      :price, 
+      :duration_minutes, 
+      :active,
+      :pricing_type,
+      :flat_rate_price,
+      :hourly_rate_price,
+      :travel_pricing_type,
+      :travel_flat_rate,
+      :travel_per_km_rate,
+      service_ids: []
+    )
   end
 end

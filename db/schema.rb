@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_17_141333) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_17_144529) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -62,11 +62,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_141333) do
   create_table "professional_services", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "name", null: false
-    t.decimal "price", precision: 8, scale: 2, null: false
+    t.decimal "price", precision: 8, scale: 2
     t.integer "duration_minutes"
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "pricing_type"
+    t.decimal "flat_rate_price", precision: 8, scale: 2
+    t.decimal "hourly_rate_price", precision: 8, scale: 2
+    t.string "travel_pricing_type"
+    t.decimal "travel_flat_rate", precision: 8, scale: 2
+    t.decimal "travel_per_km_rate", precision: 8, scale: 2
     t.index ["active"], name: "index_professional_services_on_active"
     t.index ["user_id"], name: "index_professional_services_on_user_id"
   end

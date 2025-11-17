@@ -57,7 +57,7 @@
 
 <!-- Form -->
 <div class="max-w-4xl mx-auto">
-  <%= form_with model: [:professional, @professional_service], data: { turbo: false }, local: true, data: { controller: "service-suggestions", service_suggestions_services_value: @available_services.index_by(&:id).transform_values { |s| { suggested_price: s.suggested_price || 0, estimated_duration: s.estimated_duration || 0 } }.to_json } do |f| %>
+  <%= form_with model: [:professional, @professional_service], data: { turbo: false }, local: true, data: { controller: "service-suggestions pricing-toggle", service_suggestions_services_value: @available_services.index_by(&:id).transform_values { |s| { suggested_price: s.suggested_price || 0, estimated_duration: s.estimated_duration || 0 } }.to_json } do |f| %>
     
     <!-- Service Selection -->
     <div class="bg-white rounded-super p-6 shadow-sm mb-6">
@@ -67,46 +67,93 @@
         <%= f.label :service_ids, class: "block text-sm font-bold text-gray-700 mb-2" do %>
           Services <span class="text-red-600">*</span>
         <% end %>
-        <div class="space-y-3 max-h-64 overflow-y-auto border border-gray-300 rounded-lg p-4">
+        <div class="space-y-4">
           <% @available_services.group_by(&:category).each do |category, services| %>
-            <div class="mb-4">
-              <h3 class="text-sm font-bold text-gray-700 mb-2">
-                <% case category %>
-                <% when 'mecanique' %>
-                  🔧 Mécanique
-                <% when 'carrosserie' %>
-                  🔨 Carrosserie
-                <% when 'lavage' %>
-                  ✨ Lavage
-                <% else %>
-                  <%= category %>
-                <% end %>
-              </h3>
-              <div class="space-y-2">
-                <% services.each do |service| %>
-                  <label class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
-                    <%= check_box_tag "professional_service[service_ids][]", service.id, @professional_service.services.include?(service), 
-                          class: "mt-1 w-5 h-5 text-red-hero border-gray-300 rounded focus:ring-2 focus:ring-red-hero",
-                          data: { service_suggestions_target: "serviceCheckbox", action: "change->service-suggestions#serviceChanged" } %>
-                    <div class="flex-1">
-                      <div class="font-medium text-gray-900"><%= service.name %></div>
-                      <div class="text-sm text-gray-600"><%= truncate(service.description, length: 80) %></div>
-                      <div class="text-xs text-gray-500 mt-1">
-                        <% if service.suggested_price.present? %>
-                          Prix suggéré: <%= number_with_precision(service.suggested_price, precision: 2) %>€
-                        <% end %>
-                        <% if service.estimated_duration.present? %>
-                          • Durée: <%= service.estimated_duration %> min
-                        <% end %>
+            <% 
+              category_name = case category
+                              when 'mecanique'
+                                'Mécanique'
+                              when 'carrosserie'
+                                'Carrosserie'
+                              when 'lavage'
+                                'Lavage'
+                              else
+                                category.capitalize
+                              end
+              
+              category_icon = case category
+                              when 'mecanique'
+                                '🔧'
+                              when 'carrosserie'
+                                '🔨'
+                              when 'lavage'
+                                '✨'
+                              else
+                                '📋'
+                              end
+              
+              # Check if any service in this category is selected
+              selected_services_in_category = services.select { |s| @professional_service.services.include?(s) }
+              has_selected = selected_services_in_category.any?
+            %>
+            <div class="border border-gray-200 rounded-lg overflow-hidden" data-controller="service-category-dropdown">
+              <!-- Category Header -->
+              <button 
+                type="button"
+                class="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
+                data-action="click->service-category-dropdown#toggle"
+                data-service-category-dropdown-target="toggle"
+              >
+                <div class="flex items-center space-x-3">
+                  <span class="text-2xl"><%= category_icon %></span>
+                  <span class="text-lg font-bold text-gray-900"><%= category_name %></span>
+                  <span class="text-sm text-gray-500">(<%= services.count %> service<%= services.count > 1 ? 's' : '' %>)</span>
+                  <% if has_selected %>
+                    <span class="bg-red-hero text-white text-xs font-medium px-2 py-1 rounded-full">
+                      <%= selected_services_in_category.count %> sélectionné<%= selected_services_in_category.count > 1 ? 's' : '' %>
+                    </span>
+                  <% end %>
+                </div>
+                <svg 
+                  class="w-5 h-5 text-gray-500 transition-transform duration-200 <%= has_selected ? 'rotate-180' : 'rotate-0' %>" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  data-service-category-dropdown-target="icon"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+              
+              <!-- Services List (Open if has selected services) -->
+              <div class="<%= has_selected ? '' : 'hidden' %> border-t border-gray-200 bg-white" data-service-category-dropdown-target="content">
+                <div class="max-h-64 overflow-y-auto p-4 space-y-2">
+                  <% services.each do |service| %>
+                    <% is_selected = @professional_service.services.include?(service) %>
+                    <label class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors <%= 'bg-red-50' if is_selected %>">
+                      <%= check_box_tag "professional_service[service_ids][]", service.id, is_selected, 
+                            class: "mt-1 w-5 h-5 text-red-hero border-gray-300 rounded focus:ring-2 focus:ring-red-hero",
+                            data: { service_suggestions_target: "serviceCheckbox", action: "change->service-suggestions#serviceChanged" } %>
+                      <div class="flex-1">
+                        <div class="font-medium text-gray-900"><%= service.name %></div>
+                        <div class="text-sm text-gray-600"><%= truncate(service.description, length: 80) %></div>
+                        <div class="text-xs text-gray-500 mt-1">
+                          <% if service.suggested_price.present? %>
+                            Prix suggéré: <%= number_with_precision(service.suggested_price, precision: 2) %>€
+                          <% end %>
+                          <% if service.estimated_duration.present? %>
+                            • Durée: <%= service.estimated_duration %> min
+                          <% end %>
+                        </div>
                       </div>
-                    </div>
-                  </label>
-                <% end %>
+                    </label>
+                  <% end %>
+                </div>
               </div>
             </div>
           <% end %>
         </div>
-        <p class="text-sm text-gray-500 mt-2">Sélectionnez un ou plusieurs services</p>
+        <p class="text-sm text-gray-500 mt-4">Sélectionnez un ou plusieurs services</p>
       </div>
     </div>
 
@@ -132,20 +179,120 @@
     <div class="bg-white rounded-super p-6 shadow-sm mb-6">
       <h2 class="text-2xl font-bold text-gray-900 mb-6">Tarification</h2>
       
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Price -->
+      <div class="space-y-6">
+        <!-- Service Pricing Type -->
         <div>
-          <%= f.label :price, class: "block text-sm font-bold text-gray-700 mb-2" do %>
-            Prix total (€) <span class="text-red-600">*</span>
+          <%= f.label :pricing_type, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+            Type de tarification <span class="text-red-600">*</span>
           <% end %>
-          <%= f.number_field :price, 
+          <%= f.select :pricing_type, 
+                options_for_select([
+                  ["Sélectionnez un type", ""],
+                  ["Prix forfait", "flat_rate"],
+                  ["Prix horaire", "hourly_rate"]
+                ], @professional_service.pricing_type),
+                {},
+                { 
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:pricing_type)}",
+                  data: { pricing_toggle_target: "servicePricingType", action: "change->pricing-toggle#servicePricingTypeChanged" },
+                  required: true
+                } %>
+          <% if @professional_service&.errors&.include?(:pricing_type) %>
+            <p class="text-sm text-red-600 mt-1"><%= @professional_service.errors[:pricing_type].first %></p>
+          <% end %>
+        </div>
+
+        <!-- Flat Rate Price -->
+        <div class="pricing-field-group <%= 'hidden' unless @professional_service.pricing_type == 'flat_rate' %>">
+          <%= f.label :flat_rate_price, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+            Prix forfait (€) <span class="text-red-600">*</span>
+          <% end %>
+          <%= f.number_field :flat_rate_price, 
                 placeholder: "0.00", 
                 step: 0.01,
                 min: 0,
-                data: { service_suggestions_target: "priceInput" },
-                class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:price)}",
-                required: true %>
-          <p class="text-sm text-gray-500 mt-2" data-service-suggestions-target="suggestedPrice"></p>
+                value: @professional_service.flat_rate_price,
+                data: { pricing_toggle_target: "flatRatePriceInput" },
+                class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:flat_rate_price)}" %>
+          <% if @professional_service&.errors&.include?(:flat_rate_price) %>
+            <p class="text-sm text-red-600 mt-1"><%= @professional_service.errors[:flat_rate_price].first %></p>
+          <% end %>
+        </div>
+
+        <!-- Hourly Rate Price -->
+        <div class="pricing-field-group <%= 'hidden' unless @professional_service.pricing_type == 'hourly_rate' %>">
+          <%= f.label :hourly_rate_price, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+            Prix horaire (€/h) <span class="text-red-600">*</span>
+          <% end %>
+          <%= f.number_field :hourly_rate_price, 
+                placeholder: "0.00", 
+                step: 0.01,
+                min: 0,
+                value: @professional_service.hourly_rate_price,
+                data: { pricing_toggle_target: "hourlyRatePriceInput" },
+                class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:hourly_rate_price)}" %>
+          <% if @professional_service&.errors&.include?(:hourly_rate_price) %>
+            <p class="text-sm text-red-600 mt-1"><%= @professional_service.errors[:hourly_rate_price].first %></p>
+          <% end %>
+        </div>
+
+        <!-- Travel Pricing Section -->
+        <div class="border-t border-gray-200 pt-6">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Tarif de déplacement (optionnel)</h3>
+          
+          <div class="space-y-4">
+            <!-- Travel Pricing Type -->
+            <div>
+              <%= f.label :travel_pricing_type, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+                Type de tarif de déplacement
+              <% end %>
+              <%= f.select :travel_pricing_type, 
+                    options_for_select([
+                      ["Aucun", ""],
+                      ["Forfait", "flat_rate"],
+                      ["Par kilomètre", "per_km"]
+                    ], @professional_service.travel_pricing_type),
+                    {},
+                    { 
+                      class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero",
+                      data: { pricing_toggle_target: "travelPricingType", action: "change->pricing-toggle#travelPricingTypeChanged" }
+                    } %>
+            </div>
+
+            <!-- Travel Flat Rate -->
+            <div class="pricing-field-group <%= 'hidden' unless @professional_service.travel_pricing_type == 'flat_rate' %>">
+              <%= f.label :travel_flat_rate, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+                Forfait de déplacement (€)
+              <% end %>
+              <%= f.number_field :travel_flat_rate, 
+                    placeholder: "0.00", 
+                    step: 0.01,
+                    min: 0,
+                    value: @professional_service.travel_flat_rate,
+                    data: { pricing_toggle_target: "travelFlatRateInput" },
+                    class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:travel_flat_rate)}" %>
+              <% if @professional_service&.errors&.include?(:travel_flat_rate) %>
+                <p class="text-sm text-red-600 mt-1"><%= @professional_service.errors[:travel_flat_rate].first %></p>
+              <% end %>
+            </div>
+
+            <!-- Travel Per Km Rate -->
+            <div class="pricing-field-group <%= 'hidden' unless @professional_service.travel_pricing_type == 'per_km' %>">
+              <%= f.label :travel_per_km_rate, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+                Prix par kilomètre (€/km)
+              <% end %>
+              <%= f.number_field :travel_per_km_rate, 
+                    placeholder: "0.00", 
+                    step: 0.01,
+                    min: 0,
+                    value: @professional_service.travel_per_km_rate,
+                    data: { pricing_toggle_target: "travelPerKmRateInput" },
+                    class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:travel_per_km_rate)}" %>
+              <% if @professional_service&.errors&.include?(:travel_per_km_rate) %>
+                <p class="text-sm text-red-600 mt-1"><%= @professional_service.errors[:travel_per_km_rate].first %></p>
+              <% end %>
+            </div>
+          </div>
         </div>
 
         <!-- Duration -->
