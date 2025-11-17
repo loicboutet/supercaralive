@@ -11,8 +11,11 @@ module.exports = {
     extend: {
       colors: {
         'red-hero': '#E63946',
+        'red-dark': '#d32f3c',
         'blue-hero': '#457B9D',
+        'blue-dark': '#3a6782',
         'yellow-hero': '#F4A261',
+        'yellow-dark': '#d89150',
         'soft': '#FAFAFA',
       },
       fontFamily: {
