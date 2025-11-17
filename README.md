@@ -9,14 +9,14 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 ### 🏗️ BRIQUE 1 - Plateforme de base et système de réservation (€5000)
 
 #### 👤 Admin (5000.dev)
-- [ ] Je peux créer et configurer des compte utilisateurs lors de l'onboarding
-- [ ] Je peux valider manuellement les inscriptions de professionnels
-- [ ] Je peux superviser les aspects techniques sans accéder aux données clients
+- ✅ Je peux créer et configurer des compte utilisateurs lors de l'onboarding
+- ✅ Je peux valider manuellement les inscriptions de professionnels
+- ✅ Je peux superviser les aspects techniques sans accéder aux données clients
 
 #### 👑 Professionnel (Mécanicien/Carrossier/Laveur)
-- [ ] Je peux créer mon profil avec nom d'entreprise, photo, zone géographique de service (rayon en km)
-- [ ] Je peux télécharger mes documents de vérification (diplôme, assurance, SIREN pour les mécaniciens)
-- [ ] Je peux sélectionner les services que j'offre (choix multiples prédéfinis : entretien annuel, lavage extérieur, lavage intérieur, etc.)
+- ✅ Je peux créer mon profil avec nom d'entreprise, photo, zone géographique de service (rayon en km)
+- ✅ Je peux télécharger mes documents de vérification (diplôme, assurance, SIREN pour les mécaniciens)
+- ✅ Je peux sélectionner les services que j'offre (choix multiples prédéfinis : entretien annuel, lavage extérieur, lavage intérieur, etc.)
 - [ ] Je peux définir mes tarifs (forfait ou tarif horaire + frais de déplacement)
 - [ ] Je peux gérer mon calendrier de disponibilité
 - [ ] Je peux recevoir des pré-réservations de créneaux et les valider/refuser
@@ -34,7 +34,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - [ ] Je peux consulter mes réservations en cours et passées
 
 #### ⚙️ Fonctionnalités système Brique 1
-- [ ] Authentification et gestion de profils utilisateurs (3 types : Admin, Professionnel, Client)
+- ✅ Authentification et gestion de profils utilisateurs (3 types : Admin, Professionnel, Client)
 - [ ] Système de géolocalisation par rayon (recherche dans un périmètre défini)
 - [ ] Gestion des services proposés (tags/catégories prédéfinis)
 - [ ] Système de pré-réservation de créneaux avec validation
