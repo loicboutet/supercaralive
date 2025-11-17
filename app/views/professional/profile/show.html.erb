@@ -47,13 +47,6 @@
         <p class="text-gray-600">Gérez vos informations et votre visibilité</p>
       </div>
       <div class="flex space-x-3">
-        <%= link_to preview_professional_profile_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center", target: "_blank" do %>
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-          </svg>
-          Prévisualiser
-        <% end %>
         <%= link_to edit_professional_profile_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -220,6 +213,8 @@
         <% end %>
         
         <!-- Reviews Summary - Hidden for inactive users -->
+        <%# Temporarily hidden - to be reviewed later %>
+        <% if false %>
         <% unless current_user.inactive? || current_user.suspended? %>
           <div class="bg-white rounded-super p-6 shadow-sm">
             <h2 class="text-xl font-bold text-gray-900 mb-4">Avis clients</h2>
@@ -237,6 +232,7 @@
               </div>
             </div>
           </div>
+        <% end %>
         <% end %>
 
         <!-- Quick Actions -->

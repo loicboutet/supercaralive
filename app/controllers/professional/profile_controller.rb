@@ -15,7 +15,16 @@ class Professional::ProfileController < Professional::BaseController
       @user.profile_photo.purge if @user.profile_photo.attached?
     end
     
-    if @user.update(profile_params)
+    # Prepare update params
+    update_params = profile_params.dup
+    
+    # Only update password if provided
+    if update_params[:password].blank?
+      update_params.delete(:password)
+      update_params.delete(:password_confirmation)
+    end
+    
+    if @user.update(update_params)
       respond_to do |format|
         format.html { redirect_to professional_profile_path, notice: "Votre profil a été mis à jour avec succès." }
         format.json { render json: @user }
@@ -45,7 +54,9 @@ class Professional::ProfileController < Professional::BaseController
       :siret,
       :intervention_zone,
       :professional_presentation,
-      :profile_photo
+      :profile_photo,
+      :password,
+      :password_confirmation
     )
   end
 end
