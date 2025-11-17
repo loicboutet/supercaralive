@@ -1,5 +1,6 @@
 class Admin::PaymentsController < ApplicationController
   layout 'admin'
+  before_action :require_admin
 
   # GET /admin/payments
   def index

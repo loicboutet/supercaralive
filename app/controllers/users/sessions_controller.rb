@@ -1,7 +1,17 @@
 class Users::SessionsController < Devise::SessionsController
+  # Allow unauthenticated access to sign in pages
+  skip_before_action :authenticate_user!, only: [:new, :create]
+  # Skip require_no_authentication to handle redirect manually
+  skip_before_action :require_no_authentication, only: [:new]
+  
   # GET /users/sign_in
   def new
-    super
+    # Redirect authenticated users to their dashboard
+    if user_signed_in?
+      redirect_to determine_redirect_path_for(current_user)
+    else
+      super
+    end
   end
 
   # POST /users/sign_in
@@ -16,9 +26,23 @@ class Users::SessionsController < Devise::SessionsController
 
   protected
 
+  # Determine redirect path for authenticated users
+  def determine_redirect_path_for(resource)
+    if resource.admin?
+      admin_root_path
+    elsif resource.professional?
+      professional_root_path
+    elsif resource.client?
+      client_root_path
+    else
+      # Fallback to root if role is unclear
+      root_path
+    end
+  end
+
   # The path used after sign in.
   def after_sign_in_path_for(resource)
-    client_root_path
+    determine_redirect_path_for(resource)
   end
 
   # The path used after sign out.

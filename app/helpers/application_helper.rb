@@ -73,4 +73,12 @@ module ApplicationHelper
   def pagy_nav_tailwind(pagy, **vars)
     pagy_nav_hatmada(pagy, **vars)
   end
+
+  # Helper method to render Lucide icons
+  # Usage: <%= lucide_icon('x', size: 'w-4 h-4', class: 'opacity-60') %>
+  def lucide_icon(name, size: nil, **options)
+    css_class = options.delete(:class)
+    classes = [size, css_class].compact.join(' ')
+    tag.i('', data: { lucide: name }, class: classes.presence, **options)
+  end
 end

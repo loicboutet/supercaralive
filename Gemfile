@@ -59,6 +59,9 @@ group :development do
   
   # Annotate models, routes, etc. with schema information
   gem "annotaterb"
+  
+  # Preview emails in development with web interface
+  gem "letter_opener_web", "~> 2.0"
 end
 
 group :test do

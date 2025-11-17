@@ -13,16 +13,35 @@ Rails.application.routes.draw do
 
   # Home/Landing page
   get 'home', to: 'home#index'
+  
+  # Public pages (accessible without authentication)
+  get 'pages/cgu', to: 'pages#cgu'
+  get 'pages/confidentiality', to: 'pages#confidentiality'
+  
+  # PWA routes (accessible without authentication)
+  get 'service-worker.js', to: 'pwa#service_worker', format: :js
+  get 'manifest.json', to: 'pwa#manifest', format: :json
+  
+  # Root route (for logo links and general navigation)
+  root to: 'home#index'
 
   # Devise authentication with custom controllers
   devise_for :users, controllers: {
     registrations: "users/registrations",
-    sessions: "users/sessions"
+    sessions: "users/sessions",
+    passwords: "users/passwords"
   }
 
-  # Authenticated users go to client dashboard by default
+  # Root route: redirect based on authentication status and role
+  # Non-authenticated users are redirected to sign in by Devise's authenticate_user!
+  # Authenticated users are redirected to their appropriate dashboard
   authenticated :user do
-    root to: "client/dashboard#index", as: :authenticated_root
+    root to: "home#index", as: :authenticated_root
+  end
+  
+  # Non-authenticated users go to sign in
+  unauthenticated :user do
+    root to: redirect("/users/sign_in"), as: :unauthenticated_root
   end
 
   # Client Routes
@@ -114,10 +133,11 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
     
     # User management
-    resources :users, only: [:index, :show, :edit, :update] do
+    resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       member do
         patch :suspend
         patch :activate
+        patch :deactivate
       end
     end
     
@@ -152,6 +172,7 @@ Rails.application.routes.draw do
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Root points to mockups index
-  root "mockups#index"
+  # LetterOpenerWeb for email preview in development
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
 end

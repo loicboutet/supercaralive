@@ -1,5 +1,6 @@
 class Admin::BookingsController < ApplicationController
   layout 'admin'
+  before_action :require_admin
 
   # GET /admin/bookings
   def index

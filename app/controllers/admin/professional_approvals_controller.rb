@@ -1,5 +1,6 @@
 class Admin::ProfessionalApprovalsController < ApplicationController
   layout 'admin'
+  before_action :require_admin
 
   # GET /admin/professional_approvals
   def index

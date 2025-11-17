@@ -1,5 +1,6 @@
 class Admin::ServicesController < ApplicationController
   layout 'admin'
+  before_action :require_admin
 
   # GET /admin/services
   def index

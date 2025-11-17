@@ -1,4 +1,6 @@
 class WebhooksController < ApplicationController
+  # Webhooks must be accessible without authentication
+  skip_before_action :authenticate_user!, only: [:stripe]
   skip_before_action :verify_authenticity_token, only: [:stripe]
 
   # POST /webhooks/stripe

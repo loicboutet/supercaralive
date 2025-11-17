@@ -1,5 +1,6 @@
 class Admin::ReviewsController < ApplicationController
   layout 'admin'
+  before_action :require_admin
 
   # GET /admin/reviews
   def index
