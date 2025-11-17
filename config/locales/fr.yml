@@ -4,6 +4,22 @@
 fr:
   hello: "Bonjour le monde"
   
+  date:
+    abbr_month_names: [~, janv., févr., mars, avr., mai, juin, juil., août, sept., oct., nov., déc.]
+    month_names: [~, janvier, février, mars, avril, mai, juin, juillet, août, septembre, octobre, novembre, décembre]
+    abbr_day_names: [dim., lun., mar., mer., jeu., ven., sam.]
+    day_names: [dimanche, lundi, mardi, mercredi, jeudi, vendredi, samedi]
+    formats:
+      default: "%d/%m/%Y"
+      short: "%d %b"
+      long: "%d %B %Y"
+  
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M"
+      short: "%d %b %H:%M"
+      long: "%d %B %Y à %H:%M"
+  
   # Traductions de base pour les erreurs et validations
   errors:
     format: "%{attribute} %{message}"

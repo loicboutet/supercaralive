@@ -9,9 +9,8 @@
         <span class="text-white text-2xl">👥</span>
       </div>
     </div>
-    <h3 class="text-sm font-medium text-gray-600 mb-1">Total Users</h3>
-    <p class="text-4xl font-bold text-gray-900 mb-2">8,249</p>
-    <p class="text-sm text-green-600">↑ 12% from last month</p>
+    <h3 class="text-sm font-medium text-gray-600 mb-1">Total Utilisateurs</h3>
+    <p class="text-4xl font-bold text-gray-900 mb-2"><%= @total_users %></p>
   </div>
 
   <!-- New Sign-ups Card -->
@@ -21,47 +20,44 @@
         <span class="text-white text-2xl">✓</span>
       </div>
     </div>
-    <h3 class="text-sm font-medium text-gray-600 mb-1">New Sign-ups</h3>
-    <p class="text-4xl font-bold text-gray-900 mb-2">385</p>
-    <p class="text-sm text-green-600">↑ 8% from last week</p>
+    <h3 class="text-sm font-medium text-gray-600 mb-1">Nouveaux Inscriptions</h3>
+    <p class="text-4xl font-bold text-gray-900 mb-2"><%= @new_signups %></p>
   </div>
 
-  <!-- Active Sessions Card -->
-  <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-red-hero">
+  <!-- Clients Card -->
+  <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-purple-500">
     <div class="flex items-center justify-between mb-4">
-      <div class="w-12 h-12 bg-red-hero rounded-friendly flex items-center justify-center">
-        <span class="text-white text-2xl">📊</span>
+      <div class="w-12 h-12 bg-purple-500 rounded-friendly flex items-center justify-center">
+        <span class="text-white text-2xl">🚗</span>
       </div>
     </div>
-    <h3 class="text-sm font-medium text-gray-600 mb-1">Active Sessions</h3>
-    <p class="text-4xl font-bold text-gray-900 mb-2">1,247</p>
-    <p class="text-sm text-red-600">↑ 3% from yesterday</p>
+    <h3 class="text-sm font-medium text-gray-600 mb-1">Clients</h3>
+    <p class="text-4xl font-bold text-gray-900 mb-2"><%= @clients_count %></p>
   </div>
 
-  <!-- System Uptime Card -->
-  <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-yellow-hero">
+  <!-- Professionals Card -->
+  <div class="bg-white rounded-super p-6 shadow-sm border-l-4 border-orange-500">
     <div class="flex items-center justify-between mb-4">
-      <div class="w-12 h-12 bg-yellow-hero rounded-friendly flex items-center justify-center">
-        <span class="text-white text-2xl">⚡</span>
+      <div class="w-12 h-12 bg-orange-500 rounded-friendly flex items-center justify-center">
+        <span class="text-white text-2xl">🔧</span>
       </div>
     </div>
-    <h3 class="text-sm font-medium text-gray-600 mb-1">System Uptime</h3>
-    <p class="text-4xl font-bold text-gray-900 mb-2">99.9%</p>
-    <p class="text-sm text-gray-500">Last restart: 32 days ago</p>
+    <h3 class="text-sm font-medium text-gray-600 mb-1">Professionnels</h3>
+    <p class="text-4xl font-bold text-gray-900 mb-2"><%= @professionals_count %></p>
   </div>
 </div>
 
 <!-- Quick Actions -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
   <!-- Pending Approvals -->
   <div class="bg-yellow-50 rounded-super p-6 border-l-4 border-yellow-hero">
     <div class="flex items-center justify-between mb-4">
-      <h3 class="text-xl font-bold text-gray-900">Pending Approvals</h3>
-      <span class="bg-yellow-hero text-white px-3 py-1 rounded-friendly text-sm font-bold">7</span>
+      <h3 class="text-xl font-bold text-gray-900">Approbations en Attente</h3>
+      <span class="bg-yellow-hero text-white px-3 py-1 rounded-friendly text-sm font-bold"><%= @pending_approvals %></span>
     </div>
-    <p class="text-gray-600 mb-4">Professional verification requests waiting for review</p>
+    <p class="text-gray-600 mb-4">Demandes de vérification professionnelle en attente de révision</p>
     <%= link_to admin_professional_approvals_path, class: "text-yellow-hero font-medium hover:underline inline-flex items-center" do %>
-      Review approvals
+      Examiner les approbations
       <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
       </svg>
@@ -82,39 +78,126 @@
       </svg>
     <% end %>
   </div>
-
-  <!-- System Status -->
-  <div class="bg-green-50 rounded-super p-6 border-l-4 border-green-500">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="text-xl font-bold text-gray-900">System Status</h3>
-      <span class="bg-green-500 text-white px-3 py-1 rounded-friendly text-sm font-bold">✓</span>
-    </div>
-    <p class="text-gray-600 mb-4">All systems operational</p>
-    <span class="text-green-600 font-medium">Everything running smoothly</span>
-  </div>
 </div>
 
 <!-- User Registrations Chart Section -->
 <div class="bg-white rounded-super p-6 shadow-sm mb-8">
   <div class="flex items-center justify-between mb-6">
-    <h2 class="text-2xl font-bold text-gray-900">User Registrations</h2>
-    <select class="px-4 py-2 border border-gray-300 rounded-friendly focus:outline-none focus:ring-2 focus:ring-blue-hero focus:border-transparent">
-      <option>Last 7 days</option>
-      <option>Last 30 days</option>
-      <option>Last 90 days</option>
-    </select>
+    <h2 class="text-2xl font-bold text-gray-900">Inscriptions Utilisateurs</h2>
+    <%= form_with url: admin_root_path, method: :get, local: true, data: { turbo: false }, class: "flex items-center gap-2" do |f| %>
+      <%= f.select :chart_scope, 
+          options_for_select([
+            ['30 derniers jours', '30_days'],
+            ['6 derniers mois', '6_months'],
+            ['12 derniers mois', '12_months']
+          ], @chart_scope),
+          {},
+          { 
+            class: "px-4 py-2 border border-gray-300 rounded-friendly focus:outline-none focus:ring-2 focus:ring-blue-hero focus:border-transparent",
+            onchange: "this.form.submit()"
+          } %>
+    <% end %>
   </div>
   
-  <div class="bg-soft rounded-friendly p-8 text-center">
-    <p class="text-gray-500 mb-2">Chart visualization would be here</p>
-    <p class="text-sm text-gray-400">(User registration growth over time)</p>
+  <div class="bg-soft rounded-friendly p-6">
+    <% if @user_registrations_data.any? %>
+      <% 
+        max_count = @user_registrations_data.map { |d| d[:count] }.max || 1
+        chart_width = 900
+        chart_height = 250
+        padding_top = 30
+        padding_bottom = 50
+        padding_left = 50
+        padding_right = 30
+        graph_width = chart_width - padding_left - padding_right
+        graph_height = chart_height - padding_top - padding_bottom
+        data_points = @user_registrations_data.length
+        step_x = data_points > 1 ? graph_width.to_f / (data_points - 1) : 0
+        is_daily = @chart_scope == '30_days'
+      %>
+      <div class="overflow-x-auto">
+        <svg width="<%= chart_width %>" height="<%= chart_height %>" class="w-full max-w-full h-auto" viewBox="0 0 <%= chart_width %> <%= chart_height %>" preserveAspectRatio="xMidYMid meet">
+          <!-- Y-axis grid lines and labels -->
+          <% y_ticks = 5 %>
+          <% y_ticks.times do |i| %>
+            <% 
+              y_value = max_count * (y_ticks - i) / y_ticks.to_f
+              y_pos = padding_top + (graph_height * i / (y_ticks - 1))
+            %>
+            <!-- Grid line -->
+            <line x1="<%= padding_left %>" y1="<%= y_pos %>" x2="<%= padding_left + graph_width %>" y2="<%= y_pos %>" stroke="#e5e7eb" stroke-width="1"/>
+            <!-- Y-axis label -->
+            <text x="<%= padding_left - 8 %>" y="<%= y_pos + 3 %>" text-anchor="end" fill="#6b7280" font-size="11"><%= y_value.to_i %></text>
+          <% end %>
+          
+          <!-- X-axis line -->
+          <line x1="<%= padding_left %>" y1="<%= padding_top + graph_height %>" x2="<%= padding_left + graph_width %>" y2="<%= padding_top + graph_height %>" stroke="#374151" stroke-width="2"/>
+          
+          <!-- Y-axis line -->
+          <line x1="<%= padding_left %>" y1="<%= padding_top %>" x2="<%= padding_left %>" y2="<%= padding_top + graph_height %>" stroke="#374151" stroke-width="2"/>
+          
+          <!-- Data points and line -->
+          <% 
+            points = []
+            @user_registrations_data.each_with_index do |data, index|
+              x = padding_left + (index * step_x)
+              y = padding_top + graph_height - (data[:count].to_f / max_count * graph_height)
+              points << "#{x},#{y}"
+            end
+            path_d = "M #{points.join(' L ')}"
+          %>
+          
+          <!-- Line -->
+          <path d="<%= path_d %>" fill="none" stroke="#457B9D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          
+          <!-- Data points and labels -->
+          <% @user_registrations_data.each_with_index do |data, index| %>
+            <% 
+              x = padding_left + (index * step_x)
+              y = padding_top + graph_height - (data[:count].to_f / max_count * graph_height)
+              show_value = is_daily ? (index % 5 == 0 || index == data_points - 1) : (index % 2 == 0 || index == data_points - 1)
+            %>
+            <!-- Point -->
+            <circle cx="<%= x %>" cy="<%= y %>" r="4" fill="#457B9D" stroke="white" stroke-width="1.5"/>
+            <!-- Value label above point -->
+            <% if show_value %>
+              <text x="<%= x %>" y="<%= y - 8 %>" text-anchor="middle" fill="#374151" font-size="10" font-weight="500"><%= data[:count] %></text>
+            <% end %>
+            <!-- Label below x-axis -->
+            <% if is_daily %>
+              <!-- For daily view, show every 5th day -->
+              <% if index % 5 == 0 || index == data_points - 1 %>
+                <text x="<%= x %>" y="<%= padding_top + graph_height + 18 %>" text-anchor="middle" fill="#6b7280" font-size="10"><%= data[:label] %></text>
+              <% end %>
+            <% else %>
+              <!-- For monthly view, rotate labels -->
+              <text x="<%= x %>" y="<%= padding_top + graph_height + 18 %>" text-anchor="middle" fill="#6b7280" font-size="10" transform="rotate(-45 <%= x %> <%= padding_top + graph_height + 18 %>)"><%= data[:label] %></text>
+            <% end %>
+          <% end %>
+        </svg>
+      </div>
+    <% else %>
+      <div class="text-center py-8">
+        <p class="text-gray-500 mb-2">Aucune donnée disponible</p>
+        <p class="text-sm text-gray-400">
+          <% case @chart_scope %>
+          <% when '30_days' %>
+            (Inscriptions des 30 derniers jours)
+          <% when '6_months' %>
+            (Inscriptions des 6 derniers mois)
+          <% else %>
+            (Inscriptions des 12 derniers mois)
+          <% end %>
+        </p>
+      </div>
+    <% end %>
   </div>
 </div>
 
 <!-- Recent Bookings Table -->
 <div class="bg-white rounded-super shadow-sm overflow-hidden">
   <div class="p-6 border-b border-gray-200">
-    <h2 class="text-2xl font-bold text-gray-900">Recent Bookings</h2>
+    <h2 class="text-2xl font-bold text-gray-900">Réservations Récentes</h2>
   </div>
   
   <div class="overflow-x-auto">
