@@ -141,6 +141,9 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     
+    # Profile management
+    resource :profile, only: [:show, :edit, :update], controller: 'profile'
+    
     # User management
     resources :users, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
       member do

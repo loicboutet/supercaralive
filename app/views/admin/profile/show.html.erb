@@ -1,0 +1,109 @@
+<% content_for :page_title, "Mon Profil" %>
+
+<div class="bg-soft min-h-screen">
+  <div class="container mx-auto px-6 py-8">
+    
+    <!-- Header with Actions -->
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Mon Profil Admin</h1>
+        <p class="text-gray-600">Gérez vos informations personnelles</p>
+      </div>
+      <div class="flex space-x-3">
+        <%= link_to edit_admin_profile_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+          </svg>
+          Modifier
+        <% end %>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      
+      <!-- Left Column - Profile Info -->
+      <div class="md:col-span-2 space-y-6">
+        
+        <!-- Basic Information -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations générales</h2>
+          
+          <div class="flex items-start space-x-6 mb-6">
+            <div class="w-32 h-32 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+              <%= user_avatar_content(@user, 
+                  image_class: "w-full h-full object-cover", 
+                  initials_class: "text-white text-5xl font-bold absolute inset-0 flex items-center justify-center") %>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-2xl font-bold text-gray-900 mb-1"><%= @user.get_full_name %></h3>
+              <div class="flex items-center space-x-4 text-sm text-gray-600 mt-3">
+                <% if @user.email.present? %>
+                  <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <%= @user.email %>
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-200 pt-4">
+            <div class="grid md:grid-cols-2 gap-4">
+              <% if @user.first_name.present? %>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Prénom</p>
+                  <p class="font-medium text-gray-900"><%= @user.first_name %></p>
+                </div>
+              <% end %>
+              <% if @user.last_name.present? %>
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Nom</p>
+                  <p class="font-medium text-gray-900"><%= @user.last_name %></p>
+                </div>
+              <% end %>
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Email</p>
+                <p class="font-medium text-gray-900"><%= @user.email %></p>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Rôle</p>
+                <span class="bg-blue-hero text-white px-3 py-1 rounded-lg text-sm font-medium">
+                  Administrateur
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column - Sidebar -->
+      <div class="space-y-6">
+        
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-super p-6 shadow-sm">
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h3>
+          <div class="space-y-2">
+            <%= link_to edit_admin_profile_path, class: "w-full bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+              Modifier le profil
+            <% end %>
+            <%= link_to admin_root_path, class: "w-full bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              </svg>
+              Retour au tableau de bord
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
