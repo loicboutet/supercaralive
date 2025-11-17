@@ -50,6 +50,7 @@ class User < ApplicationRecord
 
   # Associations
   has_many :professional_documents, dependent: :destroy
+  has_many :professional_services, dependent: :destroy
   has_one_attached :profile_photo
 
   # Set default role and status before validation

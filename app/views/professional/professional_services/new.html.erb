@@ -1,0 +1,199 @@
+<% content_for :page_title, "Nouveau Service" %>
+
+<!-- Breadcrumb -->
+<div class="mb-6">
+  <nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-2">
+      <li class="inline-flex items-center">
+        <%= link_to professional_professional_services_path, class: "text-gray-600 hover:text-red-hero inline-flex items-center" do %>
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Services
+        <% end %>
+      </li>
+      <li>
+        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+        </svg>
+      </li>
+      <li class="text-gray-900 font-medium">Nouveau service</li>
+    </ol>
+  </nav>
+</div>
+
+<!-- Page Header -->
+<div class="mb-8">
+  <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+    Créer un <span class="text-red-hero">Service</span>
+  </h1>
+  <p class="text-xl text-gray-600">
+    Ajoutez un nouveau service à votre offre
+  </p>
+</div>
+
+<!-- Error Messages -->
+<% if @professional_service&.errors&.any? %>
+  <div class="bg-red-50 border-l-4 border-red-hero rounded-lg p-4 mb-6">
+    <div class="flex items-start">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-red-hero" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3 flex-1">
+        <h3 class="text-sm font-bold text-red-800">
+          Erreurs lors de la création
+        </h3>
+        <ul class="mt-2 text-sm text-red-700 list-disc list-inside space-y-1">
+          <% @professional_service.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Form -->
+<div class="max-w-4xl mx-auto">
+  <%= form_with model: [:professional, @professional_service], data: { turbo: false }, local: true, data: { controller: "service-suggestions", service_suggestions_services_value: @available_services.index_by(&:id).transform_values { |s| { suggested_price: s.suggested_price || 0, estimated_duration: s.estimated_duration || 0 } }.to_json } do |f| %>
+    
+    <!-- Service Selection -->
+    <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Sélection des services</h2>
+      
+      <div>
+        <%= f.label :service_ids, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+          Services <span class="text-red-600">*</span>
+        <% end %>
+        <div class="space-y-3 max-h-64 overflow-y-auto border border-gray-300 rounded-lg p-4">
+          <% @available_services.group_by(&:category).each do |category, services| %>
+            <div class="mb-4">
+              <h3 class="text-sm font-bold text-gray-700 mb-2">
+                <% case category %>
+                <% when 'mecanique' %>
+                  🔧 Mécanique
+                <% when 'carrosserie' %>
+                  🔨 Carrosserie
+                <% when 'lavage' %>
+                  ✨ Lavage
+                <% else %>
+                  <%= category %>
+                <% end %>
+              </h3>
+              <div class="space-y-2">
+                <% services.each do |service| %>
+                  <label class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer">
+                    <%= check_box_tag "professional_service[service_ids][]", service.id, false, 
+                          class: "mt-1 w-5 h-5 text-red-hero border-gray-300 rounded focus:ring-2 focus:ring-red-hero",
+                          data: { service_suggestions_target: "serviceCheckbox", action: "change->service-suggestions#serviceChanged" } %>
+                    <div class="flex-1">
+                      <div class="font-medium text-gray-900"><%= service.name %></div>
+                      <div class="text-sm text-gray-600"><%= truncate(service.description, length: 80) %></div>
+                      <div class="text-xs text-gray-500 mt-1">
+                        <% if service.suggested_price.present? %>
+                          Prix suggéré: <%= number_with_precision(service.suggested_price, precision: 2) %>€
+                        <% end %>
+                        <% if service.estimated_duration.present? %>
+                          • Durée: <%= service.estimated_duration %> min
+                        <% end %>
+                      </div>
+                    </div>
+                  </label>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <p class="text-sm text-gray-500 mt-2">Sélectionnez un ou plusieurs services</p>
+      </div>
+    </div>
+
+    <!-- Basic Information -->
+    <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations générales</h2>
+      
+      <div class="space-y-6">
+        <!-- Service Name -->
+        <div>
+          <%= f.label :name, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+            Nom du service <span class="text-red-600">*</span>
+          <% end %>
+          <%= f.text_field :name, 
+                placeholder: "Ex: Révision complète, Lavage premium...", 
+                class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:name)}",
+                required: true %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing Information -->
+    <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Tarification</h2>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Price -->
+        <div>
+          <%= f.label :price, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+            Prix total (€) <span class="text-red-600">*</span>
+          <% end %>
+          <%= f.number_field :price, 
+                placeholder: "0.00", 
+                step: 0.01,
+                min: 0,
+                data: { service_suggestions_target: "priceInput" },
+                class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:price)}",
+                required: true %>
+          <p class="text-sm text-gray-500 mt-2" data-service-suggestions-target="suggestedPrice"></p>
+        </div>
+
+        <!-- Duration -->
+        <div>
+          <%= f.label :duration_minutes, class: "block text-sm font-bold text-gray-700 mb-2" do %>
+            Durée (minutes)
+          <% end %>
+          <%= f.number_field :duration_minutes, 
+                placeholder: "0", 
+                min: 0,
+                data: { service_suggestions_target: "durationInput" },
+                class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero" %>
+          <p class="text-sm text-gray-500 mt-2" data-service-suggestions-target="suggestedDuration"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Options -->
+    <div class="bg-white rounded-super p-6 shadow-sm mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Options du service</h2>
+      
+      <div class="space-y-4">
+        <!-- Active Status -->
+        <div class="flex items-center space-x-3">
+          <%= f.check_box :active, { checked: true, class: "w-5 h-5 text-red-hero border-gray-300 rounded focus:ring-2 focus:ring-red-hero" } %>
+          <%= f.label :active, "Service actif (visible pour les clients)", class: "text-gray-700 font-medium" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-gray-600">
+          <span class="text-red-600">*</span> Champs obligatoires
+        </div>
+        <div class="flex space-x-3">
+          <%= link_to professional_professional_services_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Annuler
+          <% end %>
+          <%= f.submit "Créer le service", class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+</div>
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_17_133215) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_17_141333) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,6 +49,46 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_133215) do
     t.index ["user_id"], name: "index_professional_documents_on_user_id"
   end
 
+  create_table "professional_service_services", force: :cascade do |t|
+    t.integer "professional_service_id", null: false
+    t.integer "service_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["professional_service_id", "service_id"], name: "index_prof_service_services_unique", unique: true
+    t.index ["professional_service_id"], name: "index_professional_service_services_on_professional_service_id"
+    t.index ["service_id"], name: "index_professional_service_services_on_service_id"
+  end
+
+  create_table "professional_services", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name", null: false
+    t.decimal "price", precision: 8, scale: 2, null: false
+    t.integer "duration_minutes"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_professional_services_on_active"
+    t.index ["user_id"], name: "index_professional_services_on_user_id"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.string "category", null: false
+    t.string "icon"
+    t.integer "estimated_duration"
+    t.decimal "suggested_price", precision: 8, scale: 2
+    t.boolean "active", default: true, null: false
+    t.boolean "popular", default: false, null: false
+    t.boolean "requires_quote", default: false, null: false
+    t.text "prerequisites"
+    t.text "internal_notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_services_on_active"
+    t.index ["category"], name: "index_services_on_category"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -76,4 +116,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_133215) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "professional_documents", "users"
+  add_foreign_key "professional_service_services", "professional_services"
+  add_foreign_key "professional_service_services", "services"
+  add_foreign_key "professional_services", "users"
 end

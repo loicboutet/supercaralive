@@ -1,4 +1,4 @@
-<% content_for :page_title, "Ajouter Nouveau Service" %>
+<% content_for :page_title, "Modifier Service" %>
 
 <!-- Breadcrumb -->
 <div class="mb-6">
@@ -17,7 +17,7 @@
           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
         </svg>
       </li>
-      <li class="text-gray-900 font-medium">Nouveau service</li>
+      <li class="text-gray-900 font-medium"><%= @service.name %></li>
     </ol>
   </nav>
 </div>
@@ -25,10 +25,10 @@
 <!-- Page Header -->
 <div class="mb-8">
   <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
-    Ajouter un <span class="text-blue-hero">Service</span> 🔧
+    Modifier le <span class="text-blue-hero">Service</span> 🔧
   </h1>
   <p class="text-xl text-gray-600">
-    Créez un nouveau type de service pour la plateforme
+    Modifiez les informations du service
   </p>
 </div>
 
@@ -176,7 +176,7 @@
       <div class="space-y-4">
         <!-- Active Status -->
         <div class="flex items-center space-x-3">
-          <%= f.check_box :active, { checked: true, class: "w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-2 focus:ring-blue-hero" } %>
+          <%= f.check_box :active, { class: "w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-2 focus:ring-blue-hero" } %>
           <%= f.label :active, "Service actif (visible pour les professionnels)", class: "text-gray-700 font-medium" %>
         </div>
 
@@ -230,16 +230,17 @@
           <span class="text-red-600">*</span> Champs obligatoires
         </div>
         <div class="flex space-x-3">
-          <%= link_to admin_services_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <%= link_to admin_service_path(@service), class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
             Annuler
           <% end %>
-          <%= f.submit "Créer le service", class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" %>
+          <%= f.submit "Mettre à jour le service", class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" %>
         </div>
       </div>
     </div>
 
   <% end %>
 </div>
+

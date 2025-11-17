@@ -290,9 +290,14 @@
     </div>
 
     <!-- Pagination -->
-    <div class="mt-6">
-      <%= render 'shared/pagination' %>
-    </div>
+    <% if defined?(@pagy) && @pagy.pages > 1 %>
+      <div class="mt-8 p-6 bg-white rounded-super shadow-sm border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+        <p class="text-xs sm:text-sm text-gray-600">
+          Affichage de <strong><%= @pagy.from %></strong> à <strong><%= @pagy.to %></strong> sur <strong><%= @pagy.count %></strong> facture<%= @pagy.count > 1 ? 's' : '' %>
+        </p>
+        <%= pagy_nav_hatmada(@pagy, params: request.query_parameters) %>
+      </div>
+    <% end %>
 
   </div>
 </div>

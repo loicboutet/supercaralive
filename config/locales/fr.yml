@@ -59,4 +59,34 @@ fr:
       intervention_zone: "Zone d'intervention"
       professional_presentation: "Présentation professionnelle"
       profile_photo: "Photo de profil"
+    service:
+      name: "Nom du service"
+      description: "Description"
+      category: "Catégorie"
+      icon: "Icône"
+      estimated_duration: "Durée estimée"
+      suggested_price: "Prix suggéré"
+      active: "Service actif"
+      popular: "Service populaire"
+      requires_quote: "Devis obligatoire"
+      prerequisites: "Prérequis"
+      internal_notes: "Notes internes"
+  
+  # Traductions pour les noms de modèles
+  activerecord:
+    models:
+      service: "Service"
+    attributes:
+      service:
+        name: "Nom du service"
+        description: "Description"
+        category: "Catégorie"
+        icon: "Icône"
+        estimated_duration: "Durée estimée"
+        suggested_price: "Prix suggéré"
+        active: "Service actif"
+        popular: "Service populaire"
+        requires_quote: "Devis obligatoire"
+        prerequisites: "Prérequis"
+        internal_notes: "Notes internes"
 

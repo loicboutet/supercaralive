@@ -1,0 +1,52 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: services
+# Database name: primary
+#
+#  id                 :integer          not null, primary key
+#  active             :boolean          default(TRUE), not null
+#  category           :string           not null
+#  description        :text             not null
+#  estimated_duration :integer
+#  icon               :string
+#  internal_notes     :text
+#  name               :string           not null
+#  popular            :boolean          default(FALSE), not null
+#  prerequisites      :text
+#  requires_quote     :boolean          default(FALSE), not null
+#  suggested_price    :decimal(8, 2)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+# Indexes
+#
+#  index_services_on_active    (active)
+#  index_services_on_category  (category)
+#
+one:
+  name: MyString
+  description: MyText
+  category: MyString
+  icon: MyString
+  estimated_duration: 1
+  suggested_price: 9.99
+  active: false
+  popular: false
+  requires_quote: false
+  prerequisites: MyText
+  internal_notes: MyText
+
+two:
+  name: MyString
+  description: MyText
+  category: MyString
+  icon: MyString
+  estimated_duration: 1
+  suggested_price: 9.99
+  active: false
+  popular: false
+  requires_quote: false
+  prerequisites: MyText
+  internal_notes: MyText

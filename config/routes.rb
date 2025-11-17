@@ -108,7 +108,11 @@ Rails.application.routes.draw do
     resources :verification_documents, only: [:index, :create, :update, :destroy]
     
     # Service offerings
-    resources :professional_services, only: [:index, :create, :update, :destroy]
+    resources :professional_services, except: [:show] do
+      member do
+        patch :toggle_active
+      end
+    end
     
     # Availability calendar
     resources :availability_slots, except: [:show] do

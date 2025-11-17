@@ -9,13 +9,13 @@
   <% else %>
     <%= link_to "Dashboard", professional_root_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_root_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
-    <%= link_to "Services", professional_professional_services_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_professional_services_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+    <%= link_to "Services", professional_professional_services_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'professional_services' || request.path.start_with?('/professional/professional_services')) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
     <%= link_to "Agenda", professional_availability_slots_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_availability_slots_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
-    <%= link_to "Réservations", professional_bookings_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+    <%= link_to "Réservations", professional_bookings_path, class: "hidden px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
-    <%= link_to "Factures", professional_invoices_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+    <%= link_to "Factures", professional_invoices_path, class: "hidden px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
   <% end %>
 
   <!-- User Profile Dropdown -->
@@ -50,7 +50,7 @@
           </svg>
           <span>Calendrier</span>
         <% end %>
-        <%= link_to professional_reviews_path, class: "block px-4 py-2 text-gray-700 hover:bg-red-hero hover:text-white transition-colors flex items-center space-x-2" do %>
+        <%= link_to professional_reviews_path, class: "hidden block px-4 py-2 text-gray-700 hover:bg-red-hero hover:text-white transition-colors flex items-center space-x-2" do %>
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
           </svg>
@@ -82,17 +82,17 @@
     <% else %>
       <%= link_to "Dashboard", professional_root_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_root_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
-      <%= link_to "Services", professional_professional_services_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_professional_services_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+      <%= link_to "Services", professional_professional_services_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'professional_services' || request.path.start_with?('/professional/professional_services')) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
       <%= link_to "Agenda", professional_availability_slots_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_availability_slots_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
-      <%= link_to "Réservations", professional_bookings_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+      <%= link_to "Réservations", professional_bookings_path, class: "hidden block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
-      <%= link_to "Factures", professional_invoices_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+      <%= link_to "Factures", professional_invoices_path, class: "hidden block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
       <%= link_to "Calendrier", calendar_professional_availability_slots_path, class: "block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
       
-      <%= link_to "Avis Reçus", professional_reviews_path, class: "block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
+      <%= link_to "Avis Reçus", professional_reviews_path, class: "hidden block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
     <% end %>
     
     <%= link_to "Mon Profil", professional_profile_path, class: "block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
