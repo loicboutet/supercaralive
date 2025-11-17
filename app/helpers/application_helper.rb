@@ -39,7 +39,7 @@ module ApplicationHelper
       when String
         case item
         when "gap"
-          html << %(<span class="px-2 text-gray-500">…</span>)
+          html << %(<span class="px-2 text-gray-500">...</span>)
         end
       end
     end

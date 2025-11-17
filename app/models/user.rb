@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # Role validation
-  enum role: { client: "Client", professional: "Professional", admin: "Admin" }
+  enum :role, { client: "Client", professional: "Professional", admin: "Admin" }
   
   # Set default role before validation
   before_validation :set_default_role, on: :create

@@ -1,0 +1,47 @@
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <nav class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+    <div class="flex items-center justify-between">
+      <!-- Logo - Text only -->
+      <%= link_to root_path, class: "flex items-center" do %>
+        <span class="text-xl sm:text-2xl font-bold text-gray-800">SUPERCAR<span class="text-red-hero">ALIVE</span></span>
+      <% end %>
+      
+      <%= render 'layouts/client/menu' %>
+      
+      <!-- Menu Mobile Button -->
+      <button id="mobile-menu-button" class="lg:hidden text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<script>
+  // Function to initialize mobile menu
+  function initMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+      // Remove any existing event listeners by cloning the button
+      const newButton = mobileMenuButton.cloneNode(true);
+      mobileMenuButton.parentNode.replaceChild(newButton, mobileMenuButton);
+      
+      newButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  }
+  
+  // Initialize on DOMContentLoaded (for initial page load)
+  document.addEventListener('DOMContentLoaded', initMobileMenu);
+  
+  // Initialize on turbo:load (for Turbo navigation)
+  document.addEventListener('turbo:load', initMobileMenu);
+  
+  // Initialize on turbo:render (for Turbo frame updates)
+  document.addEventListener('turbo:render', initMobileMenu);
+</script>

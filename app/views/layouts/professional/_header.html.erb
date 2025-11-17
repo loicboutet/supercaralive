@@ -6,12 +6,7 @@
         <span class="text-xl sm:text-2xl font-bold text-gray-800">SUPERCAR<span class="text-red-hero">ALIVE</span></span>
       <% end %>
       
-      <!-- Render appropriate menu based on namespace -->
-      <% if controller_path.start_with?('professional/') %>
-        <%= render 'shared/professional_menu' %>
-      <% else %>
-        <%= render 'shared/client_menu' %>
-      <% end %>
+      <%= render 'layouts/professional/menu' %>
       
       <!-- Menu Mobile Button -->
       <button id="mobile-menu-button" class="lg:hidden text-gray-700">

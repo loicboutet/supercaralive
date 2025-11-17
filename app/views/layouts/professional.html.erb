@@ -24,12 +24,13 @@
   </head>
 
   <body class="bg-soft">
-    <%= render "shared/header" %>
+    <%= render "layouts/shared/notices" %>
+    <%= render "layouts/professional/header" %>
     
     <main class="container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
       <%= yield %>
     </main>
 
-    <%= render "shared/footer" %>
+    <%= render "layouts/shared/footer" %>
   </body>
 </html>

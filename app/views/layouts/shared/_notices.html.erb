@@ -1,0 +1,25 @@
+<% if flash.any? %>
+  <div class="fixed top-4 right-4 z-50 space-y-2">
+    <% flash.each do |type, message| %>
+      <div data-controller="dismissible" 
+           data-dismissible-target="notice"
+           class="rounded-md <%= type == 'notice' ? 'bg-green-50 text-green-800 border-green-200' : 'bg-red-50 text-red-800 border-red-200' %> border shadow-lg max-w-md relative overflow-hidden">
+        
+        <!-- Progress bar -->
+        <div data-dismissible-target="progressBar" 
+             class="absolute top-0 left-0 h-1 <%= type == 'notice' ? 'bg-green-400' : 'bg-red-400' %> transition-all"></div>
+        
+        <!-- Content -->
+        <div class="p-4 pr-10">
+          <%= message %>
+        </div>
+        
+        <!-- Close button -->
+        <button data-action="click->dismissible#dismiss"
+                class="absolute top-2 right-2 p-1 rounded-full hover:bg-black hover:bg-opacity-10 transition-colors">
+          <%= lucide_icon('x', size: 'w-4 h-4', class: 'opacity-60 hover:opacity-100') %>
+        </button>
+      </div>
+    <% end %>
+  </div>
+<% end %>
