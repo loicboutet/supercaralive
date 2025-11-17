@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_17_144529) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_17_163504) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -115,6 +115,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_144529) do
     t.string "siret"
     t.string "intervention_zone"
     t.text "professional_presentation"
+    t.boolean "display_complete_name", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

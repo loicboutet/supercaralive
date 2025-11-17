@@ -8,13 +8,15 @@
   
   <%= link_to "Réservations", client_bookings_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
   
-  <%= link_to "Factures", client_invoices_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+  <%= link_to "Factures", client_invoices_path, class: "hidden px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
 
   <!-- User Profile Dropdown -->
   <div class="relative group">
     <button class="flex items-center space-x-2 text-gray-700 hover:text-red-hero font-medium">
-      <div class="w-8 h-8 bg-red-hero rounded-full flex items-center justify-center">
-        <span class="text-white font-bold text-sm"><%= current_user&.email&.first&.upcase || 'C' %></span>
+      <div class="w-8 h-8 bg-red-hero rounded-full flex items-center justify-center overflow-hidden relative">
+        <%= user_avatar_content(current_user, 
+            image_class: "w-full h-full object-cover", 
+            initials_class: "text-white font-bold text-sm absolute inset-0 flex items-center justify-center") %>
       </div>
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -29,7 +31,7 @@
         </svg>
         <span>Mon Profil</span>
       <% end %>
-      <%= link_to client_wallet_path, class: "block px-4 py-2 text-gray-700 hover:bg-red-hero hover:text-white transition-colors flex items-center space-x-2" do %>
+      <%= link_to client_wallet_path, class: "hidden block px-4 py-2 text-gray-700 hover:bg-red-hero hover:text-white transition-colors flex items-center space-x-2" do %>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
         </svg>
@@ -63,13 +65,13 @@
     
     <%= link_to "Réservations", client_bookings_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
-    <%= link_to "Factures", client_invoices_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+    <%= link_to "Factures", client_invoices_path, class: "hidden block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
     <%= link_to "Rappels Entretien", client_maintenance_reminders_path, class: "block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
     
     <%= link_to "Mon Profil", client_profile_path, class: "block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
     
-    <%= link_to "Mon Portefeuille", client_wallet_path, class: "block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
+    <%= link_to "Mon Portefeuille", client_wallet_path, class: "hidden block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
     
     <%= button_to destroy_user_session_path, method: :delete, class: "w-full text-left px-4 py-2 text-red-600 hover:bg-red-hero hover:text-white rounded-lg font-medium transition-colors" do %>
       Déconnexion

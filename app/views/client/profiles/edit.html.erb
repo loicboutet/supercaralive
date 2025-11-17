@@ -12,9 +12,9 @@
     </div>
 
     <div class="bg-white rounded-super p-8 shadow-sm">
-      <%= form_with url: client_profile_path, method: :patch, class: "space-y-6" do |f| %>
+      <%= form_with url: client_profile_path, method: :patch, data: { turbo: false }, class: "space-y-6" do |f| %>
         
-        <% if @profile&.errors&.any? %>
+        <% if current_user&.errors&.any? %>
           <div class="bg-red-50 border-l-4 border-red-hero rounded-lg p-4">
             <div class="flex">
               <div class="flex-shrink-0">
@@ -25,7 +25,7 @@
               <div class="ml-3">
                 <h3 class="text-sm font-bold text-red-800">Erreurs détectées :</h3>
                 <ul class="mt-2 text-sm text-red-700 list-disc list-inside">
-                  <% @profile.errors.full_messages.each do |message| %>
+                  <% current_user.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
                   <% end %>
                 </ul>
@@ -51,17 +51,44 @@
           </div>
         </div>
 
-        <div>
-          <%= f.label :pseudonym, "Pseudonyme / Initiales", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <%= f.text_field :pseudonym, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: J.D., Jean D., JDoe..." %>
-          <p class="text-sm text-gray-500 mt-1">Visible par les professionnels pour vous identifier</p>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <%= f.label :first_name, "Prénom", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.text_field :first_name, value: current_user&.first_name, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
+          </div>
+          <div>
+            <%= f.label :last_name, "Nom", class: "block text-sm font-medium text-gray-700 mb-2" %>
+            <%= f.text_field :last_name, value: current_user&.last_name, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
+          </div>
+        </div>
+
+        <!-- Display Complete Name Option -->
+        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+          <div class="flex items-start space-x-3">
+            <div class="flex items-center h-5">
+              <%= f.check_box :display_complete_name, checked: current_user&.display_complete_name?, class: "w-4 h-4 text-red-hero border-gray-300 rounded focus:ring-red-hero" %>
+            </div>
+            <div class="flex-1">
+              <%= f.label :display_complete_name, "Afficher mon nom complet aux professionnels", class: "block text-sm font-medium text-gray-700 cursor-pointer" %>
+              <p class="text-sm text-gray-600 mt-1">
+                Si cette option est activée, les professionnels verront votre nom complet (<%= [current_user&.first_name, current_user&.last_name].compact.join(' ') || 'votre nom' %>). 
+                Si elle est désactivée, ils verront uniquement vos initiales (<%= current_user&.pseudonym %>) pour protéger votre anonymat.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div>
-          <%= f.label :phone, "Téléphone", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <%= f.telephone_field :phone, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "+33 6 12 34 56 78" %>
+          <%= f.label :email, "Email", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.email_field :email, value: current_user&.email, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
         </div>
 
+        <div>
+          <%= f.label :phone_number, "Téléphone", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.telephone_field :phone_number, value: current_user&.phone_number, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
+        </div>
+
+        <% if false %>
         <!-- Address Clarification -->
         <div class="bg-blue-50 border-l-4 border-blue-hero rounded-lg p-4">
           <div class="flex">
@@ -100,6 +127,7 @@
         </div>
 
         <hr class="my-8 border-gray-200">
+        <% end %>
 
         <h3 class="text-lg font-bold text-gray-900">Mes lieux de service enregistrés</h3>
         <p class="text-sm text-gray-600 mb-4">Gérez les adresses où vous souhaitez recevoir des services</p>
@@ -185,21 +213,20 @@
           </div>
         </div>
 
-        <!-- Email Change Info -->
-        <div class="bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4">
-          <div class="flex">
-            <div class="flex-shrink-0">
-              <svg class="h-5 w-5 text-yellow-hero" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-              </svg>
-            </div>
-            <div class="ml-3">
-              <h3 class="text-sm font-bold text-yellow-800">Modification de l'email</h3>
-              <p class="text-sm text-yellow-700 mt-1">
-                Pour changer votre adresse email, rendez-vous dans <%= link_to "Paramètres du compte", edit_user_registration_path, class: "underline font-medium" %>.
-              </p>
-            </div>
-          </div>
+        <hr class="my-8 border-gray-200">
+
+        <h3 class="text-lg font-bold text-gray-900">Modifier le mot de passe</h3>
+        <p class="text-sm text-gray-600 mb-4">Laissez vide si vous ne souhaitez pas changer votre mot de passe</p>
+
+        <div>
+          <%= f.label :password, "Nouveau mot de passe", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.password_field :password, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", autocomplete: "new-password" %>
+          <p class="text-sm text-gray-500 mt-1">Minimum 6 caractères</p>
+        </div>
+
+        <div>
+          <%= f.label :password_confirmation, "Confirmation du mot de passe", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.password_field :password_confirmation, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", autocomplete: "new-password" %>
         </div>
 
         <div class="flex space-x-4 pt-4">

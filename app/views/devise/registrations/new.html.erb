@@ -45,7 +45,7 @@
               <%= f.label :email, "Adresse email <span class='text-red-hero'>*</span>".html_safe, class: "block text-sm font-bold text-gray-700 mb-2" %>
               <%= f.email_field :email, 
                   autofocus: true, 
-                  autocomplete: "email",
+                  autocomplete: "off",
                   required: true,
                   class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition",
                   placeholder: "votre.email@exemple.fr" %>
@@ -54,11 +54,20 @@
             <!-- Client-specific fields -->
             <div id="client-fields" class="space-y-6" data-role-toggle-target="clientFields">
               <div>
-                <label class="block text-sm font-bold text-gray-700 mb-2">Nom d'affichage (pseudonyme ou initiales)</label>
-                <input type="text" name="user[display_name]" 
-                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent transition"
-                      placeholder="ex: Sophie P. ou SP">
-                <p class="text-xs text-gray-500 mt-1">Votre nom complet restera anonyme pour les professionnels</p>
+                <%= f.label :first_name, "Prénom <span class='text-red-hero'>*</span>".html_safe, class: "block text-sm font-bold text-gray-700 mb-2" %>
+                <%= f.text_field :first_name, 
+                    autocomplete: "off",
+                    required: true,
+                    class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent transition",
+                    placeholder: "ex: Sophie" %>
+              </div>
+              <div>
+                <%= f.label :last_name, "Nom <span class='text-red-hero'>*</span>".html_safe, class: "block text-sm font-bold text-gray-700 mb-2" %>
+                <%= f.text_field :last_name, 
+                    autocomplete: "off",
+                    required: true,
+                    class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent transition",
+                    placeholder: "ex: Martin" %>
               </div>
             </div>
 
@@ -67,6 +76,7 @@
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">Nom de l'entreprise</label>
                 <input type="text" name="user[company_name]" 
+                      autocomplete="off"
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition"
                       placeholder="ex: Garage Martin">
               </div>
@@ -74,6 +84,7 @@
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">Numéro SIREN</label>
                 <input type="text" name="user[siren]" 
+                      autocomplete="off"
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition"
                       placeholder="123 456 789"
                       maxlength="9">
@@ -99,7 +110,7 @@
                 <p class="text-xs text-gray-500 mb-2">Minimum <%= @minimum_password_length %> caractères</p>
               <% end %>
               <%= f.password_field :password, 
-                  autocomplete: "new-password",
+                  autocomplete: "off",
                   class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition",
                   placeholder: "••••••••" %>
             </div>
@@ -107,7 +118,7 @@
             <div>
               <%= f.label :password_confirmation, "Confirmer le mot de passe <span class='text-red-hero'>*</span>".html_safe, class: "block text-sm font-bold text-gray-700 mb-2" %>
               <%= f.password_field :password_confirmation, 
-                  autocomplete: "new-password",
+                  autocomplete: "off",
                   required: true,
                   class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-hero focus:border-transparent transition",
                   placeholder: "••••••••" %>
