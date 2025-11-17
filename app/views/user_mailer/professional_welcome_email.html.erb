@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #dc2626;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+      }
+      .content {
+        background-color: #ffffff;
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+        border-top: none;
+      }
+      .button {
+        display: inline-block;
+        background-color: #dc2626;
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .info-box {
+        background-color: #fef3c7;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+        border-left: 4px solid #f59e0b;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #6b7280;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Bienvenue sur SuperCarAlive !</h1>
+    </div>
+    
+    <div class="content">
+      <p>Bonjour <%= @user.first_name.present? ? @user.first_name : @user.email %>,</p>
+      
+      <p>Votre compte professionnel a été créé avec succès sur SuperCarAlive. Nous sommes ravis de vous accueillir sur notre plateforme !</p>
+      
+      <div class="info-box">
+        <p><strong>⏳ Votre compte est en attente de validation</strong></p>
+        <p>Un administrateur va examiner votre compte et valider votre inscription dans les plus brefs délais. Vous recevrez un email de confirmation une fois votre compte validé.</p>
+      </div>
+      
+      <p>En attendant la validation de votre compte, vous pouvez déjà commencer à compléter votre profil professionnel.</p>
+      
+      <p style="text-align: center;">
+        <a href="<%= professional_root_url %>" class="button">Accéder à mon espace professionnel</a>
+      </p>
+      
+      <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+      
+      <p>Cordialement,<br>L'équipe SuperCarAlive</p>
+    </div>
+    
+    <div class="footer">
+      <p>© <%= Date.current.year %> SuperCarAlive. Tous droits réservés.</p>
+    </div>
+  </body>
+</html>
+

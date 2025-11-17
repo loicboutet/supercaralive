@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-soft flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 w-full lg:w-[700px] mx-auto">
+<div class="min-h-screen bg-soft flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 w-full lg:w-[700px] mx-auto" data-controller="role-toggle">
   <div class="max-w-lg w-full min-w-0 sm:min-w-96">
     <!-- Logo and Header -->
     <div class="text-center mb-8">
@@ -13,7 +13,7 @@
 
     <!-- Registration Form -->
     <div class="bg-white rounded-super shadow-sm p-8">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }) do |f| %>
           <%= render "devise/shared/error_messages", resource: resource %>
           
           <div class="space-y-6">
@@ -21,16 +21,16 @@
             <div>
               <label class="block text-sm font-bold text-gray-700 mb-4">Je suis :</label>
               <div class="grid md:grid-cols-2 gap-4">
-                <label class="relative flex flex-col items-center p-6 border-4 border-blue-hero rounded-lg cursor-pointer hover:border-blue-hero transition role-card">
-                  <input type="radio" name="user[role]" value="client" checked class="sr-only role-radio" data-role="client">
+                <label class="relative flex flex-col items-center p-6 border-4 border-blue-hero rounded-lg cursor-pointer hover:border-blue-hero transition role-card" data-role-toggle-target="roleCard">
+                  <input type="radio" name="user[role]" value="client" checked class="sr-only role-radio" data-role="client" data-role-toggle-target="roleRadio" data-action="change->role-toggle#toggle">
                   <div class="w-16 h-16 bg-blue-hero rounded-lg flex items-center justify-center mb-3">
                     <span class="text-white text-3xl">🚗</span>
                   </div>
                   <h3 class="text-lg font-bold text-gray-900">Particulier</h3>
                 </label>
 
-                <label class="relative flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-red-hero transition role-card">
-                  <input type="radio" name="user[role]" value="professional" class="sr-only role-radio" data-role="professional">
+                <label class="relative flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-red-hero transition role-card" data-role-toggle-target="roleCard">
+                  <input type="radio" name="user[role]" value="professional" class="sr-only role-radio" data-role="professional" data-role-toggle-target="roleRadio" data-action="change->role-toggle#toggle">
                   <div class="w-16 h-16 bg-red-hero rounded-lg flex items-center justify-center mb-3">
                     <span class="text-white text-3xl">🔧</span>
                   </div>
@@ -52,7 +52,7 @@
             </div>
 
             <!-- Client-specific fields -->
-            <div id="client-fields" class="space-y-6">
+            <div id="client-fields" class="space-y-6" data-role-toggle-target="clientFields">
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">Nom d'affichage (pseudonyme ou initiales)</label>
                 <input type="text" name="user[display_name]" 
@@ -63,7 +63,7 @@
             </div>
 
             <!-- Professional-specific fields -->
-            <div id="professional-fields" class="space-y-6 hidden">
+            <div id="professional-fields" class="space-y-6 hidden" data-role-toggle-target="professionalFields">
               <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">Nom de l'entreprise</label>
                 <input type="text" name="user[company_name]" 
@@ -140,7 +140,7 @@
     </div>
 
     <!-- Professional Info -->
-    <div id="professional-info" class="mt-6 bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4 hidden">
+    <div id="professional-info" class="mt-6 bg-yellow-50 border-l-4 border-yellow-hero rounded-lg p-4 hidden" data-role-toggle-target="professionalInfo">
         <div class="flex items-start">
           <div class="flex-shrink-0">
             <svg class="h-5 w-5 text-yellow-hero" viewBox="0 0 20 20" fill="currentColor">
@@ -156,40 +156,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const roleRadios = document.querySelectorAll('.role-radio');
-    const clientFields = document.getElementById('client-fields');
-    const professionalFields = document.getElementById('professional-fields');
-    const professionalInfo = document.getElementById('professional-info');
-    const roleCards = document.querySelectorAll('.role-card');
-
-    roleRadios.forEach(radio => {
-      radio.addEventListener('change', function() {
-        const role = this.dataset.role;
-        
-        // Update card borders
-        roleCards.forEach(card => {
-          card.classList.remove('border-blue-hero', 'border-red-hero', 'border-4');
-          card.classList.add('border-2', 'border-gray-200');
-        });
-        const selectedCard = this.closest('.role-card');
-        selectedCard.classList.remove('border-2', 'border-gray-200');
-        selectedCard.classList.add('border-4', role === 'client' ? 'border-blue-hero' : 'border-red-hero');
-        
-        // Toggle fields
-        if (role === 'client') {
-          clientFields.classList.remove('hidden');
-          professionalFields.classList.add('hidden');
-          professionalInfo.classList.add('hidden');
-        } else {
-          clientFields.classList.add('hidden');
-          professionalFields.classList.remove('hidden');
-          professionalInfo.classList.remove('hidden');
-        }
-      });
-    });
-
-  });
-</script>

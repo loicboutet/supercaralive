@@ -60,6 +60,12 @@ class Admin::UsersController < ApplicationController
     # Set cgu_accepted to true when created by admin
     @user.cgu_accepted = true
     
+    # Skip professional welcome email (admin sends welcome_email instead)
+    @user.skip_professional_welcome_email = true
+    
+    # Set status to active when created by admin
+    @user.status = "active"
+    
     # Generate a temporary password
     temp_password = Devise.friendly_token.first(12)
     @user.password = temp_password

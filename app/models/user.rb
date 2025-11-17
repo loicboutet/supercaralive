@@ -4,7 +4,9 @@
 # Database name: primary
 #
 #  id                     :integer          not null, primary key
+#  admin_approval_note    :text
 #  cgu_accepted           :boolean          default(FALSE), not null
+#  company_name           :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string
@@ -40,10 +42,19 @@ class User < ApplicationRecord
   # Status validation
   enum :status, { active: "active", inactive: "inactive", suspended: "suspended" }
   
+  # Virtual attribute to skip professional welcome email when created by admin
+  attr_accessor :skip_professional_welcome_email
+
+  # Associations
+  has_many :professional_documents, dependent: :destroy
+
   # Set default role and status before validation
   before_validation :set_default_role, on: :create
   before_validation :set_default_status, on: :create
   before_validation :normalize_role
+  
+  # Send welcome email to professionals after creation (only for self-registration)
+  after_create :send_professional_welcome_email, if: -> { professional? && !skip_professional_welcome_email }
   
   # Override role writer to normalize case-insensitive values
   def role=(value)
@@ -99,7 +110,14 @@ class User < ApplicationRecord
   end
   
   def set_default_status
-    self.status ||= "active"
+    # If status is already explicitly set, don't override it
+    return if status.present?
+    
+    # By default, status is inactive
+    # It will be set to active in controllers when appropriate:
+    # - admin/users#create: always active
+    # - users/registrations#create: active for clients, inactive for professionals
+    self.status = "inactive"
   end
   
   def normalize_role
@@ -124,5 +142,9 @@ class User < ApplicationRecord
     else
       value # Return original value if not recognized
     end
+  end
+  
+  def send_professional_welcome_email
+    UserMailer.professional_welcome_email(self).deliver_later
   end
 end

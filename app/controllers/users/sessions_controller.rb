@@ -3,6 +3,8 @@ class Users::SessionsController < Devise::SessionsController
   skip_before_action :authenticate_user!, only: [:new, :create]
   # Skip require_no_authentication to handle redirect manually
   skip_before_action :require_no_authentication, only: [:new]
+  # Skip status check for logout to allow blocked/inactive users to sign out
+  skip_before_action :check_user_status, only: [:destroy]
   
   # GET /users/sign_in
   def new

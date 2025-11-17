@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # Mockups routes (for development/design reference)
+  get 'mockups', to: 'mockups#index'
   get 'mockups/index'
   get 'mockups/typography'
   get 'mockups/user_dashboard'
@@ -17,6 +18,10 @@ Rails.application.routes.draw do
   # Public pages (accessible without authentication)
   get 'pages/cgu', to: 'pages#cgu'
   get 'pages/confidentiality', to: 'pages#confidentiality'
+  
+  # Account status pages (for blocked/inactive users)
+  get 'account_status/suspended', to: 'account_status#suspended', as: :account_status_suspended
+  get 'account_status/inactive', to: 'account_status#inactive', as: :account_status_inactive
   
   # PWA routes (accessible without authentication)
   get 'service-worker.js', to: 'pwa#service_worker', format: :js
@@ -146,6 +151,7 @@ Rails.application.routes.draw do
       member do
         patch :approve
         patch :reject
+        patch :update_notes
       end
     end
     

@@ -4,7 +4,9 @@
 # Database name: primary
 #
 #  id                     :integer          not null, primary key
+#  admin_approval_note    :text
 #  cgu_accepted           :boolean          default(FALSE), not null
+#  company_name           :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string

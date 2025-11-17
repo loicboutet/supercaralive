@@ -1,0 +1,34 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: professional_documents
+# Database name: primary
+#
+#  id            :integer          not null, primary key
+#  document_type :string
+#  file          :string
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  user_id       :integer          not null
+#
+# Indexes
+#
+#  index_professional_documents_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  user_id  (user_id => users.id)
+#
+one:
+  user: one
+  name: MyString
+  file: MyString
+  document_type: MyString
+
+two:
+  user: two
+  name: MyString
+  file: MyString
+  document_type: MyString
