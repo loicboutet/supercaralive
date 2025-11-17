@@ -3,27 +3,28 @@
 # Table name: users
 # Database name: primary
 #
-#  id                        :integer          not null, primary key
-#  admin_approval_note       :text
-#  cgu_accepted              :boolean          default(FALSE), not null
-#  company_name              :string
-#  display_complete_name     :boolean          default(FALSE), not null
-#  email                     :string           default(""), not null
-#  encrypted_password        :string           default(""), not null
-#  first_name                :string
-#  intervention_zone         :string
-#  last_name                 :string
-#  location                  :string
-#  phone_number              :string
-#  professional_presentation :text
-#  remember_created_at       :datetime
-#  reset_password_sent_at    :datetime
-#  reset_password_token      :string
-#  role                      :string           default("client"), not null
-#  siret                     :string
-#  status                    :string           default("active")
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
+#  id                            :integer          not null, primary key
+#  admin_approval_note           :text
+#  cgu_accepted                  :boolean          default(FALSE), not null
+#  company_name                  :string
+#  display_complete_name         :boolean          default(FALSE), not null
+#  email                         :string           default(""), not null
+#  encrypted_password            :string           default(""), not null
+#  first_name                    :string
+#  intervention_zone             :string
+#  last_name                     :string
+#  location                      :string
+#  maintenance_reminders_enabled :boolean          default(TRUE), not null
+#  phone_number                  :string
+#  professional_presentation     :text
+#  remember_created_at           :datetime
+#  reset_password_sent_at        :datetime
+#  reset_password_token          :string
+#  role                          :string           default("client"), not null
+#  siret                         :string
+#  status                        :string           default("active")
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
 #
 # Indexes
 #
@@ -52,6 +53,7 @@ class User < ApplicationRecord
   # Associations
   has_many :professional_documents, dependent: :destroy
   has_many :professional_services, dependent: :destroy
+  has_many :vehicles, dependent: :destroy
   has_one_attached :profile_photo
 
   # Set default role and status before validation

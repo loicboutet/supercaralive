@@ -17,8 +17,9 @@
       </div>
     </div>
 
-    <!-- SECTION 1: WALLET INFO -->
-    <div class="mb-12">
+    <!-- SECTION 1: WALLET INFO - CACHÉE TEMPORAIREMENT -->
+    <%# TODO: Cette section devra être réaffichée le jour où on aura mis en place les factures %>
+    <div class="mb-12 hidden">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-3xl font-bold text-gray-900">Mon Portefeuille</h2>
         <%= link_to client_invoices_path, class: "text-blue-hero hover:underline font-medium inline-flex items-center" do %>
@@ -149,12 +150,21 @@
     <div>
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-3xl font-bold text-gray-900">Rappels d'entretien</h2>
-        <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold inline-flex items-center">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-          </svg>
-          Désactiver les rappels
-        </button>
+        <% if current_user.maintenance_reminders_enabled? %>
+          <%= button_to toggle_reminders_client_maintenance_reminders_path, method: :patch, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold inline-flex items-center", data: { turbo: false } do %>
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+            Désactiver les rappels
+          <% end %>
+        <% else %>
+          <%= button_to toggle_reminders_client_maintenance_reminders_path, method: :patch, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center", data: { turbo: false } do %>
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Activer les rappels
+          <% end %>
+        <% end %>
       </div>
 
       <!-- Summary Cards -->
@@ -166,7 +176,7 @@
               <span class="text-xl">⚠️</span>
             </div>
           </div>
-          <p class="text-3xl font-bold text-gray-900">2</p>
+          <p class="text-3xl font-bold text-gray-900"><%= @urgent_count || 0 %></p>
           <p class="text-sm text-gray-500 mt-1">À faire rapidement</p>
         </div>
 
@@ -177,7 +187,7 @@
               <span class="text-xl">⏰</span>
             </div>
           </div>
-          <p class="text-3xl font-bold text-gray-900">3</p>
+          <p class="text-3xl font-bold text-gray-900"><%= @upcoming_count || 0 %></p>
           <p class="text-sm text-gray-500 mt-1">Dans les prochains mois</p>
         </div>
 
@@ -188,106 +198,80 @@
               <span class="text-xl">✓</span>
             </div>
           </div>
-          <p class="text-3xl font-bold text-gray-900">8</p>
+          <p class="text-3xl font-bold text-gray-900"><%= @completed_count || 0 %></p>
           <p class="text-sm text-gray-500 mt-1">Cette année</p>
         </div>
       </div>
 
       <!-- Reminders List -->
       <div class="space-y-4">
-        <% 
-          reminders = [
-            { type: 'Vidange', vehicle: 'Peugeot 208', due_km: 80000, current_km: 78500, status: 'urgent', color: 'red' },
-            { type: 'Contrôle technique', vehicle: 'Peugeot 208', due_date: Date.current + 15.days, status: 'urgent', color: 'red' },
-            { type: 'Changement pneus', vehicle: 'Renault Clio', due_km: 60000, current_km: 55000, status: 'upcoming', color: 'yellow' },
-            { type: 'Révision générale', vehicle: 'Peugeot 208', due_date: Date.current + 60.days, status: 'upcoming', color: 'yellow' },
-            { type: 'Filtre à air', vehicle: 'Renault Clio', due_km: 65000, current_km: 55000, status: 'upcoming', color: 'yellow' },
-            { type: 'Vidange', vehicle: 'Renault Clio', due_date: Date.current - 10.days, status: 'completed', color: 'green' },
-          ]
-        %>
-        
-        <% reminders.each_with_index do |reminder, i| %>
-          <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition border-l-4 border-<%= reminder[:color] %>-hero">
-            <div class="flex items-center justify-between">
-              <div class="flex items-start space-x-4 flex-1">
-                <div class="w-12 h-12 bg-<%= reminder[:color] == 'red' ? 'red' : reminder[:color] == 'yellow' ? 'yellow' : 'green' %>-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <% if reminder[:status] == 'urgent' %>
-                    <span class="text-2xl">⚠️</span>
-                  <% elsif reminder[:status] == 'upcoming' %>
-                    <span class="text-2xl">⏰</span>
-                  <% else %>
-                    <span class="text-2xl">✓</span>
-                  <% end %>
-                </div>
-                
-                <div class="flex-1">
-                  <div class="flex items-center justify-between mb-2">
-                    <div>
-                      <h3 class="text-xl font-bold text-gray-900"><%= reminder[:type] %></h3>
-                      <p class="text-sm text-gray-600"><%= reminder[:vehicle] %></p>
-                    </div>
-                    <% if reminder[:status] == 'urgent' %>
-                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-red-100 text-red-800">Urgent</span>
-                    <% elsif reminder[:status] == 'upcoming' %>
-                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-yellow-100 text-yellow-800">À venir</span>
+        <% if @reminders.any? %>
+          <% @reminders.each do |reminder| %>
+            <% color = reminder.status_color %>
+            <% border_color_class = color == 'red' ? 'border-red-hero' : color == 'yellow' ? 'border-yellow-hero' : 'border-green-500' %>
+            <% bg_color_class = color == 'red' ? 'bg-red-100' : color == 'yellow' ? 'bg-yellow-100' : 'bg-green-100' %>
+            <% text_color_class = color == 'red' ? 'text-red-800' : color == 'yellow' ? 'text-yellow-800' : 'text-green-800' %>
+            
+            <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition border-l-4 <%= border_color_class %>">
+              <div class="flex items-center justify-between">
+                <div class="flex items-start space-x-4 flex-1">
+                  <div class="w-12 h-12 <%= bg_color_class %> rounded-lg flex items-center justify-center flex-shrink-0">
+                    <% if reminder.done %>
+                      <span class="text-2xl">✓</span>
+                    <% elsif color == 'red' %>
+                      <span class="text-2xl">⚠️</span>
                     <% else %>
-                      <span class="px-3 py-1 rounded-lg text-xs font-medium bg-green-100 text-green-800">Effectué</span>
+                      <span class="text-2xl">⏰</span>
                     <% end %>
                   </div>
-
-                  <div class="grid grid-cols-2 gap-4 mb-4">
-                    <% if reminder[:due_km] %>
+                  
+                  <div class="flex-1">
+                    <div class="flex items-center justify-between mb-2">
                       <div>
-                        <p class="text-xs text-gray-500">Échéance kilométrique</p>
-                        <p class="text-sm font-medium text-gray-900"><%= number_with_delimiter(reminder[:due_km]) %> km</p>
-                        <% if reminder[:current_km] %>
-                          <div class="mt-2">
-                            <div class="w-full bg-gray-200 rounded-full h-2">
-                              <div class="bg-<%= reminder[:color] %>-hero h-2 rounded-full" style="width: <%= [(reminder[:current_km].to_f / reminder[:due_km] * 100), 100].min %>%"></div>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1">Actuel: <%= number_with_delimiter(reminder[:current_km]) %> km</p>
-                          </div>
-                        <% end %>
+                        <h3 class="text-xl font-bold text-gray-900">
+                          <%= reminder.reminder_type == 'maintenance' ? 'Entretien' : 'Contrôle technique' %>
+                        </h3>
+                        <p class="text-sm text-gray-600"><%= reminder.vehicle.brand %> <%= reminder.vehicle.model %></p>
                       </div>
-                    <% end %>
-                    <% if reminder[:due_date] %>
+                      <span class="px-3 py-1 rounded-lg text-xs font-medium <%= bg_color_class %> <%= text_color_class %>">
+                        <%= reminder.status_label %>
+                      </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 mb-4">
                       <div>
                         <p class="text-xs text-gray-500">Date d'échéance</p>
-                        <p class="text-sm font-medium text-gray-900"><%= reminder[:due_date].strftime("%d/%m/%Y") %></p>
-                        <% if reminder[:status] != 'completed' %>
-                          <p class="text-xs <%= reminder[:status] == 'urgent' ? 'text-red-600' : 'text-gray-500' %> mt-1">
-                            <% days_left = (reminder[:due_date] - Date.current).to_i %>
-                            <% if days_left < 0 %>
-                              Retard de <%= days_left.abs %> jours
-                            <% elsif days_left == 0 %>
-                              Aujourd'hui !
-                            <% else %>
-                              Dans <%= days_left %> jours
-                            <% end %>
+                        <p class="text-sm font-medium text-gray-900"><%= reminder.due_date.strftime("%d/%m/%Y") %></p>
+                        <% unless reminder.done %>
+                          <p class="text-xs <%= color == 'red' ? 'text-red-600' : 'text-gray-500' %> mt-1">
+                            <%= reminder.humanized_time_until_due %>
                           </p>
                         <% end %>
                       </div>
+                    </div>
+
+                    <% if reminder.done %>
+                      <div class="flex items-center justify-between">
+                        <p class="text-sm text-gray-600">✓ Effectué le <%= reminder.updated_at.strftime("%d/%m/%Y") %></p>
+                        <%= button_to "Invalider", invalidate_client_maintenance_reminder_path(reminder), method: :patch, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm", data: { turbo: false } %>
+                      </div>
+                    <% else %>
+                      <div class="flex space-x-2">
+                        <%= link_to client_professionals_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-sm" do %>
+                          Réserver un service
+                        <% end %>
+                        <%= button_to "Marquer comme fait", mark_as_done_client_maintenance_reminder_path(reminder), method: :patch, class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm", data: { turbo: false } %>
+                      </div>
                     <% end %>
                   </div>
-
-                  <% if reminder[:status] != 'completed' %>
-                    <div class="flex space-x-2">
-                      <%= link_to client_professionals_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium text-sm" do %>
-                        Réserver un service
-                      <% end %>
-                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium text-sm">
-                        Rappeler plus tard
-                      </button>
-                      <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-medium text-sm">
-                        Marquer comme fait
-                      </button>
-                    </div>
-                  <% else %>
-                    <p class="text-sm text-gray-600">✓ Effectué le <%= (Date.current - 10.days).strftime("%d/%m/%Y") %></p>
-                  <% end %>
                 </div>
               </div>
             </div>
+          <% end %>
+        <% else %>
+          <div class="bg-white rounded-super p-8 shadow-sm text-center">
+            <p class="text-gray-600">Aucun rappel d'entretien pour le moment.</p>
+            <p class="text-sm text-gray-500 mt-2">Ajoutez des dates d'entretien ou de contrôle technique à vos véhicules pour recevoir des rappels.</p>
           </div>
         <% end %>
       </div>
@@ -303,7 +287,7 @@
           <div class="ml-3">
             <h3 class="text-sm font-bold text-blue-800">Rappels automatiques</h3>
             <p class="text-sm text-blue-700 mt-1">
-              Supercaralive vous envoie automatiquement des rappels par email pour les maintenances périodiques en fonction du kilométrage et du temps écoulé.
+              Supercaralive vous envoie automatiquement des rappels par email pour les maintenances périodiques en fonction des dates d'entretien et de contrôle technique de vos véhicules.
             </p>
           </div>
         </div>

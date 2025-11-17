@@ -16,3 +16,6 @@ Pagy::DEFAULT[:cycle] = true # when on last page, click "next" will go to first 
 require 'pagy/extras/overflow'
 Pagy::DEFAULT[:overflow] = :last_page
 
+# Array pagination
+require 'pagy/extras/array'
+

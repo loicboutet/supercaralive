@@ -213,6 +213,28 @@
           </div>
         </div>
 
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-start space-x-3">
+              <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-bold text-gray-900">Rappels d'entretien</h4>
+                <p class="text-sm text-gray-600 mt-1">Recevoir des emails de rappel pour les entretiens et contrôles techniques de vos véhicules</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <%= f.check_box :maintenance_reminders_enabled, checked: current_user&.maintenance_reminders_enabled?, class: "sr-only peer" %>
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
         <hr class="my-8 border-gray-200">
 
         <h3 class="text-lg font-bold text-gray-900">Modifier le mot de passe</h3>

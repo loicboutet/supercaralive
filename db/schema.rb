@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_17_163504) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_17_171639) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -77,6 +77,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_163504) do
     t.index ["user_id"], name: "index_professional_services_on_user_id"
   end
 
+  create_table "reminders", force: :cascade do |t|
+    t.integer "vehicle_id", null: false
+    t.string "reminder_type", null: false
+    t.date "due_date", null: false
+    t.boolean "done", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "upcoming_reminder_sent", default: false, null: false
+    t.boolean "overdue_reminder_sent", default: false, null: false
+    t.index ["vehicle_id"], name: "index_reminders_on_vehicle_id"
+  end
+
   create_table "services", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false
@@ -116,8 +128,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_163504) do
     t.string "intervention_zone"
     t.text "professional_presentation"
     t.boolean "display_complete_name", default: false, null: false
+    t.boolean "maintenance_reminders_enabled", default: true, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "brand"
+    t.string "model"
+    t.integer "year"
+    t.integer "mileage"
+    t.string "vin_number"
+    t.date "next_maintenance_date"
+    t.date "next_technical_inspection_date"
+    t.text "upcoming_service"
+    t.boolean "maintenance_reminders_enabled", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_vehicles_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

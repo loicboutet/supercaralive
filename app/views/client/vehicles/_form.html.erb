@@ -1,24 +1,35 @@
-<%= form_with url: url, method: method, class: "space-y-6" do |f| %>
+<%= form_with model: vehicle, url: url, method: method, data: { turbo: false }, html: { autocomplete: "off" }, class: "space-y-6" do |f| %>
+  <% if vehicle&.errors&.any? %>
+    <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+      <h3 class="text-red-800 font-medium mb-2">Erreurs à corriger :</h3>
+      <ul class="list-disc list-inside text-sm text-red-700">
+        <% vehicle.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <%= f.label :make, "Marque", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_field :make, value: vehicle&.make, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: Peugeot, Renault, Citroën..." %>
+      <%= f.label :brand, "Marque", class: "block text-sm font-medium text-gray-700 mb-2" %>
+      <%= f.text_field :brand, autocomplete: "off", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: Peugeot, Renault, Citroën..." %>
     </div>
 
     <div>
       <%= f.label :model, "Modèle", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_field :model, value: vehicle&.model, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: 208, Clio, C3..." %>
+      <%= f.text_field :model, autocomplete: "off", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: 208, Clio, C3..." %>
     </div>
 
     <div>
       <%= f.label :year, "Année", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.number_field :year, value: vehicle&.year, min: 1900, max: Date.current.year + 1, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: 2020" %>
+      <%= f.number_field :year, min: 1900, max: Date.current.year + 1, autocomplete: "off", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: 2020" %>
     </div>
 
     <div>
       <%= f.label :mileage, "Kilométrage en km", class: "block text-sm font-medium text-gray-700 mb-2" %>
       <div class="relative">
-        <%= f.number_field :mileage, value: vehicle&.mileage, min: 0, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent pr-12", placeholder: "Ex: 50000" %>
+        <%= f.number_field :mileage, min: 0, autocomplete: "off", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent pr-12", placeholder: "Ex: 50000" %>
        
       </div>
       <p class="text-sm text-gray-500 mt-1">Le kilométrage actuel de votre véhicule</p>
@@ -26,8 +37,8 @@
   </div>
 
   <div>
-    <%= f.label :vin, "Numéro VIN (optionnel)", class: "block text-sm font-medium text-gray-700 mb-2" %>
-    <%= f.text_field :vin, value: vehicle&.vin, class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: WBA3B5C50EF123456", maxlength: 17 %>
+    <%= f.label :vin_number, "Numéro VIN (optionnel)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+    <%= f.text_field :vin_number, autocomplete: "off", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Ex: WBA3B5C50EF123456", maxlength: 17 %>
     <p class="text-sm text-gray-500 mt-1">Le numéro d'identification du véhicule (17 caractères)</p>
   </div>
 
@@ -46,48 +57,38 @@
       
       <!-- Reminder Toggle -->
       <div class="flex items-center space-x-3">
-        <label class="flex items-center cursor-pointer">
+        <%= f.label :maintenance_reminders_enabled, class: "flex items-center cursor-pointer" do %>
           <div class="relative">
-            <input type="checkbox" class="sr-only peer" checked>
+            <%= f.check_box :maintenance_reminders_enabled, class: "sr-only peer" %>
             <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-hero/20 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-hero"></div>
           </div>
           <span class="ms-3 text-sm font-medium text-gray-700">Activer les rappels d'entretien</span>
-        </label>
+        <% end %>
       </div>
     </div>
 
     <div class="bg-soft rounded-super p-6 space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <%= f.label :next_service_date, "Date du prochain entretien", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <div class="relative">
-            <%= f.date_field :next_service_date, value: "2025-12-15", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
-            <svg class="absolute right-3 top-3 w-6 h-6 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-          </div>
+          <%= f.label :next_maintenance_date, "Date du prochain entretien", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.date_field :next_maintenance_date, autocomplete: "off", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
           <p class="text-sm text-gray-500 mt-1">Planifiez votre prochaine révision</p>
         </div>
 
         <div>
-          <%= f.label :next_mot_date, "Date du prochain CT (Contrôle Technique)", class: "block text-sm font-medium text-gray-700 mb-2" %>
-          <div class="relative">
-            <%= f.date_field :next_mot_date, value: "2026-03-20", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
-            <svg class="absolute right-3 top-3 w-6 h-6 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
+          <%= f.label :next_technical_inspection_date, "Date du prochain CT (Contrôle Technique)", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.date_field :next_technical_inspection_date, autocomplete: "off", class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
           <p class="text-sm text-gray-500 mt-1">Contrôle technique obligatoire</p>
         </div>
       </div>
 
       <div>
-        <%= f.label :upcoming_services, "Services à venir", class: "block text-sm font-medium text-gray-700 mb-2" %>
-        <%= f.text_area :upcoming_services, value: "- Vidange moteur à 80,000 km\n- Changement des plaquettes de frein\n- Contrôle des pneus", rows: 6, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent resize-none", placeholder: "Listez vos prochains entretiens...\nExemple:\n- Vidange moteur à 80,000 km\n- Changement des plaquettes de frein" %>
+        <%= f.label :upcoming_service, "Services à venir", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= f.text_area :upcoming_service, rows: 6, autocomplete: "off", class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent resize-none", placeholder: "Listez vos prochains entretiens...\nExemple:\n- Vidange moteur à 80,000 km\n- Changement des plaquettes de frein" %>
         <p class="text-sm text-gray-500 mt-1">Notez les entretiens prévus pour ne rien oublier</p>
       </div>
 
-      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start">
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-start <%= 'hidden' unless vehicle&.maintenance_reminders_enabled %>" id="reminder-info">
         <svg class="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
         </svg>
@@ -100,12 +101,7 @@
   </div>
 
   <div class="flex space-x-4 pt-4">
-    <button type="submit" class="bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold cursor-pointer inline-flex items-center justify-center">
-      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      <%= submit_text %>
-    </button>
+    <%= f.submit submit_text, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold cursor-pointer inline-flex items-center justify-center" %>
     <%= link_to client_vehicles_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold text-center inline-flex items-center justify-center" do %>
       <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -114,3 +110,20 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const checkbox = document.querySelector('input[name="vehicle[maintenance_reminders_enabled]"]');
+    const reminderInfo = document.getElementById('reminder-info');
+    
+    if (checkbox && reminderInfo) {
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          reminderInfo.classList.remove('hidden');
+        } else {
+          reminderInfo.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>

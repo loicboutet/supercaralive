@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :edit, :update]
     
     # Vehicle management
-    resources :vehicles, except: [:show]
+    resources :vehicles
     
     # Professional search and browsing
     resources :professionals, only: [:index, :show] do
@@ -92,7 +92,15 @@ Rails.application.routes.draw do
     
     resources :reviews, only: [:new, :create]
     
-    resources :maintenance_reminders, only: [:index, :create, :update, :destroy]
+    resources :maintenance_reminders, only: [:index] do
+      collection do
+        patch :toggle_reminders
+      end
+      member do
+        patch :mark_as_done
+        patch :invalidate
+      end
+    end
   end
 
   # Professional Routes

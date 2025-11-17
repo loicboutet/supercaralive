@@ -1,3 +1,13 @@
+production:
+  maintenance_reminders:
+    class: MaintenanceRemindersJob
+    schedule: at 1am every day
+
+development:
+  maintenance_reminders:
+    class: MaintenanceRemindersJob
+    schedule: at 1am every day
+
 # production:
 #   periodic_cleanup:
 #     class: CleanSoftDeletedRecordsJob

@@ -39,7 +39,7 @@ class Client::ProfilesController < Client::BaseController
   end
 
   def user_params
-    params.permit(:first_name, :last_name, :email, :phone_number, :display_complete_name, :password, :password_confirmation)
+    params.permit(:first_name, :last_name, :email, :phone_number, :display_complete_name, :maintenance_reminders_enabled, :password, :password_confirmation)
           .tap do |permitted|
             # Only update password if provided
             if permitted[:password].blank?
