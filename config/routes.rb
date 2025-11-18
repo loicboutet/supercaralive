@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   # Public pages (accessible without authentication)
   get 'pages/cgu', to: 'pages#cgu'
   get 'pages/confidentiality', to: 'pages#confidentiality'
+  get 'pages/contact', to: 'pages#contact', as: :pages_contact
+  get 'pages/about', to: 'pages#about', as: :pages_about
+  get 'pages/faq', to: 'pages#faq', as: :pages_faq
   
   # Account status pages (for blocked/inactive users)
   get 'account_status/suspended', to: 'account_status#suspended', as: :account_status_suspended
