@@ -21,6 +21,14 @@ class Admin::DashboardController < ApplicationController
     # Pending Approvals (professionals with inactive status)
     @pending_approvals = User.where(role: 'Professional', status: 'inactive').count
     
+    # Total Bookings
+    @total_bookings = Booking.count
+    
+    # Recent Bookings (last 5)
+    @recent_bookings = Booking.includes(:client, :professional, :professional_service)
+                              .order(created_at: :desc)
+                              .limit(5)
+    
     # User registrations chart data based on scope
     @chart_scope = params[:chart_scope] || '12_months'
     @user_registrations_data = calculate_user_registrations_data(@chart_scope)

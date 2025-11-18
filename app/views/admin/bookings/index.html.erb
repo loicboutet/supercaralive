@@ -16,7 +16,7 @@
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
         <span class="text-lg font-bold text-gray-700 mb-2">Total</span>
-        <p class="text-5xl font-bold text-blue-hero mb-2">1,256</p>
+        <p class="text-5xl font-bold text-blue-hero mb-2"><%= @total_bookings %></p>
         <p class="text-base text-gray-500">Réservations</p>
       </div>
       <div class="w-16 h-16 bg-blue-hero rounded-lg flex items-center justify-center flex-shrink-0">
@@ -29,7 +29,7 @@
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
         <span class="text-lg font-bold text-gray-700 mb-2">En attente</span>
-        <p class="text-5xl font-bold text-yellow-hero mb-2">87</p>
+        <p class="text-5xl font-bold text-yellow-hero mb-2"><%= @pending_bookings %></p>
         <p class="text-base text-gray-500">À confirmer</p>
       </div>
       <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
@@ -42,7 +42,7 @@
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
         <span class="text-lg font-bold text-gray-700 mb-2">Confirmées</span>
-        <p class="text-5xl font-bold text-green-500 mb-2">234</p>
+        <p class="text-5xl font-bold text-green-500 mb-2"><%= @accepted_bookings %></p>
         <p class="text-base text-gray-500">En cours</p>
       </div>
       <div class="w-16 h-16 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -55,8 +55,8 @@
     <div class="flex items-center justify-between">
       <div class="flex flex-col">
         <span class="text-lg font-bold text-gray-700 mb-2">Ce mois</span>
-        <p class="text-5xl font-bold text-red-hero mb-2">432</p>
-        <p class="text-base text-gray-500">Terminées</p>
+        <p class="text-5xl font-bold text-red-hero mb-2"><%= @past_month_bookings %></p>
+        <p class="text-base text-gray-500">Passées</p>
       </div>
       <div class="w-16 h-16 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
         <span class="text-white text-3xl">📊</span>
@@ -67,57 +67,77 @@
 
 <!-- Filters -->
 <div class="bg-white rounded-super p-6 shadow-sm mb-6">
-  <div class="flex flex-col md:flex-row gap-4">
+  <% if @filtered_client.present? %>
+    <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <svg class="w-5 h-5 text-blue-hero" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+        </svg>
+        <div>
+          <p class="text-sm font-medium text-blue-900">Filtre actif :</p>
+          <p class="text-sm text-blue-700">Client : <strong><%= @filtered_client.get_full_name %></strong></p>
+        </div>
+      </div>
+      <%= link_to admin_bookings_path(request.query_parameters.except(:client_id)), class: "text-blue-hero hover:text-blue-dark text-sm font-medium inline-flex items-center" do %>
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+        Retirer le filtre
+      <% end %>
+    </div>
+  <% end %>
+  
+  <%= form_with url: admin_bookings_path, method: :get, local: true, data: { turbo: false }, class: "flex flex-col md:flex-row gap-4" do |f| %>
+    <%= hidden_field_tag :client_id, params[:client_id] if params[:client_id].present? %>
     <div class="flex-1">
       <label class="block text-sm font-bold text-gray-700 mb-2">Rechercher</label>
       <div class="relative">
-        <input type="text" placeholder="Client, pro..." class="w-full h-12 px-4 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
+        <%= f.text_field :search, 
+              value: @filtered_client.present? ? @filtered_client.get_full_name : params[:search],
+              placeholder: "Client, professionnel, service...", 
+              readonly: @filtered_client.present?,
+              class: "w-full h-12 px-4 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero #{@filtered_client.present? ? 'bg-gray-100 cursor-not-allowed' : ''}" %>
         <svg class="w-5 h-5 text-gray-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>
       </div>
+      <% if @filtered_client.present? %>
+        <p class="text-xs text-gray-500 mt-1">Le filtre client est actif. Cliquez sur "Retirer le filtre" pour modifier la recherche.</p>
+      <% end %>
     </div>
 
     <div class="flex-1">
       <label class="block text-sm font-bold text-gray-700 mb-2">Statut</label>
-      <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
-        <option>Tous</option>
-        <option>En attente</option>
-        <option>Confirmé</option>
-        <option>Terminé</option>
-        <option>Annulé</option>
-      </select>
-    </div>
-
-    <div class="flex-1">
-      <label class="block text-sm font-bold text-gray-700 mb-2">Service</label>
-      <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
-        <option>Tous</option>
-        <option>Mécanique</option>
-        <option>Carrosserie</option>
-        <option>Lavage</option>
-      </select>
+      <%= f.select :status, 
+            options_for_select([
+              ['Tous', 'all'],
+              ['En attente', 'pending'],
+              ['Confirmé', 'accepted'],
+              ['Terminé', 'completed'],
+              ['Annulé', 'cancelled'],
+              ['Refusé', 'refused']
+            ], params[:status] || 'all'),
+            {},
+            { class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero" } %>
     </div>
 
     <div class="flex-1">
       <label class="block text-sm font-bold text-gray-700 mb-2">Période</label>
-      <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
-        <option>Toutes</option>
-        <option>Aujourd'hui</option>
-        <option>Cette semaine</option>
-        <option>Ce mois</option>
-      </select>
+      <%= f.select :period, 
+            options_for_select([
+              ['Toutes', 'all'],
+              ['Aujourd\'hui', 'today'],
+              ['Cette semaine', 'this_week'],
+              ['Ce mois', 'this_month']
+            ], params[:period] || 'all'),
+            {},
+            { class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero" } %>
     </div>
 
     <div class="w-full md:w-40 flex items-end">
-      <button class="w-full h-12 bg-yellow-hero hover:bg-opacity-90 text-white px-6 rounded-lg font-bold inline-flex items-center justify-center">
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-        </svg>
-        Filtrer
-      </button>
+      <%= f.submit "Filtrer", class: "w-full h-12 bg-yellow-hero hover:bg-opacity-90 text-white px-6 rounded-lg font-bold inline-flex items-center justify-center cursor-pointer" %>
     </div>
-  </div>
+  <% end %>
 </div>
 
 <!-- Bookings Table -->
@@ -141,83 +161,98 @@
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200">
-        <tr class="hover:bg-soft transition">
-          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1256</td>
-          <td class="px-6 py-4 text-sm text-gray-700">Sophie P.</td>
-          <td class="px-6 py-4 text-sm text-gray-700">Jean Dupont</td>
-          <td class="px-6 py-4">
-            <div class="flex items-center space-x-2">
-              <span class="text-xl">🔧</span>
-              <span class="text-sm text-gray-700">Révision</span>
-            </div>
-          </td>
-          <td class="px-6 py-4 text-sm text-gray-700">27/01/2025 14:00</td>
-          <td class="px-6 py-4 text-sm font-bold text-gray-900">€120</td>
-          <td class="px-6 py-4">
-            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-lg text-xs font-medium">En attente</span>
-          </td>
-          <td class="px-6 py-4">
-            <%= link_to admin_booking_path(1256), class: "text-blue-hero hover:text-blue-dark inline-flex items-center" do %>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-            <% end %>
-          </td>
-        </tr>
-
-        <tr class="hover:bg-soft transition">
-          <td class="px-6 py-4 text-sm font-medium text-gray-900">#1255</td>
-          <td class="px-6 py-4 text-sm text-gray-700">Pierre L.</td>
-          <td class="px-6 py-4 text-sm text-gray-700">Marie Martin</td>
-          <td class="px-6 py-4">
-            <div class="flex items-center space-x-2">
-              <span class="text-xl">⭐</span>
-              <span class="text-sm text-gray-700">Lavage</span>
-            </div>
-          </td>
-          <td class="px-6 py-4 text-sm text-gray-700">29/01/2025 10:00</td>
-          <td class="px-6 py-4 text-sm font-bold text-gray-900">€45</td>
-          <td class="px-6 py-4">
-            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-lg text-xs font-medium inline-flex items-center">
-              <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-              </svg>
-              Confirmé
-            </span>
-          </td>
-          <td class="px-6 py-4">
-            <%= link_to admin_booking_path(1255), class: "text-blue-hero hover:text-blue-dark inline-flex items-center" do %>
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-            <% end %>
-          </td>
-        </tr>
+        <% if @bookings.any? %>
+          <% @bookings.each do |booking| %>
+            <tr class="hover:bg-soft transition">
+              <td class="px-6 py-4 text-sm font-medium text-gray-900">#<%= booking.id %></td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <%= booking.client ? booking.client.get_full_name : "N/A" %>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <%= booking.professional.company_name.presence || booking.professional.get_full_name %>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex items-center space-x-2">
+                  <span class="text-xl">🔧</span>
+                  <span class="text-sm text-gray-700"><%= booking.professional_service.name %></span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700">
+                <%= booking.scheduled_at ? I18n.l(booking.scheduled_at, format: :long) : "N/A" %>
+              </td>
+              <td class="px-6 py-4 text-sm font-bold text-gray-900">
+                <%= booking.estimated_price ? "€#{booking.estimated_price}" : "N/A" %>
+              </td>
+              <td class="px-6 py-4">
+                <% 
+                  status_class = case booking.status
+                    when 'pending'
+                      'bg-yellow-100 text-yellow-800'
+                    when 'accepted'
+                      'bg-blue-100 text-blue-800'
+                    when 'completed'
+                      'bg-green-100 text-green-800'
+                    when 'cancelled'
+                      'bg-red-100 text-red-800'
+                    when 'refused'
+                      'bg-gray-100 text-gray-800'
+                    else
+                      'bg-gray-100 text-gray-800'
+                  end
+                  status_text = case booking.status
+                    when 'pending'
+                      'En attente'
+                    when 'accepted'
+                      'Confirmé'
+                    when 'completed'
+                      'Terminé'
+                    when 'cancelled'
+                      'Annulé'
+                    when 'refused'
+                      'Refusé'
+                    else
+                      booking.status
+                  end
+                %>
+                <span class="px-3 py-1 <%= status_class %> rounded-lg text-xs font-medium <%= 'inline-flex items-center' if booking.status == 'accepted' %>">
+                  <% if booking.status == 'accepted' %>
+                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  <% end %>
+                  <%= status_text %>
+                </span>
+              </td>
+              <td class="px-6 py-4">
+                <%= link_to admin_booking_path(booking), class: "text-blue-hero hover:text-blue-dark inline-flex items-center" do %>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="8" class="px-6 py-8 text-center text-gray-500">
+              Aucune réservation trouvée
+            </td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
 
   <!-- Pagination -->
-  <div class="p-6 bg-soft border-t border-gray-200 flex justify-between items-center">
-    <p class="text-sm text-gray-600">Affichage de <strong>1-10</strong> sur <strong>1,256</strong> réservations</p>
-    <nav class="flex space-x-2">
-      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 inline-flex items-center">
-        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-        </svg>
-        Précédent
-      </button>
-      <button class="px-4 py-2 bg-blue-hero text-white rounded-lg">1</button>
-      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">2</button>
-      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">3</button>
-      <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 inline-flex items-center">
-        Suivant
-        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-        </svg>
-      </button>
-    </nav>
-  </div>
+  <% if @bookings.any? %>
+    <div class="p-6 bg-soft border-t border-gray-200">
+      <div class="flex justify-between items-center mb-4">
+        <p class="text-sm text-gray-600">
+          Affichage de <strong><%= @pagy.from %></strong> à <strong><%= @pagy.to %></strong> sur <strong><%= @pagy.count %></strong> réservations
+        </p>
+      </div>
+      <%= pagy_nav_supercaralive(@pagy, params: request.query_parameters) %>
+    </div>
+  <% end %>
 </div>

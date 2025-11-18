@@ -43,7 +43,7 @@
 </div>
 
 <!-- Form -->
-<div class="max-w-4xl">
+<div class="max-w-4xl mx-auto">
   <%= form_with model: [:admin, @user], local: true, data: { turbo: false } do |f| %>
     <% if @user.errors.any? %>
       <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-4 mb-6">

@@ -46,6 +46,17 @@ class Admin::UsersController < ApplicationController
 
   # GET /admin/users/:id
   def show
+    if @user.client?
+      # Load recent bookings for client
+      @recent_bookings = @user.client_bookings.includes(:professional, :professional_service, :vehicle)
+                                .order(created_at: :desc)
+                                .limit(5)
+      # Load vehicles for client
+      @vehicles = @user.vehicles.order(created_at: :desc)
+    elsif @user.professional?
+      # Load professional documents
+      @documents = @user.professional_documents.order(created_at: :desc)
+    end
   end
 
   # GET /admin/users/new

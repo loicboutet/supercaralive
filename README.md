@@ -39,7 +39,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - ✅ Gestion des services proposés (tags/catégories prédéfinis)
 - ✅ Système de pré-réservation de créneaux avec validation
 - [ ] Messagerie interne entre professionnels et clients
-- [ ] Notifications par email pour les événements clés (nouvelle demande, validation, rappel de rendez-vous)
+- ✅ Notifications par email pour les événements clés (nouvelle demande, validation, rappel de rendez-vous)
 - [ ] Interface web responsive (application web)
 - [ ] Anonymisation des données clients (adresse masquée jusqu'à la validation finale)
 
