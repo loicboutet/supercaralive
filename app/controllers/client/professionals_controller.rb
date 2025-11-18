@@ -13,8 +13,42 @@ class Client::ProfessionalsController < Client::BaseController
                                      .distinct
     end
     
-    # Filter by location (flexible matching)
-    if params[:location].present?
+    # Filter by location and radius (geographic search)
+    use_geographic_search = false
+    if params[:location].present? && params[:radius_km].present?
+      location_term = params[:location].strip
+      radius_value = params[:radius_km].to_i
+      
+      if radius_value > 0
+        # Geocode the search location
+        search_coordinates = Geocoder.coordinates(location_term)
+        
+        if search_coordinates.present?
+          search_lat, search_lon = search_coordinates
+          # Find professionals within the radius using geocoder's near method
+          # We need to ensure professionals have coordinates before filtering
+          # Note: .near() automatically orders by distance
+          @professionals = @professionals.where.not(latitude: nil, longitude: nil)
+                                         .near([search_lat, search_lon], radius_value, units: :km)
+          use_geographic_search = true
+        else
+          # If geocoding fails, fall back to text search
+          location_term_downcase = location_term.downcase
+          @professionals = @professionals.where(
+            "LOWER(location) LIKE ? OR LOWER(intervention_zone) LIKE ?",
+            "%#{location_term_downcase}%", "%#{location_term_downcase}%"
+          )
+        end
+      else
+        # If radius is 0 or invalid, use text search
+        location_term_downcase = location_term.downcase
+        @professionals = @professionals.where(
+          "LOWER(location) LIKE ? OR LOWER(intervention_zone) LIKE ?",
+          "%#{location_term_downcase}%", "%#{location_term_downcase}%"
+        )
+      end
+    elsif params[:location].present?
+      # If only location is provided (without radius), use text search
       location_term = params[:location].strip.downcase
       @professionals = @professionals.where(
         "LOWER(location) LIKE ? OR LOWER(intervention_zone) LIKE ?",
@@ -22,19 +56,10 @@ class Client::ProfessionalsController < Client::BaseController
       )
     end
     
-    # Filter by radius (km) - extract number from intervention_zone
-    if params[:radius_km].present?
-      radius_value = params[:radius_km].to_i
-      if radius_value > 0
-        # This is a simplified filter - in a real app you'd use geolocation
-        # For now, we'll just filter by intervention_zone containing the number
-        # Note: This is not a true radius filter, but works with the string field
-        @professionals = @professionals.where("intervention_zone LIKE ?", "%#{radius_value}%")
-      end
+    # Order by distance (for geographic search) or created_at (for text search)
+    unless use_geographic_search
+      @professionals = @professionals.order(created_at: :desc)
     end
-    
-    # Order by created_at (most recent first)
-    @professionals = @professionals.order(created_at: :desc)
     
     # Paginate
     @pagy, @professionals = pagy(@professionals, items: 12)

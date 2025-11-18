@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_18_100729) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_18_123859) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -174,7 +174,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_100729) do
     t.text "professional_presentation"
     t.boolean "display_complete_name", default: false, null: false
     t.boolean "maintenance_reminders_enabled", default: true, null: false
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["latitude", "longitude"], name: "index_users_on_latitude_and_longitude"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

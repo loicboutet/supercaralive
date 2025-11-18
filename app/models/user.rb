@@ -13,7 +13,9 @@
 #  first_name                    :string
 #  intervention_zone             :string
 #  last_name                     :string
+#  latitude                      :decimal(10, 6)
 #  location                      :string
+#  longitude                     :decimal(10, 6)
 #  maintenance_reminders_enabled :boolean          default(TRUE), not null
 #  phone_number                  :string
 #  professional_presentation     :text
@@ -28,8 +30,9 @@
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email                   (email) UNIQUE
+#  index_users_on_latitude_and_longitude  (latitude,longitude)
+#  index_users_on_reset_password_token    (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
   include AvailabilitySlots
@@ -61,6 +64,10 @@ class User < ApplicationRecord
   has_many :professional_bookings, class_name: "Booking", foreign_key: "professional_id", dependent: :destroy
   has_one_attached :profile_photo
   has_and_belongs_to_many :specialties
+
+  # Geocoding configuration
+  geocoded_by :location
+  after_validation :geocode, if: ->(obj) { obj.location.present? && (obj.location_changed? || obj.latitude.blank? || obj.longitude.blank?) }
 
   # Set default role and status before validation
   before_validation :set_default_role, on: :create

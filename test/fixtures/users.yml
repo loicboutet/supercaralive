@@ -19,7 +19,9 @@
 #  first_name                    :string
 #  intervention_zone             :string
 #  last_name                     :string
+#  latitude                      :decimal(10, 6)
 #  location                      :string
+#  longitude                     :decimal(10, 6)
 #  maintenance_reminders_enabled :boolean          default(TRUE), not null
 #  phone_number                  :string
 #  professional_presentation     :text
@@ -34,8 +36,9 @@
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email                   (email) UNIQUE
+#  index_users_on_latitude_and_longitude  (latitude,longitude)
+#  index_users_on_reset_password_token    (reset_password_token) UNIQUE
 #
 one: {}
 # column: value

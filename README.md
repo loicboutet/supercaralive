@@ -26,7 +26,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 
 #### 🚗 Client (Particulier)
 - ✅ Je peux créer mon compte de manière anonyme (initiales ou pseudonyme visible)
-- [ ] Je peux rechercher des professionnels par type de service et localisation (liste avec filtres)
+- ✅ Je peux rechercher des professionnels par type de service et localisation (liste avec filtres)
 - ✅ Je peux consulter les profils de professionnels (services, tarifs, avis, zone de service)
 - ✅ Je peux sélectionner un créneau de disponibilité et faire une pré-réservation
 - ✅ Je peux indiquer mon modèle de voiture, le kilométrage et décrire mon besoin
@@ -35,7 +35,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 
 #### ⚙️ Fonctionnalités système Brique 1
 - ✅ Authentification et gestion de profils utilisateurs (3 types : Admin, Professionnel, Client)
-- [ ] Système de géolocalisation par rayon (recherche dans un périmètre défini)
+- ✅ Système de géolocalisation par rayon (recherche dans un périmètre défini)
 - ✅ Gestion des services proposés (tags/catégories prédéfinis)
 - ✅ Système de pré-réservation de créneaux avec validation
 - [ ] Messagerie interne entre professionnels et clients

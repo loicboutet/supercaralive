@@ -73,3 +73,4 @@ end
 gem "devise", "~> 4.9"
 gem "postmark-rails"
 gem "pagy", "~> 8.0"
+gem "geocoder"
