@@ -104,7 +104,7 @@ class Admin::UsersController < ApplicationController
 
   # PATCH/PUT /admin/users/:id
   def update
-    update_params = user_params.dup
+    update_params = admin_update_params.dup
     
     # Only update password if provided
     if update_params[:password].blank?
@@ -173,5 +173,10 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :role, :status, :phone_number, :location, :password, :password_confirmation)
+  end
+
+  def admin_update_params
+    # Exclude first_name, last_name, phone_number, and location from admin update
+    params.require(:user).permit(:email, :role, :status, :password, :password_confirmation)
   end
 end

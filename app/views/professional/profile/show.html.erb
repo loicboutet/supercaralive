@@ -224,32 +224,43 @@
               Gérer mes services
             <% end %>
           </div>
-          <div class="grid md:grid-cols-2 gap-4">
-            <div class="border border-gray-200 rounded-lg p-4">
-              <h4 class="font-bold text-gray-900 mb-2">Révision complète</h4>
-              <p class="text-sm text-gray-600 mb-2">Vidange, filtres, contrôle complet</p>
-              <p class="text-sm text-gray-500 mb-1">Type: Forfait</p>
-              <p class="text-lg font-bold text-blue-hero">€120</p>
+          <% if @professional_services.any? %>
+            <div class="grid md:grid-cols-2 gap-4">
+              <% @professional_services.each do |professional_service| %>
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <h4 class="font-bold text-gray-900 mb-2"><%= professional_service.name %></h4>
+                  <% if professional_service.services.any? %>
+                    <p class="text-sm text-gray-600 mb-2">
+                      <%= professional_service.services.map(&:name).join(", ") %>
+                    </p>
+                  <% end %>
+                  <p class="text-sm text-gray-500 mb-1">
+                    Type: <%= professional_service.pricing_type == "flat_rate" ? "Forfait" : "Taux horaire" %>
+                    <% if professional_service.duration_minutes.present? %>
+                      • Durée: <%= professional_service.duration_minutes %> min
+                    <% end %>
+                  </p>
+                  <div class="flex items-center gap-2">
+                    <p class="text-lg font-bold text-blue-hero">
+                      <% if professional_service.display_price.present? %>
+                        <%= professional_service.display_price %>
+                      <% else %>
+                        Prix non défini
+                      <% end %>
+                    </p>
+                    <% if professional_service.display_travel_price.present? %>
+                      <span class="text-sm text-gray-600">+ <%= professional_service.display_travel_price %> déplacement</span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
             </div>
-            <div class="border border-gray-200 rounded-lg p-4">
-              <h4 class="font-bold text-gray-900 mb-2">Diagnostic électronique</h4>
-              <p class="text-sm text-gray-600 mb-2">Lecture des codes erreur</p>
-              <p class="text-sm text-gray-500 mb-1">Type: Taux horaire</p>
-              <p class="text-lg font-bold text-blue-hero">€45/h + €15 déplacement</p>
+          <% else %>
+            <div class="text-center py-8 text-gray-500">
+              <p class="mb-2">Aucun service actif pour le moment.</p>
+              <%= link_to "Créer votre premier service", new_professional_professional_service_path, class: "text-blue-hero hover:underline font-medium" %>
             </div>
-            <div class="border border-gray-200 rounded-lg p-4">
-              <h4 class="font-bold text-gray-900 mb-2">Changement pneus</h4>
-              <p class="text-sm text-gray-600 mb-2">Démontage, montage, équilibrage</p>
-              <p class="text-sm text-gray-500 mb-1">Type: Forfait</p>
-              <p class="text-lg font-bold text-blue-hero">€80</p>
-            </div>
-            <div class="border border-gray-200 rounded-lg p-4">
-              <h4 class="font-bold text-gray-900 mb-2">Entretien freins</h4>
-              <p class="text-sm text-gray-600 mb-2">Plaquettes, disques, liquide</p>
-              <p class="text-sm text-gray-500 mb-1">Type: Forfait</p>
-              <p class="text-lg font-bold text-blue-hero">€150</p>
-            </div>
-          </div>
+          <% end %>
         </div>
 
 

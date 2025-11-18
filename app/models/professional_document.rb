@@ -5,7 +5,6 @@
 #
 #  id         :integer          not null, primary key
 #  comments   :text
-#  file       :string
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -21,6 +20,9 @@
 #
 class ProfessionalDocument < ApplicationRecord
   belongs_to :user
+  
+  # Active Storage attachment
+  has_one_attached :file
 
   validates :name, presence: true
   validates :user_id, presence: true

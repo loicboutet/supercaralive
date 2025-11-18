@@ -1,6 +1,7 @@
 class Professional::ProfileController < Professional::BaseController
   def show
     @user = User.includes(:specialties).find(current_user.id)
+    @professional_services = current_user.professional_services.active.includes(:services).order(created_at: :desc)
   end
 
   def edit

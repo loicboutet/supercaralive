@@ -36,6 +36,15 @@ class Professional::ProfessionalServicesController < Professional::BaseControlle
     hourly_rate_services = all_services.hourly_rate.where.not(hourly_rate_price: nil)
     @average_hourly_rate = hourly_rate_services.any? ? hourly_rate_services.average(:hourly_rate_price).to_f.round(2) : 0
 
+    # Get top 3 most popular professional services (by booking count)
+    @popular_services = current_user.professional_services
+                                    .left_joins(:bookings)
+                                    .group('professional_services.id')
+                                    .select('professional_services.*, COUNT(bookings.id) as bookings_count')
+                                    .order('COUNT(bookings.id) DESC')
+                                    .having('COUNT(bookings.id) > 0')
+                                    .limit(3)
+
     # Order and paginate
     @pagy, @professional_services = pagy(@professional_services, items: 10)
   end

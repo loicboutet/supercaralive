@@ -1,3 +1,26 @@
+# == Schema Information
+#
+# Table name: chat_messages
+# Database name: primary
+#
+#  id         :integer          not null, primary key
+#  content    :text             not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  chat_id    :integer          not null
+#  user_id    :integer
+#
+# Indexes
+#
+#  index_chat_messages_on_chat_id     (chat_id)
+#  index_chat_messages_on_created_at  (created_at)
+#  index_chat_messages_on_user_id     (user_id)
+#
+# Foreign Keys
+#
+#  chat_id  (chat_id => chats.id)
+#  user_id  (user_id => users.id)
+#
 class ChatMessage < ApplicationRecord
   belongs_to :chat
   belongs_to :user, optional: true

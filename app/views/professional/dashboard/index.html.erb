@@ -13,7 +13,7 @@
         Bonjour<% if current_user.first_name.present? %>, <span class="text-blue-hero"><%= current_user.first_name %></span><% end %> 👋
       </h1>
       <p class="text-xl text-gray-600">
-        Gérez votre activité professionnelle Supercaralive
+        Gérez votre activité professionnelle SuperCarAlive
       </p>
     </div>
 
@@ -225,6 +225,27 @@
         </div>
         <% end %>
 
+        <!-- Popular Services -->
+        <% if @popular_services.any? %>
+          <div class="bg-white rounded-super p-6 shadow-sm">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Catégories populaires</h3>
+            <div class="space-y-3">
+              <% @popular_services.each do |service| %>
+                <% booking_count = service.bookings_count.to_i %>
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition">
+                  <div class="flex-1">
+                    <p class="font-medium text-gray-900 text-sm"><%= service.name %></p>
+                    <p class="text-xs text-gray-500"><%= booking_count %> réservation<%= booking_count > 1 ? 's' : '' %></p>
+                  </div>
+                  <div class="ml-3">
+                    <span class="text-blue-hero font-bold text-sm"><%= booking_count %></span>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
         <!-- My Profile -->
         <div class="bg-white rounded-super p-6 shadow-sm">
           <div class="flex items-center justify-between mb-4">
@@ -265,7 +286,7 @@
                 </p>
               <% end %>
               <% if current_user.active? %>
-                <p class="text-sm text-gray-600">✓ Certifié professionnel</p>
+                <p class="text-sm text-gray-600">✓ Certifié</p>
               <% end %>
             </div>
           </div>

@@ -23,5 +23,14 @@ class Professional::DashboardController < Professional::BaseController
                                                .includes(:client, :vehicle, :professional_service)
                                                .order(scheduled_at: :asc)
                                                .limit(4)
+    
+    # Get top 3 most popular professional services (by booking count)
+    @popular_services = current_user.professional_services
+                                    .left_joins(:bookings)
+                                    .group('professional_services.id')
+                                    .select('professional_services.*, COUNT(bookings.id) as bookings_count')
+                                    .order('COUNT(bookings.id) DESC')
+                                    .having('COUNT(bookings.id) > 0')
+                                    .limit(3)
   end
 end

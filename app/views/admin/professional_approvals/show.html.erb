@@ -259,8 +259,8 @@
                 </div>
               </div>
               <div class="flex space-x-3">
-                <% if document.file.present? %>
-                  <%= link_to document.file, download: true, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium inline-flex items-center" do %>
+                <% if document.file.attached? %>
+                  <%= link_to rails_blob_path(document.file, disposition: 'attachment'), class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium inline-flex items-center" do %>
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>

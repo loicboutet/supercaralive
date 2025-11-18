@@ -5,7 +5,6 @@
 #
 #  id         :integer          not null, primary key
 #  comments   :text
-#  file       :string
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
