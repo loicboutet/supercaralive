@@ -17,27 +17,27 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - ✅ Je peux créer mon profil avec nom d'entreprise, photo, zone géographique de service (rayon en km)
 - ✅ Je peux télécharger mes documents de vérification (diplôme, assurance, SIREN pour les mécaniciens)
 - ✅ Je peux sélectionner les services que j'offre (choix multiples prédéfinis : entretien annuel, lavage extérieur, lavage intérieur, etc.)
-- [ ] Je peux définir mes tarifs (forfait ou tarif horaire + frais de déplacement)
-- [ ] Je peux gérer mon calendrier de disponibilité
-- [ ] Je peux recevoir des pré-réservations de créneaux et les valider/refuser
-- [ ] Je peux consulter les détails de la demande (modèle de voiture, kilométrage, description du besoin)
+- ✅ Je peux définir mes tarifs (forfait ou tarif horaire + frais de déplacement)
+- ✅ Je peux gérer mon calendrier de disponibilité
+- ✅ Je peux recevoir des pré-réservations de créneaux et les valider/refuser
+- ✅ Je peux consulter les détails de la demande (modèle de voiture, kilométrage, description du besoin)
 - [ ] Je peux communiquer avec le client via la messagerie intégrée
 - [ ] Je peux consulter mon historique de services
 
 #### 🚗 Client (Particulier)
 - ✅ Je peux créer mon compte de manière anonyme (initiales ou pseudonyme visible)
 - [ ] Je peux rechercher des professionnels par type de service et localisation (liste avec filtres)
-- [ ] Je peux consulter les profils de professionnels (services, tarifs, avis, zone de service)
-- [ ] Je peux sélectionner un créneau de disponibilité et faire une pré-réservation
+- ✅ Je peux consulter les profils de professionnels (services, tarifs, avis, zone de service)
+- ✅ Je peux sélectionner un créneau de disponibilité et faire une pré-réservation
 - ✅ Je peux indiquer mon modèle de voiture, le kilométrage et décrire mon besoin
 - [ ] Je peux communiquer avec le professionnel via la messagerie intégrée
-- [ ] Je peux consulter mes réservations en cours et passées
+- ✅ Je peux consulter mes réservations en cours et passées
 
 #### ⚙️ Fonctionnalités système Brique 1
 - ✅ Authentification et gestion de profils utilisateurs (3 types : Admin, Professionnel, Client)
 - [ ] Système de géolocalisation par rayon (recherche dans un périmètre défini)
-- [ ] Gestion des services proposés (tags/catégories prédéfinis)
-- [ ] Système de pré-réservation de créneaux avec validation
+- ✅ Gestion des services proposés (tags/catégories prédéfinis)
+- ✅ Système de pré-réservation de créneaux avec validation
 - [ ] Messagerie interne entre professionnels et clients
 - [ ] Notifications par email pour les événements clés (nouvelle demande, validation, rappel de rendez-vous)
 - [ ] Interface web responsive (application web)
