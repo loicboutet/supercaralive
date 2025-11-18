@@ -3,6 +3,7 @@
   <% if current_user.inactive? || current_user.suspended? %>
     <span class="px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Dashboard</span>
     <span class="px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Services</span>
+    <span class="px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Disponibilité</span>
     <span class="px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Agenda</span>
     <span class="px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Réservations</span>
     <span class="px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Factures</span>
@@ -11,9 +12,11 @@
     
     <%= link_to "Services", professional_professional_services_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'professional_services' || request.path.start_with?('/professional/professional_services')) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
-    <%= link_to "Agenda", professional_availability_slots_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_availability_slots_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+    <%= link_to "Disponibilité", professional_availability_slots_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'availability_slots' && action_name == 'index') ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
-    <%= link_to "Réservations", professional_bookings_path, class: "hidden px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+    <%= link_to "Agenda", calendar_professional_availability_slots_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'availability_slots' && action_name == 'calendar') ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+    
+    <%= link_to "Réservations", professional_bookings_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'bookings' && request.path.start_with?('/professional/bookings')) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
     <%= link_to "Factures", professional_invoices_path, class: "hidden px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
   <% end %>
@@ -76,23 +79,23 @@
     <% if current_user.inactive? || current_user.suspended? %>
       <span class="block px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Dashboard</span>
       <span class="block px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Services</span>
+      <span class="block px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Disponibilité</span>
       <span class="block px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Agenda</span>
       <span class="block px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Réservations</span>
       <span class="block px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Factures</span>
-      <span class="block px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Calendrier</span>
       <span class="block px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed">Avis Reçus</span>
     <% else %>
       <%= link_to "Dashboard", professional_root_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_root_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
       <%= link_to "Services", professional_professional_services_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'professional_services' || request.path.start_with?('/professional/professional_services')) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
-      <%= link_to "Agenda", professional_availability_slots_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_availability_slots_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+      <%= link_to "Disponibilité", professional_availability_slots_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'availability_slots' && action_name == 'index') ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
-      <%= link_to "Réservations", professional_bookings_path, class: "hidden block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+      <%= link_to "Agenda", calendar_professional_availability_slots_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'availability_slots' && action_name == 'calendar') ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+      
+      <%= link_to "Réservations", professional_bookings_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{(controller_name == 'bookings' && request.path.start_with?('/professional/bookings')) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
       
       <%= link_to "Factures", professional_invoices_path, class: "hidden block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(professional_invoices_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
-      
-      <%= link_to "Calendrier", calendar_professional_availability_slots_path, class: "block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
       
       <%= link_to "Avis Reçus", professional_reviews_path, class: "hidden block px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-red-hero hover:text-white transition-colors" %>
     <% end %>

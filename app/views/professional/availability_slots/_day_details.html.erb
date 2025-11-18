@@ -1,0 +1,114 @@
+<% 
+  day_names = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+  month_names = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 
+                 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+%>
+
+<div class="space-y-6">
+  <!-- Available Slots -->
+  <% if availabilities.any? %>
+    <div>
+      <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Créneaux disponibles
+      </h3>
+      <div class="space-y-3">
+        <% availabilities.each do |availability| %>
+          <div class="flex items-center justify-between p-4 border border-green-200 bg-green-50 rounded-lg">
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-bold text-gray-900"><%= format_time_range(availability.start_time, availability.end_time) %></p>
+                <% duration_minutes = ((availability.end_time - availability.start_time) / 60).to_i %>
+                <p class="text-sm text-gray-600">Durée: <%= format_duration(duration_minutes) %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Bookings -->
+  <% if bookings.any? %>
+    <div>
+      <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        Réservations
+      </h3>
+      <div class="space-y-3">
+        <% bookings.each do |booking| %>
+          <% 
+            start_time = booking.scheduled_at.to_time
+            duration_minutes = booking.professional_service.duration_minutes || 60
+            end_time = start_time + duration_minutes.minutes
+            is_accepted = booking.status == 'accepted'
+            bg_color = is_accepted ? 'bg-red-50 border-red-200' : 'bg-yellow-50 border-yellow-200'
+            text_color = is_accepted ? 'text-red-600' : 'text-yellow-600'
+            status_text = is_accepted ? 'Validée' : 'En attente'
+          %>
+          <div class="flex items-center justify-between p-4 border <%= bg_color %> rounded-lg">
+            <div class="flex items-center space-x-3 flex-1">
+              <div class="w-12 h-12 <%= is_accepted ? 'bg-red-100' : 'bg-yellow-100' %> rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 <%= text_color %>" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center gap-2">
+                  <p class="font-bold text-gray-900"><%= format_time_range(start_time, end_time) %></p>
+                  <% if booking.manual? %>
+                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700" title="Création manuelle">
+                      <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                        <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+                      </svg>
+                      Création manuelle
+                    </span>
+                  <% end %>
+                </div>
+                <p class="text-sm text-gray-600">
+                  <%= booking.professional_service.name %> - 
+                  <% if booking.manual? %>
+                    <span class="text-gray-500 italic">(créée par vous)</span>
+                  <% else %>
+                    <%= booking.client.get_full_name %>
+                  <% end %>
+                </p>
+                <p class="text-xs <%= text_color %> font-medium mt-1"><%= status_text %></p>
+              </div>
+            </div>
+            <div class="ml-4">
+              <%= link_to professional_booking_path(booking), class: "bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium inline-flex items-center text-sm" do %>
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+                Consulter
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Empty state -->
+  <% if availabilities.empty? && bookings.empty? %>
+    <div class="text-center py-8">
+      <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+      </svg>
+      <p class="text-gray-600">Aucun créneau disponible ni réservation pour ce jour.</p>
+    </div>
+  <% end %>
+</div>
+

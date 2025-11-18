@@ -24,6 +24,7 @@
 class Vehicle < ApplicationRecord
   belongs_to :user
   has_many :reminders, dependent: :destroy
+  has_many :bookings, dependent: :destroy
 
   validates :brand, presence: true
   validates :model, presence: true

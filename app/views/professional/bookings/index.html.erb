@@ -1,4 +1,22 @@
-<div class="bg-soft min-h-screen" data-controller="proposal-modal">
+<% 
+  # Status configuration
+  status_config = {
+    'pending' => { bg: 'bg-yellow-hero', badge_bg: 'bg-yellow-100', badge_text: 'text-yellow-800', label: 'En attente' },
+    'accepted' => { bg: 'bg-blue-hero', badge_bg: 'bg-blue-100', badge_text: 'text-blue-800', label: 'Acceptée' },
+    'refused' => { bg: 'bg-red-hero', badge_bg: 'bg-red-100', badge_text: 'text-red-800', label: 'Refusée' },
+    'cancelled' => { bg: 'bg-gray-500', badge_bg: 'bg-gray-100', badge_text: 'text-gray-800', label: 'Annulée' },
+    'completed' => { bg: 'bg-green-500', badge_bg: 'bg-green-100', badge_text: 'text-green-800', label: 'Terminée' }
+  }
+  
+  # Current status filter
+  current_status = params[:status].presence || 'all'
+  
+  # Day names for date formatting
+  day_names = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
+  month_names = ['jan', 'fév', 'mar', 'avr', 'mai', 'jun', 'jul', 'aoû', 'sep', 'oct', 'nov', 'déc']
+%>
+
+<div class="bg-soft min-h-screen">
   <div class="container mx-auto px-6 py-8">
     
     <!-- Header -->
@@ -10,381 +28,208 @@
     <!-- Tabs -->
     <div class="mb-6">
       <div class="border-b border-gray-200">
-        <nav class="-mb-px flex space-x-8">
-          <a href="#" class="border-b-2 border-red-hero text-red-hero py-4 px-1 text-sm font-medium">
-            En attente (3)
-          </a>
-          <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 py-4 px-1 text-sm font-medium">
-            Confirmés (5)
-          </a>
-          <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 py-4 px-1 text-sm font-medium">
-            Terminés (28)
-          </a>
-          <a href="#" class="border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 py-4 px-1 text-sm font-medium">
-            Annulés (2)
-          </a>
+        <nav class="-mb-px flex space-x-8 overflow-x-auto">
+          <%= link_to professional_bookings_path(status: 'all'), 
+              class: "border-b-2 #{current_status == 'all' ? 'border-red-hero text-red-hero' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} py-4 px-1 text-sm font-medium whitespace-nowrap" do %>
+            Toutes (<%= @pending_count + @accepted_count + @completed_count + @cancelled_count + @refused_count %>)
+          <% end %>
+          <%= link_to professional_bookings_path(status: 'pending'), 
+              class: "border-b-2 #{current_status == 'pending' ? 'border-red-hero text-red-hero' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} py-4 px-1 text-sm font-medium whitespace-nowrap" do %>
+            En attente (<%= @pending_count %>)
+          <% end %>
+          <%= link_to professional_bookings_path(status: 'accepted'), 
+              class: "border-b-2 #{current_status == 'accepted' ? 'border-red-hero text-red-hero' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} py-4 px-1 text-sm font-medium whitespace-nowrap" do %>
+            Acceptées (<%= @accepted_count %>)
+          <% end %>
+          <%= link_to professional_bookings_path(status: 'completed'), 
+              class: "border-b-2 #{current_status == 'completed' ? 'border-red-hero text-red-hero' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} py-4 px-1 text-sm font-medium whitespace-nowrap" do %>
+            Terminées (<%= @completed_count %>)
+          <% end %>
+          <%= link_to professional_bookings_path(status: 'refused'), 
+              class: "border-b-2 #{current_status == 'refused' ? 'border-red-hero text-red-hero' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} py-4 px-1 text-sm font-medium whitespace-nowrap" do %>
+            Refusées (<%= @refused_count %>)
+          <% end %>
+          <%= link_to professional_bookings_path(status: 'cancelled'), 
+              class: "border-b-2 #{current_status == 'cancelled' ? 'border-red-hero text-red-hero' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'} py-4 px-1 text-sm font-medium whitespace-nowrap" do %>
+            Annulées (<%= @cancelled_count %>)
+          <% end %>
         </nav>
       </div>
     </div>
 
-    <div class="space-y-4">
-      
-      <!-- Booking Card 1 - Pending -->
-      <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition">
-        <div class="flex items-start justify-between mb-4">
-          <div class="flex items-start space-x-4 flex-1">
-            <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl">⏳</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center space-x-2 mb-2">
-                <h3 class="text-xl font-bold text-gray-900">Révision complète</h3>
-                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-xs font-medium">
-                  En attente
-                </span>
-              </div>
-              <div class="space-y-1 mb-3">
-                <div class="flex items-center text-sm text-gray-600 space-x-4">
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    Jean Dupont
-                  </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    Lun 27 jan 2025, 14:00
-                  </span>
-                </div>
-                <div class="flex items-center text-sm text-gray-600 space-x-4">
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Peugeot 308
-                  </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                    30,245 km
+    <% if @bookings&.any? %>
+      <div class="space-y-4">
+        <% @bookings.each do |booking| %>
+          <% 
+            booking_status_style = status_config[booking.status] || { bg: 'bg-gray-500', badge_bg: 'bg-gray-100', badge_text: 'text-gray-800', label: booking.status }
+            
+            # Format date
+            formatted_date = if booking.scheduled_at.present?
+              "#{day_names[booking.scheduled_at.wday]} #{booking.scheduled_at.day} #{month_names[booking.scheduled_at.month - 1]} #{booking.scheduled_at.year}, #{booking.scheduled_at.strftime('%H:%M')}"
+            else
+              "Non définie"
+            end
+            
+            # Price display
+            price_display = if booking.estimated_price.present?
+              sprintf('%.2f', booking.estimated_price)
+            elsif booking.professional_service.pricing_type == 'flat_rate' && booking.professional_service.flat_rate_price.present?
+              sprintf('%.2f', booking.professional_service.flat_rate_price)
+            elsif booking.professional_service.pricing_type == 'hourly_rate' && booking.professional_service.hourly_rate_price.present?
+              "#{sprintf('%.2f', booking.professional_service.hourly_rate_price)}€/h"
+            else
+              "À définir"
+            end
+            
+            # Pricing type label
+            pricing_type_label = if booking.professional_service.pricing_type == 'flat_rate'
+              "Prix forfait"
+            elsif booking.professional_service.pricing_type == 'hourly_rate'
+              "Tarif horaire"
+            else
+              "Prix"
+            end
+          %>
+          <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition">
+            <div class="flex items-start justify-between mb-4">
+              <div class="flex items-start space-x-4 flex-1">
+                <div class="w-16 h-16 <%= booking_status_style[:bg] %> rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span class="text-white text-2xl">
+                    <%= booking.status == 'completed' ? '✓' : (booking.status == 'accepted' ? '✓' : '⏳') %>
                   </span>
                 </div>
+                <div class="flex-1">
+                  <div class="flex items-center space-x-2 mb-2 flex-wrap">
+                    <h3 class="text-xl font-bold text-gray-900"><%= booking.professional_service.name %></h3>
+                    <span class="px-3 py-1 rounded-lg text-xs font-medium <%= booking_status_style[:badge_bg] %> <%= booking_status_style[:badge_text] %>">
+                      <%= booking_status_style[:label] %>
+                    </span>
+                    <% if booking.manual? %>
+                      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700" title="Création manuelle">
+                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+                          <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"></path>
+                        </svg>
+                        Création manuelle
+                      </span>
+                    <% end %>
+                  </div>
+                  <div class="space-y-1 mb-3">
+                    <% if booking.client.present? %>
+                      <div class="flex items-center text-sm text-gray-600 space-x-4 flex-wrap">
+                        <span class="flex items-center">
+                          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                          </svg>
+                          <%= booking.client.get_full_name %>
+                        </span>
+                        <span class="flex items-center">
+                          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                          </svg>
+                          <%= formatted_date %>
+                        </span>
+                      </div>
+                    <% else %>
+                      <div class="flex items-center text-sm text-gray-600 space-x-4">
+                        <span class="flex items-center">
+                          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                          </svg>
+                          <%= formatted_date %>
+                        </span>
+                      </div>
+                    <% end %>
+                    <% if booking.vehicle.present? %>
+                      <div class="flex items-center text-sm text-gray-600 space-x-4 flex-wrap">
+                        <span class="flex items-center">
+                          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                          </svg>
+                          <%= booking.vehicle.brand %> <%= booking.vehicle.model %>
+                        </span>
+                        <% if booking.current_mileage.present? %>
+                          <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <%= number_with_delimiter(booking.current_mileage) %> km
+                          </span>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+                  <% if booking.description.present? %>
+                    <p class="text-sm text-gray-600 bg-soft p-3 rounded-lg">
+                      <%= truncate(booking.description, length: 150) %>
+                    </p>
+                  <% end %>
+                </div>
               </div>
-              <p class="text-sm text-gray-600 bg-soft p-3 rounded-lg">
-                Révision des 30 000 km - Vidange, filtres, contrôle complet
-              </p>
+              <div class="text-right ml-4">
+                <p class="text-2xl font-bold text-gray-900"><%= price_display %>€</p>
+                <p class="text-sm text-gray-500"><%= pricing_type_label %></p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2 pt-4 border-t border-gray-200 flex-wrap">
+              <% if booking.status == 'pending' || booking.status == 'refused' %>
+                <%= button_to accept_professional_booking_path(booking), method: :patch, 
+                    class: "bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" do %>
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Accepter
+                <% end %>
+                <%= button_to refuse_professional_booking_path(booking), method: :patch, 
+                    class: "bg-red-100 hover:bg-red-200 text-red-800 px-6 py-2 rounded-lg font-medium inline-flex items-center" do %>
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                  Refuser
+                <% end %>
+              <% end %>
+              <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+                Envoyer message
+              </button>
+              <%= link_to professional_booking_path(booking), class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-2 rounded-lg font-medium inline-flex items-center ml-auto" do %>
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+                Voir détails
+              <% end %>
             </div>
           </div>
-          <div class="text-right ml-4">
-            <p class="text-2xl font-bold text-gray-900">€120</p>
-            <p class="text-sm text-gray-500">Prix forfait</p>
-          </div>
-        </div>
-        <div class="flex items-center space-x-2 pt-4 border-t border-gray-200">
-          <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-            Accepter
-          </button>
-          <button class="bg-red-100 hover:bg-red-200 text-red-800 px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-            Refuser
-          </button>
-          <button class="bg-yellow-hero hover:bg-yellow-dark text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" 
-                  data-action="click->proposal-modal#open" 
-                  data-proposal-modal-booking-id-param="1"
-                  data-proposal-modal-current-price-param="120"
-                  data-proposal-modal-current-datetime-param="2025-01-27T14:00">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-            </svg>
-            Proposer
-          </button>
-          <%= link_to professional_booking_path(1), class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-2 rounded-lg font-medium inline-flex items-center ml-auto" do %>
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-            </svg>
-            Voir détails
-          <% end %>
-        </div>
+        <% end %>
       </div>
 
-      <!-- Booking Card 2 - Pending with Counter-offer -->
-      <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition">
-        <div class="flex items-start justify-between mb-4">
-          <div class="flex items-start space-x-4 flex-1">
-            <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl">⏳</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center space-x-2 mb-2">
-                <h3 class="text-xl font-bold text-gray-900">Contrôle freins</h3>
-                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-xs font-medium">
-                  En attente
-                </span>
-              </div>
-              <div class="space-y-1 mb-3">
-                <div class="flex items-center text-sm text-gray-600 space-x-4">
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    Marie Martin
-                  </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    Mar 28 jan 2025, 10:30
-                  </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Renault Clio
-                  </span>
-                </div>
-              </div>
-              <p class="text-sm text-gray-600 bg-soft p-3 rounded-lg">
-                Bruits lors du freinage - Vérification et remplacement si nécessaire
-              </p>
-            </div>
-          </div>
-          <div class="text-right ml-4">
-            <p class="text-2xl font-bold text-gray-900">€85</p>
-            <p class="text-sm text-gray-500">Prix à ajuster</p>
-          </div>
-        </div>
-        <div class="bg-blue-50 border-l-4 border-blue-hero rounded-lg p-3 mb-3">
-          <p class="text-sm text-blue-700">
-            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            Utilisez la messagerie pour discuter du prix final avec le client
+      <!-- Pagination -->
+      <% if defined?(@pagy) && @pagy.pages > 1 %>
+        <div class="mt-8 p-6 bg-white rounded-super shadow-sm border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p class="text-xs sm:text-sm text-gray-600">
+            Affichage de <strong><%= @pagy.from %></strong> à <strong><%= @pagy.to %></strong> sur <strong><%= @pagy.count %></strong> réservation<%= @pagy.count > 1 ? 's' : '' %>
           </p>
+          <%= pagy_nav_hatmada(@pagy, params: request.query_parameters) %>
         </div>
-        <div class="flex items-center space-x-2 pt-4 border-t border-gray-200">
-          <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-            Accepter
-          </button>
-          <button class="bg-red-100 hover:bg-red-200 text-red-800 px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-            Refuser
-          </button>
-          <button class="bg-yellow-hero hover:bg-yellow-dark text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" 
-                  data-action="click->proposal-modal#open" 
-                  data-proposal-modal-booking-id-param="2"
-                  data-proposal-modal-current-price-param="85"
-                  data-proposal-modal-current-datetime-param="2025-01-28T10:30">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-            </svg>
-            Proposer
-          </button>
-          <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
-            </svg>
-            Envoyer message
-          </button>
-          <%= link_to professional_booking_path(2), class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-2 rounded-lg font-medium inline-flex items-center ml-auto" do %>
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-            </svg>
-            Voir détails
+      <% end %>
+    <% else %>
+      <div class="bg-white rounded-super p-12 shadow-sm text-center">
+        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <p class="text-gray-600 text-lg">Aucune réservation trouvée</p>
+        <p class="text-gray-500 text-sm mt-2">
+          <% if current_status != 'all' %>
+            Aucune réservation avec le statut "<%= status_config[current_status]&.dig(:label) || current_status %>"
+          <% else %>
+            Vous n'avez pas encore de réservations
           <% end %>
-        </div>
+        </p>
       </div>
-
-      <!-- Booking Card 3 - Pending -->
-      <div class="bg-white rounded-super p-6 shadow-sm hover:shadow-md transition">
-        <div class="flex items-start justify-between mb-4">
-          <div class="flex items-start space-x-4 flex-1">
-            <div class="w-16 h-16 bg-yellow-hero rounded-lg flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl">⏳</span>
-            </div>
-            <div class="flex-1">
-              <div class="flex items-center space-x-2 mb-2">
-                <h3 class="text-xl font-bold text-gray-900">Entretien complet</h3>
-                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-lg text-xs font-medium">
-                  En attente
-                </span>
-              </div>
-              <div class="space-y-1 mb-3">
-                <div class="flex items-center text-sm text-gray-600 space-x-4">
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    Marie Martin
-                  </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    Mar 28 jan 2025, 10:30
-                  </span>
-                </div>
-                <div class="flex items-center text-sm text-gray-600 space-x-4">
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Renault Clio
-                  </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                    48,120 km
-                  </span>
-                </div>
-              </div>
-              <div class="space-y-1 mb-3">
-                <div class="flex items-center text-sm text-gray-600 space-x-4">
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                    Pierre Bernard
-                  </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                    Jeu 30 jan 2025, 09:00
-                  </span>
-                </div>
-                <div class="flex items-center text-sm text-gray-600 space-x-4">
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    BMW 320
-                  </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                    65,890 km
-                  </span>
-                </div>
-              </div>
-              <p class="text-sm text-gray-600 bg-soft p-3 rounded-lg">
-                Révision annuelle complète + contrôle pré-contrôle technique
-              </p>
-            </div>
-          </div>
-          <div class="text-right ml-4">
-            <p class="text-2xl font-bold text-gray-900">€180</p>
-            <p class="text-sm text-gray-500">Prix forfait</p>
-          </div>
-        </div>
-        <div class="flex items-center space-x-2 pt-4 border-t border-gray-200">
-          <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-            Accepter
-          </button>
-          <button class="bg-red-100 hover:bg-red-200 text-red-800 px-6 py-2 rounded-lg font-medium inline-flex items-center">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-            Refuser
-          </button>
-          <button class="bg-yellow-hero hover:bg-yellow-dark text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" 
-                  data-action="click->proposal-modal#open" 
-                  data-proposal-modal-booking-id-param="3"
-                  data-proposal-modal-current-price-param="180"
-                  data-proposal-modal-current-datetime-param="2025-01-30T09:00">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-            </svg>
-            Proposer
-          </button>
-          <%= link_to professional_booking_path(3), class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-2 rounded-lg font-medium inline-flex items-center ml-auto" do %>
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-            </svg>
-            Voir détails
-          <% end %>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Proposal Modal -->
-    <div data-proposal-modal-target="modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-super bg-white">
-        <div class="mt-3">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-bold text-gray-900">Proposer un prix ou créneau</h3>
-            <button type="button" data-action="click->proposal-modal#close" class="text-gray-400 hover:text-gray-600 transition-colors">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-          </div>
-          <form>
-            <input type="hidden" name="booking_id" data-proposal-modal-target="bookingIdInput">
-            <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Nouveau prix (€)</label>
-              <input type="number" 
-                     name="proposed_price" 
-                     data-proposal-modal-target="priceInput"
-                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero" 
-                     placeholder="120"
-                     step="0.01"
-                     min="0">
-            </div>
-            <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Date et heure proposées</label>
-              <input type="datetime-local" 
-                     name="proposed_datetime"
-                     data-proposal-modal-target="datetimeInput"
-                     class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero">
-            </div>
-            <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Message au client (optionnel)</label>
-              <textarea rows="3" 
-                        name="message"
-                        data-proposal-modal-target="messageInput"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-hero" 
-                        placeholder="Expliquez votre proposition..."></textarea>
-            </div>
-            <div class="flex justify-end space-x-2">
-              <button type="button" data-action="click->proposal-modal#close" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 inline-flex items-center">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-                Annuler
-              </button>
-              <button type="submit" class="px-4 py-2 bg-yellow-hero text-white rounded-lg hover:bg-yellow-dark inline-flex items-center">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                </svg>
-                Envoyer la proposition
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <% end %>
 
   </div>
 </div>

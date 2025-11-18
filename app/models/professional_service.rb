@@ -31,6 +31,7 @@ class ProfessionalService < ApplicationRecord
   belongs_to :user
   has_many :professional_service_services, dependent: :destroy
   has_many :services, through: :professional_service_services
+  has_many :bookings, dependent: :destroy
 
   # Pricing types
   PRICING_TYPES = %w[flat_rate hourly_rate].freeze

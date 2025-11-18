@@ -1,11 +1,42 @@
-<div class="bg-soft min-h-screen">
+<div class="bg-soft min-h-screen" data-controller="availability-modal">
   <div class="container mx-auto px-6 py-8">
+    
+    <!-- Flash Messages -->
+    <% if notice.present? %>
+      <div class="bg-green-50 border-l-4 border-green-500 rounded-lg p-4 mb-6">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-green-700"><%= notice %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+    <% if alert.present? %>
+      <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-4 mb-6">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-red-700"><%= alert %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
     
     <!-- Header -->
     <div class="flex items-center justify-between mb-8">
       <div>
         <h1 class="text-4xl font-bold text-gray-900 mb-2">Mes Disponibilités</h1>
-        <p class="text-gray-600">Gérez votre calendrier et plages horaires</p>
+        <p class="text-gray-600">Gérez vos disponibilités par jour de la semaine</p>
       </div>
       <div class="flex space-x-3">
         <%= link_to calendar_professional_availability_slots_path, class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
@@ -14,12 +45,6 @@
           </svg>
           Vue Calendrier
         <% end %>
-        <button class="bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-          </svg>
-          Ajouter un créneau
-        </button>
       </div>
     </div>
 
@@ -28,148 +53,75 @@
       <!-- Left Column - Availability List -->
       <div class="md:col-span-2 space-y-6">
         
-        <!-- Week Filter -->
-        <div class="bg-white rounded-super p-6 shadow-sm">
-          <div class="flex items-center justify-between">
-            <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium inline-flex items-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-              </svg>
-              Semaine précédente
-            </button>
-            <h3 class="text-xl font-bold text-gray-900">Semaine du 20 au 26 janvier 2025</h3>
-            <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium inline-flex items-center">
-              Semaine suivante
-              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Monday -->
-        <div class="bg-white rounded-super p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-gray-900">Lundi 20 janvier</h3>
-            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              Ajouter
-            </button>
-          </div>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
-              <div class="flex items-center space-x-3">
-                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        <% @days.each do |day_num, day_data| %>
+          <!-- <%= day_data[:name] %> -->
+          <div class="bg-white rounded-super p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-xl font-bold text-gray-900"><%= day_data[:name] %></h3>
+              <button 
+                type="button"
+                data-action="click->availability-modal#open"
+                data-availability-modal-day-of-week-value="<%= day_num %>"
+                data-availability-modal-day-name-value="<%= day_data[:name] %>"
+                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
-                <span class="font-medium text-gray-900">08:00 - 12:00</span>
-                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-lg text-xs font-medium">Disponible</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <button class="text-blue-hero hover:text-blue-dark">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                  </svg>
-                </button>
-                <button class="text-red-600 hover:text-red-700">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                </button>
-              </div>
+                Ajouter
+              </button>
             </div>
-            <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
-              <div class="flex items-center space-x-3">
-                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            
+            <% if day_data[:availabilities].any? %>
+              <div class="space-y-3">
+                <% day_data[:availabilities].each do |availability| %>
+                  <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                      <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      <span class="font-medium text-gray-900"><%= availability.formatted_time_range %></span>
+                      <span class="bg-green-100 text-green-800 px-2 py-1 rounded-lg text-xs font-medium">Disponible</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <button 
+                        type="button"
+                        data-action="click->availability-modal#openEdit"
+                        data-availability-modal-availability-id-value="<%= availability.id %>"
+                        data-availability-modal-day-of-week-value="<%= availability.day_of_week %>"
+                        data-availability-modal-day-name-value="<%= day_data[:name] %>"
+                        data-availability-modal-start-time-value="<%= availability.start_time.strftime('%H:%M') %>"
+                        data-availability-modal-end-time-value="<%= availability.end_time.strftime('%H:%M') %>"
+                        class="text-blue-hero hover:text-blue-dark">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                      </button>
+                      <%= button_to professional_availability_slot_path(availability), 
+                          method: :delete,
+                          data: { 
+                            controller: "confirm",
+                            confirm_message_value: "Êtes-vous sûr de vouloir supprimer ce créneau ?",
+                            turbo: false
+                          },
+                          class: "text-red-600 hover:text-red-700" do %>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            <% else %>
+              <div class="text-center py-8 text-gray-500">
+                <svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
                 </svg>
-                <span class="font-medium text-gray-900">14:00 - 18:00</span>
-                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-lg text-xs font-medium">Disponible</span>
+                <p>Aucune disponibilité définie pour ce jour</p>
               </div>
-              <div class="flex items-center space-x-2">
-                <button class="text-blue-hero hover:text-blue-dark">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                  </svg>
-                </button>
-                <button class="text-red-600 hover:text-red-700">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
+            <% end %>
           </div>
-        </div>
-
-        <!-- Tuesday -->
-        <div class="bg-white rounded-super p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-gray-900">Mardi 21 janvier</h3>
-            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              Ajouter
-            </button>
-          </div>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
-              <div class="flex items-center space-x-3">
-                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span class="font-medium text-gray-900">08:00 - 12:00</span>
-                <span class="bg-green-100 text-green-800 px-2 py-1 rounded-lg text-xs font-medium">Disponible</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <button class="text-blue-hero hover:text-blue-dark">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                  </svg>
-                </button>
-                <button class="text-red-600 hover:text-red-700">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-            <div class="flex items-center justify-between p-3 border border-red-200 rounded-lg bg-red-50">
-              <div class="flex items-center space-x-3">
-                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span class="font-medium text-gray-900">14:00 - 18:00</span>
-                <span class="bg-red-100 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">Réservé</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="text-sm text-gray-600">Révision - Jean D.</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Wednesday -->
-        <div class="bg-white rounded-super p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-xl font-bold text-gray-900">Mercredi 22 janvier</h3>
-            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center">
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              Ajouter
-            </button>
-          </div>
-          <div class="text-center py-8 text-gray-500">
-            <svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
-            </svg>
-            <p>Aucune disponibilité définie pour ce jour</p>
-          </div>
-        </div>
+        <% end %>
 
       </div>
 
@@ -178,45 +130,16 @@
         
         <!-- Quick Stats -->
         <div class="bg-white rounded-super p-6 shadow-sm">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Cette semaine</h3>
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Statistiques</h3>
           <div class="space-y-3">
             <div class="flex items-center justify-between pb-2 border-b border-gray-100">
-              <span class="text-sm text-gray-600">Créneaux disponibles</span>
-              <span class="text-lg font-bold text-green-600">18</span>
+              <span class="text-sm text-gray-600">Créneaux définis</span>
+              <span class="text-lg font-bold text-green-600"><%= current_user.availabilities.count %></span>
             </div>
             <div class="flex items-center justify-between pb-2 border-b border-gray-100">
-              <span class="text-sm text-gray-600">Créneaux réservés</span>
-              <span class="text-lg font-bold text-red-600">5</span>
+              <span class="text-sm text-gray-600">Jours avec disponibilités</span>
+              <span class="text-lg font-bold text-blue-hero"><%= @days.values.count { |d| d[:availabilities].any? } %> / 7</span>
             </div>
-            <div class="flex items-center justify-between">
-              <span class="text-sm text-gray-600">Taux d'occupation</span>
-              <span class="text-lg font-bold text-blue-hero">28%</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Actions -->
-        <div class="bg-white rounded-super p-6 shadow-sm">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Actions rapides</h3>
-          <div class="space-y-2">
-            <button class="w-full bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              Créer un créneau
-            </button>
-            <button class="w-full bg-blue-hero hover:bg-blue-dark text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-              Vue calendrier
-            </button>
-            <button class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-medium flex items-center justify-center">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-              </svg>
-              Dupliquer semaine
-            </button>
           </div>
         </div>
 
@@ -231,38 +154,53 @@
             <div class="ml-3">
               <h3 class="text-sm font-bold text-blue-800">Conseil</h3>
               <p class="text-sm text-blue-700 mt-1">
-                Mettez à jour régulièrement vos disponibilités pour optimiser vos réservations
+                Définissez vos disponibilités standards par jour de la semaine. Ces créneaux seront utilisés pour les réservations.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Working Hours Template -->
-        <div class="bg-white rounded-super p-6 shadow-sm">
-          <h3 class="text-lg font-bold text-gray-900 mb-4">Horaires standards</h3>
-          <div class="space-y-2 text-sm">
-            <div class="flex items-center justify-between">
-              <span class="text-gray-600">Lundi - Vendredi</span>
-              <span class="font-medium text-gray-900">8h-18h</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-gray-600">Samedi</span>
-              <span class="font-medium text-gray-900">9h-13h</span>
-            </div>
-            <div class="flex items-center justify-between">
-              <span class="text-gray-600">Dimanche</span>
-              <span class="font-medium text-gray-900">Fermé</span>
-            </div>
-          </div>
-          <button class="w-full mt-4 bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium inline-flex items-center justify-center">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+      </div>
+    </div>
+
+    <!-- Modal pour ajouter/éditer une disponibilité -->
+    <div id="availability-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard click->modal#close" data-availability-modal-target="modal">
+      <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4" data-action="click->modal#stopPropagation">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-bold text-gray-900" data-availability-modal-target="title">Ajouter un créneau</h3>
+          <button type="button" data-action="click->modal#close" class="text-gray-400 hover:text-gray-600">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
-            Modifier horaires
           </button>
         </div>
-
+        
+        <%= form_with model: [:professional, @availability || Availability.new], url: professional_availability_slots_path, method: :post, data: { turbo: false }, local: true, html: { id: "availability-form", data: { availability_modal_target: "form" } } do |f| %>
+          <%= f.hidden_field :day_of_week, data: { availability_modal_target: "dayOfWeekInput" } %>
+          
+          <div class="mb-4">
+            <p class="text-sm text-gray-600 mb-2">Jour : <span class="font-medium text-gray-900" data-availability-modal-target="dayName"></span></p>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <%= f.label :start_time, "Heure de début", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= f.time_field :start_time, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent", data: { availability_modal_target: "startTimeInput" } %>
+            </div>
+            
+            <div>
+              <%= f.label :end_time, "Heure de fin", class: "block text-sm font-medium text-gray-700 mb-2" %>
+              <%= f.time_field :end_time, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-hero focus:border-transparent", data: { availability_modal_target: "endTimeInput" } %>
+            </div>
+          </div>
+          
+          <div class="flex space-x-3 mt-6">
+            <button type="button" data-action="click->modal#close" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-3 rounded-lg font-medium">
+              Annuler
+            </button>
+            <%= f.submit "Enregistrer", class: "flex-1 bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-medium" %>
+          </div>
+        <% end %>
       </div>
     </div>
 

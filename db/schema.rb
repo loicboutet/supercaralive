@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_18_084527) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_18_100729) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,37 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_084527) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "availabilities", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "day_of_week", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "day_of_week"], name: "index_availabilities_on_user_id_and_day_of_week"
+    t.index ["user_id"], name: "index_availabilities_on_user_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer "client_id"
+    t.integer "professional_id", null: false
+    t.integer "vehicle_id"
+    t.integer "professional_service_id", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "scheduled_at"
+    t.integer "current_mileage"
+    t.text "description"
+    t.decimal "estimated_price", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "manual", default: false, null: false
+    t.index ["client_id"], name: "index_bookings_on_client_id"
+    t.index ["professional_id"], name: "index_bookings_on_professional_id"
+    t.index ["professional_service_id"], name: "index_bookings_on_professional_service_id"
+    t.index ["status"], name: "index_bookings_on_status"
+    t.index ["vehicle_id"], name: "index_bookings_on_vehicle_id"
   end
 
   create_table "professional_documents", force: :cascade do |t|
@@ -165,6 +196,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_084527) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "availabilities", "users"
+  add_foreign_key "bookings", "professional_services"
+  add_foreign_key "bookings", "users", column: "client_id"
+  add_foreign_key "bookings", "users", column: "professional_id"
+  add_foreign_key "bookings", "vehicles"
   add_foreign_key "professional_documents", "users"
   add_foreign_key "professional_service_services", "professional_services"
   add_foreign_key "professional_service_services", "services"

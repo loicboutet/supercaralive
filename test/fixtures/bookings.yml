@@ -1,0 +1,57 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# == Schema Information
+#
+# Table name: bookings
+# Database name: primary
+#
+#  id                      :integer          not null, primary key
+#  current_mileage         :integer
+#  description             :text
+#  estimated_price         :decimal(8, 2)
+#  manual                  :boolean          default(FALSE), not null
+#  scheduled_at            :datetime
+#  status                  :string           default("pending"), not null
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  client_id               :integer
+#  professional_id         :integer          not null
+#  professional_service_id :integer          not null
+#  vehicle_id              :integer
+#
+# Indexes
+#
+#  index_bookings_on_client_id                (client_id)
+#  index_bookings_on_professional_id          (professional_id)
+#  index_bookings_on_professional_service_id  (professional_service_id)
+#  index_bookings_on_status                   (status)
+#  index_bookings_on_vehicle_id               (vehicle_id)
+#
+# Foreign Keys
+#
+#  client_id                (client_id => users.id)
+#  professional_id          (professional_id => users.id)
+#  professional_service_id  (professional_service_id => professional_services.id)
+#  vehicle_id               (vehicle_id => vehicles.id)
+#
+one:
+  client: one
+  professional: one
+  vehicle: one
+  professional_service: one
+  status: MyString
+  scheduled_at: 2025-11-18 10:12:35
+  current_mileage: 1
+  description: MyText
+  estimated_price: 9.99
+
+two:
+  client: two
+  professional: two
+  vehicle: two
+  professional_service: two
+  status: MyString
+  scheduled_at: 2025-11-18 10:12:35
+  current_mileage: 1
+  description: MyText
+  estimated_price: 9.99

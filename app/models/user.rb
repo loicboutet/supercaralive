@@ -32,6 +32,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  include AvailabilitySlots
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -54,6 +56,9 @@ class User < ApplicationRecord
   has_many :professional_documents, dependent: :destroy
   has_many :professional_services, dependent: :destroy
   has_many :vehicles, dependent: :destroy
+  has_many :availabilities, dependent: :destroy
+  has_many :client_bookings, class_name: "Booking", foreign_key: "client_id", dependent: :destroy
+  has_many :professional_bookings, class_name: "Booking", foreign_key: "professional_id", dependent: :destroy
   has_one_attached :profile_photo
   has_and_belongs_to_many :specialties
 

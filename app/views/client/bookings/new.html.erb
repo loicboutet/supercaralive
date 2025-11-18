@@ -15,7 +15,7 @@
       <%= render 'form', 
           form_url: client_bookings_path, 
           form_method: :post, 
-          show_professional_field: true,
+          show_professional_field: @show_professional_field,
           submit_text: "Envoyer la demande",
           cancel_text: "Annuler",
           cancel_path: client_bookings_path %>

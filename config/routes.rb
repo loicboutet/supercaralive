@@ -68,6 +68,9 @@ Rails.application.routes.draw do
     
     # Bookings
     resources :bookings do
+      collection do
+        get :available_slots
+      end
       member do
         patch :cancel
       end
@@ -126,14 +129,18 @@ Rails.application.routes.draw do
     resources :availability_slots, except: [:show] do
       collection do
         get :calendar
+        get :day_details
       end
     end
+    
+    # Manual bookings (created by professional for themselves)
+    resources :manual_bookings, only: [:new, :create]
     
     # Bookings management
     resources :bookings, only: [:index, :show] do
       member do
-        patch :confirm
-        patch :reject
+        patch :accept
+        patch :refuse
         patch :complete
         patch :update_price
       end

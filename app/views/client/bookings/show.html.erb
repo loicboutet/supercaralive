@@ -12,8 +12,34 @@
           <h1 class="text-4xl font-bold text-gray-900 mb-2">Détails de la réservation</h1>
           <p class="text-gray-600">Réservation #<%= @booking&.id || '12345' %></p>
         </div>
-        <span class="px-4 py-2 rounded-lg text-sm font-bold <%= @booking&.status == 'pending' ? 'bg-yellow-100 text-yellow-800' : @booking&.status == 'confirmed' ? 'bg-blue-100 text-blue-800' : @booking&.status == 'completed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' %>">
-          <%= @booking&.status == 'pending' ? 'En attente de validation' : @booking&.status == 'confirmed' ? 'Confirmée' : @booking&.status == 'completed' ? 'Terminée' : 'Annulée' %>
+        <% 
+          status_colors = {
+            'pending' => 'yellow',
+            'accepted' => 'blue',
+            'refused' => 'red',
+            'cancelled' => 'gray',
+            'completed' => 'green'
+          }
+          status_labels = {
+            'pending' => 'En attente de validation',
+            'accepted' => 'Validée',
+            'refused' => 'Refusée',
+            'cancelled' => 'Annulée',
+            'completed' => 'Terminée'
+          }
+          status_config = {
+            'pending' => { badge_bg: 'bg-yellow-100', badge_text: 'text-yellow-800' },
+            'accepted' => { badge_bg: 'bg-blue-100', badge_text: 'text-blue-800' },
+            'refused' => { badge_bg: 'bg-red-100', badge_text: 'text-red-800' },
+            'cancelled' => { badge_bg: 'bg-gray-100', badge_text: 'text-gray-800' },
+            'completed' => { badge_bg: 'bg-green-100', badge_text: 'text-green-800' }
+          }
+          status_config_default = { badge_bg: 'bg-gray-100', badge_text: 'text-gray-800' }
+          status_style = status_config[@booking&.status] || status_config_default
+          status_label = status_labels[@booking&.status] || @booking&.status
+        %>
+        <span class="px-4 py-2 rounded-lg text-sm font-bold <%= status_style[:badge_bg] %> <%= status_style[:badge_text] %>">
+          <%= status_label %>
         </span>
       </div>
     </div>
@@ -32,7 +58,7 @@
               </svg>
               <div class="flex-1">
                 <p class="text-sm text-gray-600">Type de service</p>
-                <p class="text-lg font-bold text-gray-900"><%= @booking&.service_type || 'Entretien annuel' %></p>
+                <p class="text-lg font-bold text-gray-900"><%= @booking&.service_type_name || 'Entretien annuel' %></p>
               </div>
             </div>
 
@@ -144,34 +170,21 @@
         <!-- Pricing -->
         <div class="bg-white rounded-super p-6 shadow-sm">
           <h3 class="text-lg font-bold text-gray-900 mb-4">Tarification</h3>
-          <% if @booking&.price.present? %>
+          <% if @booking&.estimated_price.present? %>
             <div class="space-y-2 mb-4">
               <div class="flex justify-between text-gray-600">
                 <span>Service</span>
-                <span><%= number_to_currency(@booking.price, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
+                <span><%= number_to_currency(@booking.estimated_price, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
               </div>
-              <% if @booking.travel_fee.present? %>
-                <div class="flex justify-between text-gray-600">
-                  <span>Frais de déplacement</span>
-                  <span><%= number_to_currency(@booking.travel_fee, unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
-                </div>
-              <% end %>
-              <div class="border-t border-gray-200 pt-2 flex justify-between font-bold text-lg">
-                <span>Total</span>
-                <span><%= number_to_currency((@booking.price.to_f + (@booking.travel_fee.to_f || 0)), unit: "€", separator: ",", delimiter: " ", format: "%n %u") %></span>
-              </div>
+              <p class="text-xs text-gray-500 mt-2">Prix estimé</p>
             </div>
-            <% if @booking.status == 'confirmed' && !@booking.paid? %>
+            <% if @booking.status == 'accepted' %>
               <%= link_to client_payment_path(@booking), class: "w-72 mx-auto bg-red-hero hover:bg-red-dark text-white px-4 py-3 rounded-lg font-bold flex items-center justify-center" do %>
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
                 </svg>
                 Procéder au paiement
               <% end %>
-            <% elsif @booking.paid? %>
-              <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg">
-                <p class="text-sm font-bold text-green-800">✓ Payé</p>
-              </div>
             <% end %>
           <% else %>
             <p class="text-gray-500 text-sm">Le prix sera défini par le professionnel après validation</p>
@@ -179,19 +192,13 @@
         </div>
 
         <!-- Actions -->
-        <% if @booking&.status == 'pending' || (@booking&.status == 'completed' && !@booking.reviewed?) %>
+        <% if @booking&.pending? %>
           <div class="bg-white rounded-super p-6 shadow-sm space-y-3">
-            <% if @booking.status == 'pending' %>
-              <%= link_to edit_client_booking_path(@booking), class: "block bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-6 py-3 rounded-lg font-bold text-center" do %>
-                Modifier la réservation
-              <% end %>
-              <%= button_to cancel_client_booking_path(@booking), method: :patch, data: { confirm: "Êtes-vous sûr de vouloir annuler cette réservation ?" }, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold w-full" do %>
-                Annuler la réservation
-              <% end %>
-            <% elsif @booking.status == 'completed' && !@booking.reviewed? %>
-              <%= link_to new_client_review_path(booking_id: @booking.id), class: "block bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold text-center" do %>
-                Laisser un avis
-              <% end %>
+            <%= link_to edit_client_booking_path(@booking), class: "block bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-6 py-3 rounded-lg font-bold text-center" do %>
+              Modifier la réservation
+            <% end %>
+            <%= button_to cancel_client_booking_path(@booking), method: :patch, data: { turbo: false, confirm: "Êtes-vous sûr de vouloir annuler cette réservation ?" }, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold w-full" do %>
+              Annuler la réservation
             <% end %>
           </div>
         <% end %>

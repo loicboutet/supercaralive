@@ -13,6 +13,7 @@ fr:
       default: "%d/%m/%Y"
       short: "%d %b"
       long: "%d %B %Y"
+      with_day: "%A %d %B"
   
   time:
     formats:
@@ -87,11 +88,16 @@ fr:
       requires_quote: "Devis obligatoire"
       prerequisites: "Prérequis"
       internal_notes: "Notes internes"
+    availability:
+      day_of_week: "Jour de la semaine"
+      start_time: "Heure de début"
+      end_time: "Heure de fin"
   
   # Traductions pour les noms de modèles
   activerecord:
     models:
       service: "Service"
+      availability: "Disponibilité"
     attributes:
       service:
         name: "Nom du service"
@@ -105,4 +111,10 @@ fr:
         requires_quote: "Devis obligatoire"
         prerequisites: "Prérequis"
         internal_notes: "Notes internes"
+      availability:
+        user: "Utilisateur"
+        day_of_week: "Jour de la semaine"
+        start_time: "Heure de début"
+        end_time: "Heure de fin"
+        base: "Disponibilité"
 
