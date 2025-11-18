@@ -117,4 +117,10 @@ module ApplicationHelper
       result
     end
   end
+
+  # Helper method to get the support email from credentials
+  # Usage: <%= support_email %> or <%= mail_to support_email %>
+  def support_email
+    Rails.application.credentials.support_email
+  end
 end
