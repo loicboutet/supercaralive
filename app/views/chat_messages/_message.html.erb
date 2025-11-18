@@ -1,0 +1,45 @@
+<% 
+  # Déterminer qui a créé le message (factuel, pas de contexte)
+  message_from = if message.user == message.chat.booking.client
+    'client'
+  elsif message.user == message.chat.booking.professional
+    'professional'
+  else
+    'system'
+  end
+  
+  # Initiales de l'utilisateur
+  initials = if message.user.present?
+    first_initial = message.user.first_name&.first&.upcase || ''
+    last_initial = message.user.last_name&.first&.upcase || ''
+    "#{first_initial}#{last_initial}".presence || 'U'
+  else
+    'S'
+  end
+  
+  # Nom de l'utilisateur
+  user_name = if message.user.present?
+    message.user.get_full_name
+  else
+    'Système'
+  end
+%>
+
+<div class="flex items-start space-x-3 my-3" id="message_<%= message.id %>" data-message-from="<%= message_from %>">
+  <div class="message-avatar-left w-10 h-10 bg-soft rounded-full flex items-center justify-center flex-shrink-0">
+    <span class="text-gray-900 font-bold"><%= initials %></span>
+  </div>
+  
+  <div class="flex-1 max-w-xs lg:max-w-md">
+    <div class="bg-soft rounded-lg p-4">
+      <p class="font-medium text-gray-900 mb-1"><%= user_name %></p>
+      <p class="text-gray-700 text-sm whitespace-pre-wrap"><%= h(message.content) %></p>
+      <p class="text-xs text-gray-500 mt-2"><%= message.formatted_time %></p>
+    </div>
+  </div>
+  
+  <div class="message-avatar-right w-10 h-10 bg-soft rounded-full flex items-center justify-center flex-shrink-0 hidden">
+    <span class="text-gray-900 font-bold"><%= initials %></span>
+  </div>
+</div>
+

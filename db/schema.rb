@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_18_131146) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_18_140059) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -70,6 +70,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_131146) do
     t.index ["professional_service_id"], name: "index_bookings_on_professional_service_id"
     t.index ["status"], name: "index_bookings_on_status"
     t.index ["vehicle_id"], name: "index_bookings_on_vehicle_id"
+  end
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.integer "chat_id", null: false
+    t.integer "user_id"
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_chat_messages_on_chat_id"
+    t.index ["created_at"], name: "index_chat_messages_on_created_at"
+    t.index ["user_id"], name: "index_chat_messages_on_user_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.integer "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_chats_on_booking_id", unique: true
   end
 
   create_table "professional_documents", force: :cascade do |t|
@@ -211,6 +229,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_18_131146) do
   add_foreign_key "bookings", "users", column: "client_id"
   add_foreign_key "bookings", "users", column: "professional_id"
   add_foreign_key "bookings", "vehicles"
+  add_foreign_key "chat_messages", "chats"
+  add_foreign_key "chat_messages", "users"
+  add_foreign_key "chats", "bookings"
   add_foreign_key "professional_documents", "users"
   add_foreign_key "professional_service_services", "professional_services"
   add_foreign_key "professional_service_services", "services"

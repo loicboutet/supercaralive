@@ -1,0 +1,8 @@
+<%= turbo_stream.append "messages" do %>
+  <%= render "chat_messages/message", message: @message %>
+<% end %>
+
+<%= turbo_stream.replace "message_form" do %>
+  <%= render "chat_messages/message_form", chat: @chat, message: ChatMessage.new, booking: @booking, context: :client %>
+<% end %>
+

@@ -39,6 +39,7 @@ class Booking < ApplicationRecord
   belongs_to :professional, class_name: "User"
   belongs_to :vehicle, optional: true
   belongs_to :professional_service
+  has_one :chat, dependent: :destroy
 
   # Virtual attribute to mark manual bookings (created by professional for themselves)
   attr_accessor :manual_booking
@@ -82,6 +83,9 @@ class Booking < ApplicationRecord
 
   # Calculate estimated price from professional_service
   before_validation :set_estimated_price, on: :create
+  
+  # Create chat automatically when booking is created by a client
+  after_create :create_chat_if_client_booking
 
   def professional_name
     professional.company_name.presence || professional.get_full_name
@@ -138,6 +142,13 @@ class Booking < ApplicationRecord
       # For hourly rate, we can't estimate without duration, so we'll leave it nil
       # The professional will set the final price
       self.estimated_price = nil
+    end
+  end
+
+  def create_chat_if_client_booking
+    # Only create chat if booking has a client (not a manual booking created by professional)
+    if client.present? && !manual_booking?
+      Chat.create(booking: self)
     end
   end
 end

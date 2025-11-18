@@ -7,7 +7,7 @@ class Client::BookingsController < Client::BaseController
   before_action :set_professional_services, only: [:new, :edit]
 
   def index
-    @bookings = current_user.client_bookings.includes(:professional, :vehicle, :professional_service)
+    @bookings = current_user.client_bookings.includes(:professional, :vehicle, :professional_service, :chat)
                             .order(created_at: :desc)
     
     # Filter by status
@@ -21,6 +21,11 @@ class Client::BookingsController < Client::BaseController
 
   def show
     # @booking is set by before_action
+    if @booking.chat.present?
+      @chat = @booking.chat
+      @messages = @chat.chat_messages.includes(:user).recent.last(50)
+      @message = ChatMessage.new
+    end
   end
 
   def new

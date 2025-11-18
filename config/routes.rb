@@ -77,7 +77,7 @@ Rails.application.routes.draw do
       member do
         patch :cancel
       end
-      resources :messages, only: [:index, :create]
+      resources :chat_messages, only: [:create]
     end
     
     # Brick 2 - Payment & Reviews
@@ -147,7 +147,7 @@ Rails.application.routes.draw do
         patch :complete
         patch :update_price
       end
-      resources :messages, only: [:index, :create]
+      resources :chat_messages, only: [:create]
     end
     
     # Brick 2 - Reviews & Invoices

@@ -1,0 +1,26 @@
+<% 
+  submit_color = context == :client ? 'bg-red-hero hover:bg-red-dark' : 'bg-blue-hero hover:bg-blue-dark'
+  focus_ring = context == :client ? 'focus:ring-red-hero' : 'focus:ring-blue-hero'
+%>
+
+<%= form_with model: [booking, chat.chat_messages.build], 
+    url: context == :client ? client_booking_chat_messages_path(booking) : professional_booking_chat_messages_path(booking),
+    data: { turbo: true },
+    id: "message_form",
+    class: "flex items-center space-x-2" do |form| %>
+  
+  <%= form.text_field :content, 
+      class: "flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 #{focus_ring} focus:border-transparent", 
+      placeholder: "Écrivez votre message...",
+      autocomplete: "off" %>
+  
+  <%= form.button type: "submit", 
+      class: "#{submit_color} text-white px-6 py-3 rounded-lg font-bold cursor-pointer flex items-center justify-center space-x-2",
+      data: { disable_with: "..." } do %>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+    </svg>
+    <span>Envoyer</span>
+  <% end %>
+<% end %>
+

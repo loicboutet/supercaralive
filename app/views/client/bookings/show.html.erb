@@ -100,47 +100,88 @@
         </div>
 
         <!-- Messages -->
-        <div class="bg-white rounded-super p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-6">
-            <h2 class="text-2xl font-bold text-gray-900">Messages</h2>
-            <span class="text-sm text-gray-500">Communication avec le professionnel</span>
-          </div>
+        <% if @booking.chat.present? %>
+          <style>
+            /* CSS inline pour le chat côté client */
+            #messages_container [data-message-from="client"] {
+              flex-direction: row-reverse;
+              justify-content: flex-start;
+              margin-left: auto;
+            }
+            #messages_container [data-message-from="client"] .message-avatar-left {
+              display: none;
+            }
+            #messages_container [data-message-from="client"] .message-avatar-right {
+              display: flex !important;
+              order: 1;
+            }
+            #messages_container [data-message-from="client"] .flex-1 {
+              max-width: 20rem;
+              order: 2;
+            }
+            #messages_container [data-message-from="client"] .bg-soft {
+              background-color: #E63946;
+              color: white;
+              text-align: right;
+            }
+            #messages_container [data-message-from="client"] .text-gray-900,
+            #messages_container [data-message-from="client"] .text-gray-700 {
+              color: white;
+            }
+            #messages_container [data-message-from="client"] .text-gray-500 {
+              color: rgba(255, 255, 255, 0.75);
+            }
+            #messages_container [data-message-from="client"] .message-avatar-right {
+              background-color: #E63946;
+            }
+            #messages_container [data-message-from="client"] .message-avatar-right .text-gray-900 {
+              color: white;
+            }
+            /* Style pour les messages du professionnel (plus lisibles) */
+            #messages_container [data-message-from="professional"] .bg-soft {
+              background-color: #E5E7EB;
+              border: 1px solid #D1D5DB;
+            }
+            #messages_container [data-message-from="professional"] .text-gray-900 {
+              color: #111827;
+              font-weight: 600;
+            }
+            #messages_container [data-message-from="professional"] .text-gray-700 {
+              color: #374151;
+            }
+            #messages_container [data-message-from="professional"] .text-gray-500 {
+              color: #6B7280;
+            }
+          </style>
+          <div class="bg-white rounded-super p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-2xl font-bold text-gray-900">Messages</h2>
+              <span class="text-sm text-gray-500">Communication avec le professionnel</span>
+            </div>
 
-          <div class="space-y-4 mb-6 max-h-96 overflow-y-auto">
-            <!-- Sample messages -->
-            <div class="flex items-start space-x-3">
-              <div class="w-10 h-10 bg-blue-hero rounded-full flex items-center justify-center flex-shrink-0">
-                <span class="text-white font-bold">P</span>
-              </div>
-              <div class="flex-1 bg-soft rounded-lg p-4">
-                <p class="font-medium text-gray-900 mb-1">Professionnel</p>
-                <p class="text-gray-700 text-sm">Bonjour, j'ai bien reçu votre demande. Je peux confirmer le créneau proposé.</p>
-                <p class="text-xs text-gray-500 mt-2">Il y a 2 heures</p>
+            <!-- Conteneur des messages avec scroll automatique -->
+            <div 
+              class="mb-6 max-h-96 overflow-y-auto"
+              id="messages_container" 
+              data-controller="chat-scroll"
+              data-chat-scroll-chat-id-value="<%= @chat.id %>"
+              style="scroll-behavior: smooth;"
+            >
+              <!-- Cible pour les nouveaux messages -->
+              <div id="messages">
+                <%= render "chat_messages/messages_batch", messages: @messages %>
               </div>
             </div>
 
-            <div class="flex items-start space-x-3 justify-end">
-              <div class="flex-1 bg-red-hero rounded-lg p-4 text-right">
-                <p class="font-medium text-white mb-1">Vous</p>
-                <p class="text-white text-sm">Parfait, merci ! À demain.</p>
-                <p class="text-xs text-white text-opacity-75 mt-2">Il y a 1 heure</p>
-              </div>
-              <div class="w-10 h-10 bg-red-hero rounded-full flex items-center justify-center flex-shrink-0">
-                <span class="text-white font-bold">V</span>
-              </div>
+            <!-- Formulaire de message -->
+            <div id="message_form">
+              <%= render "chat_messages/message_form", chat: @chat, message: @message, booking: @booking, context: :client %>
             </div>
-          </div>
 
-          <%= form_with url: client_booking_messages_path(@booking), class: "flex items-center space-x-2" do |f| %>
-            <%= f.text_field :content, class: "flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", placeholder: "Écrivez votre message..." %>
-            <%= f.button type: "submit", class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold cursor-pointer flex items-center justify-center space-x-2" do %>
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-              </svg>
-              <span>Envoyer</span>
-            <% end %>
-          <% end %>
-        </div>
+            <!-- Abonnement Turbo Stream pour ce chat -->
+            <%= turbo_stream_from "chat_#{@chat.id}" %>
+          </div>
+        <% end %>
       </div>
 
       <!-- Sidebar -->

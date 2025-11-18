@@ -151,13 +151,91 @@
                   Appeler
                 </a>
               <% end %>
-              <button class="flex-1 bg-blue-100 hover:bg-blue-200 text-blue-hero px-4 py-3 rounded-lg font-medium inline-flex items-center justify-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-                </svg>
-                Envoyer un message
-              </button>
             </div>
+          </div>
+        <% end %>
+
+        <!-- Messages -->
+        <% if @booking.chat.present? %>
+          <style>
+            /* CSS inline pour le chat côté professionnel */
+            #messages_container [data-message-from="professional"] {
+              flex-direction: row-reverse;
+              justify-content: flex-start;
+              margin-left: auto;
+            }
+            #messages_container [data-message-from="professional"] .message-avatar-left {
+              display: none;
+            }
+            #messages_container [data-message-from="professional"] .message-avatar-right {
+              display: flex !important;
+              order: 1;
+            }
+            #messages_container [data-message-from="professional"] .flex-1 {
+              max-width: 20rem;
+              order: 2;
+            }
+            #messages_container [data-message-from="professional"] .bg-soft {
+              background-color: #457B9D;
+              color: white;
+              text-align: right;
+            }
+            #messages_container [data-message-from="professional"] .text-gray-900,
+            #messages_container [data-message-from="professional"] .text-gray-700 {
+              color: white;
+            }
+            #messages_container [data-message-from="professional"] .text-gray-500 {
+              color: rgba(255, 255, 255, 0.75);
+            }
+            #messages_container [data-message-from="professional"] .message-avatar-right {
+              background-color: #457B9D;
+            }
+            #messages_container [data-message-from="professional"] .message-avatar-right .text-gray-900 {
+              color: white;
+            }
+            /* Style pour les messages du client (plus lisibles) */
+            #messages_container [data-message-from="client"] .bg-soft {
+              background-color: #E5E7EB;
+              border: 1px solid #D1D5DB;
+            }
+            #messages_container [data-message-from="client"] .text-gray-900 {
+              color: #111827;
+              font-weight: 600;
+            }
+            #messages_container [data-message-from="client"] .text-gray-700 {
+              color: #374151;
+            }
+            #messages_container [data-message-from="client"] .text-gray-500 {
+              color: #6B7280;
+            }
+          </style>
+          <div class="bg-white rounded-super p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-2xl font-bold text-gray-900">Messages</h2>
+              <span class="text-sm text-gray-500">Communication avec le client</span>
+            </div>
+
+            <!-- Conteneur des messages avec scroll automatique -->
+            <div 
+              class="mb-6 max-h-96 overflow-y-auto"
+              id="messages_container" 
+              data-controller="chat-scroll"
+              data-chat-scroll-chat-id-value="<%= @chat.id %>"
+              style="scroll-behavior: smooth;"
+            >
+              <!-- Cible pour les nouveaux messages -->
+              <div id="messages">
+                <%= render "chat_messages/messages_batch", messages: @messages %>
+              </div>
+            </div>
+
+            <!-- Formulaire de message -->
+            <div id="message_form">
+              <%= render "chat_messages/message_form", chat: @chat, message: @message, booking: @booking, context: :professional %>
+            </div>
+
+            <!-- Abonnement Turbo Stream pour ce chat -->
+            <%= turbo_stream_from "chat_#{@chat.id}" %>
           </div>
         <% end %>
 
