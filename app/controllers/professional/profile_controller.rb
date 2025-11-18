@@ -65,6 +65,8 @@ class Professional::ProfileController < Professional::BaseController
       :profile_photo,
       :password,
       :password_confirmation,
+      :professional_booking_notification,
+      :professional_booking_reminder,
       specialty_ids: []
     )
   end

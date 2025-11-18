@@ -5,6 +5,12 @@ production:
   complete_past_bookings:
     class: CompletePastBookingsJob
     schedule: at 1am every day
+  professional_booking_reminders:
+    class: ProfessionalBookingRemindersJob
+    schedule: at 1am every day
+  client_booking_reminders:
+    class: ClientBookingRemindersJob
+    schedule: at 1am every day
 
 development:
   maintenance_reminders:
@@ -12,6 +18,12 @@ development:
     schedule: at 1am every day
   complete_past_bookings:
     class: CompletePastBookingsJob
+    schedule: at 1am every day
+  professional_booking_reminders:
+    class: ProfessionalBookingRemindersJob
+    schedule: at 1am every day
+  client_booking_reminders:
+    class: ClientBookingRemindersJob
     schedule: at 1am every day
 
 # production:

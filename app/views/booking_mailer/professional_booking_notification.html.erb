@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #2563eb;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+      }
+      .content {
+        background-color: #ffffff;
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+        border-top: none;
+      }
+      .info-box {
+        background-color: #dbeafe;
+        border-left: 4px solid #2563eb;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .booking-info {
+        background-color: #f9fafb;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+        border-left: 4px solid #2563eb;
+      }
+      .button {
+        display: inline-block;
+        background-color: #2563eb;
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #6b7280;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Nouvelle réservation</h1>
+    </div>
+    
+    <div class="content">
+      <p>Bonjour <%= @professional.first_name.present? ? @professional.first_name : @professional.email %>,</p>
+      
+      <div class="info-box">
+        <p><strong>🔔 Nouvelle demande de réservation</strong></p>
+        <p>Un client souhaite réserver votre service <strong><%= @professional_service.name %></strong>.</p>
+      </div>
+      
+      <div class="booking-info">
+        <p><strong>Service demandé :</strong> <%= @professional_service.name %></p>
+        <% if @client.present? %>
+          <p><strong>Client :</strong> <%= @client.display_complete_name? ? @client.get_full_name : @client.pseudonym %></p>
+        <% end %>
+        <% if @vehicle.present? %>
+          <p><strong>Véhicule :</strong> <%= @vehicle.brand %> <%= @vehicle.model %> (<%= @vehicle.year %>)</p>
+        <% end %>
+        <% if @booking.scheduled_at.present? %>
+          <p><strong>Date et heure demandée :</strong> <%= @booking.scheduled_at.strftime("%d/%m/%Y à %H:%M") %></p>
+        <% end %>
+        <% if @booking.estimated_price.present? %>
+          <p><strong>Prix estimé :</strong> <%= number_to_currency(@booking.estimated_price, unit: "€", separator: ",", delimiter: " ") %></p>
+        <% end %>
+        <% if @booking.description.present? %>
+          <p><strong>Description :</strong> <%= @booking.description %></p>
+        <% end %>
+        <p><strong>Statut :</strong> En attente de votre confirmation</p>
+      </div>
+      
+      <p>Veuillez examiner cette demande et confirmer ou refuser la réservation dans les plus brefs délais.</p>
+      
+      <p style="text-align: center;">
+        <a href="<%= professional_booking_url(@booking) %>" class="button">Voir la réservation</a>
+      </p>
+      
+      <p>Cordialement,<br>L'équipe SuperCarAlive</p>
+    </div>
+    
+    <div class="footer">
+      <p>© <%= Date.current.year %> SuperCarAlive. Tous droits réservés.</p>
+    </div>
+  </body>
+</html>
+

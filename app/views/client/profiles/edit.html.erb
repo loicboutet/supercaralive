@@ -201,12 +201,12 @@
               </div>
               <div class="flex-1">
                 <h4 class="font-bold text-gray-900">Rappels automatiques</h4>
-                <p class="text-sm text-gray-600 mt-1">Recevoir des notifications email/SMS pour les rendez-vous à venir</p>
+                <p class="text-sm text-gray-600 mt-1">Recevoir des notifications pour les rendez-vous à venir</p>
               </div>
             </div>
             <div class="flex items-center">
               <label class="relative inline-flex items-center cursor-pointer">
-                <%= f.check_box :reminders_enabled, checked: @profile&.reminders_enabled, class: "sr-only peer" %>
+                <%= f.check_box :client_booking_reminder, checked: current_user&.client_booking_reminder?, class: "sr-only peer" %>
                 <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
               </label>
             </div>

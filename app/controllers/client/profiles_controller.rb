@@ -32,14 +32,12 @@ class Client::ProfilesController < Client::BaseController
       service_locations: [
         { id: 1, name: 'Domicile principal', address: '123 Rue de Example', postal_code: '75001', city: 'Paris', notes: 'Garage disponible' },
         { id: 2, name: 'Résidence secondaire', address: '45 Avenue des Pins', postal_code: '06400', city: 'Cannes', notes: 'Accès par le portail sud' }
-      ],
-      # Reminder settings
-      reminders_enabled: true
+      ]
     )
   end
 
   def user_params
-    params.permit(:first_name, :last_name, :email, :phone_number, :display_complete_name, :maintenance_reminders_enabled, :password, :password_confirmation)
+    params.permit(:first_name, :last_name, :email, :phone_number, :display_complete_name, :maintenance_reminders_enabled, :client_booking_reminder, :password, :password_confirmation)
           .tap do |permitted|
             # Only update password if provided
             if permitted[:password].blank?

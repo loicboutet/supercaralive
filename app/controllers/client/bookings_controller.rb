@@ -55,6 +55,15 @@ class Client::BookingsController < Client::BaseController
     @booking.status = :pending
     
     if @booking.save
+      # Send email notifications if enabled
+      if current_user.client_booking_reminder?
+        BookingMailer.client_booking_confirmation(@booking).deliver_later
+      end
+      
+      if @booking.professional.professional_booking_notification?
+        BookingMailer.professional_booking_notification(@booking).deliver_later
+      end
+      
       respond_to do |format|
         format.html { redirect_to client_bookings_path, notice: 'Demande de réservation envoyée avec succès.' }
       end

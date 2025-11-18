@@ -22,7 +22,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - ✅ Je peux recevoir des pré-réservations de créneaux et les valider/refuser
 - ✅ Je peux consulter les détails de la demande (modèle de voiture, kilométrage, description du besoin)
 - [ ] Je peux communiquer avec le client via la messagerie intégrée
-- [ ] Je peux consulter mon historique de services
+- ✅ Je peux consulter mon historique de services
 
 #### 🚗 Client (Particulier)
 - ✅ Je peux créer mon compte de manière anonyme (initiales ou pseudonyme visible)
