@@ -1,10 +1,11 @@
 class Professional::ProfileController < Professional::BaseController
   def show
-    @user = current_user
+    @user = User.includes(:specialties).find(current_user.id)
   end
 
   def edit
     @user = current_user
+    @specialties = Specialty.order(:name)
   end
 
   def update
@@ -24,12 +25,19 @@ class Professional::ProfileController < Professional::BaseController
       update_params.delete(:password_confirmation)
     end
     
+    # Handle specialties separately
+    specialty_ids = update_params.delete(:specialty_ids) || []
+    
     if @user.update(update_params)
+      # Update specialties
+      @user.specialty_ids = specialty_ids.reject(&:blank?).map(&:to_i)
+      
       respond_to do |format|
         format.html { redirect_to professional_profile_path, notice: "Votre profil a été mis à jour avec succès." }
         format.json { render json: @user }
       end
     else
+      @specialties = Specialty.order(:name)
       respond_to do |format|
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: { errors: @user.errors }, status: :unprocessable_entity }
@@ -56,7 +64,8 @@ class Professional::ProfileController < Professional::BaseController
       :professional_presentation,
       :profile_photo,
       :password,
-      :password_confirmation
+      :password_confirmation,
+      specialty_ids: []
     )
   end
 end

@@ -197,3 +197,16 @@ h1, h2, h3 {
         font-size: 1.1rem !important;
     }
 }
+
+/* Leaflet Map Styles */
+.leaflet-container {
+    font-family: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 8px;
+}
+
+.radius-label {
+    pointer-events: none;
+}

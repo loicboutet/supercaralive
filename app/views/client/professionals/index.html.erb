@@ -12,44 +12,45 @@
     </div>
 
     <!-- Search and Filters -->
-    <div class="bg-white rounded-super p-6 shadow-sm mb-8">
+    <%= form_with url: client_professionals_path, method: :get, local: true, data: { turbo: false }, class: "bg-white rounded-super p-6 shadow-sm mb-8" do |f| %>
       <div class="grid gap-4 items-end" style="grid-template-columns: 1fr; grid-template-rows: auto auto auto auto;">
         <!-- Service Type Filter -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Type de service</label>
-          <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent">
-            <option>Tous les services</option>
-            <option>Mécanique</option>
-            <option>Carrosserie</option>
-            <option>Lavage</option>
-            <option>Détailing</option>
-          </select>
+          <%= f.select :service_category, 
+                options_for_select([
+                  ["Tous les services", "all"],
+                  ["🔧 Mécanique", "mecanique"],
+                  ["🔨 Carrosserie", "carrosserie"],
+                  ["✨ Lavage", "lavage"]
+                ].concat(@service_categories.reject { |c| %w[mecanique carrosserie lavage].include?(c) }.map { |c| [c.capitalize, c] }), 
+                params[:service_category] || "all"),
+                {},
+                { class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" } %>
         </div>
 
         <!-- Location Filter -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Localisation</label>
-          <input type="text" placeholder="Paris, France" class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent">
+          <%= f.text_field :location, 
+                placeholder: "Paris, France", 
+                value: params[:location],
+                class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
         </div>
 
         <!-- Radius Filter -->
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">Rayon (km)</label>
-          <select class="w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent">
-            <option>10 km</option>
-            <option>20 km</option>
-            <option>50 km</option>
-          </select>
+          <%= f.number_field :radius_km, 
+                placeholder: "Ex: 15", 
+                value: params[:radius_km],
+                min: 0,
+                class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" %>
         </div>
 
         <!-- Search Button -->
         <div>
-          <button class="bg-red-hero hover:bg-red-dark text-white h-12 px-6 rounded-lg font-medium w-full inline-flex items-center justify-center">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-            Rechercher
-          </button>
+          <%= f.submit "Rechercher", class: "bg-red-hero hover:bg-red-dark text-white h-12 px-6 rounded-lg font-medium w-full inline-flex items-center justify-center" %>
         </div>
       </div>
       <style>
@@ -60,714 +61,142 @@
           }
         }
       </style>
-
-      <!-- Quick Filters -->
-      <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-100">
-        <span class="text-sm font-medium text-gray-700">Filtres rapides:</span>
-        <button class="bg-red-hero text-white px-3 py-1 rounded-lg text-sm font-medium">
-          Mécano/Carrossier
-        </button>
-        <button class="bg-white border border-gray-300 text-gray-700 px-3 py-1 rounded-lg text-sm font-medium hover:bg-gray-50">
-          Carwasher/Detailer
-        </button>
-        <button class="bg-white border border-gray-300 text-gray-700 px-3 py-1 rounded-lg text-sm font-medium hover:bg-gray-50">
-          Disponible aujourd'hui
-        </button>
-        <button class="bg-white border border-gray-300 text-gray-700 px-3 py-1 rounded-lg text-sm font-medium hover:bg-gray-50">
-          Mieux notés
-        </button>
-      </div>
-    </div>
+    <% end %>
 
     <!-- Results Header -->
     <div class="flex items-center justify-between mb-6">
       <p class="text-gray-600">
-        <span class="font-bold text-gray-900">12 professionnels</span> trouvés dans votre zone
+        <span class="font-bold text-gray-900"><%= @pagy.count %></span> professionnel<%= @pagy.count > 1 ? 's' : '' %> trouvé<%= @pagy.count > 1 ? 's' : '' %>
       </p>
-      <div class="flex items-center space-x-2">
-        <span class="text-sm text-gray-600">Trier par:</span>
-        <select class="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-hero">
-          <option>Pertinence</option>
-          <option>Distance</option>
-          <option>Note</option>
-          <option>Prix</option>
-        </select>
-      </div>
     </div>
 
     <!-- Professionals Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      
-      <!-- Professional Card 1 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(1) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-red-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">JD</span>
+    <% if @professionals.any? %>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <% @professionals.each do |professional| %>
+          <div class="bg-white rounded-super p-6 shadow-sm card-hover">
+            <div class="flex items-start mb-4">
+              <%= link_to client_professional_path(professional), class: "flex items-center space-x-3 flex-1" do %>
+                <div class="w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden bg-red-hero">
+                  <%= user_avatar_content(professional, 
+                        image_class: "w-full h-full object-cover", 
+                        initials_class: "text-white text-2xl font-bold") %>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900 hover:text-red-hero transition">
+                    <%= professional.company_name.presence || professional.get_full_name %>
+                  </h3>
+                </div>
+              <% end %>
             </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-red-hero transition">ProMeca_Paris15</h3>
-              <p class="text-sm text-gray-600">Mécano/Carrossier</p>
+
+            <!-- Rating - Hidden for now -->
+            <div class="flex items-center space-x-2 mb-3" style="display: none;">
+              <div class="flex text-yellow-hero">
+                ⭐⭐⭐⭐⭐
+              </div>
+              <span class="text-sm font-medium text-gray-900">4.9</span>
+              <span class="text-sm text-gray-500">(127 avis)</span>
             </div>
-          </a>
-        </div>
 
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐⭐
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.9</span>
-          <span class="text-sm text-gray-500">(127 avis)</span>
-        </div>
+            <!-- Services -->
+            <% active_services = professional.professional_services.active.includes(:services) %>
+            <% if active_services.any? %>
+              <% 
+                # Get unique services from all professional services
+                all_services = active_services.flat_map(&:services).uniq
+              %>
+              <% if all_services.any? %>
+                <div class="mb-4">
+                  <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
+                  <div class="flex flex-wrap gap-2">
+                    <% all_services.first(4).each do |service| %>
+                      <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
+                        <%= service.name %>
+                      </span>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
 
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Révision
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Diagnostic
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Pneus
-            </span>
+            <!-- Location & Price -->
+            <div class="space-y-2">
+              <% if professional.location.present? %>
+                <p class="text-sm text-gray-600">📍 <%= professional.location %></p>
+              <% end %>
+              
+              <% 
+                # Get minimum price from active professional services
+                min_price = nil
+                price_type = nil
+                active_services.each do |ps|
+                  if ps.pricing_type == "hourly_rate" && ps.hourly_rate_price.present?
+                    if min_price.nil? || ps.hourly_rate_price < min_price
+                      min_price = ps.hourly_rate_price
+                      price_type = "hourly"
+                    end
+                  elsif ps.pricing_type == "flat_rate" && ps.flat_rate_price.present?
+                    if min_price.nil? || ps.flat_rate_price < min_price
+                      min_price = ps.flat_rate_price
+                      price_type = "flat"
+                    end
+                  end
+                end
+              %>
+              
+              <% if min_price.present? %>
+                <p class="text-sm text-gray-600">
+                  💶 À partir de €<%= sprintf('%.0f', min_price) %><%= price_type == "hourly" ? "/h" : " (forfait)" %>
+                </p>
+              <% end %>
+              
+              <% 
+                # Check for travel fees
+                has_travel_fees = active_services.any? { |ps| ps.travel_flat_rate.present? || ps.travel_per_km_rate.present? }
+                if has_travel_fees
+                  travel_fee = active_services.find { |ps| ps.travel_flat_rate.present? || ps.travel_per_km_rate.present? }
+                  if travel_fee.travel_flat_rate.present?
+                    travel_display = "€#{sprintf('%.0f', travel_fee.travel_flat_rate)}"
+                  elsif travel_fee.travel_per_km_rate.present?
+                    travel_display = "€#{sprintf('%.0f', travel_fee.travel_per_km_rate)}/km"
+                  end
+                end
+              %>
+              
+              <% if has_travel_fees && travel_display.present? %>
+                <p class="text-sm text-gray-600">🚗 Frais de déplacement: <%= travel_display %></p>
+              <% end %>
+              
+              <div class="flex items-center justify-between">
+                <%= link_to client_professional_path(professional), class: "bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center" do %>
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                  Voir le profil
+                <% end %>
+              </div>
+            </div>
           </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 15ème • 2.5 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €50/h</p>
-          <p class="text-sm text-gray-600">🚗 Frais de déplacement: €15</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible demain</p>
-            <a href="<%= client_professional_path(1) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
+        <% end %>
       </div>
-
-      <!-- Professional Card 2 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(2) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-blue-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">MM</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-blue-hero transition">DetailPro_Paris16</h3>
-              <p class="text-sm text-gray-600">Carwasher/Detailer</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐⭐
-          </div>
-          <span class="text-sm font-medium text-gray-900">5.0</span>
-          <span class="text-sm text-gray-500">(89 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Lavage extérieur
-            </span>
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Lavage intérieur
-            </span>
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Detailing
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 16ème • 3.2 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €35 (forfait)</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible aujourd'hui</p>
-            <a href="<%= client_professional_path(2) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
+    <% else %>
+      <div class="bg-white rounded-super p-12 shadow-sm text-center">
+        <p class="text-gray-600 text-lg">Aucun professionnel trouvé avec ces critères.</p>
+        <%= link_to "Réinitialiser les filtres", client_professionals_path, class: "mt-4 inline-block text-red-hero hover:underline" %>
       </div>
+    <% end %>
 
-      <!-- Professional Card 3 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(3) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-red-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">PL</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-red-hero transition">ProMeca_Paris14</h3>
-              <p class="text-sm text-gray-600">Mécano/Carrossier</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐☆
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.7</span>
-          <span class="text-sm text-gray-500">(64 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Freins
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Vidange
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Batterie
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 14ème • 4.1 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €45/h</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible mercredi</p>
-            <a href="<%= client_professional_path(3) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
+    <!-- Pagination -->
+    <% if @pagy.pages > 1 %>
+      <div class="mt-8 p-6 bg-white rounded-super shadow-sm border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+        <p class="text-xs sm:text-sm text-gray-600">
+          Affichage de <strong><%= @pagy.from %></strong> à <strong><%= @pagy.to %></strong> sur <strong><%= @pagy.count %></strong> professionnel<%= @pagy.count > 1 ? 's' : '' %>
+        </p>
+        <%= pagy_nav_hatmada(@pagy, params: request.query_parameters) %>
       </div>
-
-      <!-- Professional Card 4 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(4) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-yellow-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">LC</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-yellow-hero transition">CarrossPro_Paris18</h3>
-              <p class="text-sm text-gray-600">Carrossier expert</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐⭐
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.8</span>
-          <span class="text-sm text-gray-500">(95 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Débosselage
-            </span>
-            <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Peinture
-            </span>
-            <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Polish
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 18ème • 5.8 km</p>
-          <p class="text-sm text-gray-600">💶 Devis personnalisé</p>
-          <p class="text-sm text-gray-600">🚗 Frais de déplacement: €20</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible lundi</p>
-            <a href="<%= client_professional_path(4) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Professional Card 5 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(5) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-blue-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">AR</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-blue-hero transition">DetailPro_Paris12</h3>
-              <p class="text-sm text-gray-600">Carwasher/Detailer</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐☆
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.6</span>
-          <span class="text-sm text-gray-500">(73 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Lavage express
-            </span>
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Nettoyage sièges
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 12ème • 6.2 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €25 (forfait)</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible aujourd'hui</p>
-            <a href="<%= client_professional_path(5) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4  mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Professional Card 6 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(6) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-red-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">TD</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-red-hero transition">ProMeca_Paris13</h3>
-              <p class="text-sm text-gray-600">Mécano/Carrossier</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐⭐
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.9</span>
-          <span class="text-sm text-gray-500">(112 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Diesel specialist
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              FAP
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Turbo
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 13ème • 4.5 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €60/h</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible jeudi</p>
-            <a href="<%= client_professional_path(6) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4  mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Professional Card 7 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(7) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-yellow-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">SB</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-yellow-hero transition">CarrossPro_Paris17</h3>
-              <p class="text-sm text-gray-600">Carrossier</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐⭐
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.8</span>
-          <span class="text-sm text-gray-500">(86 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Réparation choc
-            </span>
-            <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Rayures
-            </span>
-            <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Customisation
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 17ème • 7.1 km</p>
-          <p class="text-sm text-gray-600">💶 Devis gratuit</p>
-          <p class="text-sm text-gray-600">🚗 Frais de déplacement: €10</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible samedi</p>
-            <a href="<%= client_professional_path(7) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4  mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Professional Card 8 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(8) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-blue-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">AC</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-blue-hero transition">DetailPro_Paris11</h3>
-              <p class="text-sm text-gray-600">Carwasher/Detailer</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐⭐
-          </div>
-          <span class="text-sm font-medium text-gray-900">5.0</span>
-          <span class="text-sm text-gray-500">(102 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Lavage premium
-            </span>
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Cirage
-            </span>
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Protection céramique
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 11ème • 5.5 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €45 (forfait)</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible aujourd'hui</p>
-            <a href="<%= client_professional_path(8) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4  mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Professional Card 9 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(9) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-red-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">AR</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-red-hero transition">ProMeca_Paris10</h3>
-              <p class="text-sm text-gray-600">Mécano/Carrossier</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐☆
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.5</span>
-          <span class="text-sm text-gray-500">(58 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Électronique auto
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Climatisation
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              GPS
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 10ème • 6.8 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €55/h</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible vendredi</p>
-            <a href="<%= client_professional_path(9) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4  mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Professional Card 10 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(10) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-yellow-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">EB</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-yellow-hero transition">CarrossPro_Paris8</h3>
-              <p class="text-sm text-gray-600">Carrossier premium</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐⭐
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.9</span>
-          <span class="text-sm text-gray-500">(143 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Peinture haut de gamme
-            </span>
-            <span class="bg-yellow-50 text-yellow-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Covering
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 8ème • 8.2 km</p>
-          <p class="text-sm text-gray-600">💶 Sur devis uniquement</p>
-          <p class="text-sm text-gray-600">🚗 Frais de déplacement: €25</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible dans 2 sem.</p>
-            <a href="<%= client_professional_path(10) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4  mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Professional Card 11 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(11) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-red-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">NM</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-red-hero transition">ProMeca_Paris19</h3>
-              <p class="text-sm text-gray-600">Mécano/Carrossier</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐⭐
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.8</span>
-          <span class="text-sm text-gray-500">(91 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Contrôle technique
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Pré-contrôle
-            </span>
-            <span class="bg-red-50 text-red-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Contre-visite
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 19ème • 7.9 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €35/h</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible demain</p>
-            <a href="<%= client_professional_path(11) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4  mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Professional Card 12 -->
-      <div class="bg-white rounded-super p-6 shadow-sm card-hover">
-        <div class="flex items-start mb-4">
-          <a href="<%= client_professional_path(12) %>" class="flex items-center space-x-3 flex-1">
-            <div class="w-16 h-16 bg-blue-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-2xl font-bold">CP</span>
-            </div>
-            <div>
-              <h3 class="text-xl font-bold text-gray-900 hover:text-blue-hero transition">DetailPro_Paris20</h3>
-              <p class="text-sm text-gray-600">Carwasher/Detailer</p>
-            </div>
-          </a>
-        </div>
-
-        <!-- Rating -->
-        <div class="flex items-center space-x-2 mb-3">
-          <div class="flex text-yellow-hero">
-            ⭐⭐⭐⭐☆
-          </div>
-          <span class="text-sm font-medium text-gray-900">4.7</span>
-          <span class="text-sm text-gray-500">(79 avis)</span>
-        </div>
-
-        <!-- Services -->
-        <div class="mb-4">
-          <p class="text-sm font-medium text-gray-700 mb-2">Services proposés:</p>
-          <div class="flex flex-wrap gap-2">
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Lavage écologique
-            </span>
-            <span class="bg-blue-50 text-blue-800 px-2 py-1 rounded-lg text-xs font-medium">
-              Produits bio
-            </span>
-          </div>
-        </div>
-
-        <!-- Location & Price -->
-        <div class="space-y-2">
-          <p class="text-sm text-gray-600">📍 Paris 20ème • 9.1 km</p>
-          <p class="text-sm text-gray-600">💶 À partir de €30 (forfait)</p>
-          <div class="flex items-center justify-between">
-            <p class="text-sm text-gray-600">🕐 Disponible mardi</p>
-            <a href="<%= client_professional_path(12) %>" class="bg-yellow-hero text-white px-3 py-1 rounded-lg text-sm font-medium hover:bg-opacity-90 inline-flex items-center">
-              <svg class="w-4 h-4  mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-              </svg>
-              View profile
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <%= render 'shared/pagination' %>
+    <% end %>
 
   </div>
 </div>

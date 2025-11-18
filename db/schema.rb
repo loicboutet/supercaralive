@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_17_171639) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_18_084527) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -105,6 +105,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_17_171639) do
     t.datetime "updated_at", null: false
     t.index ["active"], name: "index_services_on_active"
     t.index ["category"], name: "index_services_on_category"
+  end
+
+  create_table "specialties", force: :cascade do |t|
+    t.string "name"
+    t.string "icon"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "specialties_users", id: false, force: :cascade do |t|
+    t.integer "specialty_id", null: false
+    t.integer "user_id", null: false
+    t.index ["specialty_id", "user_id"], name: "index_specialties_users_on_specialty_id_and_user_id"
+    t.index ["user_id", "specialty_id"], name: "index_specialties_users_on_user_id_and_specialty_id"
   end
 
   create_table "users", force: :cascade do |t|

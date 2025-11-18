@@ -55,6 +55,7 @@ class User < ApplicationRecord
   has_many :professional_services, dependent: :destroy
   has_many :vehicles, dependent: :destroy
   has_one_attached :profile_photo
+  has_and_belongs_to_many :specialties
 
   # Set default role and status before validation
   before_validation :set_default_role, on: :create

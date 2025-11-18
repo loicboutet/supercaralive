@@ -294,3 +294,31 @@ if Service.count == 0
 else
   puts "Les services existent déjà. Aucun service n'a été créé."
 end
+
+# Spécialités classiques pour garagistes
+# Ne créer les spécialités que si aucune spécialité n'existe déjà
+if Specialty.count == 0
+  puts "Création des spécialités classiques..."
+
+  specialties_data = [
+    { name: "Mécanique générale", icon: "🔧" },
+    { name: "Diagnostic électrique", icon: "⚡" },
+    { name: "Révision complète", icon: "🔩" },
+    { name: "Pneumatiques", icon: "⭕" },
+    { name: "Système électrique", icon: "🔋" },
+    { name: "Freinage", icon: "🛑" },
+    { name: "Climatisation", icon: "❄️" },
+    { name: "Carrosserie", icon: "🔨" },
+    { name: "Peinture", icon: "🎨" },
+    { name: "Vidange et entretien", icon: "🛢️" }
+  ]
+
+  specialties_data.each do |specialty_attrs|
+    Specialty.create!(specialty_attrs)
+    puts "  ✓ Spécialité créée : #{specialty_attrs[:name]}"
+  end
+
+  puts "✅ #{specialties_data.count} spécialités créées avec succès !"
+else
+  puts "Les spécialités existent déjà. Aucune spécialité n'a été créée."
+end

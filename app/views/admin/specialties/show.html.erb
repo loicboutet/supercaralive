@@ -1,0 +1,118 @@
+<% content_for :page_title, "Détails Spécialité" %>
+
+<!-- Breadcrumb -->
+<div class="mb-6">
+  <nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-2">
+      <li class="inline-flex items-center">
+        <%= link_to admin_specialties_path, class: "text-gray-600 hover:text-blue-hero inline-flex items-center" do %>
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Spécialités
+        <% end %>
+      </li>
+      <li>
+        <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+        </svg>
+      </li>
+      <li class="text-gray-900 font-medium"><%= @specialty.name %></li>
+    </ol>
+  </nav>
+</div>
+
+<!-- Page Header -->
+<div class="mb-8">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+        <%= @specialty.name %>
+      </h1>
+      <p class="text-xl text-gray-600">
+        Détails de la spécialité
+      </p>
+    </div>
+    <div class="flex space-x-3">
+      <%= link_to edit_admin_specialty_path(@specialty), class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+        </svg>
+        Modifier
+      <% end %>
+      <%= button_to admin_specialty_path(@specialty), method: :delete, form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir supprimer cette spécialité ?", action: "submit->confirm#confirm" } }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+        </svg>
+        Supprimer
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content Grid -->
+<div class="grid md:grid-cols-3 gap-8">
+  
+  <!-- Left Column - Specialty Info -->
+  <div class="space-y-6">
+    
+    <!-- Specialty Card -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <div class="text-center mb-6">
+        <div class="w-24 h-24 bg-blue-hero rounded-lg flex items-center justify-center mx-auto mb-4">
+          <span class="text-white text-5xl"><%= @specialty.icon.presence || '🔧' %></span>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2"><%= @specialty.name %></h2>
+      </div>
+
+      <div class="border-t border-gray-200 pt-4 space-y-3">
+        <div class="flex items-center space-x-3">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span class="text-gray-700">Créée le <%= @specialty.created_at.strftime("%d/%m/%Y") %></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Card -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <h3 class="text-lg font-bold text-gray-900 mb-4">Statistiques</h3>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-gray-600">Professionnels</span>
+          <span class="text-gray-900 font-bold"><%= @specialty.users.count %></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Column - Details -->
+  <div class="md:col-span-2 space-y-6">
+    
+    <!-- Professionals using this specialty -->
+    <div class="bg-white rounded-super p-6 shadow-sm">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4">Professionnels utilisant cette spécialité</h2>
+      <% if @specialty.users.any? %>
+        <div class="space-y-3">
+          <% @specialty.users.each do |user| %>
+            <div class="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg">
+              <div class="w-10 h-10 bg-blue-hero rounded-lg flex items-center justify-center">
+                <span class="text-white text-sm font-bold"><%= user.get_initials %></span>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900"><%= user.get_full_name %></p>
+                <p class="text-sm text-gray-600"><%= user.email %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500">Aucun professionnel n'utilise actuellement cette spécialité.</p>
+      <% end %>
+    </div>
+
+  </div>
+</div>
+

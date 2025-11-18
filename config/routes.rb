@@ -173,6 +173,9 @@ Rails.application.routes.draw do
     # Service catalog management
     resources :services
     
+    # Specialties management
+    resources :specialties
+    
     # Brick 2 - Review moderation
     resources :reviews, only: [:index, :show] do
       member do

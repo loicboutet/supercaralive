@@ -64,3 +64,4 @@ fr:
         one: "1 erreur a empêché ce %{resource} d'être enregistré :"
         other: "%{count} erreurs ont empêché ce %{resource} d'être enregistré :"
 
+

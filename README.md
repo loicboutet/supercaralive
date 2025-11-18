@@ -25,11 +25,11 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - [ ] Je peux consulter mon historique de services
 
 #### 🚗 Client (Particulier)
-- [ ] Je peux créer mon compte de manière anonyme (initiales ou pseudonyme visible)
+- ✅ Je peux créer mon compte de manière anonyme (initiales ou pseudonyme visible)
 - [ ] Je peux rechercher des professionnels par type de service et localisation (liste avec filtres)
 - [ ] Je peux consulter les profils de professionnels (services, tarifs, avis, zone de service)
 - [ ] Je peux sélectionner un créneau de disponibilité et faire une pré-réservation
-- [ ] Je peux indiquer mon modèle de voiture, le kilométrage et décrire mon besoin
+- ✅ Je peux indiquer mon modèle de voiture, le kilométrage et décrire mon besoin
 - [ ] Je peux communiquer avec le professionnel via la messagerie intégrée
 - [ ] Je peux consulter mes réservations en cours et passées
 

@@ -148,6 +148,21 @@
           </div>
         </div>
 
+        <!-- Specialties -->
+        <% if @user.specialties.any? %>
+          <div class="bg-white rounded-super p-6 shadow-sm">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Spécialités</h2>
+            <div class="flex flex-wrap gap-3">
+              <% @user.specialties.order(:name).each do |specialty| %>
+                <div class="flex items-center space-x-2 bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+                  <span class="text-xl"><%= specialty.icon %></span>
+                  <span class="font-medium text-gray-900"><%= specialty.name %></span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
         <!-- Services Offered -->
         <div class="bg-white rounded-super p-6 shadow-sm">
           <div class="flex items-center justify-between mb-4">

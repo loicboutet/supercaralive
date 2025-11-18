@@ -4,7 +4,7 @@
   
   <%= link_to "Véhicules", client_vehicles_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_vehicles_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
   
-  <%= link_to "Pros", client_professionals_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_professionals_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+  <%= link_to "Pros", client_professionals_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{(controller.controller_path == 'client/professionals' || request.path.start_with?('/client/professionals')) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
   
   <%= link_to "Réservations", client_bookings_path, class: "px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
   
@@ -61,7 +61,7 @@
     
     <%= link_to "Véhicules", client_vehicles_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_vehicles_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
-    <%= link_to "Pros", client_professionals_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_professionals_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
+    <%= link_to "Pros", client_professionals_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{(controller.controller_path == 'client/professionals' || request.path.start_with?('/client/professionals')) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     
     <%= link_to "Réservations", client_bookings_path, class: "block px-4 py-2 rounded-lg font-medium transition-colors #{current_page?(client_bookings_path) ? 'bg-red-hero text-white' : 'text-gray-700 hover:bg-red-hero hover:text-white'}" %>
     

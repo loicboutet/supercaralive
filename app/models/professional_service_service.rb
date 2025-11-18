@@ -27,3 +27,4 @@ class ProfessionalServiceService < ApplicationRecord
   validates :professional_service_id, uniqueness: { scope: :service_id }
 end
 
+

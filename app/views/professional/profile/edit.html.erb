@@ -121,38 +121,14 @@
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Spécialités</h2>
             
             <div class="space-y-3">
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
-                <span class="ml-3 text-gray-700">🔧 Mécanique générale</span>
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
-                <span class="ml-3 text-gray-700">⚙️ Diagnostic électronique</span>
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
-                <span class="ml-3 text-gray-700">🔩 Révision complète</span>
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
-                <span class="ml-3 text-gray-700">🛞 Pneumatiques</span>
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
-                <span class="ml-3 text-gray-700">🔋 Système électrique</span>
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" checked class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
-                <span class="ml-3 text-gray-700">❄️ Climatisation</span>
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
-                <span class="ml-3 text-gray-700">🚗 Carrosserie</span>
-              </label>
-              <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
-                <input type="checkbox" class="w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero">
-                <span class="ml-3 text-gray-700">✨ Lavage & esthétique</span>
-              </label>
+              <% @specialties.each do |specialty| %>
+                <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                  <%= check_box_tag "user[specialty_ids][]", specialty.id, @user.specialties.include?(specialty), 
+                      id: "specialty_#{specialty.id}",
+                      class: "w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero" %>
+                  <span class="ml-3 text-gray-700"><%= specialty.icon %> <%= specialty.name %></span>
+                </label>
+              <% end %>
             </div>
           </div>
 

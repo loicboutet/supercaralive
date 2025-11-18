@@ -3,9 +3,9 @@
     
     <!-- Back Button -->
     <div class="mb-6">
-      <a href="<%= client_professionals_path %>" class="text-blue-hero font-medium hover:underline inline-flex items-center">
+      <%= link_to client_professionals_path, class: "text-blue-hero font-medium hover:underline inline-flex items-center" do %>
         ← Retour à la recherche
-      </a>
+      <% end %>
     </div>
 
     <!-- Professional Header -->
@@ -15,15 +15,18 @@
         <!-- Left: Profile Info -->
         <div class="md:col-span-2">
           <div class="flex items-start space-x-6 mb-6">
-            <div class="w-24 h-24 bg-red-hero rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-4xl font-bold">JD</span>
+            <div class="w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden bg-red-hero">
+              <%= user_avatar_content(@professional, 
+                    image_class: "w-full h-full object-cover", 
+                    initials_class: "text-white text-4xl font-bold") %>
             </div>
             <div class="flex-1">
-              <h1 class="text-4xl font-bold text-gray-900 mb-2">Jean Dupont</h1>
-              <p class="text-xl text-gray-600 mb-3">MySupermécano - Mécanicien certifié</p>
+              <h1 class="text-4xl font-bold text-gray-900 mb-2">
+                <%= @professional.company_name.presence || @professional.get_full_name %>
+              </h1>
               
-              <!-- Rating -->
-              <div class="flex items-center space-x-3 mb-4">
+              <!-- Rating - Hidden for now -->
+              <div class="flex items-center space-x-3 mb-4" style="display: none;">
                 <div class="flex text-yellow-hero text-2xl">
                   ⭐⭐⭐⭐⭐
                 </div>
@@ -33,29 +36,62 @@
 
               <!-- Key Info -->
               <div class="flex flex-wrap gap-4 text-sm text-gray-600">
-                <span class="flex items-center">
-                  📍 Paris 15ème • Rayon 15 km
-                </span>
-                <span class="flex items-center">
-                  💼 8 ans d'expérience
-                </span>
-                <span class="flex items-center">
-                  ✓ 245 services réalisés
-                </span>
+                <% if @professional.location.present? %>
+                  <span class="flex items-center">
+                    📍 <%= @professional.location %>
+                    <% if @professional.intervention_zone.present? %>
+                      <% 
+                        # Try to extract radius from intervention_zone
+                        radius_match = @professional.intervention_zone.match(/(\d+)\s*km/i)
+                        radius = radius_match ? radius_match[1] : nil
+                      %>
+                      <% if radius.present? %>
+                        • Rayon <%= radius %> km
+                      <% end %>
+                    <% end %>
+                  </span>
+                <% end %>
+                <% if @professional.phone_number.present? %>
+                  <span class="flex items-center">
+                    📞 <%= @professional.phone_number %>
+                  </span>
+                <% end %>
+                <% if @professional.siret.present? %>
+                  <span class="flex items-center">
+                    🏢 SIRET: <%= @professional.siret %>
+                  </span>
+                <% end %>
               </div>
             </div>
           </div>
 
           <!-- Description -->
-          <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-3">À propos</h2>
-            <p class="text-gray-600 leading-relaxed">
-              Mécanicien passionné depuis plus de 8 ans, je vous propose mes services à domicile pour l'entretien et la réparation de votre véhicule. Diplômé d'un CAP et d'un BEP mécanique auto, j'ai travaillé en concession pendant 5 ans avant de me lancer à mon compte. Je me déplace chez vous avec tout mon matériel professionnel pour vous offrir un service de qualité dans le confort de votre domicile.
-            </p>
-          </div>
+          <% if @professional.professional_presentation.present? %>
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-3">À propos</h2>
+              <p class="text-gray-600 leading-relaxed">
+                <%= simple_format(@professional.professional_presentation) %>
+              </p>
+            </div>
+          <% end %>
 
-          <!-- Certifications -->
-          <div class="mb-6">
+          <!-- Specialties -->
+          <% if @professional.specialties.any? %>
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-3">Spécialités</h2>
+              <div class="flex flex-wrap gap-3">
+                <% @professional.specialties.order(:name).each do |specialty| %>
+                  <div class="flex items-center space-x-2 bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
+                    <span class="text-xl"><%= specialty.icon %></span>
+                    <span class="font-medium text-gray-900"><%= specialty.name %></span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Certifications - Hidden -->
+          <div class="mb-6" style="display: none;">
             <h3 class="text-xl font-bold text-gray-900 mb-3">Certifications & Assurances</h3>
             <div class="flex flex-wrap gap-3">
               <span class="bg-green-50 border border-green-200 text-green-800 px-4 py-2 rounded-lg text-sm font-medium flex items-center">
@@ -73,18 +109,45 @@
 
         <!-- Right: Quick Actions -->
         <div class="space-y-4">
-          <div class="bg-red-50 border-2 border-red-hero rounded-super p-6 text-center">
-            <p class="text-sm text-gray-600 mb-2">À partir de</p>
-            <p class="text-4xl font-bold text-red-hero mb-1">€50</p>
-            <p class="text-sm text-gray-600 mb-4">par heure</p>
-            <%= link_to new_client_booking_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold text-lg w-64 block mb-3 mx-auto inline-flex items-center justify-center" do %>
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-              </svg>
-              Réserver maintenant
-            <% end %>
-            <p class="text-xs text-gray-500">+ Frais de déplacement selon zone</p>
-          </div>
+          <% 
+            # Calculate minimum price
+            min_price = nil
+            price_type = nil
+            @professional_services.each do |ps|
+              if ps.pricing_type == "hourly_rate" && ps.hourly_rate_price.present?
+                if min_price.nil? || ps.hourly_rate_price < min_price
+                  min_price = ps.hourly_rate_price
+                  price_type = "hourly"
+                end
+              elsif ps.pricing_type == "flat_rate" && ps.flat_rate_price.present?
+                if min_price.nil? || ps.flat_rate_price < min_price
+                  min_price = ps.flat_rate_price
+                  price_type = "flat"
+                end
+              end
+            end
+          %>
+          
+          <% if min_price.present? %>
+            <div class="bg-red-50 border-2 border-red-hero rounded-super p-6 text-center">
+              <p class="text-sm text-gray-600 mb-2">À partir de</p>
+              <p class="text-4xl font-bold text-red-hero mb-1">€<%= sprintf('%.0f', min_price) %></p>
+              <p class="text-sm text-gray-600 mb-4"><%= price_type == "hourly" ? "par heure" : "(forfait)" %></p>
+              <%= link_to "#", class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold text-lg w-full block mb-3 mx-auto inline-flex items-center justify-center" do %>
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Réserver maintenant
+              <% end %>
+              <% 
+                # Check for travel fees
+                has_travel_fees = @professional_services.any? { |ps| ps.travel_flat_rate.present? || ps.travel_per_km_rate.present? }
+              %>
+              <% if has_travel_fees %>
+                <p class="text-xs text-gray-500">+ Frais de déplacement selon zone</p>
+              <% end %>
+            </div>
+          <% end %>
 
           <div class="bg-white border border-gray-200 rounded-lg p-4">
             <h4 class="font-bold text-gray-900 mb-3">Disponibilités</h4>
@@ -117,128 +180,73 @@
     </div>
 
     <!-- Services Offered -->
-    <div class="bg-white rounded-super p-8 shadow-sm mb-8">
-      <h2 class="text-3xl font-bold text-gray-900 mb-6">Services proposés</h2>
-      
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Service 1 -->
-        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
-                <span class="text-white text-xl">🔧</span>
+    <% if @professional_services.any? %>
+      <div class="bg-white rounded-super p-8 shadow-sm mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Services proposés</h2>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <% @professional_services.each do |professional_service| %>
+            <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
+              <div class="flex items-start justify-between mb-3">
+                <div class="flex items-start space-x-3 flex-1">
+                  <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
+                    <% 
+                      # Get icon from first service category
+                      category = professional_service.services.first&.category
+                      icon = case category
+                             when 'mecanique'
+                               '🔧'
+                             when 'carrosserie'
+                               '🔨'
+                             when 'lavage'
+                               '✨'
+                             else
+                               '📋'
+                             end
+                    %>
+                    <span class="text-white text-xl"><%= icon %></span>
+                  </div>
+                  <div class="flex-1">
+                    <h3 class="text-xl font-bold text-gray-900"><%= professional_service.name %></h3>
+                    <% if professional_service.services.any? %>
+                      <p class="text-sm text-gray-600 mt-1">
+                        <%= professional_service.services.map(&:name).join(", ") %>
+                      </p>
+                    <% end %>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Révision annuelle</h3>
-                <p class="text-sm text-gray-600 mt-1">Révision complète selon carnet d'entretien</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-            <span class="text-gray-600">Durée: 2h</span>
-            <span class="text-2xl font-bold text-red-hero">€120</span>
-          </div>
-        </div>
-
-        <!-- Service 2 -->
-        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
-                <span class="text-white text-xl">🔍</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Diagnostic panne</h3>
-                <p class="text-sm text-gray-600 mt-1">Diagnostic complet avec valise électronique</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-            <span class="text-gray-600">Durée: 1h</span>
-            <span class="text-2xl font-bold text-red-hero">€60</span>
-          </div>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
-                <span class="text-white text-xl">⚙️</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Changement pneus</h3>
-                <p class="text-sm text-gray-600 mt-1">Montage/démontage + équilibrage</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-            <span class="text-gray-600">Durée: 1.5h</span>
-            <span class="text-2xl font-bold text-red-hero">€80</span>
-          </div>
-        </div>
-
-        <!-- Service 4 -->
-        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
-                <span class="text-white text-xl">🛠️</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Freinage complet</h3>
-                <p class="text-sm text-gray-600 mt-1">Plaquettes + disques (fournitures incluses)</p>
+              <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                <% if professional_service.duration_minutes.present? %>
+                  <span class="text-gray-600">
+                    Durée: <%= professional_service.duration_minutes %> min
+                  </span>
+                <% else %>
+                  <span></span>
+                <% end %>
+                <div class="text-right">
+                  <% if professional_service.display_price.present? %>
+                    <span class="text-2xl font-bold text-red-hero">
+                      <%= professional_service.display_price %>
+                    </span>
+                    <% if professional_service.pricing_type == "hourly_rate" %>
+                      <p class="text-xs text-gray-500">par heure</p>
+                    <% elsif professional_service.pricing_type == "flat_rate" %>
+                      <p class="text-xs text-gray-500">forfait</p>
+                    <% end %>
+                  <% else %>
+                    <span class="text-gray-400">Prix sur devis</span>
+                  <% end %>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-            <span class="text-gray-600">Durée: 2.5h</span>
-            <span class="text-2xl font-bold text-red-hero">€280</span>
-          </div>
-        </div>
-
-        <!-- Service 5 -->
-        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
-                <span class="text-white text-xl">⭐</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Vidange</h3>
-                <p class="text-sm text-gray-600 mt-1">Huile + filtre (huile fournie)</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-            <span class="text-gray-600">Durée: 45min</span>
-            <span class="text-2xl font-bold text-red-hero">€75</span>
-          </div>
-        </div>
-
-        <!-- Service 6 -->
-        <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex items-start space-x-3">
-              <div class="w-12 h-12 bg-red-hero rounded-lg flex items-center justify-center flex-shrink-0">
-                <span class="text-white text-xl">🔋</span>
-              </div>
-              <div>
-                <h3 class="text-xl font-bold text-gray-900">Batterie</h3>
-                <p class="text-sm text-gray-600 mt-1">Test + remplacement si nécessaire</p>
-              </div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-            <span class="text-gray-600">Durée: 30min</span>
-            <span class="text-2xl font-bold text-red-hero">€100</span>
-          </div>
+          <% end %>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <!-- Reviews Section -->
-    <div class="bg-white rounded-super p-8 shadow-sm mb-8">
+    <!-- Reviews Section - Hidden -->
+    <div class="bg-white rounded-super p-8 shadow-sm mb-8" style="display: none;">
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-3xl font-bold text-gray-900">Avis clients</h2>
         <div class="flex items-center space-x-2">
@@ -372,62 +380,101 @@
     <!-- Zone d'intervention -->
     <div class="bg-white rounded-super p-8 shadow-sm">
       <h2 class="text-3xl font-bold text-gray-900 mb-6">Zone d'intervention</h2>
-      <div class="grid md:grid-cols-2 gap-8">
+      <% 
+        # Extract radius from intervention_zone
+        radius = nil
+        if @professional.intervention_zone.present?
+          radius_match = @professional.intervention_zone.match(/(\d+)\s*km/i)
+          radius = radius_match ? radius_match[1] : nil
+        end
+        
+        # Check for travel fees
+        has_travel_fees = @professional_services.any? { |ps| ps.travel_flat_rate.present? || ps.travel_per_km_rate.present? }
+        travel_fees = []
+        @professional_services.each do |ps|
+          if ps.travel_flat_rate.present?
+            travel_fees << { type: "flat", amount: ps.travel_flat_rate }
+          elsif ps.travel_per_km_rate.present?
+            travel_fees << { type: "per_km", amount: ps.travel_per_km_rate }
+          end
+        end
+        travel_fees.uniq!
+      %>
+      
+      <% if has_travel_fees %>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div>
+            <p class="text-gray-600 mb-4">
+              <% if @professional.location.present? && radius.present? %>
+                Je me déplace dans un rayon de <span class="font-bold text-red-hero"><%= radius %> km</span> autour de <%= @professional.location %>
+              <% elsif @professional.location.present? %>
+                Je me déplace autour de <%= @professional.location %>
+              <% elsif @professional.intervention_zone.present? %>
+                <%= @professional.intervention_zone %>
+              <% end %>
+            </p>
+            <% if @professional.location.present? %>
+              <div 
+                data-controller="map" 
+                data-map-location-value="<%= @professional.location %>"
+                data-map-radius-value="<%= radius || 0 %>"
+                class="rounded-lg h-64 w-full"
+                style="z-index: 0;"
+              >
+                <div data-map-target="container" class="w-full h-full rounded-lg"></div>
+              </div>
+            <% else %>
+              <div class="bg-gray-100 rounded-lg h-64 flex items-center justify-center">
+                <p class="text-gray-400">Localisation non renseignée</p>
+              </div>
+            <% end %>
+          </div>
+          <div>
+            <div class="p-4 bg-blue-50 rounded-lg">
+              <h4 class="font-bold text-gray-900 mb-2">Frais de déplacement</h4>
+              <ul class="text-sm text-gray-700 space-y-1">
+                <% travel_fees.each do |fee| %>
+                  <li>
+                    • 
+                    <% if fee[:type] == "flat" %>
+                      Forfait: €<%= sprintf('%.2f', fee[:amount]) %>
+                    <% else %>
+                      Par km: €<%= sprintf('%.2f', fee[:amount]) %>/km
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% else %>
         <div>
           <p class="text-gray-600 mb-4">
-            Je me déplace dans un rayon de <span class="font-bold text-red-hero">15 km</span> autour de Paris 15ème
+            <% if @professional.location.present? && radius.present? %>
+              Je me déplace dans un rayon de <span class="font-bold text-red-hero"><%= radius %> km</span> autour de <%= @professional.location %>
+            <% elsif @professional.location.present? %>
+              Je me déplace autour de <%= @professional.location %>
+            <% elsif @professional.intervention_zone.present? %>
+              <%= @professional.intervention_zone %>
+            <% end %>
           </p>
-          <div class="bg-gray-100 rounded-lg h-64 flex items-center justify-center">
-            <p class="text-gray-400">🗺️ Carte interactive (à intégrer)</p>
-          </div>
+          <% if @professional.location.present? %>
+            <div 
+              data-controller="map" 
+              data-map-location-value="<%= @professional.location %>"
+              data-map-radius-value="<%= radius || 0 %>"
+              class="rounded-lg h-64 w-full"
+              style="z-index: 0;"
+            >
+              <div data-map-target="container" class="w-full h-full rounded-lg"></div>
+            </div>
+          <% else %>
+            <div class="bg-gray-100 rounded-lg h-64 flex items-center justify-center">
+              <p class="text-gray-400">Localisation non renseignée</p>
+            </div>
+          <% end %>
         </div>
-        <div>
-          <h3 class="text-xl font-bold text-gray-900 mb-4">Quartiers desservis</h3>
-          <div class="grid grid-cols-2 gap-3">
-            <div class="flex items-center space-x-2">
-              <span class="text-green-500">✓</span>
-              <span class="text-gray-700">Paris 15ème</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="text-green-500">✓</span>
-              <span class="text-gray-700">Paris 14ème</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="text-green-500">✓</span>
-              <span class="text-gray-700">Paris 16ème</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="text-green-500">✓</span>
-              <span class="text-gray-700">Paris 7ème</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="text-green-500">✓</span>
-              <span class="text-gray-700">Paris 6ème</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="text-green-500">✓</span>
-              <span class="text-gray-700">Boulogne</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="text-green-500">✓</span>
-              <span class="text-gray-700">Issy-les-Mx</span>
-            </div>
-            <div class="flex items-center space-x-2">
-              <span class="text-green-500">✓</span>
-              <span class="text-gray-700">Vanves</span>
-            </div>
-          </div>
-
-          <div class="mt-6 p-4 bg-blue-50 rounded-lg">
-            <h4 class="font-bold text-gray-900 mb-2">Frais de déplacement</h4>
-            <ul class="text-sm text-gray-700 space-y-1">
-              <li>• 0-5 km: Gratuit</li>
-              <li>• 5-10 km: €10</li>
-              <li>• 10-15 km: €15</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <% end %>
     </div>
 
   </div>
