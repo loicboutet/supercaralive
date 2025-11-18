@@ -239,7 +239,7 @@
       <p class="text-xs sm:text-sm text-gray-600">
         Affichage de <strong><%= @pagy_pending.from %></strong> à <strong><%= @pagy_pending.to %></strong> sur <strong><%= @pagy_pending.count %></strong> demande<%= @pagy_pending.count > 1 ? 's' : '' %>
       </p>
-      <%= pagy_nav_hatmada(@pagy_pending, params: request.query_parameters.merge(pending_page: nil)) %>
+      <%= pagy_nav_supercaralive(@pagy_pending, params: request.query_parameters.merge(pending_page: nil)) %>
     </div>
   <% end %>
 </div>

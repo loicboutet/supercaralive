@@ -295,7 +295,7 @@
         <p class="text-xs sm:text-sm text-gray-600">
           Affichage de <strong><%= @pagy.from %></strong> à <strong><%= @pagy.to %></strong> sur <strong><%= @pagy.count %></strong> facture<%= @pagy.count > 1 ? 's' : '' %>
         </p>
-        <%= pagy_nav_hatmada(@pagy, params: request.query_parameters) %>
+        <%= pagy_nav_supercaralive(@pagy, params: request.query_parameters) %>
       </div>
     <% end %>
 

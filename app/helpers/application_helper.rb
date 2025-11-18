@@ -3,7 +3,7 @@ module ApplicationHelper
 
   # Pagy helper that matches the mockup design
   # Used for all pagination throughout the application
-  def pagy_nav_hatmada(pagy, **vars)
+  def pagy_nav_supercaralive(pagy, **vars)
     html = +%(<div class="flex items-center justify-center mt-8 space-x-2">)
 
     # Previous button
@@ -71,7 +71,7 @@ module ApplicationHelper
 
   # Legacy method for backward compatibility - redirects to new helper
   def pagy_nav_tailwind(pagy, **vars)
-    pagy_nav_hatmada(pagy, **vars)
+    pagy_nav_supercaralive(pagy, **vars)
   end
 
   # Helper method to render Lucide icons

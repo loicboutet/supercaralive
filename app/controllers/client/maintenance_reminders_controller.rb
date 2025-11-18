@@ -4,11 +4,16 @@ class Client::MaintenanceRemindersController < Client::BaseController
   def index
     @reminders = Reminder.for_user(current_user).ordered_by_due_date.includes(:vehicle)
     
-    # Count reminders by status
-    not_done_reminders = @reminders.not_done
+    # Count reminders by status (before pagination)
+    # Load reminders once to calculate status colors
+    all_reminders_array = @reminders.to_a
+    not_done_reminders = all_reminders_array.reject(&:done)
     @urgent_count = not_done_reminders.count { |r| r.status_color == 'red' }
     @upcoming_count = not_done_reminders.count { |r| r.status_color == 'yellow' }
-    @completed_count = @reminders.done.count
+    @completed_count = all_reminders_array.count(&:done)
+    
+    # Paginate (reload from database)
+    @pagy, @reminders = pagy(@reminders, items: 10)
   end
 
   def toggle_reminders

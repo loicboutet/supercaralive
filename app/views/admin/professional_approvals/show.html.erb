@@ -222,7 +222,7 @@
         <!-- Pagination for documents -->
         <% if @pagy_documents.pages > 1 %>
           <div class="mt-6 pt-6 border-t border-gray-200">
-            <%= pagy_nav_hatmada(@pagy_documents, params: request.query_parameters.merge(documents_page: nil)) %>
+            <%= pagy_nav_supercaralive(@pagy_documents, params: request.query_parameters.merge(documents_page: nil)) %>
           </div>
         <% end %>
       <% else %>
