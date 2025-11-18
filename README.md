@@ -41,7 +41,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - ✅ Messagerie interne entre professionnels et clients
 - ✅ Notifications par email pour les événements clés (nouvelle demande, validation, rappel de rendez-vous)
 - [ ] Interface web responsive (application web)
-- [ ] Anonymisation des données clients (adresse masquée jusqu'à la validation finale)
+- ✅ Anonymisation des données clients (adresse masquée jusqu'à la validation finale)
 
 ### 🔒 BRIQUE 2 - Paiement, avis et portefeuille (€5000)
 

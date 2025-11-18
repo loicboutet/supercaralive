@@ -24,7 +24,7 @@
 
 <!-- Page Header -->
 <div class="mb-8">
-  <div class="flex items-center justify-between">
+  <div class="space-y-6">
     <div>
       <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
         Demande de <span class="text-yellow-hero">Validation</span> ✓
@@ -33,14 +33,14 @@
         Examinez et validez la demande d'inscription professionnelle
       </p>
     </div>
-    <div class="flex space-x-3">
-      <%= button_to approve_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir approuver cet utilisateur ?')" }, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+    <div class="flex flex-col sm:flex-row gap-3">
+      <%= button_to approve_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir approuver cet utilisateur ?')" }, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
         </svg>
         Approuver
       <% end %>
-      <%= button_to reject_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir refuser cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+      <%= button_to reject_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir refuser cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
@@ -305,14 +305,14 @@
     <!-- Decision Actions -->
     <div class="bg-white rounded-super p-6 shadow-sm">
       <h2 class="text-2xl font-bold text-gray-900 mb-4">Décision finale</h2>
-      <div class="grid md:grid-cols-2 gap-4">
-        <%= button_to approve_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir approuver cet utilisateur ?')" }, class: "bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg inline-flex items-center justify-center" do %>
+      <div class="flex flex-col sm:flex-row gap-4">
+        <%= button_to approve_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir approuver cet utilisateur ?')" }, class: "bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg inline-flex items-center justify-center w-full sm:w-auto" do %>
           <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
           Approuver la demande
         <% end %>
-        <%= button_to reject_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir refuser cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-lg inline-flex items-center justify-center" do %>
+        <%= button_to reject_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir refuser cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-lg inline-flex items-center justify-center w-full sm:w-auto" do %>
           <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>

@@ -9,19 +9,19 @@
     </div>
 
     <!-- Professional Header -->
-    <div class="bg-white rounded-super p-8 shadow-sm mb-8">
-      <div class="grid md:grid-cols-3 gap-8">
+    <div class="bg-white rounded-super p-6 md:p-8 shadow-sm mb-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         
         <!-- Left: Profile Info -->
         <div class="md:col-span-2">
-          <div class="flex items-start space-x-6 mb-6">
-            <div class="w-24 h-24 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden bg-red-hero">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6 mb-6">
+            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden bg-red-hero">
               <%= user_avatar_content(@professional, 
                     image_class: "w-full h-full object-cover", 
-                    initials_class: "text-white text-4xl font-bold") %>
+                    initials_class: "text-white text-3xl sm:text-4xl font-bold") %>
             </div>
             <div class="flex-1">
-              <h1 class="text-4xl font-bold text-gray-900 mb-2">
+              <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
                 <%= @professional.company_name.presence || @professional.get_full_name %>
               </h1>
               
@@ -133,7 +133,7 @@
               <p class="text-sm text-gray-600 mb-2">À partir de</p>
               <p class="text-4xl font-bold text-red-hero mb-1">€<%= sprintf('%.0f', min_price) %></p>
               <p class="text-sm text-gray-600 mb-4"><%= price_type == "hourly" ? "par heure" : "(forfait)" %></p>
-              <%= link_to new_client_booking_path(professional_id: @professional.id), class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold text-lg w-full block mb-3 mx-auto inline-flex items-center justify-center" do %>
+              <%= link_to new_client_booking_path(professional_id: @professional.id), class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold text-base md:text-lg w-full block mb-3 mx-auto inline-flex items-center justify-center" do %>
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                 </svg>
@@ -180,11 +180,11 @@
     </div>
 
     <!-- Services Offered -->
-    <% if @professional_services.any? %>
-      <div class="bg-white rounded-super p-8 shadow-sm mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 mb-6">Services proposés</h2>
+      <% if @professional_services.any? %>
+      <div class="bg-white rounded-super p-6 md:p-8 shadow-sm mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Services proposés</h2>
         
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <% @professional_services.each do |professional_service| %>
             <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition">
               <div class="flex items-start justify-between mb-3">
@@ -216,7 +216,7 @@
                   </div>
                 </div>
               </div>
-              <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-4 pt-4 border-t border-gray-100">
                 <% if professional_service.duration_minutes.present? %>
                   <span class="text-gray-600">
                     Durée: <%= professional_service.duration_minutes %> min
@@ -224,7 +224,7 @@
                 <% else %>
                   <span></span>
                 <% end %>
-                <div class="text-right">
+                <div class="text-left sm:text-right">
                   <% if professional_service.display_price.present? %>
                     <span class="text-2xl font-bold text-red-hero">
                       <%= professional_service.display_price %>
@@ -378,8 +378,8 @@
     </div>
 
     <!-- Zone d'intervention -->
-    <div class="bg-white rounded-super p-8 shadow-sm">
-      <h2 class="text-3xl font-bold text-gray-900 mb-6">Zone d'intervention</h2>
+    <div class="bg-white rounded-super p-6 md:p-8 shadow-sm">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Zone d'intervention</h2>
       <% 
         # Extract radius from intervention_zone
         radius = nil
@@ -402,7 +402,7 @@
       %>
       
       <% if has_travel_fees %>
-        <div class="grid md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           <div>
             <p class="text-gray-600 mb-4">
               <% if @professional.location.present? && radius.present? %>

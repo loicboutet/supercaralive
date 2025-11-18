@@ -106,14 +106,14 @@
 
           <!-- Form Actions -->
           <div class="bg-white rounded-super p-6 shadow-sm">
-            <div class="flex items-center justify-between">
-              <%= link_to admin_profile_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium inline-flex items-center" do %>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <%= link_to admin_profile_path, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium inline-flex items-center justify-center w-full sm:w-auto" do %>
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
                 Annuler
               <% end %>
-              <%= f.submit "Enregistrer les modifications", class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center cursor-pointer" %>
+              <%= f.submit "Enregistrer les modifications", class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center cursor-pointer w-full sm:w-auto" %>
             </div>
           </div>
 

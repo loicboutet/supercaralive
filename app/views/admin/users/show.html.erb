@@ -24,7 +24,7 @@
 
 <!-- Page Header -->
 <div class="mb-8">
-  <div class="flex items-center justify-between">
+  <div class="space-y-6">
     <div>
       <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
         Détails <span class="text-red-hero">Utilisateur</span> 👤
@@ -33,8 +33,8 @@
         Informations complètes du compte utilisateur
       </p>
     </div>
-    <div class="flex flex-wrap gap-3">
-      <%= link_to edit_admin_user_path(@user), class: "bg-yellow-hero hover:bg-opacity-90 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+    <div class="flex flex-col sm:flex-row gap-3">
+      <%= link_to edit_admin_user_path(@user), class: "bg-yellow-hero hover:bg-opacity-90 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
         </svg>
@@ -43,39 +43,39 @@
       
       <% unless @user == current_user %>
         <% if @user.active? %>
-          <%= button_to deactivate_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir désactiver cet utilisateur ?')" }, class: "bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <%= button_to deactivate_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir désactiver cet utilisateur ?')" }, class: "bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
             </svg>
             Désactiver
           <% end %>
-          <%= button_to suspend_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir suspendre cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <%= button_to suspend_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir suspendre cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
             </svg>
             Suspendre
           <% end %>
         <% elsif @user.suspended? %>
-          <%= button_to activate_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir activer cet utilisateur ?')" }, class: "bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <%= button_to activate_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir activer cet utilisateur ?')" }, class: "bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             Activer
           <% end %>
-          <%= button_to deactivate_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir désactiver cet utilisateur ?')" }, class: "bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <%= button_to deactivate_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir désactiver cet utilisateur ?')" }, class: "bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
             </svg>
             Désactiver
           <% end %>
         <% elsif @user.inactive? %>
-          <%= button_to activate_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir activer cet utilisateur ?')" }, class: "bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <%= button_to activate_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir activer cet utilisateur ?')" }, class: "bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             Activer
           <% end %>
-          <%= button_to suspend_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir suspendre cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+          <%= button_to suspend_admin_user_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir suspendre cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
             </svg>
@@ -83,7 +83,7 @@
           <% end %>
         <% end %>
         
-        <%= button_to admin_user_path(@user), method: :delete, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center" do %>
+        <%= button_to admin_user_path(@user), method: :delete, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
           </svg>
