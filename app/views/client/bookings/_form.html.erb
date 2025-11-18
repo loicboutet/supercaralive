@@ -1,5 +1,7 @@
 <%= form_with model: @booking, url: form_url, method: form_method, data: { turbo: false }, class: "space-y-6", data: { 
-  controller: "booking-form booking-calendar", 
+  controller: "booking-form booking-calendar",
+  booking_edit_confirm_target: "form",
+  action: "submit->booking-edit-confirm#submit",
   booking_form_vehicles_value: @vehicles&.index_by(&:id)&.transform_values { |v| { mileage: v.mileage || 0 } }&.to_json || "{}",
   booking_calendar_professional_id_value: @booking&.professional_id || @pre_selected_professional&.id,
   booking_calendar_professional_service_id_value: @booking&.professional_service_id,

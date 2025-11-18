@@ -233,13 +233,15 @@
         </div>
 
         <!-- Actions -->
-        <% if @booking&.pending? %>
+        <% if @booking&.pending? || @booking&.accepted? %>
           <div class="bg-white rounded-super p-6 shadow-sm space-y-3">
             <%= link_to edit_client_booking_path(@booking), class: "block bg-yellow-hero hover:bg-opacity-90 text-gray-900 px-6 py-3 rounded-lg font-bold text-center" do %>
               Modifier la réservation
             <% end %>
-            <%= button_to cancel_client_booking_path(@booking), method: :patch, data: { turbo: false, confirm: "Êtes-vous sûr de vouloir annuler cette réservation ?" }, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold w-full" do %>
-              Annuler la réservation
+            <% if @booking&.pending? %>
+              <%= button_to cancel_client_booking_path(@booking), method: :patch, data: { turbo: false, confirm: "Êtes-vous sûr de vouloir annuler cette réservation ?" }, class: "bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold w-full" do %>
+                Annuler la réservation
+              <% end %>
             <% end %>
           </div>
         <% end %>

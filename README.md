@@ -21,7 +21,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - ✅ Je peux gérer mon calendrier de disponibilité
 - ✅ Je peux recevoir des pré-réservations de créneaux et les valider/refuser
 - ✅ Je peux consulter les détails de la demande (modèle de voiture, kilométrage, description du besoin)
-- [ ] Je peux communiquer avec le client via la messagerie intégrée
+- ✅ Je peux communiquer avec le client via la messagerie intégrée
 - ✅ Je peux consulter mon historique de services
 
 #### 🚗 Client (Particulier)
@@ -30,7 +30,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - ✅ Je peux consulter les profils de professionnels (services, tarifs, avis, zone de service)
 - ✅ Je peux sélectionner un créneau de disponibilité et faire une pré-réservation
 - ✅ Je peux indiquer mon modèle de voiture, le kilométrage et décrire mon besoin
-- [ ] Je peux communiquer avec le professionnel via la messagerie intégrée
+- ✅ Je peux communiquer avec le professionnel via la messagerie intégrée
 - ✅ Je peux consulter mes réservations en cours et passées
 
 #### ⚙️ Fonctionnalités système Brique 1
@@ -38,7 +38,7 @@ Plateforme web connectant des professionnels de l'automobile (mécaniciens, carr
 - ✅ Système de géolocalisation par rayon (recherche dans un périmètre défini)
 - ✅ Gestion des services proposés (tags/catégories prédéfinis)
 - ✅ Système de pré-réservation de créneaux avec validation
-- [ ] Messagerie interne entre professionnels et clients
+- ✅ Messagerie interne entre professionnels et clients
 - ✅ Notifications par email pour les événements clés (nouvelle demande, validation, rappel de rendez-vous)
 - [ ] Interface web responsive (application web)
 - [ ] Anonymisation des données clients (adresse masquée jusqu'à la validation finale)

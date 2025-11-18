@@ -82,7 +82,34 @@ class Client::BookingsController < Client::BaseController
   end
 
   def update
+    # If booking was accepted and is being modified, reset status to pending
+    was_accepted = @booking.accepted?
+    
+    # Store original values to detect changes
+    original_values = {
+      professional_service_id: @booking.professional_service_id,
+      scheduled_at: @booking.scheduled_at,
+      current_mileage: @booking.current_mileage,
+      description: @booking.description,
+      vehicle_id: @booking.vehicle_id
+    }
+    
     if @booking.update(booking_params)
+      # Check if any values actually changed
+      # Compare scheduled_at timestamps to avoid timezone issues
+      scheduled_at_changed = original_values[:scheduled_at]&.to_i != @booking.scheduled_at&.to_i
+      
+      values_changed = original_values[:professional_service_id] != @booking.professional_service_id ||
+                       scheduled_at_changed ||
+                       original_values[:current_mileage] != @booking.current_mileage ||
+                       original_values[:description] != @booking.description ||
+                       original_values[:vehicle_id] != @booking.vehicle_id
+      
+      # If booking was accepted and has been modified, reset to pending
+      if was_accepted && values_changed
+        @booking.update(status: :pending)
+      end
+      
       respond_to do |format|
         format.html { redirect_to client_booking_path(@booking), notice: 'Réservation mise à jour avec succès.' }
       end

@@ -1,4 +1,4 @@
-<div class="container mx-auto px-6 py-8">
+<div class="container mx-auto px-6 py-8" data-controller="booking-edit-confirm" data-booking-edit-confirm-is-accepted-value="<%= @booking.accepted? %>">
   <div>
     <div class="mb-8">
       <%= link_to client_booking_path(@booking), class: "text-blue-hero hover:underline inline-flex items-center mb-4" do %>
@@ -19,6 +19,40 @@
           submit_text: "Enregistrer les modifications",
           cancel_text: "Annuler",
           cancel_path: client_booking_path(@booking) %>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div data-booking-edit-confirm-target="modal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" data-action="keydown->booking-edit-confirm#closeWithKeyboard">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <!-- Background overlay -->
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" data-action="click->booking-edit-confirm#stopPropagation"></div>
+
+      <!-- Center modal -->
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+      <!-- Modal panel -->
+      <div class="inline-block align-bottom bg-white rounded-super text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" data-action="click->booking-edit-confirm#stopPropagation">
+        <div class="bg-white px-6 pt-6 pb-4">
+          <div class="flex items-center justify-center w-12 h-12 mx-auto bg-yellow-100 rounded-full mb-4">
+            <svg class="w-6 h-6 text-yellow-hero" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 text-center mb-4" id="modal-title">Attention</h3>
+          <p class="text-gray-700 text-center mb-6">
+            Vous êtes sûr de vouloir modifier ? Toute modification demandera une nouvelle validation de la part du garage.
+          </p>
+        </div>
+        <div class="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row gap-3 sm:justify-end">
+          <button type="button" data-booking-edit-confirm-target="cancelButton" data-action="click->booking-edit-confirm#cancelSubmit" class="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-bold">
+            Annuler
+          </button>
+          <button type="button" data-booking-edit-confirm-target="confirmButton" data-action="click->booking-edit-confirm#confirmSubmit" class="w-full sm:w-auto bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold">
+            Confirmer la modification
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
