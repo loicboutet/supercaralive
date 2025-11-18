@@ -1,13 +1,13 @@
 class Professional::BookingsController < Professional::BaseController
   include Pagy::Backend
   
-  before_action :set_booking, only: [:accept, :refuse]
+  before_action :set_booking, only: [:accept, :refuse, :complete]
   before_action :set_booking_with_associations, only: [:show]
 
   def index
     @bookings = current_user.professional_bookings
                             .includes(:client, :vehicle, :professional_service)
-                            .order(scheduled_at: :desc)
+                            .order(created_at: :desc)
     
     # Filter by status
     if params[:status].present? && params[:status] != "all"
@@ -53,6 +53,20 @@ class Professional::BookingsController < Professional::BaseController
     else
       respond_to do |format|
         format.html { redirect_to professional_booking_path(@booking), alert: "Erreur lors du refus de la réservation." }
+        format.json { render json: { status: "error", errors: @booking.errors.full_messages }, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def complete
+    if @booking.update(status: :completed)
+      respond_to do |format|
+        format.html { redirect_to professional_bookings_path, notice: "Réservation marquée comme terminée." }
+        format.json { render json: { status: "success", message: "Réservation marquée comme terminée." } }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to professional_bookings_path, alert: "Erreur lors du marquage de la réservation comme terminée." }
         format.json { render json: { status: "error", errors: @booking.errors.full_messages }, status: :unprocessable_entity }
       end
     end

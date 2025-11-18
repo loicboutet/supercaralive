@@ -67,6 +67,7 @@ class Booking < ApplicationRecord
   scope :completed, -> { where(status: :completed) }
   scope :cancelled, -> { where(status: :cancelled) }
   scope :refused, -> { where(status: :refused) }
+  scope :past_and_not_completed, -> { where.not(status: :completed).where("scheduled_at < ?", Time.current) }
 
   # Ensure client is actually a client
   validate :client_must_be_client

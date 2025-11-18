@@ -188,6 +188,16 @@
                   Refuser
                 <% end %>
               <% end %>
+              <% if booking.status != 'completed' && booking.status != 'cancelled' && booking.status != 'refused' && booking.scheduled_at.present? && booking.scheduled_at < Time.current %>
+                <%= button_to complete_professional_booking_path(booking), method: :patch, 
+                    form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },
+                    class: "bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" do %>
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Terminer
+                <% end %>
+              <% end %>
               <button class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>

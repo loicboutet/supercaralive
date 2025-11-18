@@ -2,10 +2,16 @@ production:
   maintenance_reminders:
     class: MaintenanceRemindersJob
     schedule: at 1am every day
+  complete_past_bookings:
+    class: CompletePastBookingsJob
+    schedule: at 1am every day
 
 development:
   maintenance_reminders:
     class: MaintenanceRemindersJob
+    schedule: at 1am every day
+  complete_past_bookings:
+    class: CompletePastBookingsJob
     schedule: at 1am every day
 
 # production:
