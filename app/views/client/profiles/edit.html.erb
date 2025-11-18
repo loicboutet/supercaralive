@@ -129,64 +129,6 @@
         <hr class="my-8 border-gray-200">
         <% end %>
 
-        <h3 class="text-lg font-bold text-gray-900">Mes lieux de service enregistrés</h3>
-        <p class="text-sm text-gray-600 mb-4">Gérez les adresses où vous souhaitez recevoir des services</p>
-
-        <!-- Existing Service Locations -->
-        <div class="space-y-4 mb-4">
-          <% (@profile&.service_locations || []).each_with_index do |location, index| %>
-            <% bg_color = index.even? ? 'green' : 'blue' %>
-            <div class="bg-<%= bg_color %>-50 rounded-lg p-4 border-2 border-<%= bg_color %>-200">
-              <div class="flex items-start justify-between mb-3">
-                <h4 class="font-bold text-gray-900"><%= location[:name] %></h4>
-                <button type="button" class="text-red-hero hover:text-red-dark">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                  </svg>
-                </button>
-              </div>
-              
-              <div class="grid grid-cols-1 gap-3">
-                <div>
-                  <%= label_tag "location_#{index}_name", "Nom du lieu", class: "block text-xs font-medium text-gray-700 mb-1" %>
-                  <%= text_field_tag "location_#{index}_name", location[:name], class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm" %>
-                </div>
-                
-                <div>
-                  <%= label_tag "location_#{index}_address", "Adresse", class: "block text-xs font-medium text-gray-700 mb-1" %>
-                  <%= text_field_tag "location_#{index}_address", location[:address], class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm" %>
-                </div>
-                
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <%= label_tag "location_#{index}_postal_code", "Code postal", class: "block text-xs font-medium text-gray-700 mb-1" %>
-                    <%= text_field_tag "location_#{index}_postal_code", location[:postal_code], class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm" %>
-                  </div>
-                  <div>
-                    <%= label_tag "location_#{index}_city", "Ville", class: "block text-xs font-medium text-gray-700 mb-1" %>
-                    <%= text_field_tag "location_#{index}_city", location[:city], class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm" %>
-                  </div>
-                </div>
-                
-                <div>
-                  <%= label_tag "location_#{index}_notes", "Notes (optionnel)", class: "block text-xs font-medium text-gray-700 mb-1" %>
-                  <%= text_area_tag "location_#{index}_notes", location[:notes], rows: 2, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm", placeholder: "Instructions d'accès, disponibilité du garage, etc." %>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-
-        <!-- Add New Location Button -->
-        <button type="button" class="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-green-500 hover:text-green-600 font-medium inline-flex items-center justify-center transition">
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-          </svg>
-          Ajouter un nouveau lieu de service
-        </button>
-
-        <hr class="my-8 border-gray-200">
-
         <!-- Reminder Toggle -->
         <h3 class="text-lg font-bold text-gray-900">Préférences de notification</h3>
         <p class="text-sm text-gray-600 mb-4">Gérez vos préférences de rappels automatiques</p>
@@ -251,14 +193,14 @@
           <%= f.password_field :password_confirmation, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", autocomplete: "new-password" %>
         </div>
 
-        <div class="flex space-x-4 pt-4">
-          <button type="submit" class="w-80 bg-red-hero hover:bg-red-dark text-white px-8 py-3 rounded-lg font-bold cursor-pointer inline-flex items-center justify-center">
+        <div class="flex flex-col sm:flex-row gap-3 pt-4">
+          <button type="submit" class="w-full sm:w-80 bg-red-hero hover:bg-red-dark text-white px-8 py-3 rounded-lg font-bold cursor-pointer inline-flex items-center justify-center">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             Enregistrer les modifications
           </button>
-          <%= link_to client_profile_path, class: "w-56 bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-3 rounded-lg font-bold text-center inline-flex items-center justify-center" do %>
+          <%= link_to client_profile_path, class: "w-full sm:w-56 bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-3 rounded-lg font-bold text-center inline-flex items-center justify-center" do %>
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
