@@ -91,6 +91,10 @@ class User < ApplicationRecord
   # CGU acceptance validation (required only for user self-registration)
   validates :cgu_accepted, acceptance: { message: "Vous devez accepter les conditions d'utilisation" }, on: :create
 
+  # First name and last name are required only for clients (on create)
+  validates :first_name, presence: { message: "Le prénom est obligatoire" }, if: -> { client? }, on: :create
+  validates :last_name, presence: { message: "Le nom est obligatoire" }, if: -> { client? }, on: :create
+
   # Role check methods (case-insensitive)
   def client?
     role.present? && role.downcase == "client"
