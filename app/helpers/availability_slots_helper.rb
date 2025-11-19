@@ -20,3 +20,4 @@ module AvailabilitySlotsHelper
   end
 end
 
+
