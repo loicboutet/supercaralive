@@ -152,18 +152,24 @@
           <div class="bg-white border border-gray-200 rounded-lg p-4">
             <h4 class="font-bold text-gray-900 mb-3">Disponibilités</h4>
             <div class="space-y-2 text-sm">
-              <div class="flex items-center justify-between">
-                <span class="text-gray-600">Lundi - Vendredi</span>
-                <span class="font-medium text-gray-900">8h - 18h</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-gray-600">Samedi</span>
-                <span class="font-medium text-gray-900">9h - 13h</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-gray-600">Dimanche</span>
-                <span class="text-red-600">Fermé</span>
-              </div>
+              <% 
+                day_names = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+                (0..6).each do |day_of_week|
+                  day_availabilities = @availabilities_by_day[day_of_week] || []
+              %>
+                <div class="flex items-start justify-between">
+                  <span class="text-gray-600"><%= day_names[day_of_week] %></span>
+                  <% if day_availabilities.any? %>
+                    <div class="flex flex-col items-end gap-0.5">
+                      <% day_availabilities.each do |availability| %>
+                        <span class="font-medium text-gray-900"><%= availability.formatted_time_range %></span>
+                      <% end %>
+                    </div>
+                  <% else %>
+                    <span class="text-red-600">Fermé</span>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
           </div>
 

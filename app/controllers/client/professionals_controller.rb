@@ -69,7 +69,7 @@ class Client::ProfessionalsController < Client::BaseController
   end
 
   def show
-    @professional = User.includes(:specialties).find_by(id: params[:id], role: "Professional")
+    @professional = User.includes(:specialties, :availabilities).find_by(id: params[:id], role: "Professional")
     
     unless @professional&.active?
       redirect_to client_professionals_path, alert: "Ce professionnel n'est pas disponible."
@@ -78,6 +78,9 @@ class Client::ProfessionalsController < Client::BaseController
     
     # Get active professional services
     @professional_services = @professional.professional_services.active.includes(:services).order(created_at: :desc)
+    
+    # Group availabilities by day of week
+    @availabilities_by_day = @professional.availabilities.ordered_by_day.group_by(&:day_of_week)
   end
 
   def availability
