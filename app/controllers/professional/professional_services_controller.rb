@@ -125,7 +125,7 @@ class Professional::ProfessionalServicesController < Professional::BaseControlle
   end
 
   def professional_service_params
-    params.require(:professional_service).permit(
+    permitted = params.require(:professional_service).permit(
       :name, 
       :price, 
       :duration_minutes, 
@@ -138,5 +138,15 @@ class Professional::ProfessionalServicesController < Professional::BaseControlle
       :travel_per_km_rate,
       service_ids: []
     )
+    
+    # Normalize empty strings to nil for optional fields
+    permitted[:travel_pricing_type] = nil if permitted[:travel_pricing_type].blank?
+    permitted[:travel_flat_rate] = nil if permitted[:travel_flat_rate].blank?
+    permitted[:travel_per_km_rate] = nil if permitted[:travel_per_km_rate].blank?
+    permitted[:pricing_type] = nil if permitted[:pricing_type].blank?
+    permitted[:flat_rate_price] = nil if permitted[:flat_rate_price].blank?
+    permitted[:hourly_rate_price] = nil if permitted[:hourly_rate_price].blank?
+    
+    permitted
   end
 end
