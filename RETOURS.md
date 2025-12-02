@@ -28,9 +28,11 @@
   - ✅ Résolu : Select custom créé avec affichage détaillé de chaque service (nom, types de services, durée, prix, prix de déplacement) quand déplié
 
 ### Logo et identité visuelle
-- [ ] **Suppression du logo vignette** - Supprimer le logo vignette de chaque onglet et pour le portail admin
-- [ ] **Logo sur les pages de connexion** - Le logo n'est pas supprimé sur les pages de connexion. Vous pouvez juste ajouter SUPERCARALIVE avec le code couleur habituel.
+- [x] **Suppression du logo vignette** - Supprimer le logo vignette de chaque onglet et pour le portail admin
+  - ✅ Résolu : Favicons supprimées des layouts admin, professional et client. Logo supprimé des sidebars admin (desktop et mobile) et remplacé par "SupercarAlive" (Supercar en blanc, Alive en jaune pour la sidebar admin)
+- [x] **Logo sur les pages de connexion** - Le logo n'est pas supprimé sur les pages de connexion. Vous pouvez juste ajouter SUPERCARALIVE avec le code couleur habituel.
   - URL concernée : https://supercaralive.5000.dev/client
+  - ✅ Résolu : Ajout de "SupercarAlive" (Supercar en noir, Alive en rouge) sous les logos sur les pages sign in, mot de passe oublié et créer un compte
 
 ### Paramétrage admin
 - [ ] **Lien "Contacter le support" paramétrable** - Le lien "Contacter le support" devrait être paramétrable côté admin pour intégrer WhatsApp par exemple.
