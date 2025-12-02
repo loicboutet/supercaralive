@@ -109,8 +109,9 @@
   - ✅ Résolu : Création du modèle `AppConfig` avec les champs `terms_of_service` et `privacy_policy`. Éditeur markdown intégré dans `/admin/app_config/edit` avec barre d'outils (titres, gras, italique, listes, liens) et aperçu en temps réel. Le contenu markdown est converti en HTML pour l'affichage sur les pages publiques `/pages/cgu` et `/pages/confidentiality`. La date de mise à jour est basée sur `updated_at` de AppConfig.
 
 ### Statuts professionnel
-- [ ] **Différence entre "Approuvé" et "Vérifié"** - Quelle est la différence entre le statut "Approuvé" et "Vérifié" ? Vérifié c'est manuellement et approuvé c'est quand il y aura de l'automatisation ?
+- [x] **Différence entre "Approuvé" et "Vérifié"** - Quelle est la différence entre le statut "Approuvé" et "Vérifié" ? Vérifié c'est manuellement et approuvé c'est quand il y aura de l'automatisation ?
   - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
+  - ✅ Résolu : Après analyse du code, "Vérifié" et "Approuvé" font référence au même statut dans la base de données (`status: "active"`). Il n'existe pas de statut distinct "vérifié" dans le modèle User. Pour éviter la confusion côté administrateur, tous les libellés "Vérifiés" ont été remplacés par "Actifs" dans les pages admin (`admin/professional_approvals/index.html.erb` et `admin/users/index.html.erb`). Le terme "Vérifié" est conservé côté client et professionnel car il représente simplement une indication que le compte a été validé par un administrateur.
 
 ### Services admin
 - [ ] **Affichage des prérequis/matériel nécessaire** - Pour cette page, les infos renseignées dans "Prérequis / Matériel nécessaire" pour chaque spécialité doivent se retrouver sur cette page c'est bien ça ? => https://supercaralive.5000.dev/client/professionals/3
