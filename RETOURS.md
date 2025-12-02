@@ -69,11 +69,16 @@
   - ✅ Résolu : L'adresse d'intervention s'affiche maintenant dans la vue professionnel bookings/show uniquement si le statut est "accepted" ou "completed".
 
 ### Véhicules client
-- [ ] **Impossible d'ajouter un véhicule** - Je n'arrive pas à ajouter de véhicule.
+- [x] **Impossible d'ajouter un véhicule** - Je n'arrive pas à ajouter de véhicule.
   - URL concernée : https://supercaralive.5000.dev/client/vehicles/new
+  - ✅ Résolu : Mise en clarté des champs requis pour pouvoir créer son véhicule :
+    - Ajout d'astérisques rouges (*) sur les labels des champs requis (Marque, Modèle, Année, Kilométrage)
+    - Ajout de l'attribut `required: true` sur les champs requis pour la validation front-end
+    - Amélioration de l'affichage des erreurs de validation avec bordure rouge et messages d'erreur spécifiques sous chaque champ
 
-- [ ] **Bouton "Ajouter mon véhicule" en double** - Il y a 2 fois le bouton "Ajouter mon véhicule".
+- [x] **Bouton "Ajouter mon véhicule" en double** - Il y a 2 fois le bouton "Ajouter mon véhicule".
   - URL concernée : https://supercaralive.5000.dev/client/vehicles
+  - ✅ Résolu : Suppression du doublon de bouton. Le bouton "Ajouter un véhicule" en haut de page n'apparaît maintenant que s'il y a déjà des véhicules enregistrés. Quand il n'y a aucun véhicule, seul le bouton "Ajouter mon premier véhicule" dans la section vide s'affiche.
 
 ---
 
