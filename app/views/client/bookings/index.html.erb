@@ -92,12 +92,14 @@
                     </svg>
                     <%= booking.scheduled_at&.strftime("%d/%m/%Y à %H:%M") %>
                   </span>
-                  <span class="flex items-center">
-                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    <%= booking.vehicle_model %>
-                  </span>
+                  <% if booking.vehicle_model.present? %>
+                    <span class="flex items-center">
+                      <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      <%= booking.vehicle_model %>
+                    </span>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -171,7 +173,7 @@
     </div>
 
     <!-- Pagination -->
-    <% if @pagy.pages > 1 %>
+    <% if @pagy.present? && @pagy.pages > 1 %>
       <div class="mt-8">
         <%= pagy_nav_supercaralive(@pagy, params: request.query_parameters) %>
       </div>

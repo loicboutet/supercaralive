@@ -49,8 +49,15 @@
   - ✅ Résolu : Modification des jobs de rappel (ClientBookingRemindersJob et ProfessionalBookingRemindersJob) pour envoyer les rappels 1 jour avant au lieu de 7 jours. Mise à jour des textes dans les vues et mailers pour refléter ce changement.
 
 ### Réservations client
-- [ ] **Erreur 500 sur "mes réservations"** - Quand je clique sur "mes réservations" j'ai une erreur 500 alors que j'ai une résa en attente. Je ne pense pas que ça soit le fonctionnement attendu.
+- [x] **Erreur 500 sur "mes réservations"** - Quand je clique sur "mes réservations" j'ai une erreur 500 alors que j'ai une résa en attente. Je ne pense pas que ça soit le fonctionnement attendu.
   - URL concernée : https://supercaralive.5000.dev/client/bookings
+  - ✅ Résolu : Correction de plusieurs problèmes potentiels :
+    - Ajout de la méthode `reviewed?` manquante dans le modèle Booking
+    - Protection de `professional_name` contre les valeurs nil
+    - Protection de `service_type_name` contre les valeurs nil
+    - Protection de `vehicle_model` contre les valeurs nil (brand, model, year)
+    - Protection de la pagination contre les valeurs nil
+    - Utilisation de `vehicle_model` dans le dashboard au lieu d'accès direct aux attributs
 
 ### Nouvelle réservation
 - [ ] **Encart adresse précise d'intervention** - Sur une nouvelle résa, pas d'encart pour indiquer l'adresse précise d'intervention (avec encart de rappel pour indiquer que l'intervention peut avoir lieu ailleurs que chez soi). On avait travaillé les encarts adresses 1 et 2 (principales…), avec le laïus qui va bien.

@@ -88,16 +88,26 @@ class Booking < ApplicationRecord
   after_create :create_chat_if_client_booking
 
   def professional_name
+    return "Professionnel supprimé" unless professional.present?
     professional.company_name.presence || professional.get_full_name
   end
 
   def vehicle_model
     return nil unless vehicle.present?
-    "#{vehicle.brand} #{vehicle.model} (#{vehicle.year})"
+    brand = vehicle.brand.presence || "Marque inconnue"
+    model = vehicle.model.presence || "Modèle inconnu"
+    year = vehicle.year.present? ? vehicle.year : "Année inconnue"
+    "#{brand} #{model} (#{year})"
   end
 
   def service_type_name
+    return "Service supprimé" unless professional_service.present?
     professional_service.name
+  end
+
+  def reviewed?
+    # Placeholder method - reviews feature not yet implemented
+    false
   end
 
   private
