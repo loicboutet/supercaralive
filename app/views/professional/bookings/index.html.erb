@@ -101,8 +101,19 @@
                 <div class="flex-1">
                   <div class="flex flex-wrap items-center gap-2 mb-2">
                     <h3 class="text-xl font-bold text-gray-900"><%= booking.professional_service.name %></h3>
-                    <span class="px-3 py-1 rounded-lg text-xs font-medium <%= booking_status_style[:badge_bg] %> <%= booking_status_style[:badge_text] %>">
-                      <%= booking_status_style[:label] %>
+                    <% 
+                      # Check if date is past for this booking
+                      booking_date_passed = booking_date_passed?(booking)
+                      display_label = if booking.status == 'pending' && booking_date_passed
+                        'Date passée'
+                      else
+                        booking_status_style[:label]
+                      end
+                      display_badge_bg = booking.status == 'pending' && booking_date_passed ? 'bg-orange-100' : booking_status_style[:badge_bg]
+                      display_badge_text = booking.status == 'pending' && booking_date_passed ? 'text-orange-800' : booking_status_style[:badge_text]
+                    %>
+                    <span class="px-3 py-1 rounded-lg text-xs font-medium <%= display_badge_bg %> <%= display_badge_text %>">
+                      <%= display_label %>
                     </span>
                     <% if booking.manual? %>
                       <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700" title="Création manuelle">
@@ -172,7 +183,20 @@
               </div>
             </div>
             <div class="flex flex-col sm:flex-row gap-2 pt-4 border-t border-gray-200">
-              <% if booking.status == 'pending' || booking.status == 'refused' %>
+              <% 
+                # Check if date is past for this booking
+                booking_date_passed = booking_date_passed?(booking)
+              %>
+              <% if booking_date_passed && booking.status != 'completed' && booking.status != 'cancelled' && booking.status != 'refused' %>
+                <%= button_to complete_professional_booking_path(booking), method: :patch, 
+                    form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },
+                    class: "bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" do %>
+                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  Terminer
+                <% end %>
+              <% elsif !booking_date_passed && (booking.status == 'pending' || booking.status == 'refused') %>
                 <%= button_to accept_professional_booking_path(booking), method: :patch, 
                     class: "bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" do %>
                   <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -186,16 +210,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                   </svg>
                   Refuser
-                <% end %>
-              <% end %>
-              <% if booking.status != 'completed' && booking.status != 'cancelled' && booking.status != 'refused' && booking.scheduled_at.present? && booking.scheduled_at < Time.current %>
-                <%= button_to complete_professional_booking_path(booking), method: :patch, 
-                    form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },
-                    class: "bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" do %>
-                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  Terminer
                 <% end %>
               <% end %>
               <% if booking.chat.present? %>

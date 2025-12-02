@@ -105,8 +105,14 @@
                         </p>
                       </div>
                     </div>
-                    <span class="bg-yellow-50 text-yellow-800 px-3 py-1 rounded-friendly text-xs font-medium self-start">
-                      En attente
+                    <% 
+                      booking_date_passed = booking_date_passed?(booking)
+                      status_label = booking_date_passed ? 'Date passée' : 'En attente'
+                      status_bg = booking_date_passed ? 'bg-orange-50' : 'bg-yellow-50'
+                      status_text = booking_date_passed ? 'text-orange-800' : 'text-yellow-800'
+                    %>
+                    <span class="<%= status_bg %> <%= status_text %> px-3 py-1 rounded-friendly text-xs font-medium self-start">
+                      <%= status_label %>
                     </span>
                   </div>
                   <div class="flex flex-wrap items-center text-sm text-gray-600 gap-4">
@@ -128,15 +134,27 @@
                     <span>💰 €<%= price_display %></span>
                   </div>
                   <div class="mt-3 flex flex-col sm:flex-row gap-2">
-                    <%= button_to accept_professional_booking_path(booking), method: :patch, 
-                        data: { turbo: false },
-                        class: "bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full sm:w-auto" do %>
-                      ✓ Accepter
-                    <% end %>
-                    <%= button_to refuse_professional_booking_path(booking), method: :patch, 
-                        data: { turbo: false },
-                        class: "bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-lg text-sm font-medium transition w-full sm:w-auto" do %>
-                      ✗ Refuser
+                    <% 
+                      booking_date_passed = booking_date_passed?(booking)
+                    %>
+                    <% if booking_date_passed && booking.status != 'completed' && booking.status != 'cancelled' && booking.status != 'refused' %>
+                      <%= button_to complete_professional_booking_path(booking), method: :patch,
+                          data: { turbo: false },
+                          form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },
+                          class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full sm:w-auto" do %>
+                        ✓ Terminer
+                      <% end %>
+                    <% elsif !booking_date_passed %>
+                      <%= button_to accept_professional_booking_path(booking), method: :patch, 
+                          data: { turbo: false },
+                          class: "bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full sm:w-auto" do %>
+                        ✓ Accepter
+                      <% end %>
+                      <%= button_to refuse_professional_booking_path(booking), method: :patch, 
+                          data: { turbo: false },
+                          class: "bg-red-100 hover:bg-red-200 text-red-800 px-4 py-2 rounded-lg text-sm font-medium transition w-full sm:w-auto" do %>
+                        ✗ Refuser
+                      <% end %>
                     <% end %>
                     <%= link_to professional_booking_path(booking), class: "text-blue-hero font-medium hover:underline text-sm text-center sm:text-left" do %>
                       Voir détails →

@@ -1,7 +1,15 @@
 <% 
+  # Calculate duration and end time
+  duration_minutes = @booking.professional_service.duration_minutes || 60
+  start_time = @booking.scheduled_at
+  end_time = start_time + duration_minutes.minutes if start_time
+  
+  # Check if date is past (considering service duration)
+  date_passed = start_time.present? && end_time.present? && end_time < Time.current
+  
   # Status configuration
   status_config = {
-    'pending' => { badge_bg: 'bg-yellow-100', badge_text: 'text-yellow-800', label: 'En attente de confirmation' },
+    'pending' => { badge_bg: 'bg-yellow-100', badge_text: 'text-yellow-800', label: date_passed ? 'Date passée' : 'En attente de confirmation' },
     'accepted' => { badge_bg: 'bg-blue-100', badge_text: 'text-blue-800', label: 'Acceptée' },
     'refused' => { badge_bg: 'bg-red-100', badge_text: 'text-red-800', label: 'Refusée' },
     'cancelled' => { badge_bg: 'bg-gray-100', badge_text: 'text-gray-800', label: 'Annulée' },
@@ -9,11 +17,6 @@
   }
   status_config_default = { badge_bg: 'bg-gray-100', badge_text: 'text-gray-800', label: @booking.status }
   status_style = status_config[@booking.status] || status_config_default
-  
-  # Calculate duration and end time
-  duration_minutes = @booking.professional_service.duration_minutes || 60
-  start_time = @booking.scheduled_at
-  end_time = start_time + duration_minutes.minutes if start_time
   
   # Format date
   day_names = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
@@ -339,20 +342,31 @@
         <div class="bg-white rounded-super p-6 shadow-sm">
           <h3 class="text-lg font-bold text-gray-900 mb-4">Actions</h3>
           <div class="space-y-2">
-            <% unless @booking.accepted? %>
-              <%= button_to accept_professional_booking_path(@booking), method: :patch, class: "w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-bold flex items-center justify-center" do %>
+            <% if date_passed && @booking.status != 'completed' && @booking.status != 'cancelled' && @booking.status != 'refused' %>
+              <%= button_to complete_professional_booking_path(@booking), method: :patch, 
+                  form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },
+                  class: "w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg font-bold flex items-center justify-center" do %>
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                Accepter la réservation
+                Terminer la réservation
               <% end %>
-            <% end %>
-            <% unless @booking.refused? %>
-              <%= button_to refuse_professional_booking_path(@booking), method: :patch, class: "w-full bg-red-100 hover:bg-red-200 text-red-800 px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-                Refuser
+            <% else %>
+              <% unless @booking.accepted? || date_passed %>
+                <%= button_to accept_professional_booking_path(@booking), method: :patch, class: "w-full bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg font-bold flex items-center justify-center" do %>
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  Accepter la réservation
+                <% end %>
+              <% end %>
+              <% unless @booking.refused? || date_passed %>
+                <%= button_to refuse_professional_booking_path(@booking), method: :patch, class: "w-full bg-red-100 hover:bg-red-200 text-red-800 px-4 py-3 rounded-lg font-medium flex items-center justify-center" do %>
+                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                  Refuser
+                <% end %>
               <% end %>
             <% end %>
           </div>

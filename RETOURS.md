@@ -11,9 +11,6 @@
 - [x] **Numéros de téléphone** - Pourquoi est-ce que je ne peux pas avoir accès aux numéros de téléphone enregistrés dans le système ?
   - ✅ Résolu : Ajout de l'affichage du numéro de téléphone dans la page show des utilisateurs (admin/users/:id), visible même s'il n'est pas renseigné (affiche "Non renseigné")
 
-### CGV et politique de confidentialité
-- [ ] **Mise à jour des CGV et politique de confidentialité** - Comment procéder pour les mettre à jour ? Lien avec les pages développées par Simplébeau ?
-
 ---
 
 ## 🌐 Retours site
@@ -22,10 +19,7 @@
 - [ ] **Ajout du Détailing dans les choix de services** - Sur l'ensemble du site, dès qu'un service (Mécanique, Carrossier, Lavage) est à choisir, il manque le Détailing.
   - URLs concernées : Toutes les pages avec sélection de services
   - URL spécifique : https://supercaralive.5000.dev/client/professionals
-
-- [x] **Amélioration du select de service dans les réservations** - Création d'un select custom avec contrôleur Stimulus pour afficher toutes les informations du service (nom, description via services associés, durée, prix, prix de déplacement) dans les options dépliées.
-  - URL concernée : https://supercaralive.5000.dev/client/bookings/new
-  - ✅ Résolu : Select custom créé avec affichage détaillé de chaque service (nom, types de services, durée, prix, prix de déplacement) quand déplié
+- ✅ Résolu : Select custom créé avec affichage détaillé de chaque service (nom, types de services, durée, prix, prix de déplacement) quand déplié
 
 ### Logo et identité visuelle
 - [x] **Suppression du logo vignette** - Supprimer le logo vignette de chaque onglet et pour le portail admin
@@ -35,16 +29,15 @@
   - ✅ Résolu : Ajout de "SupercarAlive" (Supercar en noir, Alive en rouge) sous les logos sur les pages sign in, mot de passe oublié et créer un compte
 
 ### Paramétrage admin
-- [ ] **Lien "Contacter le support" paramétrable** - Le lien "Contacter le support" devrait être paramétrable côté admin pour intégrer WhatsApp par exemple.
-  - URL concernée : https://supercaralive.5000.dev/client/professionals
 
 ### Calendrier professionnel
 - [ ] **Flexibilité du calendrier** - Le calendrier est limité par jour, par exemple j'ajoute un créneau le lundi et cela impacte tous les lundis. Je pensais qu'il y avait plus de flexibilité dans la gestion de l'agenda et qu'il pouvait être modifié de façon journalière et non pas une duplication exacte de la même journée chaque semaine.
   - URL concernée : https://supercaralive.5000.dev/professional/availability_slots
 
 ### Réservations professionnel
-- [ ] **Boutons Accepter/Refuser sur prestation terminée** - Sur la page de réservation, la prestation est terminée et on a encore les 2 boutons "Accepter" et "Refuser". Je pense que ça n'est pas le fonctionnement attendu.
+- [x] **Boutons Accepter/Refuser sur prestation terminée** - Sur la page de réservation, la prestation est terminée et on a encore les 2 boutons "Accepter" et "Refuser". Je pense que ça n'est pas le fonctionnement attendu.
   - URL concernée : https://supercaralive.5000.dev/professional/bookings/2
+  - ✅ Résolu : Les boutons Accepter/Refuser ne s'affichent plus si la date est passée. Seul le bouton "Terminer" est disponible. Le statut "En attente" devient "Date passée" si la date est passée.
 
 - [ ] **Bouton Refuser sur prestation créée manuellement** - Sur cette page, la prestation a été créée manuellement et on a le bouton "refuser". Je ne sais pas si c'est normal.
   - URL concernée : https://supercaralive.5000.dev/professional/bookings/1
@@ -100,4 +93,23 @@
   Il faudrait donc que ce qui est renseigné dans l'admin pour chaque spécialité puisse se retrouver à la suite de "diagnostic électrique" par exemple => "Diagnostic électrique : pré-requis = avoir accès à l'électricité" "Peinture : pré-requis = avoir accès à un lieu à l'abri du vent".
   - URL admin : https://supercaralive.5000.dev/admin/services/new
   - URL client : https://supercaralive.5000.dev/client/professionals/3
+
+---
+
+## ❓ Questions / À décider
+
+### Paramétrage contact
+- [ ] **Lien "Contacter le support" paramétrable** - Le lien "Contacter le support" devrait être paramétrable côté admin pour intégrer WhatsApp par exemple.
+  - URL concernée : https://supercaralive.5000.dev/client/professionals
+  - **Question** : Actuellement configuré avec `Rails.application.credentials.support_email`. Est-ce qu'on devrait créer un objet (modèle Setting/Configuration) pour le rendre paramétrable côté admin, ou garder les credentials ?
+  - **Utilisation actuelle** : Utilisé dans plusieurs endroits via le helper `support_email` (pages profil, factures, contact, statuts de compte, etc.)
+
+### CGV et politique de confidentialité
+- [ ] **Mise à jour des CGV et politique de confidentialité** - Comment procéder pour les mettre à jour ? Lien avec les pages développées par Simplébeau ?
+  - **Question** : Comment s'organisent habituellement les CGV/CGU ? Est-ce que je dois en faire un objet contrôlable côté admin ?
+  - **Situation actuelle** : Les CGV et la politique de confidentialité sont dans des vues statiques (`app/views/pages/cgu.html.erb` et `app/views/pages/confidentiality.html.erb`). La date de mise à jour est codée en dur (`Date.today.strftime("%d/%m/%Y")`).
+  - **Options possibles** :
+    - Créer un modèle `LegalDocument` avec `document_type` (cgu, cgv, privacy_policy), `content` (text), `version`, `published_at`
+    - Garder les vues statiques mais permettre l'édition via un éditeur WYSIWYG côté admin
+    - Utiliser un système de versioning pour tracer les modifications
 

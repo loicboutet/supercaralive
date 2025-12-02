@@ -123,4 +123,13 @@ module ApplicationHelper
   def support_email
     Rails.application.credentials.support_email
   end
+
+  # Helper to check if booking date is past (considering service duration)
+  # Usage: <%= booking_date_passed?(@booking) %>
+  def booking_date_passed?(booking)
+    return false unless booking.scheduled_at.present?
+    duration_minutes = booking.professional_service&.duration_minutes || 60
+    end_time = booking.scheduled_at + duration_minutes.minutes
+    end_time < Time.current
+  end
 end
