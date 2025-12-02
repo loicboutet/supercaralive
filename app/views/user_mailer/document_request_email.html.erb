@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #f59e0b;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+      }
+      .content {
+        background-color: #ffffff;
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+        border-top: none;
+      }
+      .alert-box {
+        background-color: #fef3c7;
+        border-left: 4px solid #f59e0b;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .notes-box {
+        background-color: #f9fafb;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+        border-left: 4px solid #3b82f6;
+      }
+      .button {
+        display: inline-block;
+        background-color: #f59e0b;
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #6b7280;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Demande de documents complémentaires</h1>
+    </div>
+    
+    <div class="content">
+      <p>Bonjour <%= @user.first_name.present? ? @user.first_name : @user.email %>,</p>
+      
+      <div class="alert-box">
+        <p><strong>⏰ Action requise</strong></p>
+        <p>Votre demande d'inscription nécessite des documents complémentaires avant validation.</p>
+      </div>
+      
+      <div class="notes-box">
+        <p><strong>Documents à fournir :</strong></p>
+        <p style="white-space: pre-wrap;"><%= @notes %></p>
+      </div>
+      
+      <p>Veuillez vous connecter à votre compte et ajouter les documents demandés dans la section "Mes documents".</p>
+      
+      <p style="text-align: center;">
+        <a href="<%= professional_verification_documents_url %>" class="button">Accéder à mes documents</a>
+      </p>
+      
+      <p>Une fois les documents complémentaires fournis, votre demande sera réexaminée.</p>
+      
+      <p>Cordialement,<br>L'équipe SuperCarAlive</p>
+    </div>
+    
+    <div class="footer">
+      <p>© <%= Date.current.year %> SuperCarAlive. Tous droits réservés.</p>
+    </div>
+  </body>
+</html>
+

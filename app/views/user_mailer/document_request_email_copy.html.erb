@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #6b7280;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px 8px 0 0;
+      }
+      .content {
+        background-color: #ffffff;
+        padding: 30px;
+        border: 1px solid #e5e7eb;
+        border-top: none;
+      }
+      .info-box {
+        background-color: #f3f4f6;
+        border-left: 4px solid #6b7280;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+      }
+      .notes-box {
+        background-color: #f9fafb;
+        padding: 15px;
+        border-radius: 6px;
+        margin: 20px 0;
+        border-left: 4px solid #3b82f6;
+      }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #6b7280;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Copie - Demande de documents complémentaires</h1>
+    </div>
+    
+    <div class="content">
+      <p>Bonjour,</p>
+      
+      <div class="info-box">
+        <p><strong>📋 Copie de la demande envoyée</strong></p>
+        <p>Vous recevez cette copie de la demande de documents complémentaires envoyée à :</p>
+        <p><strong><%= @user.get_full_name %></strong> (<%= @user.email %>)</p>
+      </div>
+      
+      <div class="notes-box">
+        <p><strong>Documents demandés :</strong></p>
+        <p style="white-space: pre-wrap;"><%= @notes %></p>
+      </div>
+      
+      <p>Cette demande a été envoyée le <%= Time.current.strftime("%d/%m/%Y à %H:%M") %>.</p>
+      
+      <p>Cordialement,<br>SuperCarAlive</p>
+    </div>
+    
+    <div class="footer">
+      <p>© <%= Date.current.year %> SuperCarAlive. Tous droits réservés.</p>
+      <p style="font-size: 11px; color: #9ca3af;">Cet email est une copie automatique de la demande envoyée au professionnel.</p>
+    </div>
+  </body>
+</html>
+

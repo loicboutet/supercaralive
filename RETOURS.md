@@ -93,8 +93,9 @@
   - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
   - ✅ Résolu : Les boutons "Approuver" et "Refuser" ne s'affichent plus si le professionnel a déjà été approuvé (statut "active") ou refusé (statut "suspended"). À la place, un message informatif s'affiche indiquant la décision prise et la date de la décision.
 
-- [ ] **Bouton "Demande de documents" avec notes** - Il serait opportun d'avoir un bouton "Demande de documents" avec un encart "Notes" pour détailler les pièces attendues/documents et que cela fasse partir un message en automatique au professionnel. Si c'est possible ?
+- [x] **Bouton "Demande de documents" avec notes** - Il serait opportun d'avoir un bouton "Demande de documents" avec un encart "Notes" pour détailler les pièces attendues/documents et que cela fasse partir un message en automatique au professionnel. Si c'est possible ?
   - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
+  - ✅ Résolu : Un bouton "Demande de documents" a été ajouté à côté des boutons "Approuver" et "Refuser" sur la page d'approbation professionnelle. Ce bouton ouvre une modale avec un champ de notes obligatoire et une option pour recevoir une copie de l'email. Lors de la soumission, un email est envoyé au professionnel avec les notes demandées, et une notice de confirmation s'affiche.
 
 ### Paramétrage contact
 - [ ] **Modification des informations "Contact"** - Je pensais que ce serait dans l'admin que je pourrais modifier les informations de "Contact" pour paramétrer les informations de contact sur chaque bouton du site. Sinon où puis-je le faire ?

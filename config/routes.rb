@@ -174,6 +174,9 @@ Rails.application.routes.draw do
     # Professional approval workflow
     resources :professional_approvals, only: [:index, :show] do
       member do
+        post :request_documents
+      end
+      member do
         patch :approve
         patch :reject
         patch :update_notes

@@ -1,7 +1,7 @@
 class Admin::ProfessionalApprovalsController < ApplicationController
   layout 'admin'
   before_action :require_admin
-  before_action :set_user, only: [:show, :approve, :reject, :update_notes]
+  before_action :set_user, only: [:show, :approve, :reject, :update_notes, :request_documents]
 
   # GET /admin/professional_approvals
   def index
@@ -97,6 +97,41 @@ class Admin::ProfessionalApprovalsController < ApplicationController
     else
       respond_to do |format|
         format.json { render json: { status: "error", errors: @user.errors.full_messages }, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # POST /admin/professional_approvals/:id/request_documents
+  def request_documents
+    notes = params[:notes]&.strip
+    # Checkbox sends "1" when checked, "0" when unchecked, or may be absent
+    send_copy_to_admin = params[:send_copy_to_admin].present? && params[:send_copy_to_admin] != "0"
+    
+    if notes.blank?
+      respond_to do |format|
+        format.html { redirect_to admin_professional_approval_path(@user), alert: "Les notes sont obligatoires." }
+        format.json { render json: { status: "error", errors: ["Les notes sont obligatoires."] }, status: :unprocessable_entity }
+      end
+      return
+    end
+
+    begin
+      # Send email to professional
+      UserMailer.document_request_email(@user, notes).deliver_now
+      
+      # Send copy to admin if requested
+      if send_copy_to_admin
+        UserMailer.document_request_email_copy(@user, notes, current_user.email).deliver_now
+      end
+      
+      respond_to do |format|
+        format.html { redirect_to admin_professional_approval_path(@user), notice: "✅ La demande de documents a été envoyée avec succès#{send_copy_to_admin ? ' (copie envoyée à votre adresse email)' : ''}." }
+        format.json { render json: { status: "success", message: "Demande de documents envoyée avec succès." } }
+      end
+    rescue => e
+      respond_to do |format|
+        format.html { redirect_to admin_professional_approval_path(@user), alert: "Erreur lors de l'envoi de l'email : #{e.message}" }
+        format.json { render json: { status: "error", errors: [e.message] }, status: :unprocessable_entity }
       end
     end
   end
