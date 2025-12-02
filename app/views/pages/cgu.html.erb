@@ -6,126 +6,23 @@
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Conditions Générales d'Utilisation
         </h1>
-        <p class="text-gray-600">
-          Dernière mise à jour : <%= Date.today.strftime("%d/%m/%Y") %>
-        </p>
+        <% app_config = AppConfig.instance %>
+        <% if app_config.terms_of_service.present? && app_config.updated_at.present? %>
+          <p class="text-gray-600">
+            Dernière mise à jour : <%= app_config.updated_at.strftime("%d/%m/%Y") %>
+          </p>
+        <% end %>
       </div>
 
       <!-- Content -->
-      <div class="prose prose-lg max-w-none">
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Objet</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Les présentes Conditions Générales d'Utilisation (ci-après "CGU") ont pour objet de définir les conditions et modalités d'utilisation de la plateforme Supercaralive, ainsi que les droits et obligations des parties dans ce cadre.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            Elles constituent un contrat entre Supercaralive et l'utilisateur. L'accès et l'utilisation de la plateforme impliquent l'acceptation pleine et entière des présentes CGU.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">2. Définitions</h2>
-          <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li><strong>Plateforme</strong> : désigne le site internet et l'application mobile Supercaralive</li>
-            <li><strong>Utilisateur</strong> : toute personne accédant et utilisant la plateforme</li>
-            <li><strong>Client</strong> : utilisateur particulier recherchant des services automobiles</li>
-            <li><strong>Professionnel</strong> : utilisateur professionnel proposant des services automobiles</li>
-            <li><strong>Service</strong> : toute prestation proposée par un Professionnel via la plateforme</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">3. Acceptation des CGU</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            L'utilisation de la plateforme Supercaralive implique l'acceptation sans réserve des présentes CGU. En cas de non-acceptation, l'utilisateur est invité à ne pas utiliser la plateforme.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            Supercaralive se réserve le droit de modifier les présentes CGU à tout moment. Les modifications sont applicables dès leur publication sur la plateforme. Il est recommandé de consulter régulièrement cette page.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">4. Accès à la plateforme</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            L'accès à la plateforme est gratuit. Toutefois, les frais de connexion (internet, téléphonie) restent à la charge de l'utilisateur.
-          </p>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Supercaralive se réserve le droit de :
-          </p>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li>Modifier, suspendre ou interrompre l'accès à tout ou partie de la plateforme</li>
-            <li>Refuser l'accès à la plateforme à tout utilisateur ne respectant pas les présentes CGU</li>
-            <li>Prendre toutes mesures nécessaires pour assurer le bon fonctionnement de la plateforme</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">5. Inscription et compte utilisateur</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Pour utiliser certains services de la plateforme, l'utilisateur doit créer un compte en fournissant des informations exactes, complètes et à jour.
-          </p>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            L'utilisateur s'engage à :
-          </p>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li>Fournir des informations exactes et sincères</li>
-            <li>Mettre à jour ses informations en cas de modification</li>
-            <li>Conserver la confidentialité de ses identifiants de connexion</li>
-            <li>Notifier immédiatement Supercaralive en cas d'utilisation non autorisée de son compte</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">6. Services proposés</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Supercaralive met en relation des Clients et des Professionnels pour la réalisation de services automobiles. La plateforme agit en tant qu'intermédiaire et ne fournit pas directement les services.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            Les Professionnels sont indépendants et responsables de leurs propres prestations. Supercaralive ne peut être tenu responsable des services fournis par les Professionnels.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">7. Responsabilité</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Supercaralive s'efforce d'assurer la disponibilité et le bon fonctionnement de la plateforme. Toutefois, Supercaralive ne peut garantir une disponibilité ininterrompue et ne saurait être tenu responsable en cas d'indisponibilité temporaire.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            La responsabilité de Supercaralive est limitée aux dommages directs et prévisibles résultant d'un manquement à ses obligations contractuelles.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">8. Propriété intellectuelle</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            La plateforme Supercaralive, ainsi que l'ensemble de son contenu (textes, images, logos, etc.), sont protégés par les droits de propriété intellectuelle et appartiennent à Supercaralive ou à ses partenaires.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            Toute reproduction, représentation, modification ou adaptation sans autorisation préalable est strictement interdite.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">9. Données personnelles</h2>
-          <p class="text-gray-700 leading-relaxed">
-            Le traitement des données personnelles est régi par notre Politique de Confidentialité, accessible sur la plateforme. En utilisant la plateforme, l'utilisateur accepte le traitement de ses données personnelles dans les conditions décrites dans cette politique.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">10. Droit applicable et juridiction</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Les présentes CGU sont régies par le droit français. En cas de litige, et après tentative de résolution amiable, les tribunaux français seront seuls compétents.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">11. Contact</h2>
-          <p class="text-gray-700 leading-relaxed">
-            Pour toute question concernant les présentes CGU, vous pouvez nous contacter via la plateforme ou à l'adresse indiquée dans les mentions légales.
-          </p>
-        </section>
-      </div>
+      <% app_config = AppConfig.instance %>
+      <% if app_config.terms_of_service.present? %>
+        <div class="prose prose-lg max-w-none">
+          <div class="whitespace-pre-wrap text-gray-700">
+            <%= simple_format(app_config.terms_of_service) %>
+          </div>
+        </div>
+      <% end %>
 
       <!-- Footer -->
       <div class="mt-12 pt-8 border-t border-gray-200">

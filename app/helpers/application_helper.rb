@@ -118,10 +118,17 @@ module ApplicationHelper
     end
   end
 
-  # Helper method to get the support email from credentials
+  # Helper method to get the support email from AppConfig
   # Usage: <%= support_email %> or <%= mail_to support_email %>
   def support_email
-    Rails.application.credentials.support_email
+    app_config = AppConfig.instance
+    app_config.contact_email.presence || Rails.application.credentials.support_email rescue nil
+  end
+  
+  # Helper method to get the contact phone from AppConfig
+  # Usage: <%= contact_phone %>
+  def contact_phone
+    AppConfig.instance.contact_phone
   end
 
   # Helper to check if booking date is past (considering service duration)

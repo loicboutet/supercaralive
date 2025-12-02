@@ -1,0 +1,147 @@
+<div class="min-h-screen bg-soft py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-super shadow-sm p-8 md:p-12">
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          Documents Légaux
+        </h1>
+        <p class="text-gray-600">
+          Consultez nos conditions générales d'utilisation et notre politique de confidentialité
+        </p>
+      </div>
+
+      <!-- Accordion Content -->
+      <% app_config = AppConfig.instance %>
+      <div class="space-y-4">
+        <!-- Terms of Service Accordion -->
+        <div class="bg-white border border-gray-200 rounded-lg shadow-sm" data-controller="accordion">
+          <button type="button" 
+                  data-action="click->accordion#toggle"
+                  class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors rounded-lg">
+            <h2 class="text-2xl font-bold text-gray-900">Conditions Générales d'Utilisation</h2>
+            <svg class="w-6 h-6 text-gray-500 transition-transform" 
+                 data-accordion-target="chevron"
+                 fill="none" 
+                 stroke="currentColor" 
+                 viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div data-accordion-target="content" class="hidden px-6 pb-6">
+            <div class="prose prose-lg max-w-none pt-4 border-t border-gray-200">
+              <% if app_config.terms_of_service.present? %>
+                <div class="whitespace-pre-wrap text-gray-700">
+                  <%= simple_format(app_config.terms_of_service) %>
+                </div>
+              <% else %>
+                <!-- Default content with sections as nested accordions -->
+                <% cgu_sections = [
+                  { title: "1. Objet", content: "Les présentes Conditions Générales d'Utilisation (ci-après \"CGU\") ont pour objet de définir les conditions et modalités d'utilisation de la plateforme Supercaralive, ainsi que les droits et obligations des parties dans ce cadre. Elles constituent un contrat entre Supercaralive et l'utilisateur. L'accès et l'utilisation de la plateforme impliquent l'acceptation pleine et entière des présentes CGU." },
+                  { title: "2. Définitions", content: "<strong>Plateforme</strong> : désigne le site internet et l'application mobile Supercaralive<br><strong>Utilisateur</strong> : toute personne accédant et utilisant la plateforme<br><strong>Client</strong> : utilisateur particulier recherchant des services automobiles<br><strong>Professionnel</strong> : utilisateur professionnel proposant des services automobiles<br><strong>Service</strong> : toute prestation proposée par un Professionnel via la plateforme" },
+                  { title: "3. Acceptation des CGU", content: "L'utilisation de la plateforme Supercaralive implique l'acceptation sans réserve des présentes CGU. En cas de non-acceptation, l'utilisateur est invité à ne pas utiliser la plateforme. Supercaralive se réserve le droit de modifier les présentes CGU à tout moment. Les modifications sont applicables dès leur publication sur la plateforme. Il est recommandé de consulter régulièrement cette page." },
+                  { title: "4. Accès à la plateforme", content: "L'accès à la plateforme est gratuit. Toutefois, les frais de connexion (internet, téléphonie) restent à la charge de l'utilisateur. Supercaralive se réserve le droit de modifier, suspendre ou interrompre l'accès à tout ou partie de la plateforme, de refuser l'accès à la plateforme à tout utilisateur ne respectant pas les présentes CGU, et de prendre toutes mesures nécessaires pour assurer le bon fonctionnement de la plateforme." },
+                  { title: "5. Inscription et compte utilisateur", content: "Pour utiliser certains services de la plateforme, l'utilisateur doit créer un compte en fournissant des informations exactes, complètes et à jour. L'utilisateur s'engage à fournir des informations exactes et sincères, mettre à jour ses informations en cas de modification, conserver la confidentialité de ses identifiants de connexion, et notifier immédiatement Supercaralive en cas d'utilisation non autorisée de son compte." },
+                  { title: "6. Services proposés", content: "Supercaralive met en relation des Clients et des Professionnels pour la réalisation de services automobiles. La plateforme agit en tant qu'intermédiaire et ne fournit pas directement les services. Les Professionnels sont indépendants et responsables de leurs propres prestations. Supercaralive ne peut être tenu responsable des services fournis par les Professionnels." },
+                  { title: "7. Responsabilité", content: "Supercaralive s'efforce d'assurer la disponibilité et le bon fonctionnement de la plateforme. Toutefois, Supercaralive ne peut garantir une disponibilité ininterrompue et ne saurait être tenu responsable en cas d'indisponibilité temporaire. La responsabilité de Supercaralive est limitée aux dommages directs et prévisibles résultant d'un manquement à ses obligations contractuelles." },
+                  { title: "8. Propriété intellectuelle", content: "La plateforme Supercaralive, ainsi que l'ensemble de son contenu (textes, images, logos, etc.), sont protégés par les droits de propriété intellectuelle et appartiennent à Supercaralive ou à ses partenaires. Toute reproduction, représentation, modification ou adaptation sans autorisation préalable est strictement interdite." },
+                  { title: "9. Données personnelles", content: "Le traitement des données personnelles est régi par notre Politique de Confidentialité, accessible sur la plateforme. En utilisant la plateforme, l'utilisateur accepte le traitement de ses données personnelles dans les conditions décrites dans cette politique." },
+                  { title: "10. Droit applicable et juridiction", content: "Les présentes CGU sont régies par le droit français. En cas de litige, et après tentative de résolution amiable, les tribunaux français seront seuls compétents." },
+                  { title: "11. Contact", content: "Pour toute question concernant les présentes CGU, vous pouvez nous contacter via la plateforme ou à l'adresse indiquée dans les mentions légales." }
+                ] %>
+                <% cgu_sections.each do |section| %>
+                  <div class="mb-4" data-controller="accordion">
+                    <button type="button" 
+                            data-action="click->accordion#toggle"
+                            class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 rounded-lg transition-colors">
+                      <h3 class="text-xl font-bold text-gray-900"><%= section[:title] %></h3>
+                      <svg class="w-5 h-5 text-gray-500 transition-transform" 
+                           data-accordion-target="chevron"
+                           fill="none" 
+                           stroke="currentColor" 
+                           viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </button>
+                    <div data-accordion-target="content" class="hidden px-4 pb-4">
+                      <div class="text-gray-700 leading-relaxed pt-2 border-t border-gray-100">
+                        <%= section[:content].html_safe %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy Policy Accordion -->
+        <div class="bg-white border border-gray-200 rounded-lg shadow-sm" data-controller="accordion">
+          <button type="button" 
+                  data-action="click->accordion#toggle"
+                  class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors rounded-lg">
+            <h2 class="text-2xl font-bold text-gray-900">Politique de Confidentialité</h2>
+            <svg class="w-6 h-6 text-gray-500 transition-transform" 
+                 data-accordion-target="chevron"
+                 fill="none" 
+                 stroke="currentColor" 
+                 viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div data-accordion-target="content" class="hidden px-6 pb-6">
+            <div class="prose prose-lg max-w-none pt-4 border-t border-gray-200">
+              <% if app_config.privacy_policy.present? %>
+                <div class="whitespace-pre-wrap text-gray-700">
+                  <%= simple_format(app_config.privacy_policy) %>
+                </div>
+              <% else %>
+                <!-- Default content with sections as nested accordions -->
+                <% privacy_sections = [
+                  { title: "1. Introduction", content: "Supercaralive (ci-après \"nous\", \"notre\", \"nos\") s'engage à protéger et respecter votre vie privée. Cette Politique de Confidentialité explique comment nous collectons, utilisons, stockons et protégeons vos données personnelles lorsque vous utilisez notre plateforme. En utilisant notre plateforme, vous acceptez les pratiques décrites dans cette politique. Nous vous encourageons à lire attentivement ce document." },
+                  { title: "2. Données collectées", content: "<strong>Données fournies directement :</strong> Nom, prénom, adresse email, numéro de téléphone, adresse postale, informations sur votre véhicule, informations de paiement.<br><br><strong>Données collectées automatiquement :</strong> Adresse IP, type de navigateur et système d'exploitation, pages visitées et temps passé sur la plateforme, données de géolocalisation (avec votre consentement)." },
+                  { title: "3. Utilisation des données", content: "Nous utilisons vos données personnelles pour fournir et améliorer nos services, faciliter la mise en relation entre Clients et Professionnels, traiter vos réservations et paiements, vous envoyer des communications importantes concernant votre compte, vous informer de nos services et offres (avec votre consentement), assurer la sécurité de la plateforme et prévenir la fraude, et respecter nos obligations légales et réglementaires." },
+                  { title: "4. Partage des données", content: "Nous ne vendons jamais vos données personnelles à des tiers. Nous pouvons partager vos données avec les Professionnels pour permettre la réalisation des services, avec nos prestataires pour le fonctionnement de la plateforme, en cas d'obligations légales, ou avec votre consentement explicite." },
+                  { title: "5. Conservation des données", content: "Nous conservons vos données personnelles aussi longtemps que nécessaire pour fournir nos services, respecter nos obligations légales et contractuelles, et résoudre les litiges. Lorsque vos données ne sont plus nécessaires, elles sont supprimées de manière sécurisée." },
+                  { title: "6. Sécurité des données", content: "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre l'accès non autorisé, la perte ou la destruction accidentelle, et la divulgation non autorisée. Cependant, aucune méthode de transmission sur Internet n'est totalement sécurisée." },
+                  { title: "7. Vos droits", content: "Conformément au RGPD, vous disposez des droits suivants : droit d'accès, droit de rectification, droit à l'effacement, droit à la limitation, droit à la portabilité, droit d'opposition, et droit de retirer votre consentement à tout moment. Pour exercer ces droits, contactez-nous via la plateforme." },
+                  { title: "8. Cookies", content: "Notre plateforme utilise des cookies pour améliorer votre expérience utilisateur. Les cookies sont de petits fichiers texte stockés sur votre appareil. Vous pouvez configurer votre navigateur pour refuser les cookies, mais cela peut affecter certaines fonctionnalités de la plateforme." },
+                  { title: "9. Modifications de la politique", content: "Nous pouvons modifier cette Politique de Confidentialité à tout moment. Les modifications seront publiées sur cette page avec une mise à jour de la date de \"Dernière mise à jour\". Nous vous encourageons à consulter régulièrement cette page." },
+                  { title: "10. Contact", content: "Pour toute question concernant cette Politique de Confidentialité ou pour exercer vos droits, vous pouvez nous contacter via la plateforme Supercaralive ou à l'adresse indiquée dans les mentions légales. Vous avez également le droit d'introduire une réclamation auprès de la CNIL si vous estimez que le traitement de vos données personnelles constitue une violation du RGPD." }
+                ] %>
+                <% privacy_sections.each do |section| %>
+                  <div class="mb-4" data-controller="accordion">
+                    <button type="button" 
+                            data-action="click->accordion#toggle"
+                            class="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 rounded-lg transition-colors">
+                      <h3 class="text-xl font-bold text-gray-900"><%= section[:title] %></h3>
+                      <svg class="w-5 h-5 text-gray-500 transition-transform" 
+                           data-accordion-target="chevron"
+                           fill="none" 
+                           stroke="currentColor" 
+                           viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </button>
+                    <div data-accordion-target="content" class="hidden px-4 pb-4">
+                      <div class="text-gray-700 leading-relaxed pt-2 border-t border-gray-100">
+                        <%= section[:content].html_safe %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="mt-12 pt-8 border-t border-gray-200">
+        <p class="text-sm text-gray-600 text-center">
+          Dernière mise à jour : <%= Date.today.strftime("%d/%m/%Y") %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

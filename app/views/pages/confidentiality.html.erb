@@ -6,159 +6,23 @@
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Politique de Confidentialité
         </h1>
-        <p class="text-gray-600">
-          Dernière mise à jour : <%= Date.today.strftime("%d/%m/%Y") %>
-        </p>
+        <% app_config = AppConfig.instance %>
+        <% if app_config.privacy_policy.present? && app_config.updated_at.present? %>
+          <p class="text-gray-600">
+            Dernière mise à jour : <%= app_config.updated_at.strftime("%d/%m/%Y") %>
+          </p>
+        <% end %>
       </div>
 
       <!-- Content -->
-      <div class="prose prose-lg max-w-none">
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">1. Introduction</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Supercaralive (ci-après "nous", "notre", "nos") s'engage à protéger et respecter votre vie privée. Cette Politique de Confidentialité explique comment nous collectons, utilisons, stockons et protégeons vos données personnelles lorsque vous utilisez notre plateforme.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            En utilisant notre plateforme, vous acceptez les pratiques décrites dans cette politique. Nous vous encourageons à lire attentivement ce document.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">2. Données collectées</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Nous collectons les données suivantes lorsque vous utilisez notre plateforme :
-          </p>
-          
-          <h3 class="text-xl font-bold text-gray-900 mb-3 mt-6">2.1. Données fournies directement</h3>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li>Nom, prénom, adresse email</li>
-            <li>Numéro de téléphone</li>
-            <li>Adresse postale (pour les interventions à domicile)</li>
-            <li>Informations sur votre véhicule</li>
-            <li>Informations de paiement (traitées de manière sécurisée)</li>
-          </ul>
-
-          <h3 class="text-xl font-bold text-gray-900 mb-3 mt-6">2.2. Données collectées automatiquement</h3>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li>Adresse IP</li>
-            <li>Type de navigateur et système d'exploitation</li>
-            <li>Pages visitées et temps passé sur la plateforme</li>
-            <li>Données de géolocalisation (avec votre consentement)</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">3. Utilisation des données</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Nous utilisons vos données personnelles pour :
-          </p>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li>Fournir et améliorer nos services</li>
-            <li>Faciliter la mise en relation entre Clients et Professionnels</li>
-            <li>Traiter vos réservations et paiements</li>
-            <li>Vous envoyer des communications importantes concernant votre compte</li>
-            <li>Vous informer de nos services et offres (avec votre consentement)</li>
-            <li>Assurer la sécurité de la plateforme et prévenir la fraude</li>
-            <li>Respecter nos obligations légales et réglementaires</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">4. Partage des données</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Nous ne vendons jamais vos données personnelles à des tiers. Nous pouvons partager vos données dans les cas suivants :
-          </p>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li><strong>Avec les Professionnels</strong> : pour permettre la réalisation des services (nom, adresse, coordonnées nécessaires)</li>
-            <li><strong>Avec nos prestataires</strong> : pour le fonctionnement de la plateforme (hébergement, paiement, etc.)</li>
-            <li><strong>Obligations légales</strong> : si la loi l'exige ou pour protéger nos droits</li>
-            <li><strong>Avec votre consentement</strong> : dans tout autre cas avec votre autorisation explicite</li>
-          </ul>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">5. Conservation des données</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Nous conservons vos données personnelles aussi longtemps que nécessaire pour :
-          </p>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li>Fournir nos services</li>
-            <li>Respecter nos obligations légales et contractuelles</li>
-            <li>Résoudre les litiges et faire respecter nos accords</li>
-          </ul>
-          <p class="text-gray-700 leading-relaxed mt-4">
-            Lorsque vos données ne sont plus nécessaires, elles sont supprimées de manière sécurisée.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">6. Sécurité des données</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos données personnelles contre :
-          </p>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li>L'accès non autorisé</li>
-            <li>La perte ou la destruction accidentelle</li>
-            <li>La divulgation non autorisée</li>
-          </ul>
-          <p class="text-gray-700 leading-relaxed mt-4">
-            Cependant, aucune méthode de transmission sur Internet n'est totalement sécurisée. Nous ne pouvons garantir une sécurité absolue.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">7. Vos droits</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :
-          </p>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li><strong>Droit d'accès</strong> : obtenir une copie de vos données personnelles</li>
-            <li><strong>Droit de rectification</strong> : corriger vos données inexactes ou incomplètes</li>
-            <li><strong>Droit à l'effacement</strong> : demander la suppression de vos données</li>
-            <li><strong>Droit à la limitation</strong> : limiter le traitement de vos données</li>
-            <li><strong>Droit à la portabilité</strong> : recevoir vos données dans un format structuré</li>
-            <li><strong>Droit d'opposition</strong> : vous opposer au traitement de vos données</li>
-            <li><strong>Droit de retirer votre consentement</strong> : à tout moment</li>
-          </ul>
-          <p class="text-gray-700 leading-relaxed mt-4">
-            Pour exercer ces droits, contactez-nous via la plateforme ou à l'adresse indiquée dans les mentions légales.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">8. Cookies</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Notre plateforme utilise des cookies pour améliorer votre expérience utilisateur. Les cookies sont de petits fichiers texte stockés sur votre appareil.
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            Vous pouvez configurer votre navigateur pour refuser les cookies, mais cela peut affecter certaines fonctionnalités de la plateforme.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">9. Modifications de la politique</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Nous pouvons modifier cette Politique de Confidentialité à tout moment. Les modifications seront publiées sur cette page avec une mise à jour de la date de "Dernière mise à jour".
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            Nous vous encourageons à consulter régulièrement cette page pour rester informé de la manière dont nous protégeons vos données.
-          </p>
-        </section>
-
-        <section class="mb-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">10. Contact</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            Pour toute question concernant cette Politique de Confidentialité ou pour exercer vos droits, vous pouvez nous contacter :
-          </p>
-          <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
-            <li>Via la plateforme Supercaralive</li>
-            <li>À l'adresse indiquée dans les mentions légales</li>
-          </ul>
-          <p class="text-gray-700 leading-relaxed mt-4">
-            Vous avez également le droit d'introduire une réclamation auprès de la Commission Nationale de l'Informatique et des Libertés (CNIL) si vous estimez que le traitement de vos données personnelles constitue une violation du RGPD.
-          </p>
-        </section>
-      </div>
+      <% app_config = AppConfig.instance %>
+      <% if app_config.privacy_policy.present? %>
+        <div class="prose prose-lg max-w-none">
+          <div class="whitespace-pre-wrap text-gray-700">
+            <%= simple_format(app_config.privacy_policy) %>
+          </div>
+        </div>
+      <% end %>
 
       <!-- Footer -->
       <div class="mt-12 pt-8 border-t border-gray-200">

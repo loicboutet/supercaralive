@@ -1,6 +1,7 @@
 class Admin::DashboardController < ApplicationController
   layout 'admin'
   before_action :require_admin
+  before_action :ensure_app_config_exists
 
   # GET /admin
   def index
@@ -35,6 +36,10 @@ class Admin::DashboardController < ApplicationController
   end
   
   private
+  
+  def ensure_app_config_exists
+    AppConfig.instance unless AppConfig.exists?
+  end
   
   def calculate_user_registrations_data(scope)
     case scope

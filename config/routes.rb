@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   # Public pages (accessible without authentication)
   get 'pages/cgu', to: 'pages#cgu'
   get 'pages/confidentiality', to: 'pages#confidentiality'
+  get 'pages/legal', to: 'pages#legal', as: :pages_legal
   get 'pages/contact', to: 'pages#contact', as: :pages_contact
   get 'pages/about', to: 'pages#about', as: :pages_about
   get 'pages/faq', to: 'pages#faq', as: :pages_faq
@@ -201,6 +202,9 @@ Rails.application.routes.draw do
     # System monitoring (read-only)
     resources :bookings, only: [:index, :show]
     resources :payments, only: [:index, :show]
+    
+    # App configuration (singleton resource)
+    resource :app_config, only: [:show, :edit, :update]
   end
 
   # Stripe webhooks (Brick 2)
