@@ -16,7 +16,7 @@
 ## 🌐 Retours site
 
 ### Services - Détailing manquant
-- [ ] **Ajout du Détailing dans les choix de services** - Sur l'ensemble du site, dès qu'un service (Mécanique, Carrossier, Lavage) est à choisir, il manque le Détailing.
+- [x] **Ajout du Détailing dans les choix de services** - Sur l'ensemble du site, dès qu'un service (Mécanique, Carrossier, Lavage) est à choisir, il manque le Détailing.
   - URLs concernées : Toutes les pages avec sélection de services
   - URL spécifique : https://supercaralive.5000.dev/client/professionals
 - ✅ Résolu : Select custom créé avec affichage détaillé de chaque service (nom, types de services, durée, prix, prix de déplacement) quand déplié
@@ -122,8 +122,4 @@
   - URL admin : https://supercaralive.5000.dev/admin/services/new
   - URL client : https://supercaralive.5000.dev/client/professionals/3
   - ✅ Résolu : Les prérequis/matériel nécessaire sont désormais affichés sur chaque carte de service dans la page de détail du professionnel (`client/professionals/show.html.erb`). Les prérequis sont collectés depuis tous les services associés à chaque `professional_service` et affichés entre le nom du service et la section durée/prix. L'affichage se fait uniquement si des prérequis sont renseignés dans l'admin pour les services concernés.
-
----
-
-## ❓ Questions / À décider
 
