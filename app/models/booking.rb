@@ -8,6 +8,7 @@
 #  current_mileage            :integer
 #  description                :text
 #  estimated_price            :decimal(8, 2)
+#  intervention_address       :text
 #  manual                     :boolean          default(FALSE), not null
 #  professional_reminder_sent :boolean          default(FALSE), not null
 #  scheduled_at               :datetime
@@ -62,6 +63,7 @@ class Booking < ApplicationRecord
   validates :scheduled_at, presence: true
   validates :current_mileage, presence: true, numericality: { greater_than_or_equal_to: 0 }, unless: :manual_booking?
   validates :description, presence: true
+  validates :intervention_address, presence: true, unless: :manual_booking?
 
   # Scopes
   scope :for_client, ->(client) { where(client_id: client.id) }

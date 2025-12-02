@@ -60,11 +60,13 @@
     - Utilisation de `vehicle_model` dans le dashboard au lieu d'accès direct aux attributs
 
 ### Nouvelle réservation
-- [ ] **Encart adresse précise d'intervention** - Sur une nouvelle résa, pas d'encart pour indiquer l'adresse précise d'intervention (avec encart de rappel pour indiquer que l'intervention peut avoir lieu ailleurs que chez soi). On avait travaillé les encarts adresses 1 et 2 (principales…), avec le laïus qui va bien.
+- [x] **Encart adresse précise d'intervention** - Sur une nouvelle résa, pas d'encart pour indiquer l'adresse précise d'intervention (avec encart de rappel pour indiquer que l'intervention peut avoir lieu ailleurs que chez soi). On avait travaillé les encarts adresses 1 et 2 (principales…), avec le laïus qui va bien.
   - URL concernée : https://supercaralive.5000.dev/client/bookings/new
+  - ✅ Résolu : Ajout du champ `intervention_address` dans le formulaire de réservation avec un encart informatif. Ajout du champ `address` dans le profil client. Pré-remplissage automatique de l'adresse d'intervention avec l'adresse du profil client si disponible.
 
-- [ ] **Adresse d'intervention non visible** - Sur les interventions en statut "acceptée" ou "terminée", l'adresse d'intervention n'apparaît pas. Statut "En attente" l'adresse n'apparaît pas encore, on est d'accord.
+- [x] **Adresse d'intervention non visible** - Sur les interventions en statut "acceptée" ou "terminée", l'adresse d'intervention n'apparaît pas. Statut "En attente" l'adresse n'apparaît pas encore, on est d'accord.
   - URL concernée : https://supercaralive.5000.dev/professional/bookings/3
+  - ✅ Résolu : L'adresse d'intervention s'affiche maintenant dans la vue professionnel bookings/show uniquement si le statut est "accepted" ou "completed".
 
 ### Véhicules client
 - [ ] **Impossible d'ajouter un véhicule** - Je n'arrive pas à ajouter de véhicule.

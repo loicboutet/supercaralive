@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_19_131527) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_02_091552) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -65,6 +65,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_131527) do
     t.boolean "manual", default: false, null: false
     t.boolean "professional_reminder_sent", default: false, null: false
     t.boolean "client_reminder_sent", default: false, null: false
+    t.text "intervention_address"
     t.index ["client_id"], name: "index_bookings_on_client_id"
     t.index ["professional_id"], name: "index_bookings_on_professional_id"
     t.index ["professional_service_id"], name: "index_bookings_on_professional_service_id"
@@ -200,6 +201,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_19_131527) do
     t.boolean "professional_booking_notification", default: true, null: false
     t.boolean "professional_booking_reminder", default: true, null: false
     t.boolean "professional_booking_reminder_sent", default: false, null: false
+    t.text "address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["latitude", "longitude"], name: "index_users_on_latitude_and_longitude"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

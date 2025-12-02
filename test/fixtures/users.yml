@@ -10,6 +10,7 @@
 # Database name: primary
 #
 #  id                                 :integer          not null, primary key
+#  address                            :text
 #  admin_approval_note                :text
 #  cgu_accepted                       :boolean          default(FALSE), not null
 #  client_booking_reminder            :boolean          default(TRUE), not null

@@ -106,6 +106,12 @@
               <p class="text-sm text-gray-600 mb-1">Montant</p>
               <p class="text-lg font-bold text-blue-hero"><%= price_display %></p>
             </div>
+            <% if (@booking.accepted? || @booking.completed?) && @booking.intervention_address.present? %>
+              <div class="md:col-span-2">
+                <p class="text-sm text-gray-600 mb-1">Adresse d'intervention</p>
+                <p class="text-lg font-bold text-gray-900"><%= @booking.intervention_address %></p>
+              </div>
+            <% end %>
           </div>
         </div>
 

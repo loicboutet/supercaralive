@@ -31,6 +31,8 @@ class Client::BookingsController < Client::BaseController
   def new
     @booking = Booking.new
     @booking.client_id = current_user.id
+    # Pre-fill intervention address with client's address if available
+    @booking.intervention_address = current_user.address if current_user.address.present?
     
     # If professional_id is passed, pre-select it
     if params[:professional_id].present?
@@ -210,6 +212,6 @@ class Client::BookingsController < Client::BaseController
   end
 
   def booking_params
-    params.require(:booking).permit(:professional_id, :vehicle_id, :professional_service_id, :scheduled_at, :current_mileage, :description)
+    params.require(:booking).permit(:professional_id, :vehicle_id, :professional_service_id, :scheduled_at, :current_mileage, :description, :intervention_address)
   end
 end
