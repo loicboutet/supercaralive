@@ -9,7 +9,7 @@ class Professional::VerificationDocumentsController < Professional::BaseControll
     
     if @document.save
       respond_to do |format|
-        format.html { redirect_to professional_verification_documents_path, notice: "Document téléchargé avec succès." }
+        format.html { redirect_to professional_verification_documents_path, notice: "✅ Le document \"#{@document.name}\" a été ajouté avec succès." }
         format.json { render json: @document }
       end
     else
