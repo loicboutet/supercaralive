@@ -64,16 +64,21 @@ class Professional::BookingsController < Professional::BaseController
   end
 
   def complete
-    if @booking.update(status: :completed)
-      respond_to do |format|
-        format.html { redirect_to professional_bookings_path, notice: "Réservation marquée comme terminée." }
-        format.json { render json: { status: "success", message: "Réservation marquée comme terminée." } }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to professional_bookings_path, alert: "Erreur lors du marquage de la réservation comme terminée." }
-        format.json { render json: { status: "error", errors: @booking.errors.full_messages }, status: :unprocessable_entity }
-      end
+    # Use update_column to avoid validations when only updating status
+    # This prevents issues with validations that check associations (e.g., professional_service ownership)
+    # which shouldn't block status updates. These validations are important during creation/modification
+    # but shouldn't prevent marking a booking as completed.
+    @booking.update_column(:status, 'completed')
+    @booking.reload # Reload to get updated status
+    
+    respond_to do |format|
+      format.html { redirect_to professional_bookings_path, notice: "Réservation marquée comme terminée." }
+      format.json { render json: { status: "success", message: "Réservation marquée comme terminée." } }
+    end
+  rescue => e
+    respond_to do |format|
+      format.html { redirect_to professional_bookings_path, alert: "Erreur lors du marquage de la réservation comme terminée : #{e.message}" }
+      format.json { render json: { status: "error", message: "Erreur lors du marquage de la réservation comme terminée." }, status: :unprocessable_entity }
     end
   end
 
