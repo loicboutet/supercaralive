@@ -22,7 +22,7 @@
             </div>
             <div class="flex-1">
               <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                <%= @professional.company_name.presence || @professional.get_full_name %>
+                <%= @has_completed_booking ? (@professional.company_name.presence || @professional.get_full_name) : @professional.get_initials %>
               </h1>
               
               <!-- Rating - Hidden for now -->
@@ -51,12 +51,12 @@
                     <% end %>
                   </span>
                 <% end %>
-                <% if @professional.phone_number.present? %>
+                <% if @has_completed_booking && @professional.phone_number.present? %>
                   <span class="flex items-center">
                     📞 <%= @professional.phone_number %>
                   </span>
                 <% end %>
-                <% if @professional.siret.present? %>
+                <% if @has_completed_booking && @professional.siret.present? %>
                   <span class="flex items-center">
                     🏢 SIRET: <%= @professional.siret %>
                   </span>

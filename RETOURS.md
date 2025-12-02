@@ -28,6 +28,17 @@
   - URL concernée : https://supercaralive.5000.dev/client
   - ✅ Résolu : Ajout de "SupercarAlive" (Supercar en noir, Alive en rouge) sous les logos sur les pages sign in, mot de passe oublié et créer un compte
 
+### Profil du pro
+- [x] "Gérer les disponibilités " rajouter "les"
+- ✅ Résolu
+
+### Anonymisation des pros
+- [x] Il est important comme on en avait parlé que les professionnels soient complètement anonymes sur la PF (seul l admin à la visibilité). Donc pas de numéro de siret, et mettre par défaut les initiales. Ça serait bien de le mentionner sur la page d inscription comme c est fait pour les particuliers. Par contre on ne laisse pas le choix c est anonymise. Ensuite les infos seront visibles par le particulier une fois la prestation validée.
+  - ✅ Résolu : 
+    - Ajout d'un encart de confidentialité sur les pages `professional/profile/show` et `professional/profile/edit` expliquant que les informations personnelles restent confidentielles jusqu'à validation d'au moins deux rendez-vous.
+    - Dans la liste des professionnels (`client/professionals/index`), le nom d'entreprise est remplacé par les initiales du professionnel.
+    - Dans la page de détail du professionnel (`client/professionals/show`), le nom complet, le numéro de téléphone et le SIRET ne sont affichés que si le client a au moins un booking "completed" avec ce professionnel. Sinon, seules les initiales sont affichées.
+
 ### Paramétrage admin
 
 ### Calendrier professionnel

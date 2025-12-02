@@ -66,6 +66,16 @@ class Client::ProfessionalsController < Client::BaseController
     
     # Get available service categories for filter dropdown
     @service_categories = Service.active.distinct.pluck(:category).sort
+    
+    # Get IDs of professionals with whom current client has completed bookings
+    @professionals_with_completed_bookings = if current_user.present?
+      Booking.where(client: current_user, status: :completed)
+             .pluck(:professional_id)
+             .uniq
+             .to_set
+    else
+      Set.new
+    end
   end
 
   def show
@@ -81,6 +91,10 @@ class Client::ProfessionalsController < Client::BaseController
     
     # Group availabilities by day of week
     @availabilities_by_day = @professional.availabilities.ordered_by_day.group_by(&:day_of_week)
+    
+    # Check if current client has a completed booking with this professional
+    @has_completed_booking = current_user.present? && 
+                             Booking.where(client: current_user, professional: @professional, status: :completed).exists?
   end
 
   def availability
