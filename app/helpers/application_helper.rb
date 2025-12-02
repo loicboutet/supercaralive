@@ -1,3 +1,5 @@
+require 'redcarpet'
+
 module ApplicationHelper
   include Pagy::Frontend
 
@@ -160,5 +162,35 @@ module ApplicationHelper
     else
       "#{hours}h"
     end
+  end
+
+  # Helper to convert markdown to HTML
+  # Usage: <%= markdown_to_html(markdown_text) %>
+  def markdown_to_html(markdown_text)
+    return "" unless markdown_text.present?
+    
+    renderer = Redcarpet::Render::HTML.new(
+      filter_html: false,
+      no_images: false,
+      no_links: false,
+      no_styles: false,
+      safe_links_only: true,
+      hard_wrap: true,
+      link_attributes: { target: "_blank", rel: "noopener noreferrer" }
+    )
+    
+    markdown = Redcarpet::Markdown.new(renderer, {
+      autolink: true,
+      tables: true,
+      fenced_code_blocks: true,
+      strikethrough: true,
+      superscript: true,
+      underline: true,
+      highlight: true,
+      quote: true,
+      footnotes: true
+    })
+    
+    markdown.render(markdown_text).html_safe
   end
 end

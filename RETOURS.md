@@ -98,7 +98,15 @@
   - ✅ Résolu : Un bouton "Demande de documents" a été ajouté à côté des boutons "Approuver" et "Refuser" sur la page d'approbation professionnelle. Ce bouton ouvre une modale avec un champ de notes obligatoire et une option pour recevoir une copie de l'email. Lors de la soumission, un email est envoyé au professionnel avec les notes demandées, et une notice de confirmation s'affiche.
 
 ### Paramétrage contact
-- [ ] **Modification des informations "Contact"** - Je pensais que ce serait dans l'admin que je pourrais modifier les informations de "Contact" pour paramétrer les informations de contact sur chaque bouton du site. Sinon où puis-je le faire ?
+- [x] **Modification des informations "Contact"** - Je pensais que ce serait dans l'admin que je pourrais modifier les informations de "Contact" pour paramétrer les informations de contact sur chaque bouton du site. Sinon où puis-je le faire ?
+  - ✅ Résolu : Création du modèle `AppConfig` permettant de gérer les informations de contact (email, téléphone, adresse, horaires) via l'interface admin. Les informations sont accessibles via `/admin/app_config` et utilisées sur toutes les pages du site (contact, dashboard client, pages de statut, etc.). Les boutons de contact s'affichent uniquement si les informations sont renseignées.
+
+- [x] **Lien "Contacter le support" paramétrable** - Le lien "Contacter le support" devrait être paramétrable côté admin pour intégrer WhatsApp par exemple.
+  - URL concernée : https://supercaralive.5000.dev/client/professionals
+  - ✅ Résolu : Gestion via le modèle `AppConfig` créé. L'email de contact peut être modifié via `/admin/app_config` et remplace les credentials. Les boutons de contact s'affichent uniquement si l'email est renseigné dans AppConfig.
+
+- [x] **Mise à jour des CGV et politique de confidentialité** - Comment procéder pour les mettre à jour ? Lien avec les pages développées par Simplébeau ?
+  - ✅ Résolu : Création du modèle `AppConfig` avec les champs `terms_of_service` et `privacy_policy`. Éditeur markdown intégré dans `/admin/app_config/edit` avec barre d'outils (titres, gras, italique, listes, liens) et aperçu en temps réel. Le contenu markdown est converti en HTML pour l'affichage sur les pages publiques `/pages/cgu` et `/pages/confidentiality`. La date de mise à jour est basée sur `updated_at` de AppConfig.
 
 ### Statuts professionnel
 - [ ] **Différence entre "Approuvé" et "Vérifié"** - Quelle est la différence entre le statut "Approuvé" et "Vérifié" ? Vérifié c'est manuellement et approuvé c'est quand il y aura de l'automatisation ?
@@ -116,19 +124,4 @@
 ---
 
 ## ❓ Questions / À décider
-
-### Paramétrage contact
-- [ ] **Lien "Contacter le support" paramétrable** - Le lien "Contacter le support" devrait être paramétrable côté admin pour intégrer WhatsApp par exemple.
-  - URL concernée : https://supercaralive.5000.dev/client/professionals
-  - **Question** : Actuellement configuré avec `Rails.application.credentials.support_email`. Est-ce qu'on devrait créer un objet (modèle Setting/Configuration) pour le rendre paramétrable côté admin, ou garder les credentials ?
-  - **Utilisation actuelle** : Utilisé dans plusieurs endroits via le helper `support_email` (pages profil, factures, contact, statuts de compte, etc.)
-
-### CGV et politique de confidentialité
-- [ ] **Mise à jour des CGV et politique de confidentialité** - Comment procéder pour les mettre à jour ? Lien avec les pages développées par Simplébeau ?
-  - **Question** : Comment s'organisent habituellement les CGV/CGU ? Est-ce que je dois en faire un objet contrôlable côté admin ?
-  - **Situation actuelle** : Les CGV et la politique de confidentialité sont dans des vues statiques (`app/views/pages/cgu.html.erb` et `app/views/pages/confidentiality.html.erb`). La date de mise à jour est codée en dur (`Date.today.strftime("%d/%m/%Y")`).
-  - **Options possibles** :
-    - Créer un modèle `LegalDocument` avec `document_type` (cgu, cgv, privacy_policy), `content` (text), `version`, `published_at`
-    - Garder les vues statiques mais permettre l'édition via un éditeur WYSIWYG côté admin
-    - Utiliser un système de versioning pour tracer les modifications
 

@@ -51,19 +51,189 @@
   <!-- Legal Documents -->
   <div class="space-y-8">
     <!-- Terms of Service -->
-    <div class="bg-white rounded-super shadow-sm p-6 md:p-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">Conditions Générales d'Utilisation</h2>
+    <div class="bg-white rounded-super shadow-sm p-6 md:p-8" data-controller="markdown-editor">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-gray-900">Conditions Générales d'Utilisation</h2>
+        <button type="button" 
+                data-action="click->markdown-editor#togglePreview"
+                class="text-sm text-blue-hero hover:text-blue-dark font-medium">
+          Aperçu
+        </button>
+      </div>
       <%= f.label :terms_of_service, "Contenu des CGU", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_area :terms_of_service, rows: 20, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero focus:border-transparent font-mono text-sm", placeholder: "Saisissez le contenu des Conditions Générales d'Utilisation..." %>
-      <p class="text-sm text-gray-500 mt-1">Ce contenu remplacera le texte par défaut sur la page CGU.</p>
+      
+      <!-- Toolbar -->
+      <div class="flex flex-wrap gap-2 mb-2 p-2 bg-gray-50 rounded-t-lg border border-gray-300 border-b-0" data-markdown-editor-target="toolbar">
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="h1"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Titre 1">
+          <strong>H1</strong>
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="h2"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Titre 2">
+          <strong>H2</strong>
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="h3"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Titre 3">
+          <strong>H3</strong>
+        </button>
+        <div class="w-px bg-gray-300 mx-1"></div>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="bold"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100 font-bold"
+                title="Gras">
+          <strong>B</strong>
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="italic"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100 italic"
+                title="Italique">
+          <em>I</em>
+        </button>
+        <div class="w-px bg-gray-300 mx-1"></div>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="ul"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Liste à puces">
+          • Liste
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="ol"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Liste numérotée">
+          1. Liste
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="link"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Lien">
+          🔗 Lien
+        </button>
+      </div>
+      
+      <!-- Editor -->
+      <div class="markdown-editor-container">
+        <%= f.text_area :terms_of_service, 
+                        rows: 20, 
+                        data: { markdown_editor_target: "textarea" },
+                        class: "w-full px-4 py-3 border border-gray-300 rounded-b-lg focus:outline-none focus:ring-2 focus:ring-blue-hero focus:border-transparent font-mono text-sm", 
+                        placeholder: "Saisissez le contenu des Conditions Générales d'Utilisation en Markdown...\n\nExemples :\n# Titre principal\n## Sous-titre\n**Texte en gras**\n*Texte en italique*\n- Liste à puces\n1. Liste numérotée" %>
+      </div>
+      
+      <!-- Preview -->
+      <div class="markdown-preview-container hidden border border-gray-300 rounded-b-lg bg-white">
+        <div data-markdown-editor-target="preview" 
+             class="px-4 py-3 prose prose-sm max-w-none min-h-[500px] markdown-content">
+        </div>
+      </div>
+      
+      <p class="text-sm text-gray-500 mt-1">Ce contenu remplacera le texte par défaut sur la page CGU. Utilisez la syntaxe Markdown pour la mise en forme.</p>
     </div>
     
     <!-- Privacy Policy -->
-    <div class="bg-white rounded-super shadow-sm p-6 md:p-8">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">Politique de Confidentialité</h2>
+    <div class="bg-white rounded-super shadow-sm p-6 md:p-8" data-controller="markdown-editor">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-gray-900">Politique de Confidentialité</h2>
+        <button type="button" 
+                data-action="click->markdown-editor#togglePreview"
+                class="text-sm text-blue-hero hover:text-blue-dark font-medium">
+          Aperçu
+        </button>
+      </div>
       <%= f.label :privacy_policy, "Contenu de la politique", class: "block text-sm font-medium text-gray-700 mb-2" %>
-      <%= f.text_area :privacy_policy, rows: 20, class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero focus:border-transparent font-mono text-sm", placeholder: "Saisissez le contenu de la Politique de Confidentialité..." %>
-      <p class="text-sm text-gray-500 mt-1">Ce contenu remplacera le texte par défaut sur la page de confidentialité.</p>
+      
+      <!-- Toolbar -->
+      <div class="flex flex-wrap gap-2 mb-2 p-2 bg-gray-50 rounded-t-lg border border-gray-300 border-b-0" data-markdown-editor-target="toolbar">
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="h1"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Titre 1">
+          <strong>H1</strong>
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="h2"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Titre 2">
+          <strong>H2</strong>
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="h3"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Titre 3">
+          <strong>H3</strong>
+        </button>
+        <div class="w-px bg-gray-300 mx-1"></div>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="bold"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100 font-bold"
+                title="Gras">
+          <strong>B</strong>
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="italic"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100 italic"
+                title="Italique">
+          <em>I</em>
+        </button>
+        <div class="w-px bg-gray-300 mx-1"></div>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="ul"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Liste à puces">
+          • Liste
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="ol"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Liste numérotée">
+          1. Liste
+        </button>
+        <button type="button" 
+                data-action="click->markdown-editor#insertMarkdown"
+                data-action-value="link"
+                class="px-3 py-1 text-sm bg-white border border-gray-300 rounded hover:bg-gray-100"
+                title="Lien">
+          🔗 Lien
+        </button>
+      </div>
+      
+      <!-- Editor -->
+      <div class="markdown-editor-container">
+        <%= f.text_area :privacy_policy, 
+                        rows: 20, 
+                        data: { markdown_editor_target: "textarea" },
+                        class: "w-full px-4 py-3 border border-gray-300 rounded-b-lg focus:outline-none focus:ring-2 focus:ring-blue-hero focus:border-transparent font-mono text-sm", 
+                        placeholder: "Saisissez le contenu de la Politique de Confidentialité en Markdown...\n\nExemples :\n# Titre principal\n## Sous-titre\n**Texte en gras**\n*Texte en italique*\n- Liste à puces\n1. Liste numérotée" %>
+      </div>
+      
+      <!-- Preview -->
+      <div class="markdown-preview-container hidden border border-gray-300 rounded-b-lg bg-white">
+        <div data-markdown-editor-target="preview" 
+             class="px-4 py-3 prose prose-sm max-w-none min-h-[500px] markdown-content">
+        </div>
+      </div>
+      
+      <p class="text-sm text-gray-500 mt-1">Ce contenu remplacera le texte par défaut sur la page de confidentialité. Utilisez la syntaxe Markdown pour la mise en forme.</p>
     </div>
   </div>
 
