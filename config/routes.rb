@@ -137,6 +137,9 @@ Rails.application.routes.draw do
       end
     end
     
+    # Custom availabilities (date-specific overrides)
+    resources :custom_availabilities, only: [:create, :destroy]
+    
     # Manual bookings (created by professional for themselves)
     resources :manual_bookings, only: [:new, :create]
     

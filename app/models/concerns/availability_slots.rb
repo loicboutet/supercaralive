@@ -33,19 +33,30 @@ module AvailabilitySlots
       
       available_slots = {}
       
+      # Get custom availabilities for the month (these override regular availabilities for specific dates)
+      custom_availabilities_by_date = self.custom_availabilities
+                                        .for_date_range(start_date, end_date)
+                                        .order(:date, :start_time)
+                                        .group_by(&:date)
+      
       # Iterate through each day of the month
       (start_date..end_date).each do |date|
-        # Convert Ruby wday (Sunday=0) to our system (Monday=0, Sunday=6)
-        # Ruby: Sunday=0, Monday=1, ..., Saturday=6
-        # Our system: Monday=0, Tuesday=1, ..., Sunday=6
-        day_of_week = date.wday == 0 ? 6 : date.wday - 1
+        slots_for_day = []
         
-        # Find availabilities for this day of week
-        day_availabilities = professional_availabilities.select { |a| a.day_of_week == day_of_week }
+        # Check if there are custom availabilities for this specific date
+        if custom_availabilities_by_date[date].present?
+          # Use custom availabilities (they override regular ones)
+          day_availabilities = custom_availabilities_by_date[date]
+        else
+          # Use regular availabilities for this day of week
+          # Convert Ruby wday (Sunday=0) to our system (Monday=0, Sunday=6)
+          # Ruby: Sunday=0, Monday=1, ..., Saturday=6
+          # Our system: Monday=0, Tuesday=1, ..., Sunday=6
+          day_of_week = date.wday == 0 ? 6 : date.wday - 1
+          day_availabilities = professional_availabilities.select { |a| a.day_of_week == day_of_week }
+        end
         
         next if day_availabilities.empty?
-        
-        slots_for_day = []
         
         day_availabilities.each do |availability|
           # Convert availability times to datetime for this specific date

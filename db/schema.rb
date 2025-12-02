@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_02_100047) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_02_125342) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -100,6 +100,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_02_100047) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["booking_id"], name: "index_chats_on_booking_id", unique: true
+  end
+
+  create_table "custom_availabilities", force: :cascade do |t|
+    t.date "date", null: false
+    t.time "start_time", null: false
+    t.time "end_time", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "date"], name: "index_custom_availabilities_on_user_id_and_date"
+    t.index ["user_id"], name: "index_custom_availabilities_on_user_id"
   end
 
   create_table "professional_documents", force: :cascade do |t|
@@ -244,6 +255,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_02_100047) do
   add_foreign_key "chat_messages", "chats"
   add_foreign_key "chat_messages", "users"
   add_foreign_key "chats", "bookings"
+  add_foreign_key "custom_availabilities", "users"
   add_foreign_key "professional_documents", "users"
   add_foreign_key "professional_service_services", "professional_services"
   add_foreign_key "professional_service_services", "services"

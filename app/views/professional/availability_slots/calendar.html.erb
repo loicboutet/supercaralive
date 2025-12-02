@@ -92,8 +92,12 @@
               is_today = date == @current_date
               is_weekend = date.wday == 0 || date.wday == 6
               
-              # Get availabilities for this day of week
-              day_availabilities = @availabilities_by_day[day_of_week] || []
+              # Check if there are custom availabilities for this specific date
+              day_availabilities = if @custom_availabilities_by_date[date].present?
+                @custom_availabilities_by_date[date] # Custom availabilities override regular ones
+              else
+                @availabilities_by_day[day_of_week] || [] # Regular availabilities for this day of week
+              end
               
               # Get bookings for this date
               day_bookings = @bookings_by_date[date] || []
@@ -105,12 +109,13 @@
               # Build slots to display
               slots_to_display = []
               
-              # Add availabilities (green)
+              # Add availabilities (green for regular, purple for custom)
               day_availabilities.each do |avail|
+                is_custom = @custom_availabilities_by_date[date].present? && @custom_availabilities_by_date[date].include?(avail)
                 slots_to_display << {
                   type: :availability,
                   time_range: format_time_range(avail.start_time, avail.end_time),
-                  color: 'green'
+                  color: is_custom ? 'purple' : 'green'
                 }
               end
               
@@ -160,6 +165,7 @@
                   <% 
                     bg_color = case slot[:color]
                     when 'green' then 'bg-green-100 text-green-800'
+                    when 'purple' then 'bg-purple-100 text-purple-800'
                     when 'yellow' then 'bg-yellow-100 text-yellow-800'
                     when 'red' then 'bg-red-100 text-red-800'
                     end

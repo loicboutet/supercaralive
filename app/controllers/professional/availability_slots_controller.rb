@@ -35,6 +35,12 @@ class Professional::AvailabilitySlotsController < Professional::BaseController
     # Load availabilities grouped by day of week
     @availabilities_by_day = current_user.availabilities.ordered_by_day.group_by(&:day_of_week)
     
+    # Load custom availabilities for this month (these override regular availabilities for specific dates)
+    @custom_availabilities_by_date = current_user.custom_availabilities
+                                                  .for_date_range(@start_date, @end_date)
+                                                  .order(:date, :start_time)
+                                                  .group_by(&:date)
+    
     # Load bookings for this month
     @bookings = current_user.professional_bookings
                             .where(scheduled_at: @start_date.beginning_of_day..@end_date.end_of_day)
@@ -53,8 +59,15 @@ class Professional::AvailabilitySlotsController < Professional::BaseController
     # Get day of week (0 = Monday, 6 = Sunday)
     day_of_week = date.wday == 0 ? 6 : date.wday - 1
     
-    # Get availabilities for this day of week
-    availabilities = current_user.availabilities.for_day(day_of_week).ordered_by_day
+    # Get custom availabilities for this specific date (these override regular availabilities)
+    custom_availabilities = current_user.custom_availabilities.for_date(date).ordered_by_time
+    
+    # Get availabilities for this day of week (only if no custom availabilities exist)
+    availabilities = if custom_availabilities.any?
+      [] # Custom availabilities override regular ones
+    else
+      current_user.availabilities.for_day(day_of_week).ordered_by_day
+    end
     
     # Get bookings for this date
     bookings = current_user.professional_bookings
@@ -62,7 +75,12 @@ class Professional::AvailabilitySlotsController < Professional::BaseController
                             .includes(:client, :vehicle, :professional_service)
                             .order(:scheduled_at)
     
-    render partial: 'day_details', locals: { date: date, availabilities: availabilities, bookings: bookings }
+    render partial: 'day_details', locals: { 
+      date: date, 
+      availabilities: availabilities, 
+      custom_availabilities: custom_availabilities,
+      bookings: bookings 
+    }
   end
 
   def new

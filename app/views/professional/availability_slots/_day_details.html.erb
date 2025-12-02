@@ -4,8 +4,59 @@
                  'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 %>
 
-<div class="space-y-6">
-  <!-- Available Slots -->
+<div class="space-y-6" data-controller="custom-availability-form">
+  <!-- Custom Availabilities (override regular ones) -->
+  <% if custom_availabilities.any? %>
+    <div>
+      <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+        <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        Disponibilités personnalisées pour ce jour
+      </h3>
+      <div class="space-y-3">
+        <% custom_availabilities.each do |custom_availability| %>
+          <div class="flex items-center justify-between p-4 border border-purple-200 bg-purple-50 rounded-lg">
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-bold text-gray-900"><%= format_time_range(custom_availability.start_time, custom_availability.end_time) %></p>
+                <% duration_minutes = ((custom_availability.end_time - custom_availability.start_time) / 60).to_i %>
+                <p class="text-sm text-gray-600">Durée: <%= format_duration(duration_minutes) %></p>
+              </div>
+            </div>
+            <div>
+              <%= button_to professional_custom_availability_path(custom_availability), 
+                  method: :delete, 
+                  class: "bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg font-medium text-sm inline-flex items-center",
+                  data: { turbo: false } do %>
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+                Supprimer
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="mt-4">
+        <button type="button" 
+                data-action="click->custom-availability-form#showForm"
+                class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Modifier les disponibilités
+        </button>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Available Slots (regular availabilities, only shown if no custom availabilities) -->
   <% if availabilities.any? %>
     <div>
       <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -32,8 +83,51 @@
           </div>
         <% end %>
       </div>
+      <div class="mt-4">
+        <button type="button" 
+                data-action="click->custom-availability-form#showForm"
+                class="bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Personnaliser les disponibilités pour ce jour
+        </button>
+      </div>
     </div>
   <% end %>
+
+  <!-- Custom Availability Form (hidden by default) -->
+  <div data-custom-availability-form-target="form" class="hidden mt-6 p-6 bg-gray-50 rounded-lg border border-gray-200">
+    <h4 class="text-lg font-bold text-gray-900 mb-4">Personnaliser les disponibilités pour <%= date.strftime("%d/%m/%Y") %></h4>
+    <%= form_with url: professional_custom_availabilities_path, method: :post, data: { turbo: false }, local: true, class: "space-y-4" do |f| %>
+      <%= hidden_field_tag :date, date.strftime("%Y-%m-%d") %>
+      
+      <div data-custom-availability-form-target="slotsContainer" class="space-y-4">
+        <!-- Slots will be added here dynamically -->
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <button type="button" 
+                data-action="click->custom-availability-form#addSlot"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium inline-flex items-center">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          Ajouter un créneau
+        </button>
+        
+        <div class="flex-1"></div>
+        
+        <button type="button" 
+                data-action="click->custom-availability-form#hideForm"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-medium">
+          Annuler
+        </button>
+        
+        <%= f.submit "Enregistrer", class: "bg-blue-hero hover:bg-blue-dark text-white px-6 py-2 rounded-lg font-bold" %>
+      </div>
+    <% end %>
+  </div>
 
   <!-- Bookings -->
   <% if bookings.any? %>
@@ -102,12 +196,20 @@
   <% end %>
 
   <!-- Empty state -->
-  <% if availabilities.empty? && bookings.empty? %>
+  <% if availabilities.empty? && custom_availabilities.empty? && bookings.empty? %>
     <div class="text-center py-8">
       <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
       </svg>
-      <p class="text-gray-600">Aucun créneau disponible ni réservation pour ce jour.</p>
+      <p class="text-gray-600 mb-4">Aucun créneau disponible ni réservation pour ce jour.</p>
+      <button type="button" 
+              data-action="click->custom-availability-form#showForm"
+              class="bg-blue-hero hover:bg-blue-dark text-white px-4 py-2 rounded-lg font-medium inline-flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        Ajouter des disponibilités personnalisées
+      </button>
     </div>
   <% end %>
 </div>

@@ -66,6 +66,7 @@ class User < ApplicationRecord
   has_many :professional_services, dependent: :destroy
   has_many :vehicles, dependent: :destroy
   has_many :availabilities, dependent: :destroy
+  has_many :custom_availabilities, dependent: :destroy
   has_many :client_bookings, class_name: "Booking", foreign_key: "client_id", dependent: :destroy
   has_many :professional_bookings, class_name: "Booking", foreign_key: "professional_id", dependent: :destroy
   has_one_attached :profile_photo

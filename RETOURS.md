@@ -42,8 +42,9 @@
 ### Paramétrage admin
 
 ### Calendrier professionnel
-- [ ] **Flexibilité du calendrier** - Le calendrier est limité par jour, par exemple j'ajoute un créneau le lundi et cela impacte tous les lundis. Je pensais qu'il y avait plus de flexibilité dans la gestion de l'agenda et qu'il pouvait être modifié de façon journalière et non pas une duplication exacte de la même journée chaque semaine.
+- [x] **Flexibilité du calendrier** - Le calendrier est limité par jour, par exemple j'ajoute un créneau le lundi et cela impacte tous les lundis. Je pensais qu'il y avait plus de flexibilité dans la gestion de l'agenda et qu'il pouvait être modifié de façon journalière et non pas une duplication exacte de la même journée chaque semaine.
   - URL concernée : https://supercaralive.5000.dev/professional/availability_slots
+  - ✅ Résolu : Création du modèle `CustomAvailability` permettant de personnaliser les disponibilités pour une date spécifique. Sur la vue calendrier, en cliquant sur un jour, une modale permet d'ajouter des disponibilités personnalisées qui remplacent les disponibilités régulières pour ce jour uniquement. Les custom availabilities sont prises en compte dans le calcul des créneaux disponibles pour les clients.
 
 ### Réservations professionnel
 - [x] **Boutons Accepter/Refuser sur prestation terminée** - Sur la page de réservation, la prestation est terminée et on a encore les 2 boutons "Accepter" et "Refuser". Je pense que ça n'est pas le fonctionnement attendu.
