@@ -8,7 +8,8 @@
   - ✅ Résolu : Ajout d'une alerte flash explicite avec le nom du document ajouté
 
 ### Accès aux données
-- [ ] **Numéros de téléphone** - Pourquoi est-ce que je ne peux pas avoir accès aux numéros de téléphone enregistrés dans le système ?
+- [x] **Numéros de téléphone** - Pourquoi est-ce que je ne peux pas avoir accès aux numéros de téléphone enregistrés dans le système ?
+  - ✅ Résolu : Ajout de l'affichage du numéro de téléphone dans la page show des utilisateurs (admin/users/:id), visible même s'il n'est pas renseigné (affiche "Non renseigné")
 
 ### CGV et politique de confidentialité
 - [ ] **Mise à jour des CGV et politique de confidentialité** - Comment procéder pour les mettre à jour ? Lien avec les pages développées par Simplébeau ?

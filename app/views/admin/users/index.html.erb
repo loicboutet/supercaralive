@@ -124,6 +124,7 @@
         <tr>
           <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Utilisateur</th>
           <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Email</th>
+          <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Téléphone</th>
           <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Type</th>
           <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Statut</th>
           <th class="text-left px-6 py-4 text-sm font-bold text-gray-700">Inscrit le</th>
@@ -146,6 +147,7 @@
                 </div>
               </td>
               <td class="px-6 py-4 text-sm text-gray-700"><%= user.email %></td>
+              <td class="px-6 py-4 text-sm text-gray-700"><%= user.phone_number.present? ? user.phone_number : "-" %></td>
               <td class="px-6 py-4">
                 <% case user.role %>
                 <% when "Client" %>
@@ -208,7 +210,7 @@
           <% end %>
         <% else %>
           <tr>
-            <td colspan="6" class="px-6 py-8 text-center text-gray-500">
+            <td colspan="7" class="px-6 py-8 text-center text-gray-500">
               Aucun utilisateur trouvé
             </td>
           </tr>
