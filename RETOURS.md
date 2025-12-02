@@ -44,8 +44,9 @@
   - ✅ Résolu : Les réservations créées manuellement n'affichent plus les boutons "Accepter" et "Refuser". Seul le bouton "Terminer" est disponible si la réservation n'est pas déjà terminée ou annulée.
 
 ### Profil professionnel
-- [ ] **Modification du rappel** - Est-ce que c'est possible de modifier le rappel à 1 jour avant (la veille) ? 7 jours ça fait très long je trouve…
+- [x] **Modification du rappel** - Est-ce que c'est possible de modifier le rappel à 1 jour avant (la veille) ? 7 jours ça fait très long je trouve…
   - URL concernée : https://supercaralive.5000.dev/professional/profile/edit
+  - ✅ Résolu : Modification des jobs de rappel (ClientBookingRemindersJob et ProfessionalBookingRemindersJob) pour envoyer les rappels 1 jour avant au lieu de 7 jours. Mise à jour des textes dans les vues et mailers pour refléter ce changement.
 
 ### Réservations client
 - [ ] **Erreur 500 sur "mes réservations"** - Quand je clique sur "mes réservations" j'ai une erreur 500 alors que j'ai une résa en attente. Je ne pense pas que ça soit le fonctionnement attendu.
