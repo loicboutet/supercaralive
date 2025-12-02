@@ -3,16 +3,17 @@
 # Table name: custom_availabilities
 # Database name: primary
 #
-#  id          :integer          not null, primary key
-#  date        :date             not null
-#  end_time    :time             not null
-#  start_time  :time             not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  user_id     :integer          not null
+#  id         :integer          not null, primary key
+#  date       :date             not null
+#  end_time   :time             not null
+#  start_time :time             not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer          not null
 #
 # Indexes
 #
+#  index_custom_availabilities_on_user_id           (user_id)
 #  index_custom_availabilities_on_user_id_and_date  (user_id,date)
 #
 # Foreign Keys
