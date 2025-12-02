@@ -137,7 +137,17 @@
                     <% 
                       booking_date_passed = booking_date_passed?(booking)
                     %>
-                    <% if booking_date_passed && booking.status != 'completed' && booking.status != 'cancelled' && booking.status != 'refused' %>
+                    <% if booking.manual? %>
+                      <!-- Manual bookings: only show "Terminer" button if not completed -->
+                      <% if booking.status != 'completed' && booking.status != 'cancelled' %>
+                        <%= button_to complete_professional_booking_path(booking), method: :patch,
+                            data: { turbo: false },
+                            form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },
+                            class: "bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition w-full sm:w-auto" do %>
+                          ✓ Terminer
+                        <% end %>
+                      <% end %>
+                    <% elsif booking_date_passed && booking.status != 'completed' && booking.status != 'cancelled' && booking.status != 'refused' %>
                       <%= button_to complete_professional_booking_path(booking), method: :patch,
                           data: { turbo: false },
                           form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },

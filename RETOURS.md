@@ -39,8 +39,9 @@
   - URL concernée : https://supercaralive.5000.dev/professional/bookings/2
   - ✅ Résolu : Les boutons Accepter/Refuser ne s'affichent plus si la date est passée. Seul le bouton "Terminer" est disponible. Le statut "En attente" devient "Date passée" si la date est passée.
 
-- [ ] **Bouton Refuser sur prestation créée manuellement** - Sur cette page, la prestation a été créée manuellement et on a le bouton "refuser". Je ne sais pas si c'est normal.
+- [x] **Bouton Refuser sur prestation créée manuellement** - Sur cette page, la prestation a été créée manuellement et on a le bouton "refuser". Je ne sais pas si c'est normal.
   - URL concernée : https://supercaralive.5000.dev/professional/bookings/1
+  - ✅ Résolu : Les réservations créées manuellement n'affichent plus les boutons "Accepter" et "Refuser". Seul le bouton "Terminer" est disponible si la réservation n'est pas déjà terminée ou annulée.
 
 ### Profil professionnel
 - [ ] **Modification du rappel** - Est-ce que c'est possible de modifier le rappel à 1 jour avant (la veille) ? 7 jours ça fait très long je trouve…

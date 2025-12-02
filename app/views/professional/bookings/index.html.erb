@@ -187,7 +187,19 @@
                 # Check if date is past for this booking
                 booking_date_passed = booking_date_passed?(booking)
               %>
-              <% if booking_date_passed && booking.status != 'completed' && booking.status != 'cancelled' && booking.status != 'refused' %>
+              <% if booking.manual? %>
+                <!-- Manual bookings: only show "Terminer" button if not completed -->
+                <% if booking.status != 'completed' && booking.status != 'cancelled' %>
+                  <%= button_to complete_professional_booking_path(booking), method: :patch, 
+                      form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },
+                      class: "bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" do %>
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Terminer
+                  <% end %>
+                <% end %>
+              <% elsif booking_date_passed && booking.status != 'completed' && booking.status != 'cancelled' && booking.status != 'refused' %>
                 <%= button_to complete_professional_booking_path(booking), method: :patch, 
                     form: { data: { turbo: false, controller: "confirm", confirm_message_value: "Êtes-vous sûr de vouloir marquer cette réservation comme terminée ?", action: "submit->confirm#confirm" } },
                     class: "bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium inline-flex items-center" do %>
