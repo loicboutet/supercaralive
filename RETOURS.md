@@ -114,13 +114,14 @@
   - ✅ Résolu : Après analyse du code, "Vérifié" et "Approuvé" font référence au même statut dans la base de données (`status: "active"`). Il n'existe pas de statut distinct "vérifié" dans le modèle User. Pour éviter la confusion côté administrateur, tous les libellés "Vérifiés" ont été remplacés par "Actifs" dans les pages admin (`admin/professional_approvals/index.html.erb` et `admin/users/index.html.erb`). Le terme "Vérifié" est conservé côté client et professionnel car il représente simplement une indication que le compte a été validé par un administrateur.
 
 ### Services admin
-- [ ] **Affichage des prérequis/matériel nécessaire** - Pour cette page, les infos renseignées dans "Prérequis / Matériel nécessaire" pour chaque spécialité doivent se retrouver sur cette page c'est bien ça ? => https://supercaralive.5000.dev/client/professionals/3
+- [x] **Affichage des prérequis/matériel nécessaire** - Pour cette page, les infos renseignées dans "Prérequis / Matériel nécessaire" pour chaque spécialité doivent se retrouver sur cette page c'est bien ça ? => https://supercaralive.5000.dev/client/professionals/3
   
   Ca permettra au client final de comprendre de quelles installations le professionnel a besoin.
   
   Il faudrait donc que ce qui est renseigné dans l'admin pour chaque spécialité puisse se retrouver à la suite de "diagnostic électrique" par exemple => "Diagnostic électrique : pré-requis = avoir accès à l'électricité" "Peinture : pré-requis = avoir accès à un lieu à l'abri du vent".
   - URL admin : https://supercaralive.5000.dev/admin/services/new
   - URL client : https://supercaralive.5000.dev/client/professionals/3
+  - ✅ Résolu : Les prérequis/matériel nécessaire sont désormais affichés sur chaque carte de service dans la page de détail du professionnel (`client/professionals/show.html.erb`). Les prérequis sont collectés depuis tous les services associés à chaque `professional_service` et affichés entre le nom du service et la section durée/prix. L'affichage se fait uniquement si des prérequis sont renseignés dans l'admin pour les services concernés.
 
 ---
 
