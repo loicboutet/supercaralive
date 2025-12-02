@@ -4,7 +4,7 @@ class Professional::ManualBookingsController < Professional::BaseController
     @booking.professional_id = current_user.id
     # No client_id for manual bookings - they are created by professional for themselves
     @booking.manual_booking = true
-    @professional_services = current_user.professional_services.where(active: true).order(:name)
+    @professional_services = current_user.professional_services.where(active: true).includes(:services).order(:name)
     
     render partial: 'professional/manual_bookings/form', locals: { booking: @booking, professional_services: @professional_services }
   end
@@ -22,7 +22,7 @@ class Professional::ManualBookingsController < Professional::BaseController
         format.html { redirect_to calendar_professional_availability_slots_path, notice: 'Réservation créée avec succès.' }
       end
     else
-      @professional_services = current_user.professional_services.where(active: true).order(:name)
+      @professional_services = current_user.professional_services.where(active: true).includes(:services).order(:name)
       respond_to do |format|
         format.html { 
           flash[:alert] = @booking.errors.full_messages.join(", ")

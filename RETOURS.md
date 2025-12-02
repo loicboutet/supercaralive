@@ -23,6 +23,10 @@
   - URLs concernées : Toutes les pages avec sélection de services
   - URL spécifique : https://supercaralive.5000.dev/client/professionals
 
+- [x] **Amélioration du select de service dans les réservations** - Création d'un select custom avec contrôleur Stimulus pour afficher toutes les informations du service (nom, description via services associés, durée, prix, prix de déplacement) dans les options dépliées.
+  - URL concernée : https://supercaralive.5000.dev/client/bookings/new
+  - ✅ Résolu : Select custom créé avec affichage détaillé de chaque service (nom, types de services, durée, prix, prix de déplacement) quand déplié
+
 ### Logo et identité visuelle
 - [ ] **Suppression du logo vignette** - Supprimer le logo vignette de chaque onglet et pour le portail admin
 - [ ] **Logo sur les pages de connexion** - Le logo n'est pas supprimé sur les pages de connexion. Vous pouvez juste ajouter SUPERCARALIVE avec le code couleur habituel.

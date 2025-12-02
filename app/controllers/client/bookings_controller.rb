@@ -203,7 +203,7 @@ class Client::BookingsController < Client::BaseController
     
     if professional_id.present?
       professional = User.find_by(id: professional_id)
-      @professional_services = professional&.professional_services&.active&.order(:name) || []
+      @professional_services = professional&.professional_services&.active&.includes(:services)&.order(:name) || []
     else
       @professional_services = []
     end
