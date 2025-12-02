@@ -33,20 +33,22 @@
         Examinez et validez la demande d'inscription professionnelle
       </p>
     </div>
-    <div class="flex flex-col sm:flex-row gap-3">
-      <%= button_to approve_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir approuver cet utilisateur ?')" }, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-        </svg>
-        Approuver
-      <% end %>
-      <%= button_to reject_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir refuser cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-        Refuser
-      <% end %>
-    </div>
+    <% if @user.status == "inactive" %>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <%= button_to approve_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir approuver cet utilisateur ?')" }, class: "bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Approuver
+        <% end %>
+        <%= button_to reject_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir refuser cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-bold inline-flex items-center justify-center w-full sm:w-auto" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          Refuser
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
 
@@ -303,23 +305,56 @@
     </div>
 
     <!-- Decision Actions -->
-    <div class="bg-white rounded-super p-6 shadow-sm">
-      <h2 class="text-2xl font-bold text-gray-900 mb-4">Décision finale</h2>
-      <div class="flex flex-col sm:flex-row gap-4">
-        <%= button_to approve_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir approuver cet utilisateur ?')" }, class: "bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg inline-flex items-center justify-center w-full sm:w-auto" do %>
-          <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          Approuver la demande
-        <% end %>
-        <%= button_to reject_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir refuser cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-lg inline-flex items-center justify-center w-full sm:w-auto" do %>
-          <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          Refuser la demande
-        <% end %>
+    <% if @user.status == "inactive" %>
+      <div class="bg-white rounded-super p-6 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Décision finale</h2>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <%= button_to approve_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir approuver cet utilisateur ?')" }, class: "bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg inline-flex items-center justify-center w-full sm:w-auto" do %>
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Approuver la demande
+          <% end %>
+          <%= button_to reject_admin_professional_approval_path(@user), method: :patch, form: { data: { turbo: false }, onsubmit: "return confirm('Êtes-vous sûr de vouloir refuser cet utilisateur ?')" }, class: "bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-lg font-bold text-lg inline-flex items-center justify-center w-full sm:w-auto" do %>
+            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Refuser la demande
+          <% end %>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div class="bg-white rounded-super p-6 shadow-sm">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Décision prise</h2>
+        <div class="bg-gray-50 border-l-4 <%= @user.status == "active" ? 'border-green-500' : 'border-red-600' %> rounded-lg p-6">
+          <div class="flex items-start">
+            <svg class="w-6 h-6 <%= @user.status == "active" ? 'text-green-500' : 'text-red-600' %> mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <% if @user.status == "active" %>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              <% else %>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              <% end %>
+            </svg>
+            <div>
+              <h3 class="text-lg font-bold <%= @user.status == "active" ? 'text-green-800' : 'text-red-800' %> mb-1">
+                <% if @user.status == "active" %>
+                  Demande approuvée
+                <% else %>
+                  Demande refusée
+                <% end %>
+              </h3>
+              <p class="<%= @user.status == "active" ? 'text-green-700' : 'text-red-700' %>">
+                <% if @user.status == "active" %>
+                  Cette demande a été approuvée le <%= @user.updated_at.strftime("%d/%m/%Y à %H:%M") %>.
+                <% else %>
+                  Cette demande a été refusée le <%= @user.updated_at.strftime("%d/%m/%Y à %H:%M") %>.
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
   </div>
 </div>

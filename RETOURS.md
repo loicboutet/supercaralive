@@ -89,8 +89,9 @@
   - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
   - ✅ Résolu : Le logo de la barre latérale (sidebar) admin a été supprimé précédemment et remplacé par le texte "SUPERCARALIVE". Il n'y a plus de logo visible sur la page d'approbation professionnelle.
 
-- [ ] **Boutons Approuver/Refuser si déjà approuvé** - Si le profil a déjà été approuvé, alors à mon sens pas besoin d'avoir encore les 2 boutons "Approuver" et "Refuser" et notamment dans la décision finale.
+- [x] **Boutons Approuver/Refuser si déjà approuvé** - Si le profil a déjà été approuvé, alors à mon sens pas besoin d'avoir encore les 2 boutons "Approuver" et "Refuser" et notamment dans la décision finale.
   - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
+  - ✅ Résolu : Les boutons "Approuver" et "Refuser" ne s'affichent plus si le professionnel a déjà été approuvé (statut "active") ou refusé (statut "suspended"). À la place, un message informatif s'affiche indiquant la décision prise et la date de la décision.
 
 - [ ] **Bouton "Demande de documents" avec notes** - Il serait opportun d'avoir un bouton "Demande de documents" avec un encart "Notes" pour détailler les pièces attendues/documents et que cela fasse partir un message en automatique au professionnel. Si c'est possible ?
   - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
