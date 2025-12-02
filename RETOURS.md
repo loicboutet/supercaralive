@@ -85,8 +85,9 @@
 ## 🔧 Retours admin
 
 ### Approbation professionnel
-- [ ] **Suppression du logo "voiture style cars"** - Supprimer le logo sur la page d'approbation professionnel.
+- [x] **Suppression du logo "voiture style cars"** - Supprimer le logo sur la page d'approbation professionnel.
   - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
+  - ✅ Résolu : Le logo de la barre latérale (sidebar) admin a été supprimé précédemment et remplacé par le texte "SUPERCARALIVE". Il n'y a plus de logo visible sur la page d'approbation professionnelle.
 
 - [ ] **Boutons Approuver/Refuser si déjà approuvé** - Si le profil a déjà été approuvé, alors à mon sens pas besoin d'avoir encore les 2 boutons "Approuver" et "Refuser" et notamment dans la décision finale.
   - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3

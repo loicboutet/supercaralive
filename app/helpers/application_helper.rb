@@ -132,4 +132,26 @@ module ApplicationHelper
     end_time = booking.scheduled_at + duration_minutes.minutes
     end_time < Time.current
   end
+
+  # Helper to format waiting time in a human-readable way
+  # Converts hours to days when >= 24 hours
+  # Usage: <%= format_waiting_time(user.created_at) %>
+  # Returns: "5h", "1 jour", "2 jours", "3j 12h", etc.
+  def format_waiting_time(created_at)
+    return "0h" unless created_at.present?
+    
+    hours = ((Time.current - created_at) / 1.hour).round
+    days = (hours / 24.0).floor
+    
+    if days >= 1
+      remaining_hours = hours % 24
+      if remaining_hours > 0
+        "#{days}j #{remaining_hours}h"
+      else
+        "#{days} jour#{days > 1 ? 's' : ''}"
+      end
+    else
+      "#{hours}h"
+    end
+  end
 end
