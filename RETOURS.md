@@ -1,137 +1,80 @@
-# Liste des retours - SuperCarAlive
+# Retours et corrections à effectuer
+---
 
-## 📹 Retours vidéo
+## Pages client
 
-### Documents professionnel
-- [x] **Chargement de documents** - Lorsque le professionnel charge ses documents, il manque un bouton "Envoyer les documents" ou un encart en surcouche confirmant le bon envoi des documents. On ne comprend pas bien que les documents ont bien été chargés.
-  - URL concernée : Page de chargement des documents du professionnel
-  - ✅ Résolu : Ajout d'une alerte flash explicite avec le nom du document ajouté
+### `/client/maintenance_reminders`
+1. **Ajouter le récapitulatif des factures** : Dans cette page de mémoire il y avait le récapitulatif des factures (avec leur statut, réglée, en attente… et le filtrage possible). D'ailleurs c'est spécifié dans l'entête de la page au travers de : « Suivez vos dépenses et les maintenances périodiques de vos véhicules ». Est-ce que vous pourriez ajouter les éléments concernant les factures ? Merci. Dans l'exemple on devrait voir apparaître le « Nettoyage extra » à 150€.
+   - *Note : Ce point appartient à la brique 2. Il n'y a pas de notion de facturation implémentée actuellement, c'est pour ça que ce n'est pas présent dans l'application.*
+2.1. ✅ **Correction orthographique** : Mettre un « S » majuscule à "Supercarnet d'entretien".
+2.2. ✅ **Modifier la phrase d'entête** : Enlever "vos dépenses et" de la phrase "Suivez vos dépenses et les maintenances périodiques de vos véhicules" pour avoir juste "Suivez les maintenances périodiques de vos véhicules" puisqu'on ne suit pas les dépenses en fait.
 
-### Accès aux données
-- [x] **Numéros de téléphone** - Pourquoi est-ce que je ne peux pas avoir accès aux numéros de téléphone enregistrés dans le système ?
-  - ✅ Résolu : Ajout de l'affichage du numéro de téléphone dans la page show des utilisateurs (admin/users/:id), visible même s'il n'est pas renseigné (affiche "Non renseigné")
+### `/client/professionals`
+3. ✅ **Ajouter "Detailing" dans les services** : Ajouter « Detailing » dans les services « liste ».
+4. ✅ **Ajouter des filtres de recherche rapide** : Sur cette page en dessous de l'encart « Type de service » Localisation… Dans les maquettes il y avait des boutons/filtres de recherches rapides comme « Disponible dans la journée » « Populaire »… de mémoire, mais on ne les retrouve pas du tout sur cette version. Pourriez-vous les rajouter ?
+
+### `/client/bookings/3/edit`
+5. ✅ **Supprimer une phrase** : Supprimer cette phrase : « Les créneaux affichés sont basés sur les disponibilités du professionnel et excluent les réservations déjà confirmées. »
+
+### `/client/bookings?status=pending` (et autres statuts)
+6. ✅ **Enlever le bouton "Créer ma 1ere réservation" du corps de page** : Sur les pages « Toutes, En attente, Validées, Refusées, Annulées, Terminées » pas besoin d'ajouter dans le corps de la page « Créer ma 1ere réservation » car on a déjà le bouton en haut à droite « Nouvelles réservation ».
+
+### `/client/profile`
+7. ✅ **Enlever une phrase** : Enlever la phrase «…. pour les administrateurs afin de protéger votre vie privée. » car j'y ai accès à présent.
+
+### `/client` (Dashboard)
+8. ✅ **Corriger les incohérences dans les statistiques** :
+   - On a 1 résa notée « A venir » alors que dans l'encart plus bas on a 0 pour prochaines réservations. Je n'ai pas de résa prévue ou en attente dans le système.
+   - Dans service terminé il est noté 0 alors que nous avons une prestation terminée qui est enregistrée dans le système.
 
 ---
 
-## 🌐 Retours site
+## Pages professionnel
 
-### Services - Détailing manquant
-- [x] **Ajout du Détailing dans les choix de services** - Sur l'ensemble du site, dès qu'un service (Mécanique, Carrossier, Lavage) est à choisir, il manque le Détailing.
-  - URLs concernées : Toutes les pages avec sélection de services
-  - URL spécifique : https://supercaralive.5000.dev/client/professionals
-- ✅ Résolu : Select custom créé avec affichage détaillé de chaque service (nom, types de services, durée, prix, prix de déplacement) quand déplié
+### `/professional/profile`
+9. ✅ **Modifier le texte sur la confidentialité** : « Vos informations personnelles (nom, entreprise, téléphone, SIRET) restent confidentielles et ne seront visibles par les clients qu'après validation d'au moins deux rendez-vous avec eux ». Remplacer par : « Vos informations personnelles (nom, entreprise, téléphone, SIRET) restent confidentielles et seront visibles par le particulier dès le RDV validé. »
 
-### Logo et identité visuelle
-- [x] **Suppression du logo vignette** - Supprimer le logo vignette de chaque onglet et pour le portail admin
-  - ✅ Résolu : Favicons supprimées des layouts admin, professional et client. Logo supprimé des sidebars admin (desktop et mobile) et remplacé par "SupercarAlive" (Supercar en blanc, Alive en jaune pour la sidebar admin)
-- [x] **Logo sur les pages de connexion** - Le logo n'est pas supprimé sur les pages de connexion. Vous pouvez juste ajouter SUPERCARALIVE avec le code couleur habituel.
-  - URL concernée : https://supercaralive.5000.dev/client
-  - ✅ Résolu : Ajout de "SupercarAlive" (Supercar en noir, Alive en rouge) sous les logos sur les pages sign in, mot de passe oublié et créer un compte
+### `/professional/profile/edit`
+10. ✅ **Enlever la notion de 2 rdv** : Enlever la notion de 2 rdv pour l'affichage de l'adresse comme précédemment indiqué.
 
-### Profil du pro
-- [x] "Gérer les disponibilités " rajouter "les"
-- ✅ Résolu
-
-### Anonymisation des pros
-- [x] Il est important comme on en avait parlé que les professionnels soient complètement anonymes sur la PF (seul l admin à la visibilité). Donc pas de numéro de siret, et mettre par défaut les initiales. Ça serait bien de le mentionner sur la page d inscription comme c est fait pour les particuliers. Par contre on ne laisse pas le choix c est anonymise. Ensuite les infos seront visibles par le particulier une fois la prestation validée.
-  - ✅ Résolu : 
-    - Ajout d'un encart de confidentialité sur les pages `professional/profile/show` et `professional/profile/edit` expliquant que les informations personnelles restent confidentielles jusqu'à validation d'au moins deux rendez-vous.
-    - Dans la liste des professionnels (`client/professionals/index`), le nom d'entreprise est remplacé par les initiales du professionnel.
-    - Dans la page de détail du professionnel (`client/professionals/show`), le nom complet, le numéro de téléphone et le SIRET ne sont affichés que si le client a au moins un booking "completed" avec ce professionnel. Sinon, seules les initiales sont affichées.
-
-### Paramétrage admin
-
-### Calendrier professionnel
-- [x] **Flexibilité du calendrier** - Le calendrier est limité par jour, par exemple j'ajoute un créneau le lundi et cela impacte tous les lundis. Je pensais qu'il y avait plus de flexibilité dans la gestion de l'agenda et qu'il pouvait être modifié de façon journalière et non pas une duplication exacte de la même journée chaque semaine.
-  - URL concernée : https://supercaralive.5000.dev/professional/availability_slots
-  - ✅ Résolu : Création du modèle `CustomAvailability` permettant de personnaliser les disponibilités pour une date spécifique. Sur la vue calendrier, en cliquant sur un jour, une modale permet d'ajouter des disponibilités personnalisées qui remplacent les disponibilités régulières pour ce jour uniquement. Les custom availabilities sont prises en compte dans le calcul des créneaux disponibles pour les clients.
-
-### Réservations professionnel
-- [x] **Boutons Accepter/Refuser sur prestation terminée** - Sur la page de réservation, la prestation est terminée et on a encore les 2 boutons "Accepter" et "Refuser". Je pense que ça n'est pas le fonctionnement attendu.
-  - URL concernée : https://supercaralive.5000.dev/professional/bookings/2
-  - ✅ Résolu : Les boutons Accepter/Refuser ne s'affichent plus si la date est passée. Seul le bouton "Terminer" est disponible. Le statut "En attente" devient "Date passée" si la date est passée.
-
-- [x] **Bouton Refuser sur prestation créée manuellement** - Sur cette page, la prestation a été créée manuellement et on a le bouton "refuser". Je ne sais pas si c'est normal.
-  - URL concernée : https://supercaralive.5000.dev/professional/bookings/1
-  - ✅ Résolu : Les réservations créées manuellement n'affichent plus les boutons "Accepter" et "Refuser". Seul le bouton "Terminer" est disponible si la réservation n'est pas déjà terminée ou annulée.
-
-### Profil professionnel
-- [x] **Modification du rappel** - Est-ce que c'est possible de modifier le rappel à 1 jour avant (la veille) ? 7 jours ça fait très long je trouve…
-  - URL concernée : https://supercaralive.5000.dev/professional/profile/edit
-  - ✅ Résolu : Modification des jobs de rappel (ClientBookingRemindersJob et ProfessionalBookingRemindersJob) pour envoyer les rappels 1 jour avant au lieu de 7 jours. Mise à jour des textes dans les vues et mailers pour refléter ce changement.
-
-### Réservations client
-- [x] **Erreur 500 sur "mes réservations"** - Quand je clique sur "mes réservations" j'ai une erreur 500 alors que j'ai une résa en attente. Je ne pense pas que ça soit le fonctionnement attendu.
-  - URL concernée : https://supercaralive.5000.dev/client/bookings
-  - ✅ Résolu : Correction de plusieurs problèmes potentiels :
-    - Ajout de la méthode `reviewed?` manquante dans le modèle Booking
-    - Protection de `professional_name` contre les valeurs nil
-    - Protection de `service_type_name` contre les valeurs nil
-    - Protection de `vehicle_model` contre les valeurs nil (brand, model, year)
-    - Protection de la pagination contre les valeurs nil
-    - Utilisation de `vehicle_model` dans le dashboard au lieu d'accès direct aux attributs
-
-### Nouvelle réservation
-- [x] **Encart adresse précise d'intervention** - Sur une nouvelle résa, pas d'encart pour indiquer l'adresse précise d'intervention (avec encart de rappel pour indiquer que l'intervention peut avoir lieu ailleurs que chez soi). On avait travaillé les encarts adresses 1 et 2 (principales…), avec le laïus qui va bien.
-  - URL concernée : https://supercaralive.5000.dev/client/bookings/new
-  - ✅ Résolu : Ajout du champ `intervention_address` dans le formulaire de réservation avec un encart informatif. Ajout du champ `address` dans le profil client. Pré-remplissage automatique de l'adresse d'intervention avec l'adresse du profil client si disponible.
-
-- [x] **Adresse d'intervention non visible** - Sur les interventions en statut "acceptée" ou "terminée", l'adresse d'intervention n'apparaît pas. Statut "En attente" l'adresse n'apparaît pas encore, on est d'accord.
-  - URL concernée : https://supercaralive.5000.dev/professional/bookings/3
-  - ✅ Résolu : L'adresse d'intervention s'affiche maintenant dans la vue professionnel bookings/show uniquement si le statut est "accepted" ou "completed".
-
-### Véhicules client
-- [x] **Impossible d'ajouter un véhicule** - Je n'arrive pas à ajouter de véhicule.
-  - URL concernée : https://supercaralive.5000.dev/client/vehicles/new
-  - ✅ Résolu : Mise en clarté des champs requis pour pouvoir créer son véhicule :
-    - Ajout d'astérisques rouges (*) sur les labels des champs requis (Marque, Modèle, Année, Kilométrage)
-    - Ajout de l'attribut `required: true` sur les champs requis pour la validation front-end
-    - Amélioration de l'affichage des erreurs de validation avec bordure rouge et messages d'erreur spécifiques sous chaque champ
-
-- [x] **Bouton "Ajouter mon véhicule" en double** - Il y a 2 fois le bouton "Ajouter mon véhicule".
-  - URL concernée : https://supercaralive.5000.dev/client/vehicles
-  - ✅ Résolu : Suppression du doublon de bouton. Le bouton "Ajouter un véhicule" en haut de page n'apparaît maintenant que s'il y a déjà des véhicules enregistrés. Quand il n'y a aucun véhicule, seul le bouton "Ajouter mon premier véhicule" dans la section vide s'affiche.
+### `/professional`
+11. ✅ **Corriger le doublon dans "Catégories populaires"** : Dans l'encart « Catégories populaires » il y a 2 fois « 3 » indiqués. En enlever 1.
 
 ---
 
-## 🔧 Retours admin
+## Pages admin
 
-### Approbation professionnel
-- [x] **Suppression du logo "voiture style cars"** - Supprimer le logo sur la page d'approbation professionnel.
-  - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
-  - ✅ Résolu : Le logo de la barre latérale (sidebar) admin a été supprimé précédemment et remplacé par le texte "SUPERCARALIVE". Il n'y a plus de logo visible sur la page d'approbation professionnelle.
+### `/admin/services`
+12. ✅ **Ajouter "detailing" dans la liste** : Ajouter "detailing" dans la liste.
 
-- [x] **Boutons Approuver/Refuser si déjà approuvé** - Si le profil a déjà été approuvé, alors à mon sens pas besoin d'avoir encore les 2 boutons "Approuver" et "Refuser" et notamment dans la décision finale.
-  - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
-  - ✅ Résolu : Les boutons "Approuver" et "Refuser" ne s'affichent plus si le professionnel a déjà été approuvé (statut "active") ou refusé (statut "suspended"). À la place, un message informatif s'affiche indiquant la décision prise et la date de la décision.
+---
 
-- [x] **Bouton "Demande de documents" avec notes** - Il serait opportun d'avoir un bouton "Demande de documents" avec un encart "Notes" pour détailler les pièces attendues/documents et que cela fasse partir un message en automatique au professionnel. Si c'est possible ?
-  - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
-  - ✅ Résolu : Un bouton "Demande de documents" a été ajouté à côté des boutons "Approuver" et "Refuser" sur la page d'approbation professionnelle. Ce bouton ouvre une modale avec un champ de notes obligatoire et une option pour recevoir une copie de l'email. Lors de la soumission, un email est envoyé au professionnel avec les notes demandées, et une notice de confirmation s'affiche.
+## Pages utilisateur
 
-### Paramétrage contact
-- [x] **Modification des informations "Contact"** - Je pensais que ce serait dans l'admin que je pourrais modifier les informations de "Contact" pour paramétrer les informations de contact sur chaque bouton du site. Sinon où puis-je le faire ?
-  - ✅ Résolu : Création du modèle `AppConfig` permettant de gérer les informations de contact (email, téléphone, adresse, horaires) via l'interface admin. Les informations sont accessibles via `/admin/app_config` et utilisées sur toutes les pages du site (contact, dashboard client, pages de statut, etc.). Les boutons de contact s'affichent uniquement si les informations sont renseignées.
+### `/users/sign_in`
+13. ✅ **Supprimer tous les logos** : Il faut vraiment supprimer tous les logos même sur la page de connexion. Est-ce qu'il sera possible d'en rajouter un après sur la page de connexion ? J'aurais la bonne version dans une dizaine de jours.
+   - *Note : On pourra rajouter l'icone à jour sans soucis*
+14. ✅ **Ajouter la possibilité de voir le mot de passe** : Pour l'encart de connexion il faudrait qu'on puisse voir (avec « l'œil ») le mdp qu'on rentre car là on est à l'aveugle.
 
-- [x] **Lien "Contacter le support" paramétrable** - Le lien "Contacter le support" devrait être paramétrable côté admin pour intégrer WhatsApp par exemple.
-  - URL concernée : https://supercaralive.5000.dev/client/professionals
-  - ✅ Résolu : Gestion via le modèle `AppConfig` créé. L'email de contact peut être modifié via `/admin/app_config` et remplace les credentials. Les boutons de contact s'affichent uniquement si l'email est renseigné dans AppConfig.
+### `/users/edit`
+15. ✅ **Corriger la mise en page** : Pour la page « Paramètres du compte » j'ai l'impression que la mise en page est cassée (unhappy ? ne renvoie vers rien) et on a vraiment l'impression d'être sorti de l'appli. Est-ce possible d'avoir un écran qui rend mieux ?
+   - *Note : Le lien "Paramètres du compte" et la page liée ont été supprimés de la page de profil car cela n'avait pas lieu d'être, nous avons déja un bouton pour modifier son profil.*
 
-- [x] **Mise à jour des CGV et politique de confidentialité** - Comment procéder pour les mettre à jour ? Lien avec les pages développées par Simplébeau ?
-  - ✅ Résolu : Création du modèle `AppConfig` avec les champs `terms_of_service` et `privacy_policy`. Éditeur markdown intégré dans `/admin/app_config/edit` avec barre d'outils (titres, gras, italique, listes, liens) et aperçu en temps réel. Le contenu markdown est converti en HTML pour l'affichage sur les pages publiques `/pages/cgu` et `/pages/confidentiality`. La date de mise à jour est basée sur `updated_at` de AppConfig.
+---
 
-### Statuts professionnel
-- [x] **Différence entre "Approuvé" et "Vérifié"** - Quelle est la différence entre le statut "Approuvé" et "Vérifié" ? Vérifié c'est manuellement et approuvé c'est quand il y aura de l'automatisation ?
-  - URL concernée : https://supercaralive.5000.dev/admin/professional_approvals/3
-  - ✅ Résolu : Après analyse du code, "Vérifié" et "Approuvé" font référence au même statut dans la base de données (`status: "active"`). Il n'existe pas de statut distinct "vérifié" dans le modèle User. Pour éviter la confusion côté administrateur, tous les libellés "Vérifiés" ont été remplacés par "Actifs" dans les pages admin (`admin/professional_approvals/index.html.erb` et `admin/users/index.html.erb`). Le terme "Vérifié" est conservé côté client et professionnel car il représente simplement une indication que le compte a été validé par un administrateur.
+## Notes diverses
 
-### Services admin
-- [x] **Affichage des prérequis/matériel nécessaire** - Pour cette page, les infos renseignées dans "Prérequis / Matériel nécessaire" pour chaque spécialité doivent se retrouver sur cette page c'est bien ça ? => https://supercaralive.5000.dev/client/professionals/3
-  
-  Ca permettra au client final de comprendre de quelles installations le professionnel a besoin.
-  
-  Il faudrait donc que ce qui est renseigné dans l'admin pour chaque spécialité puisse se retrouver à la suite de "diagnostic électrique" par exemple => "Diagnostic électrique : pré-requis = avoir accès à l'électricité" "Peinture : pré-requis = avoir accès à un lieu à l'abri du vent".
-  - URL admin : https://supercaralive.5000.dev/admin/services/new
-  - URL client : https://supercaralive.5000.dev/client/professionals/3
-  - ✅ Résolu : Les prérequis/matériel nécessaire sont désormais affichés sur chaque carte de service dans la page de détail du professionnel (`client/professionals/show.html.erb`). Les prérequis sont collectés depuis tous les services associés à chaque `professional_service` et affichés entre le nom du service et la section durée/prix. L'affichage se fait uniquement si des prérequis sont renseignés dans l'admin pour les services concernés.
+### Notes des points
+
+**Point 1 - Ajouter le récapitulatif des factures** :
+Dans cette page de mémoire il y avait le récapitulatif des factures (avec leur statut, réglée, en attente… et le filtrage possible). D'ailleurs c'est spécifié dans l'entête de la page au travers de : « Suivez vos dépenses et les maintenances périodiques de vos véhicules ». Est-ce que vous pourriez ajouter les éléments concernant les factures ? Merci. Dans l'exemple on devrait voir apparaître le « Nettoyage extra » à 150€.
+- *Note : Ce point appartient à la brique 2. Il n'y a pas de notion de facturation implémentée actuellement, c'est pour ça que ce n'est pas présent dans l'application.*
+
+**Point 13 - Supprimer tous les logos** :
+Il faut vraiment supprimer tous les logos même sur la page de connexion. Est-ce qu'il sera possible d'en rajouter un après sur la page de connexion ? J'aurais la bonne version dans une dizaine de jours.
+- *Note : Fait, et oui on pourra rajouter l'icone à jour sans soucis*
+
+**Point 15 - Corriger la mise en page** :
+Pour la page « Paramètres du compte » j'ai l'impression que la mise en page est cassée (unhappy ? ne renvoie vers rien) et on a vraiment l'impression d'être sorti de l'appli. Est-ce possible d'avoir un écran qui rend mieux ?
+- *Note : Le lien "Paramètres du compte" et la page liée ont été supprimés de la page de profil car cela n'avait pas lieu d'être, nous avons déja un bouton pour modifier son profil.*
 

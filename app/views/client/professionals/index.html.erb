@@ -22,8 +22,9 @@
                   ["Tous les services", "all"],
                   ["🔧 Mécanique", "mecanique"],
                   ["🔨 Carrosserie", "carrosserie"],
-                  ["✨ Lavage", "lavage"]
-                ].concat(@service_categories.reject { |c| %w[mecanique carrosserie lavage].include?(c) }.map { |c| [c.capitalize, c] }), 
+                  ["✨ Lavage", "lavage"],
+                  ["✨ Detailing", "detailing"]
+                ].concat(@service_categories.reject { |c| %w[mecanique carrosserie lavage detailing].include?(c) }.map { |c| [c.capitalize, c] }), 
                 params[:service_category] || "all"),
                 {},
                 { class: "w-full h-12 px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent" } %>
@@ -62,6 +63,37 @@
         }
       </style>
     <% end %>
+
+    <!-- Quick Filters -->
+    <div class="flex flex-wrap gap-3 mb-6">
+      <%= link_to client_professionals_path(
+            request.query_parameters.merge(available_today: params[:available_today] == "true" ? nil : "true", popular: nil, new: nil)
+          ), 
+          class: "px-4 py-2 rounded-lg font-medium transition-colors #{params[:available_today] == 'true' ? 'bg-red-hero text-white' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'}" do %>
+        ⚡ Disponible dans la journée
+      <% end %>
+      
+      <%= link_to client_professionals_path(
+            request.query_parameters.merge(popular: params[:popular] == "true" ? nil : "true", available_today: nil, new: nil)
+          ), 
+          class: "px-4 py-2 rounded-lg font-medium transition-colors #{params[:popular] == 'true' ? 'bg-red-hero text-white' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'}" do %>
+        ⭐ Populaire
+      <% end %>
+      
+      <%= link_to client_professionals_path(
+            request.query_parameters.merge(new: params[:new] == "true" ? nil : "true", available_today: nil, popular: nil)
+          ), 
+          class: "px-4 py-2 rounded-lg font-medium transition-colors #{params[:new] == 'true' ? 'bg-red-hero text-white' : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'}" do %>
+        🆕 Nouveau
+      <% end %>
+      
+      <% if params[:available_today] == "true" || params[:popular] == "true" || params[:new] == "true" %>
+        <%= link_to client_professionals_path(request.query_parameters.except(:available_today, :popular, :new)), 
+              class: "px-4 py-2 rounded-lg font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300" do %>
+          ✕ Effacer les filtres rapides
+        <% end %>
+      <% end %>
+    </div>
 
     <!-- Results Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">

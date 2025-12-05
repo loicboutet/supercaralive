@@ -59,7 +59,7 @@
     <!-- Service Card -->
     <div class="bg-white rounded-super p-6 shadow-sm">
       <div class="text-center mb-6">
-        <div class="w-24 h-24 <%= @service.mecanique? ? 'bg-red-hero' : @service.carrosserie? ? 'bg-yellow-hero' : 'bg-green-500' %> rounded-lg flex items-center justify-center mx-auto mb-4">
+        <div class="w-24 h-24 <%= @service.mecanique? ? 'bg-red-hero' : @service.carrosserie? ? 'bg-yellow-hero' : @service.detailing? ? 'bg-purple-500' : 'bg-green-500' %> rounded-lg flex items-center justify-center mx-auto mb-4">
           <span class="text-white text-5xl"><%= @service.icon.presence || '🔧' %></span>
         </div>
         <h2 class="text-2xl font-bold text-gray-900 mb-2"><%= @service.name %></h2>
@@ -67,6 +67,8 @@
           <span class="px-4 py-2 bg-red-100 text-red-800 rounded-lg text-sm font-medium inline-block">Mécanique</span>
         <% elsif @service.carrosserie? %>
           <span class="px-4 py-2 bg-yellow-100 text-yellow-800 rounded-lg text-sm font-medium inline-block">Carrosserie</span>
+        <% elsif @service.detailing? %>
+          <span class="px-4 py-2 bg-purple-100 text-purple-800 rounded-lg text-sm font-medium inline-block">Detailing</span>
         <% else %>
           <span class="px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm font-medium inline-block">Lavage</span>
         <% end %>

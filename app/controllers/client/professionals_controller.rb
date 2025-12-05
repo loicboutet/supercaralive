@@ -56,6 +56,45 @@ class Client::ProfessionalsController < Client::BaseController
       )
     end
     
+    # Filter: Available today (disponible dans la journée)
+    if params[:available_today] == "true"
+      today = Date.current
+      today_day_of_week = today.wday == 0 ? 6 : today.wday - 1 # Convert to Monday=0 format
+      
+      # Get professionals who have either:
+      # 1. Custom availabilities for today
+      # 2. Regular availabilities for today's day of week (and no custom availability blocking)
+      base_ids = @professionals.pluck(:id)
+      
+      professionals_with_custom_today = User.where(id: base_ids)
+                                           .joins(:custom_availabilities)
+                                           .where(custom_availabilities: { date: today })
+                                           .pluck(:id)
+      
+      professionals_with_regular_today = User.where(id: base_ids)
+                                             .joins(:availabilities)
+                                             .where(availabilities: { day_of_week: today_day_of_week })
+                                             .where.not(id: professionals_with_custom_today)
+                                             .pluck(:id)
+      
+      available_today_ids = (professionals_with_custom_today + professionals_with_regular_today).uniq
+      @professionals = @professionals.where(id: available_today_ids)
+    end
+    
+    # Filter: Popular (populaire) - professionals with at least 5 completed bookings
+    if params[:popular] == "true"
+      popular_professional_ids = Booking.where(status: :completed)
+                                       .group(:professional_id)
+                                       .having("COUNT(*) >= ?", 5)
+                                       .pluck(:professional_id)
+      @professionals = @professionals.where(id: popular_professional_ids)
+    end
+    
+    # Filter: New (nouveau) - professionals registered in the last 30 days
+    if params[:new] == "true"
+      @professionals = @professionals.where("created_at >= ?", 30.days.ago)
+    end
+    
     # Order by distance (for geographic search) or created_at (for text search)
     unless use_geographic_search
       @professionals = @professionals.order(created_at: :desc)

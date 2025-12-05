@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
+  before_action :restrict_non_admin_access, only: [:edit, :update, :destroy]
 
   # GET /users/sign_up
   def new
@@ -85,5 +86,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up for inactive accounts.
   def after_inactive_sign_up_path_for(resource)
     new_user_session_path
+  end
+
+  private
+
+  def restrict_non_admin_access
+    # Only admins can access /users/edit, /users (update), /users (destroy)
+    # Clients and professionals should use their respective profile edit pages
+    unless current_user&.admin?
+      if current_user&.client?
+        redirect_to edit_client_profile_path, alert: "Veuillez utiliser la page de modification de profil pour modifier vos informations."
+      elsif current_user&.professional?
+        redirect_to edit_professional_profile_path, alert: "Veuillez utiliser la page de modification de profil pour modifier vos informations."
+      else
+        redirect_to root_path, alert: "Accès refusé."
+      end
+    end
   end
 end

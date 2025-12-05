@@ -1,18 +1,18 @@
 class Client::DashboardController < Client::BaseController
 
   def index
-    # Count upcoming bookings (with scheduled_at in the future)
+    # Count upcoming bookings (with scheduled_at in the future and status pending or accepted)
     @upcoming_bookings_count = current_user.client_bookings
                                             .where("scheduled_at > ?", Time.current)
+                                            .where(status: [:pending, :accepted])
                                             .count
     
     # Count vehicles
     @vehicles_count = current_user.vehicles.count
     
-    # Count completed services (accepted bookings with scheduled_at in the past)
+    # Count completed services (bookings with completed status)
     @completed_services_count = current_user.client_bookings
-                                            .where(status: :accepted)
-                                            .where("scheduled_at < ?", Time.current)
+                                            .where(status: :completed)
                                             .count
     
     # Count urgent reminders (status_color == 'red', which means <= 15 days)

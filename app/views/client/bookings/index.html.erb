@@ -4,13 +4,11 @@
       <h1 class="text-4xl font-bold text-gray-900 mb-2">Mes Réservations</h1>
       <p class="text-gray-600">Consultez vos réservations en cours et passées</p>
     </div>
-    <% if current_user.client_bookings.exists? %>
-      <%= link_to new_client_booking_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center w-full md:w-auto justify-center" do %>
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-        </svg>
-        Nouvelle réservation
-      <% end %>
+    <%= link_to new_client_booking_path, class: "bg-red-hero hover:bg-red-dark text-white px-6 py-3 rounded-lg font-bold inline-flex items-center w-full md:w-auto justify-center" do %>
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+      </svg>
+      Nouvelle réservation
     <% end %>
   </div>
 
@@ -184,19 +182,13 @@
         <span class="text-4xl">📅</span>
       </div>
       <h3 class="text-2xl font-bold text-gray-900 mb-2">Aucune réservation</h3>
-      <p class="text-gray-600 mb-6">
+      <p class="text-gray-600">
         <% if params[:status].present? %>
           Vous n'avez pas de réservation avec ce statut.
         <% else %>
           Vous n'avez pas encore de réservation. Trouvez un professionnel et réservez votre premier service !
         <% end %>
       </p>
-      <%= link_to new_client_booking_path, class: "bg-red-hero hover:bg-red-dark text-white px-8 py-3 rounded-lg font-bold inline-flex items-center" do %>
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-        </svg>
-        Créer ma première réservation
-      <% end %>
     </div>
   <% end %>
 </div>

@@ -38,6 +38,7 @@ class Admin::ServicesController < ApplicationController
     @mecanique_count = Service.where(category: 'mecanique').count
     @carrosserie_count = Service.where(category: 'carrosserie').count
     @lavage_count = Service.where(category: 'lavage').count
+    @detailing_count = Service.where(category: 'detailing').count
 
     # Order and paginate
     @services = @services.order(created_at: :desc)

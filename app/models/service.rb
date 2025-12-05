@@ -27,7 +27,7 @@ class Service < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :description, presence: true
-  validates :category, presence: true, inclusion: { in: %w[mecanique carrosserie lavage] }
+  validates :category, presence: true, inclusion: { in: %w[mecanique carrosserie lavage detailing] }
   validates :suggested_price, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   validates :estimated_duration, numericality: { greater_than: 0 }, allow_nil: true
 
@@ -47,5 +47,9 @@ class Service < ApplicationRecord
 
   def lavage?
     category == 'lavage'
+  end
+
+  def detailing?
+    category == 'detailing'
   end
 end
