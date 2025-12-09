@@ -99,7 +99,7 @@
                   ["Sélectionnez une catégorie", ""],
                   ["🔧 Mécanique", "mecanique"],
                   ["🔨 Carrosserie", "carrosserie"],
-                  ["✨ Lavage", "lavage"],
+                  ["💧 Lavage", "lavage"],
                   ["✨ Detailing", "detailing"]
                 ], @service&.category),
                 {},
@@ -181,10 +181,17 @@
           <%= f.label :active, "Service actif (visible pour les professionnels)", class: "text-gray-700 font-medium" %>
         </div>
 
-        <!-- Popular Service -->
-        <div class="flex items-center space-x-3">
-          <%= f.check_box :popular, { class: "w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-2 focus:ring-blue-hero" } %>
-          <%= f.label :popular, "Service populaire (mis en avant dans les listes)", class: "text-gray-700 font-medium" %>
+        <!-- Popular Service (automatic) -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div class="flex items-center space-x-3">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-blue-900">Service populaire</p>
+              <p class="text-xs text-blue-700 mt-1">
+                Le statut "populaire" est calculé automatiquement en fonction du nombre de réservations complétées (minimum <%= Service::POPULAR_THRESHOLD %> réservations).
+                Le nouveau service ne sera pas marqué comme populaire tant qu'il n'atteint pas ce seuil.
+              </p>
+            </div>
+          </div>
         </div>
 
         <!-- Requires Quote -->

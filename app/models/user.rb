@@ -155,6 +155,105 @@ class User < ApplicationRecord
     ((completed_total.to_f / total_fields) * 100).round
   end
   
+  # Calculate the next available time slot for this professional
+  # Returns a hash with :datetime, :date, and :time, or nil if no availability found
+  def next_availability
+    return nil unless professional?
+    
+    # Get existing bookings that block availability (pending or accepted) with their durations
+    conflicting_bookings = professional_bookings
+                              .where(status: [:pending, :accepted])
+                              .where.not(scheduled_at: nil)
+                              .includes(:professional_service)
+                              .map do |booking|
+                                duration_minutes = booking.professional_service&.duration_minutes || 60
+                                {
+                                  start: booking.scheduled_at.to_time,
+                                  end: booking.scheduled_at.to_time + duration_minutes.minutes
+                                }
+                              end
+    
+    # Get custom availabilities for future dates
+    future_custom_availabilities = custom_availabilities
+                                     .where("date >= ?", Date.current)
+                                     .order(:date, :start_time)
+                                     .to_a
+    
+    # Get regular availabilities grouped by day of week
+    regular_availabilities = availabilities.order(:day_of_week, :start_time).to_a
+    return nil if regular_availabilities.empty? && future_custom_availabilities.empty?
+    
+    # Start from today
+    start_date = Date.current
+    current_time = Time.current
+    
+    # Check up to 30 days ahead
+    (0..30).each do |day_offset|
+      check_date = start_date + day_offset.days
+      day_of_week = check_date.wday == 0 ? 6 : check_date.wday - 1 # Convert to Monday=0 format
+      
+      # Check if there's a custom availability for this date
+      custom_for_date = future_custom_availabilities.select { |ca| ca.date == check_date }
+      
+      day_availabilities = if custom_for_date.any?
+        # Use custom availabilities (they override regular ones)
+        custom_for_date
+      else
+        # Use regular availabilities for this day of week
+        regular_availabilities.select { |a| a.day_of_week == day_of_week }
+      end
+      
+      next if day_availabilities.empty?
+      
+      # Check each availability slot for this day
+      day_availabilities.each do |availability|
+        # Convert to datetime for this specific date
+        slot_start = Time.zone.parse("#{check_date} #{availability.start_time.strftime('%H:%M')}")
+        slot_end = Time.zone.parse("#{check_date} #{availability.end_time.strftime('%H:%M')}")
+        
+        # Skip if this slot is in the past (for today)
+        next if slot_start < current_time
+        
+        # Check if this slot conflicts with existing bookings
+        slot_conflicts = conflicting_bookings.any? do |booking_range|
+          # Check for overlap: slot starts before booking ends AND slot ends after booking starts
+          slot_start < booking_range[:end] && slot_end > booking_range[:start]
+        end
+        
+        unless slot_conflicts
+          return {
+            datetime: slot_start,
+            date: check_date,
+            time: availability.start_time
+          }
+        end
+      end
+    end
+    
+    nil # No availability found
+  end
+  
+  # Format the next availability for display
+  def formatted_next_availability
+    return nil unless (next_avail = next_availability)
+    
+    date = next_avail[:date]
+    time = next_avail[:time]
+    
+    today = Date.current
+    tomorrow = today + 1.day
+    
+    if date == today
+      "Aujourd'hui #{time.strftime('%H:%M')}"
+    elsif date == tomorrow
+      "Demain #{time.strftime('%H:%M')}"
+    else
+      day_names = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+      month_names = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+      "#{day_names[date.wday == 0 ? 6 : date.wday - 1]} #{date.day} #{month_names[date.month - 1]} #{time.strftime('%H:%M')}"
+    end
+  end
+  
   private
   
   def set_default_role

@@ -80,17 +80,15 @@
         <!-- Icon/Emoji -->
         <div data-controller="icon-selector">
           <%= f.label :icon, class: "block text-sm font-bold text-gray-700 mb-2" do %>
-            Icône (Emoji) <span class="text-red-600">*</span>
+            Icône (Emoji) <span class="text-gray-500 text-xs font-normal">(optionnel)</span>
           <% end %>
           <div class="mb-3">
             <%= f.text_field :icon, 
-                  placeholder: "🔧", 
                   maxlength: 2,
                   value: @specialty.icon,
                   data: { icon_selector_target: "input" },
-                  class: "w-32 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero text-center text-2xl #{'border-red-500' if @specialty&.errors&.include?(:icon)}",
-                  required: true %>
-            <p class="text-sm text-gray-500 mt-2">Choisissez un emoji pour représenter la spécialité</p>
+                  class: "w-32 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-hero text-center text-2xl #{'border-red-500' if @specialty&.errors&.include?(:icon)}" %>
+            <p class="text-sm text-gray-500 mt-2">Choisissez un emoji pour représenter la spécialité (optionnel)</p>
           </div>
           
           <!-- Icon selector cards -->

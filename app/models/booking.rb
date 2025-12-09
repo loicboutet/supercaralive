@@ -88,6 +88,9 @@ class Booking < ApplicationRecord
   
   # Create chat automatically when booking is created by a client
   after_create :create_chat_if_client_booking
+  
+  # Update popular services when a booking is completed
+  after_update :update_popular_services, if: :saved_change_to_status?
 
   def professional_name
     return "Professionnel supprimé" unless professional.present?
@@ -161,6 +164,21 @@ class Booking < ApplicationRecord
     # Only create chat if booking has a client (not a manual booking created by professional)
     if client.present? && !manual_booking?
       Chat.create(booking: self)
+    end
+  end
+
+  def update_popular_services
+    # Only update if booking status changed to completed
+    return unless saved_change_to_status? && status == 'completed'
+    
+    # Update popular status for all services linked to this professional_service
+    professional_service.services.find_each do |service|
+      completed_bookings_count = service.bookings.where(status: :completed).count
+      should_be_popular = completed_bookings_count >= Service::POPULAR_THRESHOLD
+      
+      if service.popular != should_be_popular
+        service.update_column(:popular, should_be_popular)
+      end
     end
   end
 end

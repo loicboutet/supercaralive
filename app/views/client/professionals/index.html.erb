@@ -22,7 +22,7 @@
                   ["Tous les services", "all"],
                   ["🔧 Mécanique", "mecanique"],
                   ["🔨 Carrosserie", "carrosserie"],
-                  ["✨ Lavage", "lavage"],
+                  ["💧 Lavage", "lavage"],
                   ["✨ Detailing", "detailing"]
                 ].concat(@service_categories.reject { |c| %w[mecanique carrosserie lavage detailing].include?(c) }.map { |c| [c.capitalize, c] }), 
                 params[:service_category] || "all"),

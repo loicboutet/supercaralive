@@ -92,12 +92,12 @@ class Client::ProfessionalsController < Client::BaseController
     
     # Filter: New (nouveau) - professionals registered in the last 30 days
     if params[:new] == "true"
-      @professionals = @professionals.where("created_at >= ?", 30.days.ago)
+      @professionals = @professionals.where("users.created_at >= ?", 30.days.ago)
     end
     
     # Order by distance (for geographic search) or created_at (for text search)
     unless use_geographic_search
-      @professionals = @professionals.order(created_at: :desc)
+      @professionals = @professionals.order("users.created_at DESC")
     end
     
     # Paginate
@@ -118,7 +118,7 @@ class Client::ProfessionalsController < Client::BaseController
   end
 
   def show
-    @professional = User.includes(:specialties, :availabilities).find_by(id: params[:id], role: "Professional")
+    @professional = User.includes(:specialties, :availabilities, :custom_availabilities, :professional_bookings).find_by(id: params[:id], role: "Professional")
     
     unless @professional&.active?
       redirect_to client_professionals_path, alert: "Ce professionnel n'est pas disponible."
@@ -130,6 +130,10 @@ class Client::ProfessionalsController < Client::BaseController
     
     # Group availabilities by day of week
     @availabilities_by_day = @professional.availabilities.ordered_by_day.group_by(&:day_of_week)
+    
+    # Calculate next availability
+    @next_availability = @professional.next_availability
+    @formatted_next_availability = @professional.formatted_next_availability
     
     # Check if current client has a completed booking with this professional
     @has_completed_booking = current_user.present? && 

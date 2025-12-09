@@ -170,7 +170,9 @@
             <div class="flex flex-wrap gap-3">
               <% @user.specialties.order(:name).each do |specialty| %>
                 <div class="flex items-center space-x-2 bg-blue-50 border border-blue-200 rounded-lg px-4 py-2">
-                  <span class="text-xl"><%= specialty.icon %></span>
+                  <% if specialty.icon.present? %>
+                    <span class="text-xl"><%= specialty.icon %></span>
+                  <% end %>
                   <span class="font-medium text-gray-900"><%= specialty.name %></span>
                 </div>
               <% end %>

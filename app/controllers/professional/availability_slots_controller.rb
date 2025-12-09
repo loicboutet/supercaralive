@@ -172,8 +172,8 @@ class Professional::AvailabilitySlotsController < Professional::BaseController
       @available_slots_count += (@availabilities_by_day[day_of_week] || []).count
     end
     
-    # Count total bookings
-    @total_bookings_count = @bookings.count
+    # Count total bookings (only pending and accepted, as these are the ones displayed in the calendar)
+    @total_bookings_count = @bookings.where(status: [:pending, :accepted]).count
     
     # Count accepted bookings (validated)
     @accepted_bookings_count = @bookings.where(status: :accepted).count

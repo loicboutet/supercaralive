@@ -76,7 +76,7 @@
         <div class="space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-gray-600">Rappels activés</span>
-            <% if @vehicle.maintenance_reminders_enabled? %>
+            <% if current_user.maintenance_reminders_enabled? %>
               <span class="px-3 py-1 bg-green-100 text-green-800 rounded-lg text-xs font-medium inline-flex items-center">
                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>

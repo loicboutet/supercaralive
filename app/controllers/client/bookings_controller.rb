@@ -34,14 +34,14 @@ class Client::BookingsController < Client::BaseController
     # Pre-fill intervention address with client's address if available
     @booking.intervention_address = current_user.address if current_user.address.present?
     
+    # Always show professional field so user can change it
+    @show_professional_field = true
+    
     # If professional_id is passed, pre-select it
     if params[:professional_id].present?
       @booking.professional_id = params[:professional_id]
-      @pre_selected_professional = User.find_by(id: params[:professional_id])
-      @show_professional_field = false
       set_professional_services
     else
-      @show_professional_field = true
       # If a professional is selected via form, load their services
       if params[:booking] && params[:booking][:professional_id].present?
         @booking.professional_id = params[:booking][:professional_id]

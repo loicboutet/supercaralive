@@ -1,80 +1,106 @@
-# Retours et corrections à effectuer
----
+# Retours sur le projet
 
-## Pages client
+## 🔧 Fixes à effectuer
 
-### `/client/maintenance_reminders`
-1. **Ajouter le récapitulatif des factures** : Dans cette page de mémoire il y avait le récapitulatif des factures (avec leur statut, réglée, en attente… et le filtrage possible). D'ailleurs c'est spécifié dans l'entête de la page au travers de : « Suivez vos dépenses et les maintenances périodiques de vos véhicules ». Est-ce que vous pourriez ajouter les éléments concernant les factures ? Merci. Dans l'exemple on devrait voir apparaître le « Nettoyage extra » à 150€.
-   - *Note : Ce point appartient à la brique 2. Il n'y a pas de notion de facturation implémentée actuellement, c'est pour ça que ce n'est pas présent dans l'application.*
-2.1. ✅ **Correction orthographique** : Mettre un « S » majuscule à "Supercarnet d'entretien".
-2.2. ✅ **Modifier la phrase d'entête** : Enlever "vos dépenses et" de la phrase "Suivez vos dépenses et les maintenances périodiques de vos véhicules" pour avoir juste "Suivez les maintenances périodiques de vos véhicules" puisqu'on ne suit pas les dépenses en fait.
+### Page de réservation
+- [x] **Modifier le message d'information**  
+  URL: `https://supercaralive.5000.dev/client/bookings/new?professional_id=3`  
+  On ne peut pas sélectionner de date d'intervention quand on n'a pas tout renseigné. Par exemple quand on rentre juste le garage (ici garage test) mais qu'on ne met pas de service, l'encart « Veuillez d'abord sélectionner un professionnel pour voir ses services » n'apparaît plus. Du coup il faudrait modifier la phrase : « Veuillez remplir tous les champs du formulaire pour voir les disponibilités du professionnel ».
 
-### `/client/professionals`
-3. ✅ **Ajouter "Detailing" dans les services** : Ajouter « Detailing » dans les services « liste ».
-4. ✅ **Ajouter des filtres de recherche rapide** : Sur cette page en dessous de l'encart « Type de service » Localisation… Dans les maquettes il y avait des boutons/filtres de recherches rapides comme « Disponible dans la journée » « Populaire »… de mémoire, mais on ne les retrouve pas du tout sur cette version. Pourriez-vous les rajouter ?
+- [x] **Corriger l'affichage de la prochaine disponibilité**  
+  URL: `https://supercaralive.5000.dev/client/professionals/3`  
+  Il y a écrit "prochaine dispo demain 14h" mais c'est erroné à priori, sur le profil on peut réserver à partir du 9/12 18h.
 
-### `/client/bookings/3/edit`
-5. ✅ **Supprimer une phrase** : Supprimer cette phrase : « Les créneaux affichés sont basés sur les disponibilités du professionnel et excluent les réservations déjà confirmées. »
+### Dashboard client
+- [x] **Mise à jour de l'encart "Mon profil"**  
+  URL: `https://supercaralive.5000.dev/client`  
+  J'ai l'impression que l'encart « Mon profil » dans le dashboard ne se met pas à jour quand on modifie.
 
-### `/client/bookings?status=pending` (et autres statuts)
-6. ✅ **Enlever le bouton "Créer ma 1ere réservation" du corps de page** : Sur les pages « Toutes, En attente, Validées, Refusées, Annulées, Terminées » pas besoin d'ajouter dans le corps de la page « Créer ma 1ere réservation » car on a déjà le bouton en haut à droite « Nouvelles réservation ».
+### Page de recherche avec filtres
+- [x] **Corriger l'erreur 500 lors du clic sur "Nouveau"**  
+  URL de départ: `https://supercaralive.5000.dev/client/professionals?commit=Rechercher&location=&popular=true&radius_km=&service_category=mecanique`  
+  URL d'erreur: `https://supercaralive.5000.dev/client/professionals?commit=Rechercher&location=&new=true&radius_km=&service_category=mecanique`  
+  Erreur 500 sur cette page quand je viens de celle-là en cliquant sur "Nouveau", je ne sais pas si c'est normal. Il faudrait que ça donne cet écran là : `https://supercaralive.5000.dev/professional`
 
-### `/client/profile`
-7. ✅ **Enlever une phrase** : Enlever la phrase «…. pour les administrateurs afin de protéger votre vie privée. » car j'y ai accès à présent.
+### Page de vérification des documents
+- [x] **Bloquer la création d'un document sans upload**  
+  URL: `https://supercaralive.5000.dev/professional/verification_documents`  
+  J'ai fait un test pour uploader un document et même sans mettre de document en attaché il a été créé (test 12345). Est-ce que vous pourriez ajouter un pop-up et bloquer la création d'un doc si aucun doc n'est uploadé ? Merci.
 
-### `/client` (Dashboard)
-8. ✅ **Corriger les incohérences dans les statistiques** :
-   - On a 1 résa notée « A venir » alors que dans l'encart plus bas on a 0 pour prochaines réservations. Je n'ai pas de résa prévue ou en attente dans le système.
-   - Dans service terminé il est noté 0 alors que nous avons une prestation terminée qui est enregistrée dans le système.
+### Page d'édition des services professionnels
+- [x] **Griser les autres services après sélection d'un service**  
+  URL: `https://supercaralive.5000.dev/professional/professional_services/3/edit`  
+  Pour cette page on peut choisir plusieurs services en même temps à ajouter alors qu'après on doit ajouter un "Nom de service" en Informations générales obligatoirement et un tarif. Il faudrait griser les autres services une fois qu'on en a sélectionné un sinon c'est confusant.
 
----
+### Calendrier des créneaux
+- [x] **Corriger l'incohérence entre le footer et le calendrier**  
+  URL: `https://supercaralive.5000.dev/professional/availability_slots/calendar?month=12&year=2025`  
+  Incohérence entre le footer (nbre de résa) et le calendrier. Je ne vois qu'une seule résa et le compteur footer en indique 2.
 
-## Pages professionnel
+### Page de gestion des créneaux
+- [x] **Ajouter une phrase explicative dans l'encart bleu**  
+  URL: `https://supercaralive.5000.dev/professional/availability_slots`  
+  Ajouter dans l'encart bleu à la suite des 2 phrases "Définissez....Ces créneaux..." : "Vous pourrez modifier manuellement les créneaux pour chaque journée directement dans votre Agenda".
 
-### `/professional/profile`
-9. ✅ **Modifier le texte sur la confidentialité** : « Vos informations personnelles (nom, entreprise, téléphone, SIRET) restent confidentielles et ne seront visibles par les clients qu'après validation d'au moins deux rendez-vous avec eux ». Remplacer par : « Vos informations personnelles (nom, entreprise, téléphone, SIRET) restent confidentielles et seront visibles par le particulier dès le RDV validé. »
+### Page d'ajout de spécialité (admin)
+- [x] **Supprimer l'obligation de mettre un émoji**  
+  URL: `https://supercaralive.5000.dev/admin/specialties/new`  
+  Je n'arrive pas à ajouter d'autres émojis, du coup est-ce que vous pourriez supprimer l'obligation de mettre un émoji ?
 
-### `/professional/profile/edit`
-10. ✅ **Enlever la notion de 2 rdv** : Enlever la notion de 2 rdv pour l'affichage de l'adresse comme précédemment indiqué.
+### Icônes des types de service
+- [x] **Mettre une icône de bulles pour le lavage**  
+  Dans le choix « type de service » même icône pour détailing et lavage. Mettre une icône de bulles pour le lavage si possible.
 
-### `/professional`
-11. ✅ **Corriger le doublon dans "Catégories populaires"** : Dans l'encart « Catégories populaires » il y a 2 fois « 3 » indiqués. En enlever 1.
-
----
-
-## Pages admin
-
-### `/admin/services`
-12. ✅ **Ajouter "detailing" dans la liste** : Ajouter "detailing" dans la liste.
-
----
-
-## Pages utilisateur
-
-### `/users/sign_in`
-13. ✅ **Supprimer tous les logos** : Il faut vraiment supprimer tous les logos même sur la page de connexion. Est-ce qu'il sera possible d'en rajouter un après sur la page de connexion ? J'aurais la bonne version dans une dizaine de jours.
-   - *Note : On pourra rajouter l'icone à jour sans soucis*
-14. ✅ **Ajouter la possibilité de voir le mot de passe** : Pour l'encart de connexion il faudrait qu'on puisse voir (avec « l'œil ») le mdp qu'on rentre car là on est à l'aveugle.
-
-### `/users/edit`
-15. ✅ **Corriger la mise en page** : Pour la page « Paramètres du compte » j'ai l'impression que la mise en page est cassée (unhappy ? ne renvoie vers rien) et on a vraiment l'impression d'être sorti de l'appli. Est-ce possible d'avoir un écran qui rend mieux ?
-   - *Note : Le lien "Paramètres du compte" et la page liée ont été supprimés de la page de profil car cela n'avait pas lieu d'être, nous avons déja un bouton pour modifier son profil.*
+### Incohérence entre écrans
+- [x] **Corriger l'incohérence sur l'état des rappels**  
+  Incohérence entre les 2 écrans suivants : l'un est noté "rappel activé" et l'autre "rappels désactivés".
+  https://supercaralive.5000.dev/client/vehicles/1
+  https://supercaralive.5000.dev/client
 
 ---
 
-## Notes diverses
+## ❓ Questions à clarifier
 
-### Notes des points
+- [x] **Critères de popularité des professionnels**  
+  URL: `https://supercaralive.5000.dev/client/professionals`  
+  Populaire : sur quelles bases dans le système un pro remonte-t-il comme populaire ? Merci.
+  
+  **Réponse :** Un professionnel apparaît comme "populaire" lorsqu'il a au moins 5 réservations complétées (terminées avec succès). C'est un calcul automatique qui se base sur le nombre de prestations réalisées. Dès qu'un professionnel atteint ce seuil de 5 réservations complétées, il apparaît automatiquement dans les résultats de recherche avec le filtre "Populaire".
 
-**Point 1 - Ajouter le récapitulatif des factures** :
-Dans cette page de mémoire il y avait le récapitulatif des factures (avec leur statut, réglée, en attente… et le filtrage possible). D'ailleurs c'est spécifié dans l'entête de la page au travers de : « Suivez vos dépenses et les maintenances périodiques de vos véhicules ». Est-ce que vous pourriez ajouter les éléments concernant les factures ? Merci. Dans l'exemple on devrait voir apparaître le « Nettoyage extra » à 150€.
-- *Note : Ce point appartient à la brique 2. Il n'y a pas de notion de facturation implémentée actuellement, c'est pour ça que ce n'est pas présent dans l'application.*
+- [x] **Statistiques du compte**  
+  URL: `https://supercaralive.5000.dev/client/profile`  
+  Je ne sais pas si c'est normal que les infos "Statistiques du compte" ne reflètent pas la réalité ?
+  
+  **Réponse :** Effectivement, il y avait un problème. Les statistiques affichées étaient des valeurs fixes qui ne correspondaient pas aux données réelles. Ce problème a été corrigé : les statistiques sont maintenant calculées automatiquement à partir de vos données réelles. Vous verrez désormais le nombre total de vos réservations, celles qui sont complétées, vos véhicules enregistrés, et le nombre d'avis que vous avez laissés (actuellement 0 car cette fonctionnalité n'est pas encore implémentée).
 
-**Point 13 - Supprimer tous les logos** :
-Il faut vraiment supprimer tous les logos même sur la page de connexion. Est-ce qu'il sera possible d'en rajouter un après sur la page de connexion ? J'aurais la bonne version dans une dizaine de jours.
-- *Note : Fait, et oui on pourra rajouter l'icone à jour sans soucis*
+- [x] **Calcul automatique des services populaires (admin)**  
+  URL: `https://supercaralive.5000.dev/admin/services`  
+  Idem ici il y a un calcul auto des services populaires ? Merci.
+  
+  **Réponse :** Oui, nous avons modifié le système pour qu'il y ait maintenant un calcul automatique des services populaires. Le statut "populaire" d'un service est désormais calculé automatiquement en fonction du nombre de réservations complétées. Un service est marqué comme populaire lorsqu'il atteint au moins 10 réservations complétées. Ce calcul se met à jour automatiquement à chaque fois qu'une réservations est complétée. Dans l'interface admin, le champ "populaire" n'est plus modifiable manuellement car il est géré automatiquement par le système.
 
-**Point 15 - Corriger la mise en page** :
-Pour la page « Paramètres du compte » j'ai l'impression que la mise en page est cassée (unhappy ? ne renvoie vers rien) et on a vraiment l'impression d'être sorti de l'appli. Est-ce possible d'avoir un écran qui rend mieux ?
-- *Note : Le lien "Paramètres du compte" et la page liée ont été supprimés de la page de profil car cela n'avait pas lieu d'être, nous avons déja un bouton pour modifier son profil.*
+- [x] **Validation des moyens de contact lors de la création de profil**  
+  Lors de la création des profils pro et particuliers le fait de ne pas mettre à minima un moyen de contact (mail ou tel) bloque bien la création du profil ? Je dois au moins avoir un mail. D'ailleurs est-ce qu'on a une vérification par l'envoi d'un lien cliquable que nous avons la bonne adresse mail ? Merci à dispo si besoin.
+  
+  **Réponse :** 
+  - **Email obligatoire :** Oui, l'adresse email est obligatoire lors de la création d'un compte (que ce soit pour un client ou un professionnel). Le système bloque la création du profil si aucun email n'est renseigné. En revanche, le numéro de téléphone n'est pas obligatoire.
+  - **Vérification par email :** Non, actuellement il n'y a pas de vérification par email avec un lien cliquable. Le système accepte l'adresse email renseignée sans vérifier qu'elle appartient bien à la personne qui crée le compte.
 
+- [x] **Anonymiser les informations sensibles**  
+  URL: `https://supercaralive.5000.dev/client/professionals/3`  
+  Le numéro de SIRET et le numéro de téléphone apparaissent lors d'une recherche. Il faut anonymiser ces infos (laisser les champs apparaître pour que le client sache qu'elles existent mais les anonymiser comme demandé).
+  
+  **Réponse :** Les informations sensibles (numéro de SIRET et numéro de téléphone) sont bien anonymisées pour protéger la vie privée des professionnels. Voici comment cela fonctionne :
+  - **Si vous n'avez pas encore eu de rendez-vous complété avec le professionnel :** Les champs téléphone et SIRET sont affichés mais montrent "Non disponible" à la place des valeurs. Cela permet au client de savoir que ces informations existent sans les révéler.
+  - **Si vous avez au moins un rendez-vous complété avec le professionnel :** Les valeurs du téléphone et du SIRET sont alors affichées, car une relation de confiance a été établie entre vous et le professionnel.
+  
+  Si vous voyez les informations, c'est que vous avez déjà eu au moins un rendez-vous complété avec ce professionnel. Pour vérifier le comportement d'anonymisation, vous pouvez consulter le profil d'un professionnel avec qui vous n'avez jamais eu de rendez-vous.
+
+---
+
+## ❓ Questions / Demandes de précision au client
+
+- [ ] **Encart de vue rapide sur les rappels (dashboard professionnel)**  
+  URL: `https://supercaralive.5000.dev/professional`  
+  Sur cet écran il manque l'encart de vue rapide sur les rappels.  
+  **Question :** Pourriez-vous préciser de quel encart il s'agit exactement ? Quelles informations devrait-il afficher ? Est-ce similaire à l'encart de rappels d'entretien qui existe sur le dashboard client, ou s'agit-il d'un autre type de rappels (par exemple, rappels de rendez-vous pour les professionnels) ?

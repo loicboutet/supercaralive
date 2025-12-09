@@ -197,7 +197,7 @@
                   <%= check_box_tag "user[specialty_ids][]", specialty.id, @user.specialties.include?(specialty), 
                       id: "specialty_#{specialty.id}",
                       class: "w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-blue-hero" %>
-                  <span class="ml-3 text-gray-700"><%= specialty.icon %> <%= specialty.name %></span>
+                  <span class="ml-3 text-gray-700"><% if specialty.icon.present? %><%= specialty.icon %> <% end %><%= specialty.name %></span>
                 </label>
               <% end %>
             </div>

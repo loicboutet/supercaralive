@@ -199,19 +199,19 @@
           
           <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="text-center p-4 bg-blue-50 rounded-lg">
-              <p class="text-3xl font-bold text-blue-hero">12</p>
+              <p class="text-3xl font-bold text-blue-hero"><%= @total_bookings %></p>
               <p class="text-sm text-gray-600 mt-1">Réservations</p>
             </div>
             <div class="text-center p-4 bg-green-50 rounded-lg">
-              <p class="text-3xl font-bold text-green-600">8</p>
+              <p class="text-3xl font-bold text-green-600"><%= @completed_bookings %></p>
               <p class="text-sm text-gray-600 mt-1">Complétées</p>
             </div>
             <div class="text-center p-4 bg-yellow-50 rounded-lg">
-              <p class="text-3xl font-bold text-yellow-hero">3</p>
+              <p class="text-3xl font-bold text-yellow-hero"><%= @vehicles_count %></p>
               <p class="text-sm text-gray-600 mt-1">Véhicules</p>
             </div>
             <div class="text-center p-4 bg-red-50 rounded-lg">
-              <p class="text-3xl font-bold text-red-hero">5</p>
+              <p class="text-3xl font-bold text-red-hero"><%= @reviews_count %></p>
               <p class="text-sm text-gray-600 mt-1">Avis laissés</p>
             </div>
           </div>

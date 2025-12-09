@@ -41,7 +41,7 @@
         <%= f.select :professional_id, 
             options_for_select(@professionals&.map { |p| [p.company_name.presence || p.get_full_name, p.id] }, @booking&.professional_id),
             { include_blank: "Sélectionnez un professionnel" },
-            { class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", required: true, data: { action: "change->booking-form#professionalChanged" } } %>
+            { class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero focus:border-transparent", required: true, data: { action: "change->booking-form#professionalChanged", booking_form_target: "professionalSelect" } } %>
         <p class="text-sm text-gray-500 mt-1">Le professionnel qui réalisera le service</p>
       </div>
     <% else %>
@@ -51,7 +51,7 @@
         <div class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50">
           <p class="text-gray-900"><%= (@pre_selected_professional || @booking&.professional)&.company_name.presence || (@pre_selected_professional || @booking&.professional)&.get_full_name %></p>
         </div>
-        <%= f.hidden_field :professional_id, value: @booking.professional_id %>
+        <%= f.hidden_field :professional_id, value: @booking.professional_id, data: { booking_form_target: "professionalSelect" } %>
       </div>
     <% end %>
 
@@ -70,8 +70,9 @@
           required: true,
           data: { 
             service_select_target: "hiddenInput",
-            action: "change->booking-calendar#professionalServiceChanged",
-            booking_calendar_target: "professionalServiceSelect"
+            action: "change->booking-calendar#professionalServiceChanged change->booking-form#updateCalendarVisibility",
+            booking_calendar_target: "professionalServiceSelect",
+            booking_form_target: "serviceInput"
           } %>
       
       <!-- Custom Select Button -->
@@ -224,8 +225,8 @@
   <div>
     <%= f.label :scheduled_at, "Date et heure souhaitées", class: "block text-sm font-medium text-gray-700 mb-2" %>
     
-    <% if (@booking&.professional_id.present? || @pre_selected_professional&.id.present?) && @professional_services&.any? %>
-      <div class="bg-white border border-gray-300 rounded-lg p-6">
+    <!-- Calendar Container -->
+    <div data-booking-form-target="calendarContainer" class="bg-white border border-gray-300 rounded-lg p-6 <%= 'hidden' unless (@booking&.professional_id.present? || @pre_selected_professional&.id.present?) && @booking&.professional_service_id.present? %>">
         <!-- Calendar Navigation -->
         <div class="flex items-center justify-between mb-6">
           <button type="button" 
@@ -272,18 +273,14 @@
           <p class="text-sm text-gray-600 mb-1">Créneau sélectionné :</p>
           <p class="text-lg font-bold text-red-hero" data-booking-calendar-target="selectedTime"></p>
         </div>
-      </div>
-    <% else %>
-      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-        <p class="text-sm text-yellow-800">
-          <% if @professional_services&.empty? %>
-            Veuillez d'abord sélectionner un professionnel pour voir ses services disponibles.
-          <% else %>
-            Veuillez d'abord sélectionner un type de service pour voir les créneaux disponibles.
-          <% end %>
-        </p>
-      </div>
-    <% end %>
+    </div>
+    
+    <!-- Info Message -->
+    <div data-booking-form-target="infoMessage" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 <%= 'hidden' if (@booking&.professional_id.present? || @pre_selected_professional&.id.present?) && @booking&.professional_service_id.present? %>">
+      <p class="text-sm text-yellow-800">
+        Veuillez d'abord sélectionner une entreprise et un service pour voir les disponibilités.
+      </p>
+    </div>
 
     <!-- Hidden input for scheduled_at (will be populated by calendar) -->
     <%= f.datetime_local_field :scheduled_at, 

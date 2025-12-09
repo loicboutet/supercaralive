@@ -59,9 +59,11 @@
     <!-- Specialty Card -->
     <div class="bg-white rounded-super p-6 shadow-sm">
       <div class="text-center mb-6">
-        <div class="w-24 h-24 bg-blue-hero rounded-lg flex items-center justify-center mx-auto mb-4">
-          <span class="text-white text-5xl"><%= @specialty.icon.presence || '🔧' %></span>
-        </div>
+        <% if @specialty.icon.present? %>
+          <div class="w-24 h-24 bg-blue-hero rounded-lg flex items-center justify-center mx-auto mb-4">
+            <span class="text-white text-5xl"><%= @specialty.icon %></span>
+          </div>
+        <% end %>
         <h2 class="text-2xl font-bold text-gray-900 mb-2"><%= @specialty.name %></h2>
       </div>
 

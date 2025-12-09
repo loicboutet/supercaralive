@@ -27,10 +27,19 @@ class ProfessionalDocument < ApplicationRecord
   validates :name, presence: true
   validates :user_id, presence: true
   
+  # Ensure file is attached on create
+  validate :file_must_be_attached, on: :create
+  
   # Ensure user is a professional
   validate :user_must_be_professional
 
   private
+
+  def file_must_be_attached
+    unless file.attached?
+      errors.add(:file, "doit être fourni")
+    end
+  end
 
   def user_must_be_professional
     if user.present? && !user.professional?

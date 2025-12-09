@@ -108,8 +108,9 @@ class Admin::ServicesController < ApplicationController
   def service_params
     params.require(:service).permit(
       :name, :description, :category, :icon, :estimated_duration,
-      :suggested_price, :active, :popular, :requires_quote,
+      :suggested_price, :active, :requires_quote,
       :prerequisites, :internal_notes
+      # Note: :popular is now automatically calculated based on bookings
     )
   end
 end

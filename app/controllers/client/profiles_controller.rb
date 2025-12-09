@@ -5,6 +5,13 @@ class Client::ProfilesController < Client::BaseController
 
   def show
     set_profile
+    
+    # Calculate real account statistics
+    @total_bookings = current_user.client_bookings.count
+    @completed_bookings = current_user.client_bookings.where(status: :completed).count
+    @vehicles_count = current_user.vehicles.count
+    # Reviews feature not yet implemented, so we set it to 0 for now
+    @reviews_count = 0
   end
 
   def edit

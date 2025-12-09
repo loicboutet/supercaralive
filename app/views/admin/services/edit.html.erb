@@ -99,7 +99,7 @@
                   ["Sélectionnez une catégorie", ""],
                   ["🔧 Mécanique", "mecanique"],
                   ["🔨 Carrosserie", "carrosserie"],
-                  ["✨ Lavage", "lavage"],
+                  ["💧 Lavage", "lavage"],
                   ["✨ Detailing", "detailing"]
                 ], @service&.category),
                 {},
@@ -181,10 +181,30 @@
           <%= f.label :active, "Service actif (visible pour les professionnels)", class: "text-gray-700 font-medium" %>
         </div>
 
-        <!-- Popular Service -->
-        <div class="flex items-center space-x-3">
-          <%= f.check_box :popular, { class: "w-5 h-5 text-blue-hero border-gray-300 rounded focus:ring-2 focus:ring-blue-hero" } %>
-          <%= f.label :popular, "Service populaire (mis en avant dans les listes)", class: "text-gray-700 font-medium" %>
+        <!-- Popular Service (automatic) -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <div class="flex items-center space-x-3">
+            <div class="flex-1">
+              <p class="text-sm font-medium text-blue-900">Service populaire</p>
+              <p class="text-xs text-blue-700 mt-1">
+                Le statut "populaire" est calculé automatiquement en fonction du nombre de réservations complétées (minimum <%= Service::POPULAR_THRESHOLD %> réservations).
+                <% if @service.popular? %>
+                  <span class="font-semibold">Ce service est actuellement marqué comme populaire.</span>
+                <% else %>
+                  <span>Ce service n'est pas encore marqué comme populaire.</span>
+                <% end %>
+              </p>
+            </div>
+            <% if @service.popular? %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                Populaire
+              </span>
+            <% else %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                Non populaire
+              </span>
+            <% end %>
+          </div>
         </div>
 
         <!-- Requires Quote -->

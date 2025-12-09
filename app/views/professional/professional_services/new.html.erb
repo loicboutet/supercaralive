@@ -89,7 +89,7 @@
                               when 'carrosserie'
                                 '🔨'
                               when 'lavage'
-                                '✨'
+                                '💧'
                               when 'detailing'
                                 '✨'
                               else
@@ -124,10 +124,15 @@
               <div class="hidden border-t border-gray-200 bg-white" data-service-category-dropdown-target="content">
                 <div class="max-h-64 overflow-y-auto p-4 space-y-2">
                   <% services.each do |service| %>
-                    <label class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors">
+                    <label class="flex items-start space-x-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
+                           data-service-suggestions-target="serviceLabel">
                       <%= check_box_tag "professional_service[service_ids][]", service.id, false, 
                             class: "mt-1 w-5 h-5 text-red-hero border-gray-300 rounded focus:ring-2 focus:ring-red-hero",
-                            data: { service_suggestions_target: "serviceCheckbox", action: "change->service-suggestions#serviceChanged" } %>
+                            data: { 
+                              service_suggestions_target: "serviceCheckbox", 
+                              action: "change->service-suggestions#serviceChanged",
+                              service_name: service.name
+                            } %>
                       <div class="flex-1">
                         <div class="font-medium text-gray-900"><%= service.name %></div>
                         <div class="text-sm text-gray-600"><%= truncate(service.description, length: 80) %></div>
@@ -147,7 +152,7 @@
             </div>
           <% end %>
         </div>
-        <p class="text-sm text-gray-500 mt-4">Sélectionnez un ou plusieurs services</p>
+        <p class="text-sm text-gray-500 mt-4">Sélectionnez un service (le nom se remplira automatiquement mais reste modifiable)</p>
       </div>
     </div>
 
@@ -164,6 +169,7 @@
           <%= f.text_field :name, 
                 placeholder: "Ex: Révision complète, Lavage premium...", 
                 class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-hero #{'border-red-500' if @professional_service&.errors&.include?(:name)}",
+                data: { service_suggestions_target: "serviceNameInput" },
                 required: true %>
         </div>
       </div>

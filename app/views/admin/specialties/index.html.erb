@@ -73,9 +73,11 @@
             <tr class="hover:bg-soft transition">
               <td class="px-6 py-4">
                 <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 bg-blue-hero rounded-lg flex items-center justify-center">
-                    <span class="text-white text-lg"><%= specialty.icon.presence || '🔧' %></span>
-                  </div>
+                  <% if specialty.icon.present? %>
+                    <div class="w-10 h-10 bg-blue-hero rounded-lg flex items-center justify-center">
+                      <span class="text-white text-lg"><%= specialty.icon %></span>
+                    </div>
+                  <% end %>
                   <div>
                     <%= link_to admin_specialty_path(specialty), class: "font-medium text-gray-900 hover:text-blue-hero" do %>
                       <%= specialty.name %>
