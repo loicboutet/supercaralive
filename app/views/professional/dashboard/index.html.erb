@@ -315,6 +315,23 @@
               <% if current_user.active? %>
                 <p class="text-sm text-gray-600">✓ Certifié</p>
               <% end %>
+              <div class="pt-2">
+                <p class="text-xs font-medium text-gray-500 mb-1">Préférences de notifications</p>
+                <p class="text-sm text-gray-600">
+                  <% if current_user.professional_booking_reminder? %>
+                    ✓ Rappels de rendez-vous activés
+                  <% else %>
+                    ✗ Rappels de rendez-vous désactivés
+                  <% end %>
+                </p>
+                <p class="text-sm text-gray-600">
+                  <% if current_user.professional_booking_notification? %>
+                    ✓ Notifications de réservation activées
+                  <% else %>
+                    ✗ Notifications de réservation désactivées
+                  <% end %>
+                </p>
+              </div>
             </div>
           </div>
         </div>

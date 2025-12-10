@@ -100,7 +100,7 @@
 
 ## ❓ Questions / Demandes de précision au client
 
-- [ ] **Encart de vue rapide sur les rappels (dashboard professionnel)**  
+- [x] **Encart de vue rapide sur les rappels (dashboard professionnel)**  
   URL: `https://supercaralive.5000.dev/professional`  
   Sur cet écran il manque l'encart de vue rapide sur les rappels.  
-  **Question :** Pourriez-vous préciser de quel encart il s'agit exactement ? Quelles informations devrait-il afficher ? Est-ce similaire à l'encart de rappels d'entretien qui existe sur le dashboard client, ou s'agit-il d'un autre type de rappels (par exemple, rappels de rendez-vous pour les professionnels) ?
+  **Réponse :** Un encart similaire à celui du dashboard client a été ajouté dans la section "Mon profil pro" du dashboard professionnel. Il affiche maintenant l'état des rappels de rendez-vous (activés/désactivés) et des notifications de réservation (activées/désactivées).
